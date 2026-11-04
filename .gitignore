@@ -8,6 +8,7 @@ target/
 # IntelliJ IDEA
 .idea
 !.idea/icon.png
+.run/
 *.iws
 *.iml
 *.ipr
