@@ -8,7 +8,6 @@ OCN-CodeStyle（OCN 即 OpenContiNew 缩写）基于 Apache Nacos 社区代码�
 | `ocn-idea-code-style.xml` | IntelliJ IDEA Code Style Scheme（与 Eclipse Formatter 同源映射，仅覆盖 Java/XML） |
 | `ocn-checkstyle.xml` | Checkstyle 规则（Maven `validate` 阶段门禁） |
 | `ocn-spotbugs-exclude.xml` | SpotBugs 排除清单（豁免需留痕） |
-| `license-header` | License Header 模板（Spotless 校验与补全） |
 
 ## IntelliJ IDEA
 
@@ -48,7 +47,7 @@ Spotless 使用 Eclipse JDT 格式化引擎执行 `ocn-eclipse-formatter.xml`，
 
 ```bash
 ./mvnw verify             # 门禁检查：格式不符合将直接构建失败（四道静态门禁 + 单元测试）
-./mvnw compile -Pformat   # 自动修复：格式化 + 清理 import + 补 License Header
+./mvnw compile -Pformat   # 自动修复：格式化 + 清理 import
 ```
 
 ### 关键规则
@@ -61,7 +60,6 @@ Spotless 使用 Eclipse JDT 格式化引擎执行 `ocn-eclipse-formatter.xml`，
 | 空行保留 | 1 行 |
 | 行尾空白 | 禁止（`trimTrailingWhitespace` 强制，空行必须完全空白） |
 | Import | 自动清理无用 import |
-| License Header | `validate` 阶段校验，缺失或不符合自动补全 |
 | 区间跳过 | `// @formatter:off` 与 `// @formatter:on` 之间的代码不参与格式化 |
 
 ### 与 IDE 格式化的关系
