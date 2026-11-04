@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 自动预约任务服务
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomAutoReserveTaskService {

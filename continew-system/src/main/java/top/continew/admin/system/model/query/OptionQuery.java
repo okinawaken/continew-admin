@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 参数查询条件
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.2.0
  */
 @Data

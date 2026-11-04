@@ -9,7 +9,7 @@ import top.continew.admin.system.model.resp.SmsConfigResp;
 /**
  * 短信配置业务接口
  *
- * @author luoqiz
+ * @author bixiu
  * @since 3.6.0
  */
 public interface SmsConfigService

@@ -11,8 +11,8 @@ import java.io.Serializable;
 /**
  * 租户查询条件
  *
- * @author 小熊
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.1
  */
 @Data
@@ -39,7 +39,7 @@ public class TenantQuery implements Serializable {
     /**
      * 域名
      */
-    @Schema(description = "域名", example = "admin.continew.top")
+    @Schema(description = "域名", example = "admin.example.com")
     @Query(type = QueryType.LIKE)
     private String domain;
 

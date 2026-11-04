@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 /**
  * NextDoc4j 自定义权限码展示
  *
- * @author echo
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

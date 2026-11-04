@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * 系统日志实体
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Data

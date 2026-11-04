@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 门店门禁区域列表（/mp/guard/select）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

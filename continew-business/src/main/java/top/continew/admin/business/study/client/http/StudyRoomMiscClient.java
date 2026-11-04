@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 其他域：储物柜、团购券核销、文件上传
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomMiscClient extends StudyRoomBaseClient {

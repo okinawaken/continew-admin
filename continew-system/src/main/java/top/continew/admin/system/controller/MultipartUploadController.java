@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 /**
  * 分片上传控制器
  *
- * @author KAI
+ * @author bixiu
  * @since 4.1.0
  */
 @RestController

@@ -11,7 +11,7 @@ import top.continew.admin.schedule.constant.JobConstants;
 /**
  * Feign 请求拦截器
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.6.0
  */
 @Component

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 /**
  * 短信配置加载器
  *
- * @author luoqiz
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.6.0
  */
 @Slf4j

@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * 微信支付参数（/mp/buy/package/payOrder、/mp/cabinetGrip/v2/lease/pay）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

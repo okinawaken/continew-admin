@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 代码生成配置请求参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 @Data

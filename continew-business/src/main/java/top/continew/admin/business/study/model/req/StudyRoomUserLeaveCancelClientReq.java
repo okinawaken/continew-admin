@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 取消请假（/mp/user/userLeave/cancelLeave）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

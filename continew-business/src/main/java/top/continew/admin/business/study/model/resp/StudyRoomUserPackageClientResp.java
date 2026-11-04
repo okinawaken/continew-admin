@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 用户套餐（/mp/reserve/check 的 canReservePackageList、/mp/user/userPackage/list 的 list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

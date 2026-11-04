@@ -14,7 +14,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfo
  * <p>
  * 任务已暂停时直接终止链路，不写执行记录。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 我的套餐项（/mp/user/userPackage/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

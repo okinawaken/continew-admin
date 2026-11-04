@@ -13,7 +13,7 @@ import java.io.Serializable;
 /**
  * 存储查询条件
  *
- * @author Charles7c
+ * @author bixiu
  * @since 2.2.0
  */
 @Data

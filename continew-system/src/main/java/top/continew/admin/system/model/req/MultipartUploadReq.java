@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 分片上传请求参数
  *
- * @author KAI
+ * @author bixiu
  * @since 4.1.0
  */
 @Data

@@ -24,7 +24,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomWxPayQueryClientRes
 /**
  * 套餐域：套餐浏览、下单、支付、我的订单与套餐
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomPackageClient extends StudyRoomBaseClient {

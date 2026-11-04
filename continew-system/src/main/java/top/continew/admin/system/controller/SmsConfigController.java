@@ -19,8 +19,8 @@ import top.continew.starter.extension.crud.enums.Api;
 /**
  * 短信配置管理 API
  *
- * @author luoqiz
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.6.0
  */
 @Tag(name = "短信配置管理 API")

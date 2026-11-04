@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 抖音核销门店列表（/mp/douYin/venue/select）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -9,8 +9,8 @@ import java.util.Collection;
 /**
  * Open Api 工具类
  *
- * @author chengzi
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.0
  */
 public class OpenApiUtils {

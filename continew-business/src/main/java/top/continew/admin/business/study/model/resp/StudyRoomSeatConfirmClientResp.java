@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 签到选座确认结果（/mp/study/seat/confirm）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

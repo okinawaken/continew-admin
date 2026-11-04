@@ -10,7 +10,7 @@ import java.util.List;
  * <p>
  * 注意：该接口不支持分页参数，一次返回全部预约记录。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * 认证 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Tag(name = "认证 API")

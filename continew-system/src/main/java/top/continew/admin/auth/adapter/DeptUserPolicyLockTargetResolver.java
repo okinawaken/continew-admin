@@ -13,7 +13,7 @@ import java.util.Collection;
 /**
  * 将部门变更影响的直属用户解析为认证会话策略锁目标
  *
- * @author luoqiz
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

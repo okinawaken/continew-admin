@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 学习排行榜（/mp/study/rank/index）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

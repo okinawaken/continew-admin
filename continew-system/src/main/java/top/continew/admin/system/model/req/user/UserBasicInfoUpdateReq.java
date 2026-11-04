@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * 用户基础信息修改请求参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Data

@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 系统日志 Mapper
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 public interface LogMapper extends BaseMapper<LogDO> {

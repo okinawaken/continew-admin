@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 储物柜开锁（/mp/cabinetGrip/v2/wifi/open）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

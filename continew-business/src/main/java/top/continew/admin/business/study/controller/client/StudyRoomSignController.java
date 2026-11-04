@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * 自习室签到域接口：签到、换座、签退、排行榜
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Validated

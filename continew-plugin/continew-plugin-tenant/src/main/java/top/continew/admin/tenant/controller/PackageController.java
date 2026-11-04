@@ -24,8 +24,8 @@ import java.util.List;
 /**
  * 套餐管理 API
  *
- * @author 小熊
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.1
  */
 @Tag(name = "套餐管理 API")

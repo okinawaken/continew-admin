@@ -9,7 +9,7 @@ import java.io.Serial;
 /**
  * 账号登录请求参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Data

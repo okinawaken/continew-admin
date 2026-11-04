@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 用户社会化关联业务接口
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.3.0
  */
 public interface UserSocialService {

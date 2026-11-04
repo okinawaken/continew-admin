@@ -18,7 +18,7 @@ import lombok.Data;
  * <p>
  * 注意：{@code data} 里<b>没有</b>起止时间字段，只有合并后的 {@code reserveTimeStr}（"09:00-10:00"）。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 自习室用户设置服务
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomUserSettingService {

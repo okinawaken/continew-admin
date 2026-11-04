@@ -11,7 +11,7 @@ import top.continew.starter.data.mapper.BaseMapper;
 /**
  * 用户和角色 Mapper
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 public interface UserRoleMapper extends BaseMapper<UserRoleDO> {

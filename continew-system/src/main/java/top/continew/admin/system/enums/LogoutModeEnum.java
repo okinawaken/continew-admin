@@ -7,7 +7,7 @@ import top.continew.starter.core.enums.BaseEnum;
 /**
  * 注销模式枚举
  *
- * @author KAI
+ * @author bixiu
  * @since 4.2.0
  */
 @Getter

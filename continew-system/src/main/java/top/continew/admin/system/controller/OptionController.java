@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * 参数管理 API
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.2.0
  */
 @Tag(name = "参数管理 API")

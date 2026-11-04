@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * 任务日志查询条件
  *
- * @author KAI
+ * @author bixiu
  * @since 3.2.0
  */
 @Data

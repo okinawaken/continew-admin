@@ -7,7 +7,7 @@ import lombok.Data;
  * <p>
  * 字段与小程序源码保持一致，上游仅接收以下四个字段。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

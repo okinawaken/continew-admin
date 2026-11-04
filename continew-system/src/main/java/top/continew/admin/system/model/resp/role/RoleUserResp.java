@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 角色关联用户响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.5.0
  */
 @Data

@@ -16,7 +16,7 @@ import java.io.Serializable;
 /**
  * 用户导入行数据请求参数
  *
- * @author Kils
+ * @author bixiu
  * @since 3.2.0
  */
 @Data

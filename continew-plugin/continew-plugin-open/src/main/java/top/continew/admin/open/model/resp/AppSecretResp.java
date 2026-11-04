@@ -9,8 +9,8 @@ import java.io.Serializable;
 /**
  * 应用密钥响应参数
  *
- * @author chengzi
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.0
  */
 @Data

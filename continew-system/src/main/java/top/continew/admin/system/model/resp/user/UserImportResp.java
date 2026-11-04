@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 用户导入结果响应参数
  *
- * @author kils
+ * @author bixiu
  * @since 3.2.0
  */
 @Data

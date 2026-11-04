@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 缓存的key 常量
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

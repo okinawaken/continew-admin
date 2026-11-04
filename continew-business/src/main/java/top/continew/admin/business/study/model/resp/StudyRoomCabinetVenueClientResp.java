@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * 储物柜（柜体）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

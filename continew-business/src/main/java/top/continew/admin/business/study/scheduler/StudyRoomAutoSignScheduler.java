@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 自动签到调度器
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

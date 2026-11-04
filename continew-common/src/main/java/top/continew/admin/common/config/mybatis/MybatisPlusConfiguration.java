@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * MyBatis Plus 配置
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Configuration

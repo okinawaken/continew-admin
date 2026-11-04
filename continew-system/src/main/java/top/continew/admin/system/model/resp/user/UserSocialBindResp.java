@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 第三方账号绑定响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.3.0
  */
 @Data

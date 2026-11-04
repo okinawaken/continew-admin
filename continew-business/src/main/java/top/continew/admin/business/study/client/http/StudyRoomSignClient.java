@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * 签到域：签到、换座、签退、排行榜
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomSignClient extends StudyRoomBaseClient {

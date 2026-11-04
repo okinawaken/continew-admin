@@ -62,7 +62,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 验证码 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Tag(name = "验证码 API")

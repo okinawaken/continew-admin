@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 柜体格口
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

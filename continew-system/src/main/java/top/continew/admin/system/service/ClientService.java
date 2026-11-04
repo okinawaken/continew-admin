@@ -8,8 +8,8 @@ import top.continew.admin.system.model.resp.ClientResp;
 /**
  * 客户端业务接口
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.5.0
  */
 public interface ClientService extends BaseService<ClientResp, ClientResp, ClientQuery, ClientReq> {

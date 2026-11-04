@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 通知公告（/mp/notice/board/info）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

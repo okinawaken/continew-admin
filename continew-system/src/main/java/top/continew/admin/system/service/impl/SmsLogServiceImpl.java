@@ -12,7 +12,7 @@ import top.continew.admin.system.service.SmsLogService;
 /**
  * 短信日志业务实现
  *
- * @author luoqiz
+ * @author bixiu
  * @since 3.6.0
  */
 @Service

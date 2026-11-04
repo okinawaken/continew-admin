@@ -7,7 +7,7 @@ import top.continew.starter.core.enums.BaseEnum;
 /**
  * 自动预约触发方式
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Getter

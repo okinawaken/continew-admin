@@ -6,7 +6,7 @@ import top.continew.starter.data.mapper.BaseMapper;
 /**
  * 部门 Mapper
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 public interface DeptMapper extends BaseMapper<DeptDO> {

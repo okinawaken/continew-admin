@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 签到记录列表（/mp/user/userSign/list、/list/more）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

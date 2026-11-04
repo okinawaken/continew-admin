@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 门店储物柜列表（/mp/cabinetGrip/v2/venue/cabinet/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

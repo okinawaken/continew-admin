@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 三方账号授权认证响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 2.5.0
  */
 @Data

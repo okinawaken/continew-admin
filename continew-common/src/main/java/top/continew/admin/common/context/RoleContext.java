@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 角色上下文
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Data

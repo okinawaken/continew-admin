@@ -13,7 +13,7 @@ import top.continew.starter.extension.crud.service.CrudService;
  * @param <D> 详情类型
  * @param <Q> 查询条件类型
  * @param <C> 创建或修改请求参数类型
- * @author Charles7c
+ * @author bixiu
  * @since 3.4.1
  */
 public interface BaseService<L, D, Q, C> extends CrudService<L, D, Q, C> {

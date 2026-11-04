@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 /**
  * 用户设置：小程序 token、放号时刻与自动签到开关
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Validated

@@ -21,7 +21,7 @@ import java.util.Objects;
  * <p>
  * 按待签到预约的门店查询签到首页，取 {@code signInUserPackage.signInUserPackageId} 作为签到扣费套餐。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

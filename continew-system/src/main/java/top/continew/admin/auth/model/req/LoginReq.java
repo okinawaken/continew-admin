@@ -14,8 +14,8 @@ import java.io.Serializable;
 /**
  * 登录请求参数基类
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.5.0
  */
 @Data

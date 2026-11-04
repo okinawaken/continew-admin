@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
  * 登录处理器
  *
  * @param <T> 登录请求参数类型
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.5.0
  */
 public interface LoginHandler<T extends LoginReq> {

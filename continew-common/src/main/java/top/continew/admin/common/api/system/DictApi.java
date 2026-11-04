@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 字典业务 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.0.0
  */
 public interface DictApi {

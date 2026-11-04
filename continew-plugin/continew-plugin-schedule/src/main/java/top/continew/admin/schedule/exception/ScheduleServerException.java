@@ -5,7 +5,7 @@ import top.continew.starter.core.exception.BaseException;
 /**
  * 调度服务异常
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.7.0
  */
 public class ScheduleServerException extends BaseException {

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 代码生成配置
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.0.0
  */
 @Configuration

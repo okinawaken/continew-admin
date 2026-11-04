@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 区域（/mp/reserve/area/select）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

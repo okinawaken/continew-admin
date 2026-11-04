@@ -15,8 +15,8 @@ import java.util.List;
 /**
  * 消息日志业务实现
  *
- * @author Bull-BCLS
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 1.3.0
  */
 @Service

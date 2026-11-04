@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * <p>
  * 由执行记录 PO 与 {@code detail_json} 明细合并而来，页面接口与执行器共用。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

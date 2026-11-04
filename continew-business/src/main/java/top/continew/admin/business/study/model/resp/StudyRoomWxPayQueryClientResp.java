@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 微信支付状态查询（/mp/wx/payment/v2/wx/query/status/{payId}）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

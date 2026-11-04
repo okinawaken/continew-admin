@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * 全局 SaToken 异常处理器
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.3.0
  */
 @Slf4j

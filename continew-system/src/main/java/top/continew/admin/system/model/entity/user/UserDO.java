@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 /**
  * 用户实体
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Data

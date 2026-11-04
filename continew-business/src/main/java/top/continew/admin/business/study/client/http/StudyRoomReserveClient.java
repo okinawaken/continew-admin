@@ -21,7 +21,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomUserReserveListClie
 /**
  * 预约域：座位图、下单、我的预约、取消
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomReserveClient extends StudyRoomBaseClient {

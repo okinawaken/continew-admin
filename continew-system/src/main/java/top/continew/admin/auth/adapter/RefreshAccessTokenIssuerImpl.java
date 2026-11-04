@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * system 对刷新主体状态和 Access Token 签发的适配实现
  *
- * @author luoqiz
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

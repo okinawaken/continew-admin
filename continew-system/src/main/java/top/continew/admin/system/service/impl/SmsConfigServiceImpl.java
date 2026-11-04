@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * 短信配置业务实现
  *
- * @author luoqiz
+ * @author bixiu
  * @since 3.6.0
  */
 @Service

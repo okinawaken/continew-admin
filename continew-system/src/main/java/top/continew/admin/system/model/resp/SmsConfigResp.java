@@ -16,8 +16,8 @@ import java.io.Serial;
 /**
  * 短信配置响应参数
  *
- * @author luoqiz
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.6.0
  */
 @Data

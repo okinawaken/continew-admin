@@ -20,7 +20,7 @@ import java.util.List;
  * <p>
  * 当天已有执行记录时直接终止链路，且不写新的执行记录。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

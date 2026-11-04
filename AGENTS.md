@@ -67,7 +67,7 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 ## 构建与运行命令
 
 ```bash
-# 完整构建（validate 阶段 Enforcer -> Spotless -> Checkstyle，编译 + 单元测试，verify 阶段 SpotBugs）
+# 完整构建（validate 阶段 Enforcer -> Spotless -> Checkstyle，编译，verify 阶段 SpotBugs）
 ./mvnw verify
 
 # 仅编译（含 validate 阶段三道门禁，不含 SpotBugs）——仅用于快速迭代，不可作为提交前自检
@@ -89,7 +89,7 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 ./mvnw clean
 ```
 
-单元测试随 `./mvnw verify` 一并执行（`ContiNewAdminApplicationTests` 上下文加载测试依赖 MySQL/Redis 等基础设施，已在 surefire 中排除，待引入 Testcontainers 后随集成测试启用）。代码改动的验证方式是执行 `./mvnw verify` 确保门禁与单元测试全部通过。
+项目不包含单元测试。代码改动的验证方式是执行 `./mvnw verify` 确保门禁全部通过。
 
 运行时配置通过环境变量注入，配置文件位于 `continew-server/src/main/resources/config/`（application.yml 通用，application-dev.yml / application-prod.yml 分环境）。
 
@@ -100,15 +100,15 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 
 提交 Java 代码前，AI 智能体**必须**让门禁通过：
 
-1. 执行 `./mvnw verify`。门禁依次为：validate 阶段的 **Enforcer**（构建环境与依赖合规）、**Spotless check**（代码格式）、**Checkstyle**（代码规范），编译后 test 阶段的**单元测试**，以及 verify 阶段的 **SpotBugs**（字节码缺陷），任一不通过都会直接构建失败。
+1. 执行 `./mvnw verify`。门禁依次为：validate 阶段的 **Enforcer**（构建环境与依赖合规）、**Spotless check**（代码格式）、**Checkstyle**（代码规范），以及 verify 阶段的 **SpotBugs**（字节码缺陷），任一不通过都会直接构建失败。
 2. 若被 Spotless 拦截，执行 `./mvnw compile -Pformat` 自动修复，然后再执行一次 `./mvnw verify` 确认通过。
-3. 全部门禁与单元测试通过后才能提交。
+3. 全部门禁通过后才能提交。
 
-> **无需跑门禁**：四道静态门禁与单元测试只作用于 Java 源码与 POM。仅改文档（`*.md`）、运行时配置（`application*.yml`、`*.properties`）、CI workflow 或脚本时，不触发任何门禁，可直接提交，无需执行 `./mvnw verify`。
+> **无需跑门禁**：四道静态门禁只作用于 Java 源码与 POM。仅改文档（`*.md`）、运行时配置（`application*.yml`、`*.properties`）、CI workflow 或脚本时，不触发任何门禁，可直接提交，无需执行 `./mvnw verify`。
 
 构建过程**不会修改任何源码文件**；`-Pformat` 是唯一会修改源码的 profile。不要用 IDE 格式化或 `git diff --check` 替代 Spotless 门禁——IDE 格式化引擎是另一套实现，可能放行项目格式化器拒绝的代码。
 
-> **Sonar 覆盖率**：`./mvnw verify -Psonar` 会激活 JaCoCo（prepare-agent + report），Sonar 分析自动读取各模块 `target/site/jacoco/jacoco.xml`；日常 `./mvnw verify` 不激活该 profile，无额外开销。
+> **Sonar 分析**：`./mvnw verify -Psonar` 会激活 Sonar 分析所需配置；项目不包含单元测试，因此不采集覆盖率数据。日常 `./mvnw verify` 不激活该 profile，无额外开销。
 
 > **Windows 注意**：提交前执行 `./mvnw verify` 后勿再在 IDE 中打开代码窗口，避免不同 IDE 配置导致的格式差异。
 
@@ -153,38 +153,9 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 **提交前检查**：
 
 ```bash
-./mvnw verify     # 四道静态门禁与单元测试必须全部通过（被 Spotless 拦截时使用 -Pformat）
+./mvnw verify     # 四道静态门禁必须全部通过（被 Spotless 拦截时使用 -Pformat）
 ```
 
 ## 安全漏洞
 
 不得通过 GitHub Issue 报告安全漏洞。请使用 GitHub 私有漏洞报告。
-
-## 文档（docs/）
-
-本仓库 `docs/` 目录是 ContiNew Admin（含前端 continew-admin-ui）官方文档的**唯一权威源**，经 [continew.top](https://github.com/continew-org/continew.top) 官网仓库在构建时汇聚渲染为 `/docs/admin/*`。AI 智能体被指派编写或更新本文档时，**在此目录工作**。以下为关键约定；完整写作规范以 continew.top 仓库 `.agents/skills/ocn-doc-writing/SKILL.md` 为**事实源全本**。
-
-### 目录与结构
-
-- **「介绍」分组置顶（固定风格，与 starter 一致）**：`index.mdx`（快速开始，icon Rocket）+ `introduction.mdx`（什么是 ContiNew Admin，icon CircleQuestionMark）+ `configuration.mdx`（配置说明，icon Settings），三页带 icon，构成学习路径前三步。
-- **双视角叙事路径**：`manual/`（功能手册，面向**使用者**讲「怎么用」）+ `development/`（开发指南，面向**二开者**讲「怎么扩展」，含项目结构 structure）+ `reference/`（环境变量/部署/常见问题/更新日志）。
-- **功能手册与开发指南分家**：同一能力（如数据权限、多租户）分两篇——`manual/` 讲页面操作与配置，`development/` 讲源码扩展点，互不重复。
-- **Root Folder**：`docs/meta.json` 标 `root: true`，构成官网侧边栏顶部的项目切换器；每个目录含 `meta.json` 声明页面顺序。
-
-### frontmatter 与命名
-
-- 每个 `.mdx` 顶部含 `title` 与 `description`（一句话说明本页解决什么问题）；`title` 用**纯中文**，技术术语保留英文原文。
-- 链接策略：**跨模块/跨分区引用用绝对路径** `/docs/admin/...` 或 `/docs/starter/...`；**同目录内引用用相对链接**（GitHub 裸看也能跳转）。
-
-### 内容与准确性
-
-- **事实源优先级**：admin 源码（类名/默认值/枚举/表结构/报错串）> continew-starter 源码 > 上游官方文档。类名、配置键、默认值、URL 前缀、权限码必须以源码为准；示例场景去业务化（不贴演示站业务数据）。
-- **配置项归 starter，配置值归 admin**：框架级配置项（`continew-starter.*`）的定义链接到 [starter 文档](https://continew.top/docs/starter)；admin 文档只写 admin 给这些键填的具体值与环境变量注入方式。
-- 版本号给**具体值**（如 4.2.0-SNAPSHOT、ContiNew Starter 2.17.0）；文末「相关源码」链接指向 GitHub continew-org 对应仓库 `dev` 分支的具体路径。
-- **文档-代码同步**：修改某功能代码（尤其接口、配置、行为）时，**必须在同一 PR 中同步更新对应文档**；纯文档改动无需跑 `./mvnw verify` 门禁。
-
-### 写作风格（活人感 · 硬禁令）
-
-- 不用破折号 `——`（改分句、括号或另起一句）；不用提示性冒号（「说明：」「通用模式：」，代码块与配置键除外）。
-- 不写翻案腔（「不是 A 而是 B」「值得注意的是」「说白了」「先说结论」）；不写商业黑话（赋能、一站式、无缝、极致、助力、综上所述）。
-- 不把动词名词化；不在末段摘要全文；每个判断后面跟依据（类名/配置键/默认值/报错串/真实用法）。

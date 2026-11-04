@@ -13,7 +13,7 @@ import top.continew.starter.extension.crud.enums.Api;
 /**
  * 客户端管理 API
  *
- * @author KAI
+ * @author bixiu
  * @since 3.5.0
  */
 @Tag(name = "客户端管理 API")

@@ -10,8 +10,8 @@ import java.io.Serial;
 /**
  * 短信日志实体
  *
- * @author luoqiz
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.6.0
  */
 @Data

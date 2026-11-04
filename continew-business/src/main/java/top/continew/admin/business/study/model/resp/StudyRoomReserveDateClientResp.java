@@ -10,7 +10,7 @@ import java.util.List;
  * <p>
  * 原始返回值形如 {@code ["2026-10-26 (周一)","2026-10-27 (周二)"]}， 后续接口的 reserveDateStr 只取空格前部分，如 2026-10-26。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

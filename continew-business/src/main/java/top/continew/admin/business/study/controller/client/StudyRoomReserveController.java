@@ -27,7 +27,7 @@ import top.continew.starter.web.model.R;
 /**
  * 自习室预约域接口：座位图、下单、我的预约、取消
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Validated

@@ -18,7 +18,7 @@ import java.net.URL;
 /**
  * 存储实体
  *
- * @author Charles7c
+ * @author bixiu
  * @since 2.2.0
  */
 @Data

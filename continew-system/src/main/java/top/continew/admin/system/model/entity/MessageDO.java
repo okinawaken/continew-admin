@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 消息实体
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.3.0
  */
 @Data

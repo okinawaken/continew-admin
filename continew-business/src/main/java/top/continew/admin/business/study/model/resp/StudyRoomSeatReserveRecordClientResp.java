@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 座位在某天的预约占用记录（StudyRoomSeatClientResp.reserveRecordList 元素）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

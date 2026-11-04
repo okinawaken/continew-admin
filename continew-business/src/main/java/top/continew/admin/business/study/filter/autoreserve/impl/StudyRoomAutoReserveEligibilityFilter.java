@@ -18,7 +18,7 @@ import java.util.Objects;
 /**
  * 预约资格校验过滤器
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

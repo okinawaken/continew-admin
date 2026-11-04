@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Sa-Token 权限认证实现
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 public class SaTokenPermissionImpl implements StpInterface {

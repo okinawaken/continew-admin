@@ -6,7 +6,7 @@ import top.continew.starter.data.mapper.BaseMapper;
 /**
  * 字典 Mapper
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.2.0
  */
 public interface DictMapper extends BaseMapper<DictDO> {

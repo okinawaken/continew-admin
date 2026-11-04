@@ -31,7 +31,7 @@ import top.nextdoc4j.core.configuration.NextDoc4jProperties;
 /**
  * 启动程序
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Slf4j
@@ -82,9 +82,7 @@ public class ContiNewAdminApplication implements ApplicationRunner {
         if (!docProperties.isProduction()) {
             log.info("接口文档: {}/doc.html", baseUrl);
         }
-        log.info("问题反馈: https://github.com/continew-org/continew-admin/issues");
-        log.info("常见问题: https://continew.top/docs/admin/reference/faq");
-        log.info("更新日志: https://continew.top/docs/admin/reference/changelog");
+        log.info("问题反馈: https://github.com/okinawaken/continew-admin/issues");
         log.info("ContiNew Admin: 持续迭代优化的，高质量多租户中后台管理系统框架");
         log.info("--------------------------------------------------------");
     }

@@ -9,8 +9,8 @@ import java.io.Serial;
 /**
  * 第三方账号登录请求参数
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.5.0
  */
 @Data

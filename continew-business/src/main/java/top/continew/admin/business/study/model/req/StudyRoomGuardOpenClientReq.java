@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 /**
  * 门禁开门（/mp/guard/open）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

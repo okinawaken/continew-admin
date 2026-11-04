@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * Sa-Token 扩展拦截器
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.4.0
  */
 @Slf4j

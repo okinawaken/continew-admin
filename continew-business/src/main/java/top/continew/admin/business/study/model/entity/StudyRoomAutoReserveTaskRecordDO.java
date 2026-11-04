@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * <p>
  * 每轮抢座一条：仅在终态落库，跳过 / 成功 / 失败三种状态。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

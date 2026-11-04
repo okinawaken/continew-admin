@@ -16,8 +16,8 @@ import java.util.List;
 /**
  * 短信配置读取-数据源实现
  *
- * @author luoqiz
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.6.0
  */
 @Component

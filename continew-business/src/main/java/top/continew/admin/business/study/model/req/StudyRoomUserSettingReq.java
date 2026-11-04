@@ -13,7 +13,7 @@ import java.time.LocalTime;
  * <p>
  * <b>局部更新</b>：未传（null）的配置项保留原值，不是整对象覆盖。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

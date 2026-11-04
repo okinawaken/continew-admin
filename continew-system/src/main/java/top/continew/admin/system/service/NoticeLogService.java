@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 公告日志业务接口
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.7.0
  */
 public interface NoticeLogService {

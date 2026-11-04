@@ -11,7 +11,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomGuardListClientResp
 /**
  * 门禁域：门禁区域列表、开门
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomGuardClient extends StudyRoomBaseClient {

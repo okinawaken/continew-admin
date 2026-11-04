@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 储物柜租赁订单列表（/mp/cabinetGrip/v2/lease/order/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

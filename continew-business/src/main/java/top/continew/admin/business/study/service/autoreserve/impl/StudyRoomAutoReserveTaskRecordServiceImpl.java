@@ -26,7 +26,7 @@ import java.util.Objects;
  * <p>
  * 任务归属独立成 {@code task_id} 列，按任务查询与删除可以直接走数据库；执行细节仍在 {@code detail_json} 中。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Service

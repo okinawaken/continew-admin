@@ -30,7 +30,7 @@ import jakarta.validation.Valid;
 /**
  * Refresh Token 会话 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.2.0
  */
 @Tag(name = "认证会话 API")

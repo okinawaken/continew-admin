@@ -10,7 +10,7 @@ import java.io.Serial;
 /**
  * 任务查询条件
  *
- * @author KAI
+ * @author bixiu
  * @since 3.2.0
  */
 @Data

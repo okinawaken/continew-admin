@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 仪表盘-访问趋势响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.2.0
  */
 @Data

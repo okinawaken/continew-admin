@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 /**
  * 自动预约任务
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Validated

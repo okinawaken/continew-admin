@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 是否还能再约一座（/mp/reserve/another/check）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

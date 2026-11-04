@@ -11,7 +11,7 @@ import java.io.Serial;
  * 通用字段：ID、创建人、创建时间、修改人、修改时间、租户 ID
  * </p>
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.0.0
  */
 @Data

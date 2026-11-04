@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 进入签退结算（/mp/study/settlement）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

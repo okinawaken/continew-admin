@@ -9,7 +9,7 @@ import java.io.Serial;
 /**
  * 参数实体
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.2.0
  */
 @Data

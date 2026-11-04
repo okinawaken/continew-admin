@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * 字典项查询条件
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.2.0
  */
 @Data

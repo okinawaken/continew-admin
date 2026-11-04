@@ -16,7 +16,7 @@ import java.util.Objects;
  * </ul>
  * 这里用 Jackson 的委托构造器兼容整数形态，对象形态仍按普通 Bean 解析。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

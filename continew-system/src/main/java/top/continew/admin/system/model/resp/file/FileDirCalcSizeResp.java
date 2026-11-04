@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 文件夹计算大小响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.7.0
  */
 @Data

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * 公告管理 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 @Tag(name = "公告管理 API")

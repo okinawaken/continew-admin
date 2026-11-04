@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 图片信息（门店图、banner、头像等）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

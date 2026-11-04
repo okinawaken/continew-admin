@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 登录响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

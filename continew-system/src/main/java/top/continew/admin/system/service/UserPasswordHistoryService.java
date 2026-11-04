@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 用户历史密码业务接口
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.1.0
  */
 public interface UserPasswordHistoryService {

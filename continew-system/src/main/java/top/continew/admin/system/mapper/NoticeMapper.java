@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 公告 Mapper
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 public interface NoticeMapper extends BaseMapper<NoticeDO> {

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 角色和部门关联 Mapper
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 public interface RoleDeptMapper extends BaseMapper<RoleDeptDO> {

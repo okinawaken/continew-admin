@@ -12,7 +12,7 @@ import java.io.Serializable;
  * <p>Web 客户端不填写该字段，后端从 HttpOnly Cookie 读取；App、微信小程序通过该字段
  * 提交安全存储的 Refresh Token。</p>
  *
- * @author luoqiz
+ * @author bixiu
  */
 @Data
 @Schema(description = "Refresh Token 请求参数")

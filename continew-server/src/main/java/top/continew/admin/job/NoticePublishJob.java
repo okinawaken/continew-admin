@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * 公告发布任务
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.7.0
  */
 @Slf4j

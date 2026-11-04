@@ -9,7 +9,7 @@ import lombok.Data;
  * <p>
  * 只映射了与预约/签到相关的关键字段，其余字段忽略。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

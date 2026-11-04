@@ -3,7 +3,7 @@ package top.continew.admin.common.constant;
 /**
  * UI 相关常量
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.2.0
  */
 public class UiConstants {

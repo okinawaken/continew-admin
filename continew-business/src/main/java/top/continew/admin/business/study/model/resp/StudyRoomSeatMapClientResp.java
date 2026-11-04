@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 座位图（/mp/reserve/v2/seat/list、/mp/reserve/seat/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

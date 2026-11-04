@@ -14,8 +14,8 @@ import java.util.Map;
 /**
  * API 参数签名算法
  *
- * @author chengzi
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.0
  */
 @Component

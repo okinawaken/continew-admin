@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 授权手机号登录（/mp/user/authorize/bindMobile）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

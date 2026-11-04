@@ -41,8 +41,8 @@ import java.util.stream.Stream;
 /**
  * Sa-Token 配置
  *
- * @author Charles7c
- * @author chengzi
+ * @author bixiu
+ * @author bixiu
  * @since 1.0.0
  */
 @Slf4j

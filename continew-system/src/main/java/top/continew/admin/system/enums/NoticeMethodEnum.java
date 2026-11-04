@@ -7,7 +7,7 @@ import top.continew.starter.core.enums.BaseEnum;
 /**
  * 公告通知方式枚举
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.7.0
  */
 @Getter

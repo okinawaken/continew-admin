@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * 任务业务接口
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.2.0
  */
 public interface JobService {

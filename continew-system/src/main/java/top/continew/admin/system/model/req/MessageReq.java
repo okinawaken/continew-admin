@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * 消息创建请求参数
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.3.0
  */
 @Data

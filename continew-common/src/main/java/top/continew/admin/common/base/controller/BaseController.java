@@ -31,7 +31,7 @@ import java.util.Collection;
  * @param <D> 详情类型
  * @param <Q> 查询条件类型
  * @param <C> 创建或修改请求参数类型
- * @author Charles7c
+ * @author bixiu
  * @since 3.4.1
  */
 public class BaseController<S extends BaseService<L, D, Q, C>, L, D, Q, C>

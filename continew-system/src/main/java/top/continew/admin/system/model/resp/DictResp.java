@@ -9,7 +9,7 @@ import java.io.Serial;
 /**
  * 字典响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.2.0
  */
 @Data

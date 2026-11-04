@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 我的套餐（/mp/user/userPackage/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

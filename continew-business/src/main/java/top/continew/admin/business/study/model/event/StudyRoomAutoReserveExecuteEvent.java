@@ -12,7 +12,7 @@ import java.io.Serializable;
  * <p>
  * 由任务服务在手动触发时发布，执行器异步监听并执行。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

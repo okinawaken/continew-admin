@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 字段配置 Mapper
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 public interface FieldConfigMapper extends BaseMapper<FieldConfigDO> {

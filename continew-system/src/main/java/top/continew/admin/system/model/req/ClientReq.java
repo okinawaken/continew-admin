@@ -22,8 +22,8 @@ import java.util.List;
 /**
  * 客户端创建或修改请求参数
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.5.0
  */
 @Data

@@ -47,7 +47,7 @@ import java.util.List;
 /**
  * 个人信息 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Tag(name = "个人信息 API")

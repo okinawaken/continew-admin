@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Refresh Token HTTP 协议异常处理器
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

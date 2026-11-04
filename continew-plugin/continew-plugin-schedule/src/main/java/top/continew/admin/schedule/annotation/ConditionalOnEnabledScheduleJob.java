@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 /**
  * 是否启用 Snail Job 判断注解
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.7.0
  */
 @Retention(RetentionPolicy.RUNTIME)

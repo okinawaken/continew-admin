@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 /**
  * 消息日志实体
  *
- * @author Charles7c
- * @author Bull-BCLS
+ * @author bixiu
+ * @author bixiu
  * @since 1.3.0
  */
 @Data

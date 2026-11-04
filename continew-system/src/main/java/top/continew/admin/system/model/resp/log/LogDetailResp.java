@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 /**
  * 日志详情响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Data
@@ -52,7 +52,7 @@ public class LogDetailResp implements Serializable {
     /**
      * 请求 URL
      */
-    @Schema(description = "请求 URL", example = "http://api.continew.top/system/dept")
+    @Schema(description = "请求 URL", example = "http://api.example.com/system/dept")
     private String requestUrl;
 
     /**
@@ -64,7 +64,7 @@ public class LogDetailResp implements Serializable {
     /**
      * 请求头
      */
-    @Schema(description = "请求头", example = "{\"Origin\": [\"https://admin.continew.top\"],...}")
+    @Schema(description = "请求头", example = "{\"Origin\": [\"https://admin.example.com\"],...}")
     private String requestHeaders;
 
     /**

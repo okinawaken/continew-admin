@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * 套餐列表项（/mp/buy/v2/package/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -13,7 +13,7 @@ import java.util.List;
  * <p>
  * 由任务 PO 与 {@code task_json} 规则合并而来，页面接口与调度、执行器共用。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

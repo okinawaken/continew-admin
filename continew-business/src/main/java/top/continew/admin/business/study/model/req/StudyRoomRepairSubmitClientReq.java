@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 提交报修（/mp/userRepair/submit）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

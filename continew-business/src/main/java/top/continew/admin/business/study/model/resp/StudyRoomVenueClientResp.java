@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 门店详情（/mp/reserve/venue/detail、/mp/reserve/index 的 venueList 元素）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

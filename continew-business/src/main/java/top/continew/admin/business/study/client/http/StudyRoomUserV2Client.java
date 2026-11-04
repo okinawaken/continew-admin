@@ -25,7 +25,7 @@ import java.io.File;
 /**
  * 用户域：登录、token、资料、头像（显式用户上下文）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomUserV2Client extends StudyRoomBaseClient {

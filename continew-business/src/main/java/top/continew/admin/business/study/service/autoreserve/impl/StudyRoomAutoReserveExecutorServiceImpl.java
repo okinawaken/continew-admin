@@ -31,7 +31,7 @@ import java.util.Objects;
 /**
  * 自动预约执行器实现
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 消息查询条件
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.3.0
  */
 @Data

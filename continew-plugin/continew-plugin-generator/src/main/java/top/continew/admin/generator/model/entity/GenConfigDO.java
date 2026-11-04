@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 /**
  * 生成配置实体
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 @Data

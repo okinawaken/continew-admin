@@ -3,7 +3,7 @@ package top.continew.admin.auth.constant;
 /**
  * 认证相关常量
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.0.0
  */
 public class AuthConstants {

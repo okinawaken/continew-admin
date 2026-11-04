@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 租户通用信息返回
  *
- * @author 小熊
+ * @author bixiu
  * @since 3.4.1
  */
 @Data

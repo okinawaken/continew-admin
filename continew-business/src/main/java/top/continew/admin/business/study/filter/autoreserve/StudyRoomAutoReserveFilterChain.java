@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 自动预约过滤器链，按顺序执行过滤器，遇到失败立即返回。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

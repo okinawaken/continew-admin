@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 过滤器执行结果，包含成功标识、数据和失败原因。
  *
- * @author Amadeus
+ * @author bixiu
  * @param <T> 结果数据类型
  * @since 4.2.0
  */

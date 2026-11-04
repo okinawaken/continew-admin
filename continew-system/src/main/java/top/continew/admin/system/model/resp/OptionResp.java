@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 参数响应参数
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.2.0
  */
 @Data

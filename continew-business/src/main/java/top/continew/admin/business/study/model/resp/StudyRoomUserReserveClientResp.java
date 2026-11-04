@@ -9,7 +9,7 @@ import java.time.LocalDate;
 /**
  * 我的预约记录（/mp/user/userReserve/list 的 list 元素）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

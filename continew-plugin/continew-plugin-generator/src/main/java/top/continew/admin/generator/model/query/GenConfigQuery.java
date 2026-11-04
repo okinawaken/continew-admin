@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 生成配置查询条件
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 @Data

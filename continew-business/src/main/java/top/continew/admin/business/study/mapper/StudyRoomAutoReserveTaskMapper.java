@@ -6,7 +6,7 @@ import top.continew.starter.data.mapper.BaseMapper;
 /**
  * 自动预约任务 数据层
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomAutoReserveTaskMapper extends BaseMapper<StudyRoomAutoReserveTaskDO> {

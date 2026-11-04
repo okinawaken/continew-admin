@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 门店营业时间点
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

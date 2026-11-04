@@ -11,7 +11,7 @@ import top.continew.starter.extension.tenant.config.TenantProvider;
 /**
  * 租户配置
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.0.0
  */
 @Configuration

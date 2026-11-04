@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * 自动签到执行器实现
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

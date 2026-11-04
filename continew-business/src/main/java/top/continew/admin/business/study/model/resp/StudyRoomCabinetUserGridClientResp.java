@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 我的柜格（已租）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

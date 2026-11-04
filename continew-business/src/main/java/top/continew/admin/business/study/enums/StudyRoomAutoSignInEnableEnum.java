@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * 自动签到开关
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Getter

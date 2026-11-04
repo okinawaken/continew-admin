@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 公告日志业务实现
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.7.0
  */
 @Service

@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 取消预约提示（/mp/user/userReserve/cancel/tip）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

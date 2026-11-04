@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * 自习室用户设置服务实现
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Service

@@ -26,7 +26,7 @@ import top.continew.starter.web.model.R;
 /**
  * 自习室用户域接口：登录、资料、头像、签到记录
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Validated

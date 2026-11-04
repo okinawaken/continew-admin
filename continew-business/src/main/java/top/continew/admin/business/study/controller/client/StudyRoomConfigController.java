@@ -15,7 +15,7 @@ import top.continew.starter.web.model.R;
 /**
  * 自习室配置域接口
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Validated

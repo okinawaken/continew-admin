@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 美团团购券核销（/mp/receipt/consume）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

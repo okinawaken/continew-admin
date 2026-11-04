@@ -7,7 +7,7 @@ import top.continew.starter.core.enums.BaseEnum;
 /**
  * 自动预约执行记录状态：跳过、成功、失败三种终态
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Getter

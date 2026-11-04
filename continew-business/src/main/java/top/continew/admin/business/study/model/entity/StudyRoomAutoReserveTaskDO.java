@@ -15,7 +15,7 @@ import java.time.LocalDate;
  * <p>
  * 规则详情（座位、区域、时段、星期）存 {@code task_json}；查询与索引相关字段独立成列。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

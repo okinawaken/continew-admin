@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 生成预览响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 2.2.0
  */
 @Data

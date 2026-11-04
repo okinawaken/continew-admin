@@ -12,7 +12,7 @@ import top.continew.starter.auth.refresh.token.model.RefreshSessionPrincipal;
  *
  * @param userContext  用户上下文
  * @param extraContext 用户额外上下文（含租户 ID、IP 等请求信息）
- * @author Charles7c
+ * @author bixiu
  * @since 4.2.0
  */
 public record RefreshSessionPrincipalAdapter(UserContext userContext,

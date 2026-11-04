@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 区域筛选列表（/mp/reserve/area/select）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

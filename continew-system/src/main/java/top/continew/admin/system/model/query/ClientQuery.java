@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * 客户端查询条件
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.5.0
  */
 @Data

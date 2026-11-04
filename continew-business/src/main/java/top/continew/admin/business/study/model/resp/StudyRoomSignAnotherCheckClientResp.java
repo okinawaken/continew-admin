@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 是否可再签一座（/mp/study/signAnother/check）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

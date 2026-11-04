@@ -18,7 +18,7 @@ import java.util.Objects;
 /**
  * Easy Excel 字典转换器
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.6.0
  */
 public class ExcelDictConverter implements Converter<Object> {

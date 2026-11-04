@@ -16,7 +16,7 @@ import java.util.List;
  * 提供文件重名检测和自动重命名功能。当文件名冲突时，自动添加序号后缀，如：file.txt → file(1).txt
  * </p>
  *
- * @author fjwupeng
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

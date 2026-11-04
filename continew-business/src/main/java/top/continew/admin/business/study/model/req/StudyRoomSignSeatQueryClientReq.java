@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 签到选座座位图（/mp/study/seat/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data
