@@ -494,9 +494,6 @@ continew-admin
 ├─ .gitignore（Git 忽略文件相关配置文件）
 ├─ docker（项目部署相关配置目录，实际开发时可备份后直接删除）
 ├─ LICENSE（开源协议文件）
-├─ CHANGELOG.md（更新日志文件，实际开发时直接删除）
-├─ CODE_OF_CONDUCT.md（贡献者行为准则）
-├─ CONTRIBUTING.md（贡献指南）
 ├─ SECURITY.md（安全策略）
 ├─ README.md（项目 README 文件，实际开发时替换为真实内容）
 ├─ lombok.config（Lombok 全局配置文件）
@@ -518,8 +515,6 @@ ContiNew（Continue New）系列项目致力于通过持续迭代，为开发者
 
 > [!IMPORTANT]
 > 安全漏洞请勿通过公开 Issue 反馈，请参阅 [安全策略](SECURITY.md) 通过 GitHub 安全通告负责任地披露。
-
-完整的贡献流程（环境准备、门禁自检、commit 规范、CLA 签署等）请查阅 [贡献指南](CONTRIBUTING.md)。
 
 ### 分支说明
 
@@ -561,7 +556,3 @@ ContiNew 系列项目采用清晰的分支策略，确保开发与维护有序�
 
 - 遵循 <a href="https://github.com/continew-org/continew-admin/blob/dev/LICENSE" target="_blank">Apache-2.0</a> 开源许可协议
 - Copyright © 2022-present <a href="https://charles7c.top" target="_blank">Charles7c</a>
-
-## GitHub Star 趋势
-
-![GitHub Star 趋势](https://starchart.cc/charles7c/continew-admin.svg)

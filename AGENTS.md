@@ -1,6 +1,6 @@
 # AGENTS.md
 
-本文件为在本代码库中工作的 AI 编程智能体（DeepSeek Harness、Claude Code、Codex、Cursor 等）提供指引。面向人类贡献者的说明请查阅 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+本文件为在本代码库中工作的 AI 编程智能体（DeepSeek Harness、Claude Code、Codex、Cursor 等）提供指引。
 
 ## AI 贡献准则
 
@@ -17,7 +17,6 @@
   ```
   Assisted-by: DeepSeek Harness
   ```
-- 贡献流程一律**遵循 [CONTRIBUTING.md](./CONTRIBUTING.md)**。
 
 ## 项目概述
 
