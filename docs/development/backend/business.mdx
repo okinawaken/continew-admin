@@ -1,0 +1,220 @@
+---
+title: 自习室业务
+description: 说明 continew-business 中 study 模块的代理链路、用户设置、自动预约调度、多租户处理、数据表与接口约定。
+---
+
+`continew-business` 的 `top.continew.admin.business.study` 包承载自习室预约代理业务。它把上游小程序接口（时不我待自习馆）转成后台可调用的 REST 接口，并在本地实现用户设置、自动预约、自动签到与用户 token 绑定。
+
+## 包结构
+
+| 子包 | 职责 |
+|:-----|:-----|
+| `client.http` | Forest 声明式客户端，按配置域、门店域、套餐域、预约域、签到域等拆分。`StudyRoomBaseClient` 统一声明上游地址、内容类型与拦截器 |
+| `client.http.interceptor` | `StudyRoomAuthInterceptor` 注入 `appid` 与用户 token，`StudyRoomResponseInterceptor` 统一校验上游业务码并抛出 `BusinessException` |
+| `client.model` | 上游接口的响应与请求模型，响应模型标注 `@JsonIgnoreProperties(ignoreUnknown = true)` |
+| `controller` | 代理接口，路径统一为 `/business/study/**` |
+| `controller.user` | 用户设置接口 `StudyRoomUserSettingController`，路径 `/business/study/user-setting` |
+| `controller.autoreserve` | 自动预约任务 `StudyRoomAutoReserveTaskController` 与执行记录 `StudyRoomAutoReserveTaskRecordController` |
+| `controller.token` | 小程序 token 绑定 `StudyRoomTokenController` |
+| `service.user` | 用户设置服务 `StudyRoomUserSettingService`，管理 `study_room_user_setting` |
+| `service.autoreserve` | 自动预约执行器、任务与执行记录服务 |
+| `service.autosign` | 自动签到执行器 |
+| `service.token` | token 绑定服务 |
+| `filter` | 自动预约与自动签到的过滤器链，按 `Ordered` 顺序执行，任一环节失败即终止 |
+| `model` | 实体（`entity`）、请求（`req`）、响应（`resp`）、JSON 配置对象（`bo`）、执行上下文（`context`）与事件（`event`） |
+| `scheduler` / `listener` | 定时扫描入口与异步事件监听器 |
+| `mapper` | 四个业务表的 MyBatis Plus Mapper |
+
+## 上游接口配置
+
+上游地址与 `appid` 写在 `top.continew.admin.business.study.constant.StudyRoomApiConstants`。`Gateway.BASE_URL` 为 `https://mini.winsalesaas.com/study-saas`，`Gateway.APPID` 为小程序 appid。客户端接口通过 `@BaseRequest` 复用该地址。
+
+Forest 的扫描入口是 `top.continew.admin.business.study.config.ForestConfig`，扫描 `top.continew.admin.business.study.client.http` 包。Forest 版本在 `continew-business/pom.xml` 的 `dependencyManagement` 中管理（`forest.version`），依赖声明不写版本号。这是对 AGENTS.md 第三方版本由父 POM 供给约定的模块级例外。
+
+## 用户 token 与请求上下文
+
+后台用户与小程序 token 的映射保存在 `study_room_user_token`，唯一键为 `(tenant_id, user_id, deleted)`。调用链上有两种取 token 的方式：
+
+- 代理接口与 token 绑定接口通过 `UserContextHolder.getUserId()` 取当前登录用户，由 `StudyRoomAuthInterceptor` 查询 token。
+- 自动预约与自动签到在异步线程执行，没有登录上下文，使用带 `@Var(StudyRoomApiConstants.Variable.USER_ID)` 的 `StudyRoomXxxV2Client` 显式传入用户 ID。
+
+两类客户端共用同一个拦截器，显式传入的 `userId` 优先于当前登录用户。
+
+调用代理接口前，用户需要先绑定上游 token。token 绑定接口为：
+
+| 方法 | 路径 | 权限码 | 说明 |
+|:-----|:-----|:-------|:-----|
+| `POST` | `/business/study/token/bind` | `business:study:token:update` | 绑定或更新当前用户 token，保存后立即调用上游用户详情校验 |
+| `GET` | `/business/study/token/detail` | `business:study:token:list` | 查询当前用户绑定状态与 token |
+| `DELETE` | `/business/study/token/unbind` | `business:study:token:delete` | 解绑当前用户 token |
+
+## 用户设置
+
+用户级设置保存在 `study_room_user_setting`，一个用户在同一个租户内只有一条记录，唯一键为 `(tenant_id, user_id, deleted)`。配置内容存在 `config_json`，结构由 `StudyRoomUserConfigBO` 定义：
+
+```json
+{
+  "releaseTime": "20:00:00",
+  "signInEnable": 0
+}
+```
+
+| 字段 | 类型 | 说明 |
+|:-----|:-----|:-----|
+| `releaseTime` | `LocalTime`，格式 `HH:mm:ss` | 放号时刻，未配置时默认 `20:00:00` |
+| `signInEnable` | `Integer` | 自动签到开关（0：关闭；1：开启），未配置时默认 0 |
+
+接口由 `StudyRoomUserSettingController` 提供：
+
+| 方法 | 路径 | 权限码 | 说明 |
+|:-----|:-----|:-------|:-----|
+| `GET` | `/business/study/user-setting` | `business:study:userSetting:get` | 读取当前用户设置，无记录时返回默认值 |
+| `PUT` | `/business/study/user-setting` | `business:study:userSetting:update` | 整对象覆盖写入当前用户设置 |
+
+`GET` 与 `PUT` 同时匹配带尾斜杠的 `/business/study/user-setting/`，兼容原项目的调用写法。
+
+## 自动预约与自动签到
+
+### 自动预约
+
+`StudyRoomAutoReserveScheduler` 每分钟扫描启用中的任务。用户放号时刻已过且当天没有执行记录时，发布 `StudyRoomAutoReserveExecuteEvent`。`StudyRoomAutoReserveExecuteListener` 异步接住事件，交给 `StudyRoomAutoReserveExecutorServiceImpl` 执行。执行器先跑过滤器链，再调用上游预约确认接口，最终把跳过、成功或失败写入 `study_room_auto_reserve_task_record`。
+
+过滤器按 `StudyRoomAutoReserveFilterOrderEnum` 的顺序执行：
+
+| 顺序 | 过滤器 | 职责 |
+|:-----|:-------|:-----|
+| 100 | `StudyRoomAutoReserveEnabledFilter` | 校验任务为启用状态 |
+| 200 | `StudyRoomAutoReserveExecutedFilter` | 当天已有执行记录时终止 |
+| 300 | `StudyRoomAutoReserveVenueFilter` | 查询门店并写入上下文 |
+| 400 | `StudyRoomAutoReserveTargetDateFilter` | 计算目标日期，未放出新日期时跳过 |
+| 500 | `StudyRoomAutoReserveWeekdayFilter` | 校验目标日期是否在任务配置的星期内 |
+| 600 | `StudyRoomAutoReserveSeatFilter` | 按“指定座位 → 偏好区域 → 全场”顺序选座 |
+| 700 | `StudyRoomAutoReserveEligibilityFilter` | 校验用户是否有可预约套餐 |
+
+任务规则存在 `study_room_auto_reserve_task.task_json`，结构由 `StudyRoomAutoReserveTaskConfigBO` 定义：
+
+```json
+{
+  "seatId": 0,
+  "seatNumber": "",
+  "areaId": 0,
+  "areaName": "",
+  "reserveStartTime": "08:00",
+  "reserveEndTime": "12:00",
+  "weekDays": [1, 2, 3, 4, 5]
+}
+```
+
+`seatId` 与 `areaId` 传 0 表示未指定。`weekDays` 取 1 到 7，对应周一到周日。`enableStatus` 取 0（暂停）或 1（启用），`triggerType` 取 0（定时）或 1（手动），执行记录 `status` 取 0（跳过）、1（成功）或 2（失败）。
+
+执行记录明细存在 `study_room_auto_reserve_task_record.detail_json`，结构由 `StudyRoomAutoReserveTaskRecordDetailBO` 定义：
+
+```json
+{
+  "seatId": 123,
+  "seatNumber": "A-01",
+  "timeRange": "08:00-12:00",
+  "userReserveId": 456,
+  "failMsg": null
+}
+```
+
+任务管理接口由 `StudyRoomAutoReserveTaskController` 提供：
+
+| 方法 | 路径 | 权限码 |
+|:-----|:-----|:-------|
+| `GET` | `/business/study/auto-reserve/task/list` | `business:study:autoReserveTask:list` |
+| `GET` | `/business/study/auto-reserve/task/{id}` | `business:study:autoReserveTask:get` |
+| `POST` | `/business/study/auto-reserve/task` | `business:study:autoReserveTask:create` |
+| `PUT` | `/business/study/auto-reserve/task/{id}` | `business:study:autoReserveTask:update` |
+| `DELETE` | `/business/study/auto-reserve/task/{id}` | `business:study:autoReserveTask:delete` |
+| `POST` | `/business/study/auto-reserve/task/{id}/pause` | `business:study:autoReserveTask:update` |
+| `POST` | `/business/study/auto-reserve/task/{id}/resume` | `business:study:autoReserveTask:update` |
+| `POST` | `/business/study/auto-reserve/task/{id}/execute` | `business:study:autoReserveTask:execute` |
+
+执行记录接口为 `GET /business/study/auto-reserve/task/record/{taskId}`，权限码 `business:study:autoReserveRecord:list`。
+
+### 自动签到
+
+`StudyRoomAutoSignScheduler` 每 10 分钟扫描 `signInEnable = 1` 的用户设置，发布 `StudyRoomAutoSignExecuteEvent`，由 `StudyRoomAutoSignExecutorServiceImpl` 查询待签到预约并调用上游签到接口。过滤器按 `StudyRoomAutoSignFilterOrderEnum` 执行：待签到预约查询（100）、签到门店校验（200）、签到扣费套餐查询（300）。
+
+两个执行器都用 Redisson 分布式锁串行化同一任务或同一用户的执行，锁 key 定义在 `StudyRoomCacheConstants`：
+
+- 自动预约：`study:auto_reserve:execute:` + `taskId`
+- 自动签到：`study:auto_sign:execute:` + `userId`
+
+## 多租户处理
+
+四张业务表都参与租户行级隔离，表结构包含 `tenant_id`，实体继承 `top.continew.admin.common.base.model.entity.TenantBaseDO`。HTTP 请求由租户拦截器写入上下文，SQL 自动追加 `tenant_id` 条件。
+
+定时任务线程没有请求上下文，因此跨租户扫描方法标注 `@TenantIgnore`，例如 `StudyRoomAutoReserveTaskServiceImpl#listEnabledTasks` 与 `StudyRoomUserSettingServiceImpl#listAllConfigs`。扫描结果携带 `tenantId`，调度器用 `TenantUtils.execute(tenantId, ...)` 恢复租户上下文后再查询配置与执行记录；异步事件同样携带 `tenantId`，监听器执行前恢复上下文。
+
+异步线程插入执行记录时没有登录用户，`StudyRoomAutoReserveTaskRecordServiceImpl` 显式把任务归属用户写入 `create_user`，避免 `create_user` 非空约束失败。
+
+## 数据表
+
+| 表 | 用途 | 关键字段 |
+|:---|:-----|:---------|
+| `study_room_user_token` | 系统用户与小程序 token 的映射 | `user_id`、`token`，唯一键 `(tenant_id, user_id, deleted)` |
+| `study_room_user_setting` | 用户级设置（放号时刻、自动签到开关） | `config_json`，唯一键 `(tenant_id, user_id, deleted)` |
+| `study_room_auto_reserve_task` | 自动预约任务 | `venue_id`、`venue_name`、`task_json`、`enable_status`、`pause_reason`、`last_max_reserve_date`，索引 `(tenant_id, user_id, enable_status)` |
+| `study_room_auto_reserve_task_record` | 每轮执行的终态记录 | `task_id`、`trigger_type`、`target_date`、`status`、`detail_json`，索引 `(tenant_id, task_id)` |
+
+四张表都包含 `id`、`tenant_id`、`create_user`、`create_time`、`update_user`、`update_time`、`deleted`。`deleted` 由 MyBatis Plus 逻辑删除维护，值等于记录 ID。
+
+MySQL 与 PostgreSQL 脚本分别在 `continew-server/src/main/resources/db/changelog/mysql/business/study.sql` 与 `postgresql/business/study.sql`，菜单与权限数据在对应的 `study_data.sql`，并已在 `db.changelog-master.yaml` 登记。
+
+## 代理接口一览
+
+代理接口按上游业务域拆分，路径统一以 `/business/study` 开头：
+
+| 域 | 基路径 | Controller | 主要能力 |
+|:---|:-------|:-----------|:---------|
+| 配置 | `/config` | `StudyRoomConfigController` | 小程序全局配置、公告栏 |
+| 门店 | `/venue` | `StudyRoomVenueController` | 附近门店、预约门店、区域筛选 |
+| 套餐 | `/package` | `StudyRoomPackageController` | 套餐列表、详情、下单、支付参数、我的订单 |
+| 预约 | `/reserve` | `StudyRoomReserveController` | 预约资格、可预约日期、座位图、提交预约、取消 |
+| 签到 | `/sign` | `StudyRoomSignController` | 签到首页、选座、换座、签退、排行榜、灯控 |
+| 请假 | `/leave` | `StudyRoomLeaveController` | 进入请假页、确认请假、取消请假 |
+| 报修 | `/repair` | `StudyRoomRepairController` | 提交报修、报修列表与详情 |
+| 门禁 | `/guard` | `StudyRoomGuardController` | 门禁区域列表、开门 |
+| 储物柜与其他 | `/misc` | `StudyRoomMiscController` | 储物柜租赁、团购券核销、储物柜 WiFi 开锁 |
+| 用户 | `/user` | `StudyRoomUserController` | 登录、资料、头像、签到记录 |
+
+每个接口的具体参数与响应以 `controller` 包下对应类的 Javadoc 与 `client.http` 包下客户端定义为准。
+
+## 权限与菜单
+
+代理接口按业务域划分权限码，例如 `business:study:reserve:list`、`business:study:reserve:create`、`business:study:reserve:delete`。用户设置为 `business:study:userSetting:get/update`，自动预约任务为 `business:study:autoReserveTask:*`，执行记录为 `business:study:autoReserveRecord:list`。菜单数据挂在「自习室管理」目录（ID `4000`）下，控制器方法用 `@SaCheckPermission` 校验。
+
+| 菜单 ID | 标题 | 路径 | 组件路径 |
+|:-------|:-----|:-----|:---------|
+| 4000 | 自习室管理 | `/study` | `Layout` |
+| 4010 | 自习室配置 | `/study/config` | `business/study/config/index` |
+| 4020 | 门店查询 | `/study/venue` | `business/study/venue/index` |
+| 4030 | 套餐查询 | `/study/package` | `business/study/package/index` |
+| 4040 | 预约管理 | `/study/reserve` | `business/study/reserve/index` |
+| 4050 | 签到管理 | `/study/sign` | `business/study/sign/index` |
+| 4060 | 请假管理 | `/study/leave` | `business/study/leave/index` |
+| 4070 | 报修管理 | `/study/repair` | `business/study/repair/index` |
+| 4080 | 门禁管理 | `/study/guard` | `business/study/guard/index` |
+| 4090 | 储物柜与其他 | `/study/misc` | `business/study/misc/index` |
+| 4100 | 用户中心 | `/study/user` | `business/study/user/index` |
+| 4110 | Token 绑定 | `/study/token` | `business/study/token/index` |
+| 4120 | 用户设置 | `/study/user-setting` | `business/study/userSetting/index` |
+| 4130 | 自动预约任务 | `/study/auto-reserve/task` | `business/study/autoReserve/task/index` |
+| 4140 | 执行记录 | `/study/auto-reserve/record` | `business/study/autoReserve/record/index` |
+
+前端 continew-admin-ui 是独立仓库，需要按这些组件路径补齐页面；只调接口、不展示菜单时，可以在角色里不勾选对应菜单。超级管理员自动拥有全部菜单与权限，普通角色需要在角色管理中分配。
+
+## 响应格式
+
+接口统一返回 ContiNew 的 `top.continew.starter.web.model.R`，分页接口返回 `PageResp`（`list` 与 `total`）。原项目使用的 RuoYi `TableDataInfo`（`rows` 与 `total`）没有保留，前端适配时按 `PageResp` 取值。
+
+自动预约任务与执行记录的分页数据在服务层仍使用 MyBatis Plus 的 `IPage`，Controller 通过 `PageResp.build(IPage, Class)` 转换。
+
+## 已知限制
+
+- 图片与头像上传接口（`/business/study/misc/image/upload`、`/business/study/user/authorize/head-img/upload`）在上游不可用，当前直接抛出 `BusinessException("暂不支持文件上传")`。
+- 上游错误码在迁移后统一转换为 `BusinessException`，响应体使用 ContiNew 的全局响应码，不再保留原项目的 `40102`、`40103` 等数字错误码。需要区分 token 失效时，可根据 `StudyRoomApiErrorCodeEnum` 的提示文案或上游 `content` 判断。
+- 自动预约任务按当前登录用户过滤；执行记录按任务 ID 查询，仅受租户隔离，没有额外校验任务归属。需要跨用户管理或更严格的行级权限时，需要另加管理员视角的查询接口与数据权限配置。

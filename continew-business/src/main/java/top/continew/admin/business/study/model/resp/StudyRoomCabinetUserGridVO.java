@@ -1,0 +1,70 @@
+/*
+ * Copyright (c) 2022-present Charles7c Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package top.continew.admin.business.study.model.resp;
+
+import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
+
+/**
+ * StudyRoomCabinetUserGridRespDTO 视图对象
+ *
+ * @author Amadeus
+ * @since 4.2.0
+ */
+@Data
+public class StudyRoomCabinetUserGridVO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 柜格ID（开锁时用）
+     */
+    private Long gripId;
+
+    /**
+     * 柜格编号
+     */
+    private String gripCode;
+
+    /**
+     * 柜子名称
+     */
+    private String cabinetName;
+
+    /**
+     * 是否允许开锁：1 允许
+     */
+    private Integer allowOpen;
+
+    /**
+     * 退租状态
+     */
+    private Integer checkoutStatus;
+
+    /**
+     * 最近一次租约ID（自动退租时用）
+     */
+    private Long lastLeaseId;
+
+    /**
+     * 租期结束时间
+     */
+    private String leaseEndTime;
+}

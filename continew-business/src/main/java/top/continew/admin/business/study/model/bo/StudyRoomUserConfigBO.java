@@ -1,0 +1,51 @@
+/*
+ * Copyright (c) 2022-present Charles7c Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package top.continew.admin.business.study.model.bo;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import top.continew.admin.business.study.enums.StudyRoomAutoSignInEnableEnum;
+
+import java.time.LocalTime;
+
+/**
+ * 用户级配置，对应 {@code study_room_user_setting.config_json}
+ *
+ * @author Amadeus
+ * @since 4.2.0
+ */
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class StudyRoomUserConfigBO {
+
+    /**
+     * 放号时刻，默认 20:00:00
+     * <p>
+     * 字段类型必须与 getter/setter 一致：若声明为 {@code String} 却提供返回 {@code LocalTime} 的 getter，
+     * Jackson 会以数组形式（{@code [20,0]}）序列化、再按 {@code String} 反序列化失败，导致配置写成后读不回来。
+     */
+    @JsonFormat(pattern = "HH:mm:ss")
+    private LocalTime releaseTime;
+
+    /**
+     * 是否启用自动签到，见 {@link StudyRoomAutoSignInEnableEnum}
+     * <p>
+     * 默认关闭，避免老用户被动开启。
+     */
+    private Integer signInEnable;
+}

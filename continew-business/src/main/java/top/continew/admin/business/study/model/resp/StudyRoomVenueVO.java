@@ -1,0 +1,143 @@
+/*
+ * Copyright (c) 2022-present Charles7c Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package top.continew.admin.business.study.model.resp;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * StudyRoomVenueRespDTO 视图对象
+ *
+ * @author Amadeus
+ * @since 4.2.0
+ */
+@Data
+public class StudyRoomVenueVO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 门店ID
+     */
+    private Integer id;
+
+    /**
+     * 门店名称
+     */
+    private String venueName;
+
+    /**
+     * 门店地址
+     */
+    private String venueAddress;
+
+    /**
+     * 纬度
+     */
+    private Double venueLat;
+
+    /**
+     * 经度
+     */
+    private Double venueLng;
+
+    /**
+     * 营业时间，如 06:00-23:55
+     */
+    private String venueOpenTime;
+
+    /**
+     * 预约状态：0 可预约 1 不可预约
+     */
+    private Integer venueReserveState;
+
+    /**
+     * 距离描述，如 1002.8km（按定位计算）
+     */
+    private String distanceStr;
+
+    /**
+     * 背景图
+     */
+    private String backImage;
+
+    /**
+     * 停车说明
+     */
+    private String parking;
+
+    /**
+     * 联系电话
+     */
+    private String phone;
+
+    /**
+     * 交通说明
+     */
+    private String traffic;
+
+    /**
+     * 到店指引链接
+     */
+    private String venueGuideUrl;
+
+    /**
+     * 是否限制最长学习时长
+     */
+    @JsonProperty(value = "timeLimit")
+    private Boolean timeLimitFlag;
+
+    /**
+     * 最短可预约时间
+     */
+    private StudyRoomTimePointVO minTime;
+
+    /**
+     * 最长可预约时间
+     */
+    private StudyRoomTimePointVO maxTime;
+
+    /**
+     * 门店图片
+     */
+    private List<StudyRoomFileVO> venueImgPathList;
+
+    /**
+     * 门店设备
+     */
+    private List<StudyRoomVenueDeviceVO> deviceList;
+
+    /**
+     * 门店区域介绍
+     */
+    private List<StudyRoomVenueRoomVO> roomList;
+
+    /**
+     * 店内 WiFi 名称（签到页展示）
+     */
+    private String wifiName;
+
+    /**
+     * 店内 WiFi 密码（签到页展示）
+     */
+    private String wifiPwd;
+}

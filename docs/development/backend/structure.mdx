@@ -13,7 +13,7 @@ ContiNew Admin 分两个仓库。后端 continew-admin 是 Maven 多模块工程
 |:-----|:-----|
 | `continew-server` | 打包部署入口：启动类 `top.continew.admin.ContiNewAdminApplication`、通用 Controller（验证码、工作台）、Liquibase 脚本、全部环境配置文件。dev 端口 8000，prod 端口 18000 |
 | `continew-system` | 核心业务：`auth`（系统认证）+ `system`（部门、角色、用户、菜单、字典、文件、公告、系统配置等） |
-| `continew-business` | 业务功能：承载项目自身的业务代码，按下方分层约定组织子包 |
+| `continew-business` | 业务功能：承载项目自身的业务代码，当前包含 `study`（自习室预约代理：上游接口代理、用户设置、自动预约与自动签到） |
 | `continew-common` | 公共基类、工具与配置：CRUD 基类（`base`）、MyBatis、接口文档、Excel、全局异常（`config` 下对应子包） |
 | `continew-plugin` | 可插拔插件：`continew-plugin-open`（能力开放 AK/SK）、`continew-plugin-tenant`（多租户）、`continew-plugin-schedule`（任务调度）、`continew-plugin-generator`（代码生成器） |
 | `continew-extension` | 可独立部署的扩展服务：`continew-extension-schedule-server`（Snail Job 调度中心服务端，可选部署） |
@@ -42,7 +42,14 @@ continew-admin
 │     │  └─ system（系统管理）
 │     └─ resources/mapper（Mapper XML）
 ├─ continew-business
-│  └─ src/main/java/top/continew/admin/business（业务功能）
+│  └─ src/main/java/top/continew/admin/business
+│     └─ study（自习室预约代理）
+│        ├─ client（Forest 客户端与上游响应模型）
+│        ├─ controller（代理接口、用户设置、自动预约任务、token 绑定）
+│        ├─ filter（自动预约 / 自动签到过滤器链）
+│        ├─ model（实体、请求、响应、上下文、事件）
+│        ├─ scheduler、listener（定时扫描与异步执行）
+│        └─ service（用户设置、任务、执行记录、token）
 ├─ continew-plugin
 │  ├─ continew-plugin-open
 │  ├─ continew-plugin-tenant

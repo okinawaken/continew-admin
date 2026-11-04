@@ -4,6 +4,10 @@ databaseChangeLog:
   - include:
       file: db/changelog/mysql/main_data.sql
   - include:
+      file: db/changelog/mysql/business/study.sql
+  - include:
+      file: db/changelog/mysql/business/study_data.sql
+  - include:
       file: db/changelog/mysql/plugin/plugin_open.sql
   - include:
       file: db/changelog/mysql/plugin/plugin_tenant.sql
@@ -16,6 +20,10 @@ databaseChangeLog:
 #      file: db/changelog/postgresql/main_table.sql
 #  - include:
 #      file: db/changelog/postgresql/main_data.sql
+#  - include:
+#      file: db/changelog/postgresql/business/study.sql
+#  - include:
+#      file: db/changelog/postgresql/business/study_data.sql
 #  - include:
 #      file: db/changelog/postgresql/plugin/plugin_open.sql
 #  - include:
