@@ -176,73 +176,6 @@ public class DeptController extends BaseController<DeptService, DeptResp, DeptDe
 - 任务日志：管理定时任务执行日志，包含停止、重试指定批次等功能
 - 代码生成：提供根据数据库表自动生成相应的前后端 CRUD 代码的功能，支持同步最新表结构及代码生成预览
 
-## 系统截图
-
-> [!TIP]
-> 受篇幅长度及功能更新频率影响，下方仅为系统 **部分** 功能于 **2024年11月18日** 进行的截图，更多新增功能及细节请登录演示环境或 clone 代码到本地启动查看。
-
-<table border="1" cellpadding="1" cellspacing="1" style="width: 500px">
-    <tbody>
-        <tr>
-            <td><img src=".image/screenshot/000登录页面.png" alt="登录页面" width="1920" /></td>
-            <td><img src=".image/screenshot/000登录页面-H5.png" alt="登录页面-H5" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/001仪表盘.png" alt="仪表盘" width="1920" /></td>
-            <td><img src=".image/screenshot/002分析页.png" alt="分析页" width="1920" /></td>
-        </tr>
-       <tr>
-            <td><img src=".image/screenshot/010个人中心.png" alt="个人中心" width="1920" /></td>
-            <td><img src=".image/screenshot/013消息中心.png" alt="消息中心" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/011安全设置-修改邮箱.png" alt="安全设置-修改邮箱" width="1920" /></td>
-            <td><img src=".image/screenshot/012安全设置-修改邮箱-邮箱验证码.png" alt="安全设置-修改邮箱-邮箱验证码" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/060系统管理-系统配置.png" alt="系统管理-系统配置" width="1920" /></td>
-            <td><img src=".image/screenshot/061系统管理-安全配置.png" alt="系统管理-安全配置" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/020系统管理-用户管理-列表.png" alt="系统管理-用户管理-列表" width="1920" /></td>
-            <td><img src=".image/screenshot/021系统管理-用户管理-新增.png" alt="系统管理-用户管理-新增" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/025系统管理-角色管理-列表.png" alt="系统管理-角色管理-列表" width="1920" /></td>
-            <td><img src=".image/screenshot/026系统管理-角色管理-新增.png" alt="系统管理-角色管理-新增" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/030系统管理-菜单管理-列表.png" alt="系统管理-菜单管理-列表" width="1920" /></td>
-            <td><img src=".image/screenshot/031系统管理-菜单管理-新增.png" alt="系统管理-菜单管理-新增" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/045系统管理-公告管理-列表.png" alt="系统管理-公告管理-列表" width="1920" /></td>
-            <td><img src=".image/screenshot/046系统管理-公告管理-修改.png" alt="系统管理-公告管理-修改" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/040系统管理-字典管理-列表.png" alt="系统管理-字典管理-列表" width="1920" /></td>
-            <td><img src=".image/screenshot/041系统管理-字典项管理.png" alt="系统管理-字典项管理" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/051系统管理-文件管理-列表-2.png" alt="系统管理-文件管理-列表-2" width="1920" /></td>
-            <td><img src=".image/screenshot/052系统管理-文件管理-查看文档.png" alt="系统管理-文件管理-查看文档" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/301系统工具-代码生成-配置.png" alt="系统工具-代码生成-配置" width="1920" /></td>
-            <td><img src=".image/screenshot/302系统工具-代码生成-预览.png" alt="系统工具-代码生成-预览" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/100系统监控-在线用户.png" alt="系统监控-在线用户" width="1920" /></td>
-            <td><img src=".image/screenshot/101系统监控-系统日志-登录日志.png" alt="系统监控-系统日志-登录日志" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/102系统监控-系统日志-操作日志.png" alt="系统监控-系统日志-操作日志" width="1920" /></td>
-            <td><img src=".image/screenshot/103系统监控-系统日志-操作日志-详情.png" alt="系统监控-系统日志-操作日志-详情" width="1920" /></td>
-        </tr>
-    </tbody>
-</table>
-
-
 ## 核心技术栈
 
 | 名称                                                                                                                                | 版本           | 简介                                                         |
@@ -488,7 +421,6 @@ continew-admin
 ├─ .agents（Agent 技能目录，供 AI 编程智能体使用）
 ├─ .idea
 │  └─ icon.png（IDEA 项目图标，实际开发时直接删除）
-├─ .image（截图目录，实际开发时直接删除）
 ├─ .mvn（Maven Wrapper 配置目录）
 ├─ style（代码风格配置目录：Spotless/Checkstyle/IDEA 配置等，详见 style/STYLE.md）
 ├─ .gitignore（Git 忽略文件相关配置文件）
@@ -525,16 +457,12 @@ ContiNew 系列项目采用清晰的分支策略，确保开发与维护有序�
 
 ## 反馈交流
 
-感谢您对 ContiNew 开源项目的关注与支持！我们非常重视每一位用户的反馈和建议，这是推动项目不断进步的动力。 欢迎扫描下方二维码加入我们的官方交流群，与项目维护团队及其他大佬用户实时交流探讨。
+感谢您对 ContiNew 开源项目的关注与支持！我们非常重视每一位用户的反馈和建议，这是推动项目不断进步的动力。欢迎加入我们的官方交流群，与项目维护团队及其他大佬用户实时交流探讨。
 
 - 与项目核心团队直接沟通，获取第一手项目动态
 - 解决使用过程中遇到的问题，分享经验心得
 - 参与功能讨论和需求收集，影响项目未来发展
 - 结识志同道合的技术爱好者，扩展人脉圈
-
-<div align="left">
-  <img src=".image/qrcode.jpg" alt="二维码" height="230px" />
-</div>
 
 ## 鸣谢
 
