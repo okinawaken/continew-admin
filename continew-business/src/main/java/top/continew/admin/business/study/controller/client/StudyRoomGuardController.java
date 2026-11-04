@@ -1,4 +1,4 @@
-package top.continew.admin.business.study.controller;
+package top.continew.admin.business.study.controller.client;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import lombok.RequiredArgsConstructor;
