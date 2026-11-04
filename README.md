@@ -494,7 +494,6 @@ continew-admin
 ├─ .gitignore（Git 忽略文件相关配置文件）
 ├─ docker（项目部署相关配置目录，实际开发时可备份后直接删除）
 ├─ LICENSE（开源协议文件）
-├─ SECURITY.md（安全策略）
 ├─ README.md（项目 README 文件，实际开发时替换为真实内容）
 ├─ lombok.config（Lombok 全局配置文件）
 ├─ mvnw / mvnw.cmd（Maven Wrapper 脚本，锁定 Maven 3.9.16）
@@ -514,7 +513,7 @@ ContiNew（Continue New）系列项目致力于通过持续迭代，为开发者
 - 💻 编写代码：修复 Bug、开发新功能、提升性能
 
 > [!IMPORTANT]
-> 安全漏洞请勿通过公开 Issue 反馈，请参阅 [安全策略](SECURITY.md) 通过 GitHub 安全通告负责任地披露。
+> 安全漏洞请勿通过公开 Issue 反馈，请通过 GitHub 安全通告负责任地披露。
 
 ### 分支说明
 
