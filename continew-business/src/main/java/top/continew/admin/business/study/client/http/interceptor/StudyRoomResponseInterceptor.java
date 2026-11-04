@@ -1,13 +1,12 @@
 package top.continew.admin.business.study.client.http.interceptor;
 
-import cn.hutool.core.util.StrUtil;
 import com.dtflys.forest.http.ForestRequest;
 import com.dtflys.forest.http.ForestResponse;
 import com.dtflys.forest.interceptor.ForestInterceptor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
 import top.continew.admin.business.study.constant.StudyRoomApiConstants;
 import top.continew.admin.business.study.enums.StudyRoomApiErrorCodeEnum;
 import top.continew.starter.core.exception.BusinessException;
@@ -34,25 +33,12 @@ public class StudyRoomResponseInterceptor implements ForestInterceptor {
         if (Objects.isNull(resultData)) {
             throw new BusinessException(StudyRoomApiErrorCodeEnum.EMPTY_RESPONSE.getDescription());
         }
-        if (resultData instanceof StudyRoomApiResultDTO<?> result) {
+        if (resultData instanceof StudyRoomApiResult<?> result) {
             String code = result.getCode();
             if (!Objects.equals(code, StudyRoomApiConstants.ApiCode.SUCCESS_CODE)
                 && !Objects.equals(code, StudyRoomApiConstants.ApiCode.BUSINESS_CODE)) {
-                throw new BusinessException(this.resolveErrorMessage(result));
+                throw new BusinessException(result.getContent());
             }
         }
-    }
-
-    /**
-     * 错误提示优先透传上游文案
-     *
-     * @param result 上游响应
-     * @return 响应数据
-     */
-    private String resolveErrorMessage(StudyRoomApiResultDTO<?> result) {
-        if (StrUtil.isNotEmpty(result.getContent())) {
-            return result.getContent();
-        }
-        return "自习室接口调用失败(" + result.getCode() + ")";
     }
 }

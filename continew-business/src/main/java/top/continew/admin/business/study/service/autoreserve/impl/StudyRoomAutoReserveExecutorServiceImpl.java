@@ -6,11 +6,11 @@ import org.redisson.api.RLock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
-import top.continew.admin.business.study.client.model.req.StudyRoomReserveConfirmReqDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomReserveConfirmRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSeatRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomVenueRespDTO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomReserveConfirmReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveConfirmResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
 import top.continew.admin.business.study.constant.StudyRoomCacheConstants;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTaskRecordStatusEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
@@ -71,10 +71,10 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             }
 
             LocalDate targetDate = context.getTargetDate();
-            StudyRoomVenueRespDTO venueRespDTO = context.getVenueRespDTO();
-            StudyRoomSeatRespDTO seatRespDTO = context.getSeatRespDTO();
+            StudyRoomVenueResp venueRespDTO = context.getVenueRespDTO();
+            StudyRoomSeatResp seatRespDTO = context.getSeatRespDTO();
 
-            StudyRoomReserveConfirmReqDTO reqDTO = new StudyRoomReserveConfirmReqDTO();
+            StudyRoomReserveConfirmReq reqDTO = new StudyRoomReserveConfirmReq();
             reqDTO.setSeatId(seatRespDTO.getId());
             reqDTO.setReserveDateStr(targetDate);
             reqDTO.setReserveStartTimeStr(taskRespDTO.getReserveStartTime());
@@ -82,7 +82,7 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             reqDTO.setCurrentLng(venueRespDTO.getVenueLng());
             reqDTO.setCurrentLat(venueRespDTO.getVenueLat());
             reqDTO.setReserveAnotherFlag(0);
-            StudyRoomApiResultDTO<StudyRoomReserveConfirmRespDTO> resultDTO =
+            StudyRoomApiResult<StudyRoomReserveConfirmResp> resultDTO =
                 reserveV2Client.reserveV2SeatConfirm(reqDTO, taskRespDTO.getUserId());
             context.setConfirmRespDTO(resultDTO.getData());
 
@@ -120,12 +120,12 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             taskRecordRespDTO.setTimeRange(
                 taskRespDTO.getReserveStartTime() + "-" + taskRespDTO.getReserveEndTime());
         }
-        StudyRoomSeatRespDTO seatRespDTO = context.getSeatRespDTO();
+        StudyRoomSeatResp seatRespDTO = context.getSeatRespDTO();
         if (Objects.nonNull(seatRespDTO)) {
             taskRecordRespDTO.setSeatId(seatRespDTO.getId());
             taskRecordRespDTO.setSeatNumber(seatRespDTO.getSeatNumber());
         }
-        StudyRoomReserveConfirmRespDTO confirmRespDTO = context.getConfirmRespDTO();
+        StudyRoomReserveConfirmResp confirmRespDTO = context.getConfirmRespDTO();
         if (Objects.nonNull(confirmRespDTO)) {
             taskRecordRespDTO.setUserReserveId(confirmRespDTO.getId());
         }

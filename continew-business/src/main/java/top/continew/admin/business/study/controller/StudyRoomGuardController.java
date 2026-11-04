@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomGuardClient;
-import top.continew.admin.business.study.client.model.req.StudyRoomGuardOpenReqDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomGuardListRespDTO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomGuardOpenReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomGuardListResp;
 import top.continew.admin.business.study.model.resp.StudyRoomGuardListVO;
 import top.continew.starter.web.model.R;
 
@@ -41,7 +41,7 @@ public class StudyRoomGuardController {
     @SaCheckPermission("business:study:guard:list")
     @GetMapping(value = "/select")
     public R<StudyRoomGuardListVO> guardSelect(@RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomGuardListRespDTO dto = guardClient.guardSelect(venueId).getData();
+        StudyRoomGuardListResp dto = guardClient.guardSelect(venueId).getData();
         StudyRoomGuardListVO vo = BeanUtil.copyProperties(dto, StudyRoomGuardListVO.class);
         return R.ok(vo);
     }
@@ -54,7 +54,7 @@ public class StudyRoomGuardController {
      */
     @SaCheckPermission("business:study:guard:create")
     @PostMapping(value = "/open")
-    public R<Void> guardOpen(@Valid @RequestBody StudyRoomGuardOpenReqDTO form) {
+    public R<Void> guardOpen(@Valid @RequestBody StudyRoomGuardOpenReq form) {
         guardClient.guardOpen(form);
         return R.ok();
     }

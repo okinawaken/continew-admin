@@ -12,8 +12,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.continew.admin.business.study.client.http.StudyRoomVenueClient;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomVenueRespDTO;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTaskEnableStatusEnum;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTriggerTypeEnum;
 import top.continew.admin.business.study.mapper.StudyRoomAutoReserveTaskMapper;
@@ -71,13 +71,13 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Long createTask(Long userId, StudyRoomAutoReserveTaskReqDTO dto) {
-        StudyRoomApiResultDTO<StudyRoomVenueRespDTO> studyRoomResult =
+        StudyRoomApiResult<StudyRoomVenueResp> studyRoomResult =
             venueClient.reserveVenueDetail(dto.getVenueId());
         if (Objects.isNull(studyRoomResult) || Objects.isNull(studyRoomResult.getData())) {
             throw new BusinessException("未查询到门店数据");
         }
 
-        StudyRoomVenueRespDTO venueRespDTO = studyRoomResult.getData();
+        StudyRoomVenueResp venueRespDTO = studyRoomResult.getData();
         StudyRoomAutoReserveTaskConfigBO config =
             BeanUtil.copyProperties(dto, StudyRoomAutoReserveTaskConfigBO.class);
 
@@ -94,7 +94,7 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateTask(Long taskId, StudyRoomAutoReserveTaskReqDTO dto) {
-        StudyRoomApiResultDTO<StudyRoomVenueRespDTO> studyRoomResult =
+        StudyRoomApiResult<StudyRoomVenueResp> studyRoomResult =
             venueClient.reserveVenueDetail(dto.getVenueId());
         if (Objects.isNull(studyRoomResult) || Objects.isNull(studyRoomResult.getData())) {
             throw new BusinessException("未查询到门店数据");
@@ -103,7 +103,7 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
         if (Objects.isNull(taskDO)) {
             throw new BusinessException("未查询到任务数据");
         }
-        StudyRoomVenueRespDTO venueRespDTO = studyRoomResult.getData();
+        StudyRoomVenueResp venueRespDTO = studyRoomResult.getData();
         StudyRoomAutoReserveTaskConfigBO config =
             BeanUtil.copyProperties(dto, StudyRoomAutoReserveTaskConfigBO.class);
 

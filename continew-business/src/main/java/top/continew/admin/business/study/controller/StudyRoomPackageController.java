@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomPackageClient;
-import top.continew.admin.business.study.client.model.req.StudyRoomBuyPackageConfirmReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomBuyPayOrderReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomBuyV2PackageConfirmReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomBuyV2PackageListReqDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomBuyOrderRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomBuyPackageListRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomBuyV2PackageDetailRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomBuyV2PackageLabelRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomBuyV2PackageListRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomBuyV2PackageOptRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserOrderListRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserPackageListRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomWxPayParamRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomWxPayQueryRespDTO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyPackageConfirmReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyPayOrderReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyV2PackageConfirmReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyV2PackageListReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyOrderResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyPackageListResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageDetailResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageLabelResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageListResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageOptResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserOrderListResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageListResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayParamResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayQueryResp;
 import top.continew.admin.business.study.model.resp.StudyRoomBuyOrderVO;
 import top.continew.admin.business.study.model.resp.StudyRoomBuyPackageListVO;
 import top.continew.admin.business.study.model.resp.StudyRoomBuyV2PackageDetailVO;
@@ -60,7 +60,7 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:list")
     @GetMapping(value = "/list")
     public R<StudyRoomBuyPackageListVO> buyPackageList() {
-        StudyRoomBuyPackageListRespDTO dto = packageClient.buyPackageList().getData();
+        StudyRoomBuyPackageListResp dto = packageClient.buyPackageList().getData();
         StudyRoomBuyPackageListVO vo =
             BeanUtil.copyProperties(dto, StudyRoomBuyPackageListVO.class);
         return R.ok(vo);
@@ -75,8 +75,8 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:list")
     @PostMapping(value = "/v2/list")
     public R<StudyRoomBuyV2PackageListVO> buyV2PackageList(
-        @RequestBody StudyRoomBuyV2PackageListReqDTO form) {
-        StudyRoomBuyV2PackageListRespDTO dto = packageClient.buyV2PackageList(form).getData();
+        @RequestBody StudyRoomBuyV2PackageListReq form) {
+        StudyRoomBuyV2PackageListResp dto = packageClient.buyV2PackageList(form).getData();
         StudyRoomBuyV2PackageListVO vo =
             BeanUtil.copyProperties(dto, StudyRoomBuyV2PackageListVO.class);
         return R.ok(vo);
@@ -94,7 +94,7 @@ public class StudyRoomPackageController {
     public R<StudyRoomBuyV2PackageOptVO> buyV2PackageOptList(
         @RequestParam(name = "currentLng", required = false) Double currentLng,
         @RequestParam(name = "currentLat", required = false) Double currentLat) {
-        StudyRoomBuyV2PackageOptRespDTO dto =
+        StudyRoomBuyV2PackageOptResp dto =
             packageClient.buyV2PackageOptList(currentLng, currentLat).getData();
         StudyRoomBuyV2PackageOptVO vo =
             BeanUtil.copyProperties(dto, StudyRoomBuyV2PackageOptVO.class);
@@ -111,7 +111,7 @@ public class StudyRoomPackageController {
     @GetMapping(value = "/v2/label/select-list")
     public R<StudyRoomBuyV2PackageLabelVO> buyV2PackageLabelList(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomBuyV2PackageLabelRespDTO dto =
+        StudyRoomBuyV2PackageLabelResp dto =
             packageClient.buyV2PackageLabelList(venueId).getData();
         StudyRoomBuyV2PackageLabelVO vo =
             BeanUtil.copyProperties(dto, StudyRoomBuyV2PackageLabelVO.class);
@@ -128,7 +128,7 @@ public class StudyRoomPackageController {
     @GetMapping(value = "/v2/detail/{packageId}")
     public R<StudyRoomBuyV2PackageDetailVO> buyV2PackageDetail(
         @PathVariable(value = "packageId") Long packageId) {
-        StudyRoomBuyV2PackageDetailRespDTO dto =
+        StudyRoomBuyV2PackageDetailResp dto =
             packageClient.buyV2PackageDetail(packageId).getData();
         StudyRoomBuyV2PackageDetailVO vo =
             BeanUtil.copyProperties(dto, StudyRoomBuyV2PackageDetailVO.class);
@@ -144,8 +144,8 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:create")
     @PostMapping(value = "/confirm")
     public R<StudyRoomBuyOrderVO> buyPackageConfirm(
-        @RequestBody StudyRoomBuyPackageConfirmReqDTO form) {
-        StudyRoomBuyOrderRespDTO dto = packageClient.buyPackageConfirm(form).getData();
+        @RequestBody StudyRoomBuyPackageConfirmReq form) {
+        StudyRoomBuyOrderResp dto = packageClient.buyPackageConfirm(form).getData();
         StudyRoomBuyOrderVO vo = BeanUtil.copyProperties(dto, StudyRoomBuyOrderVO.class);
         return R.ok(vo);
     }
@@ -159,8 +159,8 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:create")
     @PostMapping(value = "/v2/confirm")
     public R<StudyRoomBuyOrderVO> buyV2PackageConfirm(
-        @RequestBody StudyRoomBuyV2PackageConfirmReqDTO form) {
-        StudyRoomBuyOrderRespDTO dto = packageClient.buyV2PackageConfirm(form).getData();
+        @RequestBody StudyRoomBuyV2PackageConfirmReq form) {
+        StudyRoomBuyOrderResp dto = packageClient.buyV2PackageConfirm(form).getData();
         StudyRoomBuyOrderVO vo = BeanUtil.copyProperties(dto, StudyRoomBuyOrderVO.class);
         return R.ok(vo);
     }
@@ -174,8 +174,8 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:create")
     @PostMapping(value = "/pay-order")
     public R<StudyRoomWxPayParamVO> buyPackagePayOrder(
-        @RequestBody StudyRoomBuyPayOrderReqDTO form) {
-        StudyRoomWxPayParamRespDTO dto = packageClient.buyPackagePayOrder(form).getData();
+        @RequestBody StudyRoomBuyPayOrderReq form) {
+        StudyRoomWxPayParamResp dto = packageClient.buyPackagePayOrder(form).getData();
         StudyRoomWxPayParamVO vo = BeanUtil.copyProperties(dto, StudyRoomWxPayParamVO.class);
         return R.ok(vo);
     }
@@ -188,7 +188,7 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:list")
     @GetMapping(value = "/user/order/list")
     public R<StudyRoomUserOrderListVO> userOrderList() {
-        StudyRoomUserOrderListRespDTO dto = packageClient.userOrderList().getData();
+        StudyRoomUserOrderListResp dto = packageClient.userOrderList().getData();
         StudyRoomUserOrderListVO vo = BeanUtil.copyProperties(dto, StudyRoomUserOrderListVO.class);
         return R.ok(vo);
     }
@@ -201,7 +201,7 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:list")
     @GetMapping(value = "/user/package/list")
     public R<StudyRoomUserPackageListVO> userPackageList() {
-        StudyRoomUserPackageListRespDTO dto = packageClient.userPackageList().getData();
+        StudyRoomUserPackageListResp dto = packageClient.userPackageList().getData();
         StudyRoomUserPackageListVO vo =
             BeanUtil.copyProperties(dto, StudyRoomUserPackageListVO.class);
         return R.ok(vo);
@@ -216,7 +216,7 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:list")
     @PostMapping(value = "/wx/query/status/{payId}")
     public R<StudyRoomWxPayQueryVO> wxPayQueryStatus(@PathVariable(value = "payId") Long payId) {
-        StudyRoomWxPayQueryRespDTO dto = packageClient.wxPayQueryStatus(payId).getData();
+        StudyRoomWxPayQueryResp dto = packageClient.wxPayQueryStatus(payId).getData();
         StudyRoomWxPayQueryVO vo = BeanUtil.copyProperties(dto, StudyRoomWxPayQueryVO.class);
         return R.ok(vo);
     }

@@ -2,9 +2,9 @@ package top.continew.admin.business.study.client.http;
 
 import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomConfigRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomNoticeRespDTO;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomConfigResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomNoticeResp;
 
 /**
  * 配置域：全局配置、公告
@@ -20,7 +20,7 @@ public interface StudyRoomConfigClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/sys/config/data")
-    StudyRoomApiResultDTO<StudyRoomConfigRespDTO> sysConfig();
+    StudyRoomApiResult<StudyRoomConfigResp> sysConfig();
 
     /**
      * 公告栏
@@ -31,7 +31,7 @@ public interface StudyRoomConfigClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/notice/board/info")
-    StudyRoomApiResultDTO<StudyRoomNoticeRespDTO> noticeBoard(
+    StudyRoomApiResult<StudyRoomNoticeResp> noticeBoard(
         @Query(value = "venueId") Integer venueId);
 
 }

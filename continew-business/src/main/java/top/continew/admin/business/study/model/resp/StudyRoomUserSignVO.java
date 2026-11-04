@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * StudyRoomUserSignRespDTO 视图对象
+ * StudyRoomUserSignResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0

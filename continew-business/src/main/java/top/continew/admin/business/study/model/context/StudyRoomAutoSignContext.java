@@ -2,9 +2,9 @@ package top.continew.admin.business.study.model.context;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserPackageRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserReserveRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomVenueRespDTO;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
 
 /**
  * 自动签到执行上下文
@@ -24,15 +24,15 @@ public class StudyRoomAutoSignContext {
     /**
      * 待签到预约
      */
-    private StudyRoomUserReserveRespDTO reserveRespDTO;
+    private StudyRoomUserReserveResp reserveRespDTO;
 
     /**
      * 签到门店
      */
-    private StudyRoomVenueRespDTO venueRespDTO;
+    private StudyRoomVenueResp venueRespDTO;
 
     /**
      * 签到扣费套餐
      */
-    private StudyRoomUserPackageRespDTO userPackageRespDTO;
+    private StudyRoomUserPackageResp userPackageRespDTO;
 }

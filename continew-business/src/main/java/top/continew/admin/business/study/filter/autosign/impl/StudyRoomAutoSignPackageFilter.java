@@ -3,11 +3,11 @@ package top.continew.admin.business.study.filter.autosign.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomSignV2Client;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomIndexRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserPackageRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserReserveRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomVenueRespDTO;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomIndexResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignFilterOrderEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autosign.StudyRoomAutoSignFilter;
@@ -36,10 +36,10 @@ public class StudyRoomAutoSignPackageFilter implements StudyRoomAutoSignFilter {
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoSignContext context) {
-        StudyRoomUserReserveRespDTO reserveRespDTO = context.getReserveRespDTO();
-        StudyRoomVenueRespDTO venueRespDTO = context.getVenueRespDTO();
+        StudyRoomUserReserveResp reserveRespDTO = context.getReserveRespDTO();
+        StudyRoomVenueResp venueRespDTO = context.getVenueRespDTO();
 
-        StudyRoomApiResultDTO<StudyRoomIndexRespDTO> resultDTO =
+        StudyRoomApiResult<StudyRoomIndexResp> resultDTO =
             signV2Client.studyIndex(venueRespDTO.getVenueLng(), venueRespDTO.getVenueLat(),
                 reserveRespDTO.getVenueId(), null, null, context.getUserId());
         if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())
@@ -47,7 +47,7 @@ public class StudyRoomAutoSignPackageFilter implements StudyRoomAutoSignFilter {
             return FilterResultDTO.fail("签到首页返回为空");
         }
 
-        StudyRoomUserPackageRespDTO signInUserPackage = resultDTO.getData().getSignInUserPackage();
+        StudyRoomUserPackageResp signInUserPackage = resultDTO.getData().getSignInUserPackage();
         context.setUserPackageRespDTO(signInUserPackage);
         return FilterResultDTO.success(signInUserPackage);
     }

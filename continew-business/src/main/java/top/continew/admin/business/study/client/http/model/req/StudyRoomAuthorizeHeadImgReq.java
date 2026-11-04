@@ -1,0 +1,23 @@
+package top.continew.admin.business.study.client.http.model.req;
+
+import lombok.Data;
+
+/**
+ * 更新授权头像（/mp/user/authorize/headImg）
+ *
+ * @author Amadeus
+ * @since 4.2.0
+ */
+@Data
+public class StudyRoomAuthorizeHeadImgReq {
+
+    /**
+     * 微信昵称（必填）
+     */
+    private String nickName;
+
+    /**
+     * 微信头像地址（必填）
+     */
+    private String headImg;
+}

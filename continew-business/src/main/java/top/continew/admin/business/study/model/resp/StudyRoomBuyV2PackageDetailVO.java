@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * StudyRoomBuyV2PackageDetailRespDTO 视图对象
+ * StudyRoomBuyV2PackageDetailResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0

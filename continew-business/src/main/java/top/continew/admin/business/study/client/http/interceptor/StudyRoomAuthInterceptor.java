@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.constant.StudyRoomApiConstants;
+import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
 import top.continew.admin.common.context.UserContextHolder;
 
@@ -32,9 +33,9 @@ public class StudyRoomAuthInterceptor implements ForestInterceptor {
             StudyRoomApiConstants.Gateway.APPID);
 
         Long userId = this.resolveUserId(request);
-        String token = settingService.getConfig(userId).getToken();
-        if (StrUtil.isNotEmpty(token)) {
-            request.addHeader(StudyRoomApiConstants.Header.HEADER_TOKEN, token);
+        StudyRoomUserConfigBO config = settingService.getConfig(userId);
+        if (Objects.nonNull(config) && StrUtil.isNotEmpty(config.getToken())) {
+            request.addHeader(StudyRoomApiConstants.Header.HEADER_TOKEN, config.getToken());
         }
         return true;
     }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalTime;
 
 /**
- * StudyRoomSeatValidTimeRespDTO 视图对象
+ * StudyRoomSeatValidTimeResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0

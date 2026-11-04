@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * StudyRoomPackageAreaRespDTO 视图对象
+ * StudyRoomPackageAreaResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0

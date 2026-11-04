@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * StudyRoomRepairRespDTO 视图对象
+ * StudyRoomRepairResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0
