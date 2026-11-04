@@ -1,7 +1,6 @@
 package top.continew.admin.business.study.controller.user;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +13,8 @@ import top.continew.admin.business.study.model.req.StudyRoomUserSettingReq;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
 import top.continew.admin.common.context.UserContextHolder;
 import top.continew.starter.web.model.R;
+
+import jakarta.validation.Valid;
 
 /**
  * 用户设置：小程序 token、放号时刻与自动签到开关

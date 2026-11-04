@@ -65,7 +65,7 @@ public class StudyRoomUserSettingServiceImpl implements StudyRoomUserSettingServ
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateConfig(Long userId, StudyRoomUserSettingReq req) {
-        StudyRoomUserConfigBO BO = BeanUtil.copyProperties(req, StudyRoomUserConfigBO.class);
+        StudyRoomUserConfigBO config = BeanUtil.copyProperties(req, StudyRoomUserConfigBO.class);
 
         LambdaQueryWrapper<StudyRoomUserSettingDO> lqw = Wrappers.lambdaQuery();
         lqw.eq(StudyRoomUserSettingDO::getUserId, userId);
@@ -73,10 +73,10 @@ public class StudyRoomUserSettingServiceImpl implements StudyRoomUserSettingServ
         if (Objects.isNull(existDO)) {
             StudyRoomUserSettingDO studyRoomUserSettingDO = new StudyRoomUserSettingDO();
             studyRoomUserSettingDO.setUserId(userId);
-            studyRoomUserSettingDO.setConfigJson(JsonUtils.toJsonStr(BO));
+            studyRoomUserSettingDO.setConfigJson(JsonUtils.toJsonStr(config));
             settingMapper.insert(studyRoomUserSettingDO);
         } else {
-            existDO.setConfigJson(JsonUtils.toJsonStr(BO));
+            existDO.setConfigJson(JsonUtils.toJsonStr(config));
             settingMapper.updateById(existDO);
         }
     }

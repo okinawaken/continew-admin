@@ -32,8 +32,8 @@ public class StudyRoomAutoSignScheduler {
      */
     @Scheduled(cron = "0 0/10 * * * ?")
     public void scan() {
-        List<StudyRoomUserConfigViewBO> configViewBOList = settingService.listAllConfigs();
-        for (StudyRoomUserConfigViewBO configViewBO : configViewBOList) {
+        List<StudyRoomUserConfigViewBO> configViewBoList = settingService.listAllConfigs();
+        for (StudyRoomUserConfigViewBO configViewBO : configViewBoList) {
             StudyRoomUserConfigBO config = configViewBO.getConfig();
             if (StudyRoomAutoSignInEnableEnum.isEnabled(config.getSignInEnable())) {
                 eventPublisher.publishEvent(
