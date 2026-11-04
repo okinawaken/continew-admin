@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * 在线用户以 Refresh Session 为事实源测试
  *
- * @author luoqiz
+ * @author bixiu
  * @since 4.2.0
  */
 class OnlineUserServiceImplTest {

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 用户 Mapper
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 public interface UserMapper extends DataPermissionMapper<UserDO> {

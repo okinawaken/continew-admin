@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 请假记录
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

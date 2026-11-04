@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 门店简要信息（/mp/reserve/venue/select、/mp/venue/select、签到记录里的 venue）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

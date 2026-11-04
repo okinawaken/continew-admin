@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 签退结算套餐（/mp/study/settlePackage/select）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

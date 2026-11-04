@@ -59,7 +59,7 @@ dev 环境的必需变量都有默认值，不注入也能启动。prod 环境�
 
 ### 通用配置块速查
 
-以下配置块定义在 `application.yml`，两个环境共用。配置项本身的语义属于 ContiNew Starter，完整定义见 [ContiNew Starter 文档](/docs/starter)；这里列的是 admin 填的值。
+以下配置块定义在 `application.yml`，两个环境共用。配置项本身的语义属于 ContiNew Starter，完整定义见 ContiNew Starter 文档；这里列的是 admin 填的值。
 
 | 配置块 | 关键值 |
 |:-------|:-------|
@@ -84,7 +84,7 @@ Sa-Token 的 `timeout`、`active-timeout` 等参数不在 YAML 里维护，改�
 | 配置 | dev | prod |
 |:-----|:----|:-----|
 | `server.port` | `8000` | `18000` |
-| `application.url` | `http://localhost:5173` | `https://admin.continew.top` |
+| `application.url` | `http://localhost:5173` | `https://admin.example.com` |
 | 数据源驱动 | `com.p6spy.engine.spy.P6SpyDriver`（SQL 日志） | `com.mysql.cj.jdbc.Driver` |
 | `continew-starter.web.cors.allowed-origins` | `*` | 仅 `${application.url}` |
 | `continew-starter.log.access-log.enabled` | `true` | `false` |
@@ -106,8 +106,8 @@ Sa-Token 的 `timeout`、`active-timeout` 等参数不在 YAML 里维护，改�
 | 变量 | 作用 | development | production |
 |:-----|:-----|:------------|:-----------|
 | `VITE_API_PREFIX` | 接口前缀，dev 下由 Vite 代理转发 | `/dev-api` | 不设置 |
-| `VITE_API_BASE_URL` | 后端接口地址 | `http://localhost:8000` | `https://api.continew.top` |
-| `VITE_API_WS_URL` | WebSocket 地址。`.env.test` 未预置，test 模式需自行补上，否则登录后消息通知不可用 | `ws://localhost:8000` | `wss://api.continew.top` |
+| `VITE_API_BASE_URL` | 后端接口地址 | `http://localhost:8000` | `https://api.example.com` |
+| `VITE_API_WS_URL` | WebSocket 地址。`.env.test` 未预置，test 模式需自行补上，否则登录后消息通知不可用 | `ws://localhost:8000` | `wss://api.example.com` |
 | `VITE_BASE` | 部署基础路径 | `/` | `/` |
 | `VITE_CLIENT_ID` | 登录时上报的客户端 ID，对应后端「客户端配置」 | `ef51c9a3e9046c4f2ea45142c8a8344a` | 同左 |
 | `VITE_APP_SETTING` | 控制配置抽屉内的外观区块，不隐藏齿轮入口 | `true` | `true` |
@@ -124,9 +124,9 @@ Sa-Token 的 `timeout`、`active-timeout` 等参数不在 YAML 里维护，改�
 
 ## 相关源码
 
-- [application.yml](https://github.com/continew-org/continew-admin/blob/dev/continew-server/src/main/resources/config/application.yml)
-- [application-dev.yml](https://github.com/continew-org/continew-admin/blob/dev/continew-server/src/main/resources/config/application-dev.yml)
-- [application-prod.yml](https://github.com/continew-org/continew-admin/blob/dev/continew-server/src/main/resources/config/application-prod.yml)
-- [continew-admin-ui/.env.development](https://github.com/continew-org/continew-admin-ui/blob/dev/.env.development)
-- [continew-admin-ui/.env.production](https://github.com/continew-org/continew-admin-ui/blob/dev/.env.production)
-- [continew-admin-ui/vite.config.ts](https://github.com/continew-org/continew-admin-ui/blob/dev/vite.config.ts)
+- [application.yml](https://github.com/okinawaken/continew-admin/blob/main/continew-server/src/main/resources/config/application.yml)
+- [application-dev.yml](https://github.com/okinawaken/continew-admin/blob/main/continew-server/src/main/resources/config/application-dev.yml)
+- [application-prod.yml](https://github.com/okinawaken/continew-admin/blob/main/continew-server/src/main/resources/config/application-prod.yml)
+- [continew-admin-ui/.env.development](https://github.com/okinawaken/continew-admin-ui/blob/main/.env.development)
+- [continew-admin-ui/.env.production](https://github.com/okinawaken/continew-admin-ui/blob/main/.env.production)
+- [continew-admin-ui/vite.config.ts](https://github.com/okinawaken/continew-admin-ui/blob/main/vite.config.ts)

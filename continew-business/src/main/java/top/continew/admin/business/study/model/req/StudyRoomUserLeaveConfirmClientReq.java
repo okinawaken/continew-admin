@@ -8,7 +8,7 @@ import lombok.Data;
  * 字段与小程序源码保持一致：{@code leaveStartTimeStr}/{@code leaveEndTimeStr}/{@code leaveReason}。
  * 日期格式为 {@code yyyy-M-d}（月、日不补零）。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

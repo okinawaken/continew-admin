@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * <p>
  * 在过滤器链中传递任务、目标日期、座位与终态信息。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

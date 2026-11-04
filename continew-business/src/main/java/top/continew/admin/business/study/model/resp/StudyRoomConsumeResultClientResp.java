@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 团购券核销结果（/mp/receipt/consume、/mp/douYin/certificate/prepareAndVerify）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

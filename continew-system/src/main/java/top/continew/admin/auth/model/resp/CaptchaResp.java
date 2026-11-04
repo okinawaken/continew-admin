@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 验证码响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Data

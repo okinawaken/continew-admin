@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 单轮执行明细，对应 {@code study_room_auto_reserve_task_record.detail_json}
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

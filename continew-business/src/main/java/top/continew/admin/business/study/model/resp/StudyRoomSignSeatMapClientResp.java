@@ -8,7 +8,7 @@ import lombok.Data;
  * <p>
  * 与 {@link StudyRoomSeatMapClientResp} 结构一致，额外带上门店与当前签到信息。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

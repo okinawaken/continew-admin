@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 /**
  * 自习室门禁域接口：门禁区域列表、开门
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Validated

@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 /**
  * 字段配置实体
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 @Data

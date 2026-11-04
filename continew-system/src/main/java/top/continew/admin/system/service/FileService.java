@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * 文件业务接口
  *
- * @author Charles7c
+ * @author bixiu
  * @since 2.2.0
  */
 public interface FileService

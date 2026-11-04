@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 签退结算明细（settlement / userPackage/confirm 的 settleData）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

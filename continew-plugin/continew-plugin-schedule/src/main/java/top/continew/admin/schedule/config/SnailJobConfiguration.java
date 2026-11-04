@@ -14,7 +14,7 @@ import top.continew.admin.schedule.annotation.ConditionalOnEnabledScheduleJob;
 /**
  * Snail Job 配置
  *
- * @author KAI
+ * @author bixiu
  * @since 3.2.0
  */
 @Configuration

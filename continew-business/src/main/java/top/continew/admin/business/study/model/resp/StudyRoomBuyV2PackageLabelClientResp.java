@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 套餐标签 / 座位区域筛选项（/mp/buy/v2/package/label/selectList）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

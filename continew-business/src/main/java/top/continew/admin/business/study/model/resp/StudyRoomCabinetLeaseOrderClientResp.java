@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * 储物柜租赁订单
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

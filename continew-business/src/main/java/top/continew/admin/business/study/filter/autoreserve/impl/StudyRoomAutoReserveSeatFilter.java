@@ -26,7 +26,7 @@ import java.util.Objects;
  * <p>
  * 选座优先级：指定座位 → 偏好区域首个可约座位 → 全场首个可约座位 → 失败。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

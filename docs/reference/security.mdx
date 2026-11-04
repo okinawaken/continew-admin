@@ -7,29 +7,26 @@ description: ContiNew Admin 已公开披露的安全漏洞通告：编号、影�
 
 ## 报告漏洞
 
-发现安全漏洞时，**不要在任何代码托管平台通过公开 Issue、Pull Request 或讨论区披露**。请通过 [GitHub 私有漏洞报告](https://github.com/continew-org/continew-admin/security/advisories/new) 提交（无论你在哪个平台发现问题，都请统一走这个渠道）。通告发布前只有维护者与报告者可见。
-
-完整的安全策略（支持版本范围、响应时间线、报告范围）见项目 [SECURITY.md](https://github.com/continew-org/continew-admin/blob/dev/SECURITY.md)。
+发现安全漏洞时，**不要在任何代码托管平台通过公开 Issue、Pull Request 或讨论区披露**。请通过 [GitHub 私有漏洞报告](https://github.com/okinawaken/continew-admin/security/advisories/new) 提交（无论你在哪个平台发现问题，都请统一走这个渠道）。通告发布前只有维护者与报告者可见。
 
 ## GHSA-g8qc-r85v-gqpp · CRUD 排序参数 ORDER BY SQL 注入
 
 | 项目 | 说明 |
 |:-----|:-----|
-| 编号 | [GHSA-g8qc-r85v-gqpp](https://github.com/continew-org/continew-admin/security/advisories/GHSA-g8qc-r85v-gqpp)（GitHub 未分配 CVE 编号） |
+| 编号 | GHSA-g8qc-r85v-gqpp（GitHub 未分配 CVE 编号） |
 | 类型 | SQL 注入（CWE-89）：排序字段被拼接进 `ORDER BY`，原有的关键字黑名单与实体字段校验可被同时绕过，认证用户可通过布尔盲注读取接口未返回的数据列（如密码散列） |
 | 严重性 | Medium（CVSS 3.1：6.5） |
 | 影响范围 | ContiNew Starter ≤ 2.16.0（根因组件）；ContiNew Admin ≤ 4.1.0（各发布版本内置的 Starter 均低于 2.16.1，如 4.1.0 内置 2.14.0） |
 | 前置条件 | 需要有效登录凭证 |
-| 修复版本 | ContiNew Starter [2.16.1](https://github.com/continew-org/continew-starter/releases/tag/v2.16.1)（已发布，根因修复）；ContiNew Admin v4.2.0（内置依赖随版升至 2.16.1） |
+| 修复版本 | ContiNew Starter 2.16.1（已发布，根因修复）；ContiNew Admin v4.2.0（内置依赖随版升至 2.16.1） |
 | 披露时间 | 2026-09-29 |
-| 报告者 | [tonghuaroot](https://github.com/tonghuaroot) |
 
-Admin 以源码形式分发，版本号仅作参考。是否受影响以项目中**实际生效的 ContiNew Starter 依赖版本**为准（`mvn dependency:tree -Dincludes=top.continew.starter` 可查），≥ 2.16.1 即已修复；直接跟进 dev 分支最新源码的用户已包含此修复。
+Admin 以源码形式分发，版本号仅作参考。是否受影响以项目中**实际生效的 ContiNew Starter 依赖版本**为准（`mvn dependency:tree -Dincludes=top.continew.starter` 可查），≥ 2.16.1 即已修复；直接跟进 main 分支最新源码的用户已包含此修复。
 
 **升级建议**
 
 1. 使用 ContiNew Admin 的项目：升级到内置 Starter ≥ 2.16.1 的版本；自行管理 Starter 依赖的项目不受 Admin 发版节奏限制，可先将 Starter 升至 2.16.1+。
-2. 基于 ContiNew Starter 二次开发的项目：将 Starter 升至 [2.16.1](https://central.sonatype.com/artifact/top.continew.starter/continew-starter) 或更高。
+2. 基于 ContiNew Starter 二次开发的项目：将 Starter 升至 2.16.1 或更高。
 3. 暂时无法升级：按下文临时缓解方案处置。
 4. 该漏洞可被用于读取接口未返回的字段（如密码散列），建议升级后排查历史异常访问日志，并视情况轮换管理员密码等敏感凭证。
 
@@ -125,13 +122,12 @@ public class SortSecurityFilterConfiguration {
 
 | 项目 | 说明 |
 |:-----|:-----|
-| 编号 | [GHSA-j7qm-qprw-c53w](https://github.com/continew-org/continew-admin/security/advisories/GHSA-j7qm-qprw-c53w) |
+| 编号 | GHSA-j7qm-qprw-c53w |
 | 类型 | 权限校验缺失 + 文件类型白名单绕过（CWE-434）：`/system/multipart-upload/` 四个分片上传端点缺少权限注解，且未做扩展名白名单校验，低权限登录用户可上传任意类型文件 |
 | 严重性 | High（CVSS 3.1：8.5） |
 | 影响范围 | ContiNew Admin **仅 4.1.0**（分片上传在 4.1.0 引入，更早版本无此功能） |
 | 修复版本 | ContiNew Admin v4.2.0（修复已合入） |
 | 披露时间 | 2026-09-29 |
-| 报告者 | [geo-chen](https://github.com/geo-chen) |
 
 **临时缓解方案**（升级前任选其一）
 
@@ -142,13 +138,12 @@ public class SortSecurityFilterConfiguration {
 
 | 项目 | 说明 |
 |:-----|:-----|
-| 编号 | [GHSA-fpcv-53f8-hj7p](https://github.com/continew-org/continew-admin/security/advisories/GHSA-fpcv-53f8-hj7p) |
+| 编号 | GHSA-fpcv-53f8-hj7p |
 | 类型 | 水平越权（CWE-639）：删除消息时未校验归属，任何登录用户可凭他人消息 ID 删除其通知/公告，并连带清除所有用户的已读回执 |
 | 严重性 | Medium（CVSS 3.1：6.5） |
 | 影响范围 | ContiNew Admin 4.0.0、4.1.0（个人消息功能在 4.0.0 引入） |
 | 修复版本 | ContiNew Admin v4.2.0（修复已合入：删除时按当前登录用户 ID 过滤） |
 | 披露时间 | 2026-09-29 |
-| 报告者 | [geo-chen](https://github.com/geo-chen) |
 
 **临时缓解方案**
 
@@ -175,11 +170,11 @@ public class SortSecurityFilterConfiguration {
 | 类型 | SQL 注入（CWE-89）：列表、树型接口的 `sort` 排序参数存在 SQL 注入 |
 | 严重性 | Medium（CVSS 3.1：6.5 上下） |
 | 影响范围 | ContiNew Admin ≤ 3.2.0（根因组件 ContiNew Starter ≤ 2.5.1） |
-| 修复版本 | 根因修复随 ContiNew Starter [2.5.2](https://github.com/continew-org/continew-starter/releases/tag/v2.5.2) 发布；ContiNew Admin [v3.3.0](https://github.com/continew-org/continew-admin/releases/tag/v3.3.0) 随依赖升级完成修复 |
+| 修复版本 | 根因修复随 ContiNew Starter 2.5.2 发布；ContiNew Admin [v3.3.0](https://github.com/okinawaken/continew-admin/releases/tag/v3.3.0) 随依赖升级完成修复 |
 | 披露时间 | 2024-08-24 / 2024-08-26 |
 
 ## 跟进渠道
 
 - 关注 GitHub 仓库的 Release（Watch → Custom → Releases）
-- 定期查看本页与[更新日志（CHANGELOG.md）](https://github.com/continew-org/continew-admin/blob/dev/CHANGELOG.md)
-- ContiNew Starter 的通告见 [Starter 安全通告](/docs/starter/reference/security)
+- 定期查看本页
+- ContiNew Starter 的安全通告以其官方渠道为准

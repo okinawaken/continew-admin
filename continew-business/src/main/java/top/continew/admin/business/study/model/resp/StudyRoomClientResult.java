@@ -13,7 +13,7 @@ import lombok.Data;
  * {"code":"SV00000","content":"您还未签到入座!","data":null,"subData":null}
  * </pre>
  *
- * @author Amadeus
+ * @author bixiu
  * @param <T> 业务数据类型
  * @since 4.2.0
  */

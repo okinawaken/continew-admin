@@ -12,7 +12,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomRepairListClientRes
 /**
  * 报修域：提交报修、报修记录
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomRepairClient extends StudyRoomBaseClient {

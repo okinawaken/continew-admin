@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * 用户邮箱修改请求参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Data

@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 代码生成器配置属性
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 @Data

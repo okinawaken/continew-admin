@@ -28,8 +28,8 @@ import jakarta.servlet.http.HttpServletRequest;
 /**
  * 全局异常处理器
  *
- * @author Charles7c
- * @author echo
+ * @author bixiu
+ * @author bixiu
  * @since 3.3.0
  */
 @Slf4j

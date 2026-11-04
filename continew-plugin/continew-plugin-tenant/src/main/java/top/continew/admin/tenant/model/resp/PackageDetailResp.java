@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * 套餐详情响应参数
  *
- * @author 小熊
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.1
  */
 @Data

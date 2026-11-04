@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 认证业务接口
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 public interface AuthService {

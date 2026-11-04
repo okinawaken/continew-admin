@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 /**
  * 自习室小程序（时不我待自习馆）接口常量
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

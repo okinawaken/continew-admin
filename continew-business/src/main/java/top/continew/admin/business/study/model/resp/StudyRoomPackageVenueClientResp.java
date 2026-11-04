@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 套餐可用门店
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

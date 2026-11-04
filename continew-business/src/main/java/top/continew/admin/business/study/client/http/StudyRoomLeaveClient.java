@@ -12,7 +12,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomUserLeaveEnterClien
 /**
  * 请假域：套餐请假
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomLeaveClient extends StudyRoomBaseClient {

@@ -8,7 +8,7 @@ import top.continew.admin.business.study.constant.StudyRoomApiConstants;
 /**
  * 自习室小程序接口的公共请求配置
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @BaseRequest(baseURL = StudyRoomApiConstants.Gateway.BASE_URL, contentType = "application/json",

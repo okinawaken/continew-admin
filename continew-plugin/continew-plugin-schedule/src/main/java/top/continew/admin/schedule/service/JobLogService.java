@@ -7,8 +7,8 @@ import top.continew.starter.extension.crud.model.resp.PageResp;
 /**
  * 任务日志业务接口
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.2.0
  */
 public interface JobLogService {

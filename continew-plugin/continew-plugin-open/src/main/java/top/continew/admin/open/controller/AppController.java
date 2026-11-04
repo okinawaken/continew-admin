@@ -23,8 +23,8 @@ import top.continew.starter.extension.crud.enums.Api;
 /**
  * 应用管理 API
  *
- * @author chengzi
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.0
  */
 @Tag(name = "应用管理 API")

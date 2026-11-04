@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 /**
  * 用户社会化关联实体
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.3.0
  */
 @Data

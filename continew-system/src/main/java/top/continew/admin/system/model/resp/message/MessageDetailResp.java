@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 消息详情响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.7.0
  */
 @Data

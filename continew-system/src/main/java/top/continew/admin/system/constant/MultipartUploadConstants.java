@@ -3,7 +3,7 @@ package top.continew.admin.system.constant;
 /**
  * 分片上传常量
  *
- * @author KAI
+ * @author bixiu
  * @since 4.1.0
  */
 public class MultipartUploadConstants {

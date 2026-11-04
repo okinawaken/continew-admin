@@ -32,7 +32,7 @@ import java.util.Objects;
 /**
  * 在线用户 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Tag(name = "在线用户 API")

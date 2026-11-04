@@ -37,7 +37,7 @@ import java.util.Objects;
 /**
  * 自动预约任务服务实现
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Service

@@ -13,7 +13,7 @@ import java.time.LocalTime;
  * <p>
  * 微信小程序 token 也保存在这里，与放号时刻、自动签到开关共用同一条用户配置记录。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 任务实例日志分页响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.2.0
  */
 @Data

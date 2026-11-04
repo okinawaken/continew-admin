@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 分片上传结果
  *
- * @author KAI
+ * @author bixiu
  * @since 4.1.0
  */
 @Data

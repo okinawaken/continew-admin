@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 /**
  * 座位灯控（/mp/espLight/turn）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

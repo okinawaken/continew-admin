@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 文件资源统计响应参数
  *
- * @author Kils
+ * @author bixiu
  * @since 3.0.1
  */
 @Data

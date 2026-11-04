@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 /**
  * 字典字段注解
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.6.0
  */
 @Target(ElementType.FIELD)

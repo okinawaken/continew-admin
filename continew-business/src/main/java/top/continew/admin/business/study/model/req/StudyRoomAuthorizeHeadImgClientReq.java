@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 更新授权头像（/mp/user/authorize/headImg）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

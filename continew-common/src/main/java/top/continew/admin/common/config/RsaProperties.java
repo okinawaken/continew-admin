@@ -5,8 +5,8 @@ import cn.hutool.extra.spring.SpringUtil;
 /**
  * RSA 配置属性
  *
- * @author Zheng Jie（ELADMIN）
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 1.0.0
  */
 public class RsaProperties {

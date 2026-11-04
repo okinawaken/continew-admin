@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * 验证码配置属性
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Data

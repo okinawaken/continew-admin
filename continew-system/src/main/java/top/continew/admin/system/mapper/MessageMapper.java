@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 消息 Mapper
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.3.0
  */
 public interface MessageMapper extends BaseMapper<MessageDO> {

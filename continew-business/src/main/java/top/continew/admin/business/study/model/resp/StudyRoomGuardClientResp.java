@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 门禁区域（/mp/guard/select 返回的 guardList 元素）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -39,7 +39,7 @@ import top.continew.starter.extension.tenant.context.TenantContextHolder;
  * 短路后再次读取上下文：若已清除则重新走 {@link StpUtil#getSession()}（调用 2 次），
  * 未清除则命中线程本地（仅 1 次）。</p>
  *
- * @author luoqiz
+ * @author bixiu
  * @since 4.2.0
  */
 class SaExtensionInterceptorTest {

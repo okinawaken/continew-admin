@@ -14,7 +14,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomVenueSelectClientRe
 /**
  * 门店域（显式用户上下文）：门店列表、门店详情、区域
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomVenueV2Client extends StudyRoomBaseClient {

@@ -20,7 +20,7 @@ import top.continew.starter.extension.tenant.context.TenantContext;
  * 默认租户提供者测试：验证刷新/退出时请求入口忽略残留租户头，而业务代码显式切换的
  * 会话租户不被覆盖。
  *
- * @author luoqiz
+ * @author bixiu
  * @since 4.2.0
  */
 class DefaultTenantProviderTest {

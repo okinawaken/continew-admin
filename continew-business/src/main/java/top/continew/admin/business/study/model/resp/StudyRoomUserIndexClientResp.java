@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 小程序首页用户信息（/mp/user/index）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

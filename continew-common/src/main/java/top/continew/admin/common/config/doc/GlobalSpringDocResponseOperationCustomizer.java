@@ -30,7 +30,7 @@ import java.util.Arrays;
  * 自定义 OpenAPI 文档中的响应结构，将原始返回类型包装为统一的响应格式
  * </p>
  *
- * @author echo
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 公告实体
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 @Data

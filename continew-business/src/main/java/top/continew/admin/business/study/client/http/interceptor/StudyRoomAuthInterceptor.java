@@ -17,7 +17,7 @@ import java.util.Objects;
 /**
  * 小程序鉴权拦截器
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

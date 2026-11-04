@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * 租户扩展配置属性
  *
- * @author 小熊
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 4.0.0
  */
 @Data

@@ -26,7 +26,7 @@ import jakarta.validation.Valid;
 /**
  * 系统日志 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Tag(name = "系统日志 API")

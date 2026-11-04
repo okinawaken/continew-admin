@@ -31,7 +31,7 @@ import top.continew.starter.web.model.R;
 /**
  * 自习室其他域接口：储物柜、团购券核销
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Validated

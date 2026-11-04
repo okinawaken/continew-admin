@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 通用「ID + 名称」选项
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

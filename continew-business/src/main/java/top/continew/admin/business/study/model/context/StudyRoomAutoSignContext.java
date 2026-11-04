@@ -9,7 +9,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
 /**
  * 自动签到执行上下文
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

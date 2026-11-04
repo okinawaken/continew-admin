@@ -9,7 +9,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomNoticeClientResp;
 /**
  * 配置域：全局配置、公告
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomConfigClient extends StudyRoomBaseClient {

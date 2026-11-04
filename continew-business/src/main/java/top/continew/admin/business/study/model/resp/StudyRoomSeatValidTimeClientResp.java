@@ -9,7 +9,7 @@ import java.time.LocalTime;
 /**
  * 座位可预约时段（StudyRoomSeatClientResp.validTimeStrList 元素）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

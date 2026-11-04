@@ -10,7 +10,7 @@ import jakarta.validation.Valid;
 /**
  * 文件回收站业务接口
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.1.0
  */
 public interface FileRecycleService {

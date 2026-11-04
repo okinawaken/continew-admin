@@ -3,7 +3,7 @@ title: 前端开发
 description: ContiNew Admin 前端工程的技术栈、环境变量与开发入口导航。
 ---
 
-ContiNew Admin 前端是独立仓库 [continew-admin-ui](https://github.com/continew-org/continew-admin-ui)，基于 Vue 3 + Arco Design 的单页应用，与后端通过 REST 接口交互。本分组按主题讲解前端工程的封装机制，帮助你在既有约定下开发新页面。
+ContiNew Admin 前端是独立仓库 [continew-admin-ui](https://github.com/okinawaken/continew-admin-ui)，基于 Vue 3 + Arco Design 的单页应用，与后端通过 REST 接口交互。本分组按主题讲解前端工程的封装机制，帮助你在既有约定下开发新页面。
 
 ## 技术栈
 
@@ -58,8 +58,8 @@ pnpm preview        # 预览构建产物（5050 端口）
 | 变量 | 开发环境 | 生产环境 | 说明 |
 |:-----|:-----|:-----|:-----|
 | `VITE_API_PREFIX` | `/dev-api` | 不设置 | 接口前缀，仅开发环境用于 Vite 代理 |
-| `VITE_API_BASE_URL` | `http://localhost:8000` | `https://api.continew.top` | 后端接口地址 |
-| `VITE_API_WS_URL` | `ws://localhost:8000` | `wss://api.continew.top` | WebSocket 地址。注意 `.env.test` 未预置此变量，`pnpm build:test` 的产物登录后会因连不上 WebSocket 而收不到消息通知，使用 test 模式时需自行补上 |
+| `VITE_API_BASE_URL` | `http://localhost:8000` | `https://api.example.com` | 后端接口地址 |
+| `VITE_API_WS_URL` | `ws://localhost:8000` | `wss://api.example.com` | WebSocket 地址。注意 `.env.test` 未预置此变量，`pnpm build:test` 的产物登录后会因连不上 WebSocket 而收不到消息通知，使用 test 模式时需自行补上 |
 | `VITE_BASE` | `/` | `/` | 应用部署基础路径（`.env.test` 中为 `/test`） |
 | `VITE_CLIENT_ID` | `ef51c9a3e9046c4f2ea45142c8a8344a` | 同左 | 客户端 ID，登录请求体携带，对应后端 `sys_client` 表配置 |
 | `VITE_APP_SETTING` | `true` | `true` | 控制配置抽屉内的外观区块（主题色、色弱模式等），不隐藏右上角齿轮入口，详见[布局与主题](/docs/admin/development/frontend/layout) |

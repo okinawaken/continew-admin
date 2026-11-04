@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 报修单（/mp/userRepair/list、/mp/userRepair/detail/{id}）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 字典项 Mapper
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.2.0
  */
 public interface DictItemMapper extends BaseMapper<DictItemDO> {

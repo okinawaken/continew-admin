@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 储物柜下单结果（/mp/cabinetGrip/v2/lease/commit）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

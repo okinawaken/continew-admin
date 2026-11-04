@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 代码生成业务接口
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 public interface GeneratorService {

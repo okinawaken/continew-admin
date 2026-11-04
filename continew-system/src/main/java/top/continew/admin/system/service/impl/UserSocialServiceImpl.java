@@ -20,7 +20,7 @@ import java.util.Set;
 /**
  * 用户社会化关联业务实现
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.3.0
  */
 @Service

@@ -20,7 +20,7 @@ import java.util.Objects;
 /**
  * 待签到预约查询过滤器
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

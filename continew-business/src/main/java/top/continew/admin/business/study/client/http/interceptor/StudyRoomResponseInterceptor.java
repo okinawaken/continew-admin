@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * 自习室响应拦截器
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

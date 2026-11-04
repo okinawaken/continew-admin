@@ -13,8 +13,8 @@ import java.io.Serializable;
 /**
  * 短信配置创建或修改请求参数
  *
- * @author luoqiz
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.6.0
  */
 @Data

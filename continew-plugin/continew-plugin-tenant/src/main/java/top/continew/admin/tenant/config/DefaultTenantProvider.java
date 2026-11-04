@@ -14,8 +14,8 @@ import jakarta.servlet.http.HttpServletRequest;
 /**
  * 默认租户提供者
  *
- * @author 小熊
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.5.0
  */
 @RequiredArgsConstructor

@@ -15,7 +15,7 @@ import top.continew.starter.extension.crud.model.resp.PageResp;
 /**
  * 自动预约执行记录
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Validated

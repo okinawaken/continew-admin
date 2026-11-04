@@ -12,8 +12,8 @@ import java.io.Serializable;
 /**
  * 短信日志查询条件
  *
- * @author luoqiz
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.6.0
  */
 @Data

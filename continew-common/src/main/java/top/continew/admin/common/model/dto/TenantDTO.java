@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 租户信息
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.0.0
  */
 @Data

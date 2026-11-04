@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * 消息业务接口
  *
- * @author Bull-BCLS
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 1.3.0
  */
 public interface MessageService {

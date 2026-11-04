@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * 第三方账号平台枚举
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.3.0
  */
 @Getter

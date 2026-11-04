@@ -17,8 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * 邮箱登录处理器
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.5.0
  */
 @Component

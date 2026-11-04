@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * 存储创建或修改请求参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 2.2.0
  */
 @Data
@@ -94,7 +94,7 @@ public class StorageReq implements Serializable {
     /**
      * 域名/访问路径
      */
-    @Schema(description = "域名/访问路径", example = "https://continew-admin.file.continew.top/")
+    @Schema(description = "域名/访问路径", example = "https://file.example.com/")
     @Length(max = 255, message = "域名长度不能超过 {max} 个字符", groups = ValidationGroup.Storage.OSS.class)
     @Length(max = 255, message = "访问路径长度不能超过 {max} 个字符",
         groups = ValidationGroup.Storage.Local.class)

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Forest 客户端扫描配置
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Configuration

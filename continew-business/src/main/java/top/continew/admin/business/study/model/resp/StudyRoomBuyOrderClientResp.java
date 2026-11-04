@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * 购买套餐生成的待支付订单（/mp/buy/package/confirm、/mp/buy/v2/package/confirm）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

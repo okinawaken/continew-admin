@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * 预约状态（reserve/check 返回的 reserveState）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Getter

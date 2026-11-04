@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * 签退结算结果（/mp/study/signOut）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -14,7 +14,7 @@ ContiNew Admin（Continue New Admin），页面现代美观，且专注设计与
 
 我们的愿景在于，当你将 ContiNew 系列项目应用到工作场景时，不仅仅是得到效率的提高，更可以得到舒适的开发体验，让更多开发者的编程工作多一点“甜”。
 
-工程形态上，后端为 Maven 多模块工程（依赖自上而下为 `continew-server` → `continew-system` → `continew-common`），基于 Spring Boot 3（Java 17），启动类为 `top.continew.admin.ContiNewAdminApplication`，dev 环境端口 8000；前端为独立仓库 [continew-admin-ui](https://github.com/continew-org/continew-admin-ui)，基于 Vue 3、Arco Design、TypeScript 与 Vite。框架的通用基础能力（CRUD 套件、认证、租户、数据权限、缓存、日志等）抽离在 [ContiNew Starter](/docs/starter) 中，以 BOM 方式引入（2.17.0），Admin 在其上做业务实现与工程级扩展。
+工程形态上，后端为 Maven 多模块工程（依赖自上而下为 `continew-server` → `continew-system` → `continew-common`），基于 Spring Boot 3（Java 17），启动类为 `top.continew.admin.ContiNewAdminApplication`，dev 环境端口 8000；前端为独立仓库 [continew-admin-ui](https://github.com/okinawaken/continew-admin-ui)，基于 Vue 3、Arco Design、TypeScript 与 Vite。框架的通用基础能力（CRUD 套件、认证、租户、数据权限、缓存、日志等）抽离在 ContiNew Starter 中，以 BOM 方式引入（2.17.0），Admin 在其上做业务实现与工程级扩展。
 
 ## 项目起源
 
@@ -103,15 +103,10 @@ ContiNew Admin（Continue New Admin），页面现代美观，且专注设计与
     description="搭建开发环境，完成前后端首次启动。"
     href="/docs/admin"
   />
-  <Card
-    title="在线演示"
-    description="账号 admin / admin123，直接体验全部内置功能。"
-    href="https://admin.continew.top"
-  />
 </Cards>
 
 ## 相关源码
 
-- 后端仓库：[continew-org/continew-admin](https://github.com/continew-org/continew-admin/tree/dev)
-- 前端仓库：[continew-org/continew-admin-ui](https://github.com/continew-org/continew-admin-ui/tree/dev)
-- 基础能力：[continew-org/continew-starter](https://github.com/continew-org/continew-starter/tree/dev)
+- 后端仓库：[okinawaken/continew-admin](https://github.com/okinawaken/continew-admin/tree/main)
+- 前端仓库：[okinawaken/continew-admin-ui](https://github.com/okinawaken/continew-admin-ui/tree/main)
+- 基础能力：ContiNew Starter

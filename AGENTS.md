@@ -162,25 +162,25 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 
 ## 文档（docs/）
 
-本仓库 `docs/` 目录是 ContiNew Admin（含前端 continew-admin-ui）官方文档的**唯一权威源**，经 [continew.top](https://github.com/continew-org/continew.top) 官网仓库在构建时汇聚渲染为 `/docs/admin/*`。AI 智能体被指派编写或更新本文档时，**在此目录工作**。以下为关键约定；完整写作规范以 continew.top 仓库 `.agents/skills/ocn-doc-writing/SKILL.md` 为**事实源全本**。
+本仓库 `docs/` 目录是 ContiNew Admin（含前端 continew-admin-ui）文档的**唯一权威源**。AI 智能体被指派编写或更新本文档时，**在此目录工作**。以下为关键约定。
 
 ### 目录与结构
 
 - **「介绍」分组置顶（固定风格，与 starter 一致）**：`index.mdx`（快速开始，icon Rocket）+ `introduction.mdx`（什么是 ContiNew Admin，icon CircleQuestionMark）+ `configuration.mdx`（配置说明，icon Settings），三页带 icon，构成学习路径前三步。
-- **双视角叙事路径**：`manual/`（功能手册，面向**使用者**讲「怎么用」）+ `development/`（开发指南，面向**二开者**讲「怎么扩展」，含项目结构 structure）+ `reference/`（环境变量/部署/常见问题/更新日志）。
+- **双视角叙事路径**：`manual/`（功能手册，面向**使用者**讲「怎么用」）+ `development/`（开发指南，面向**二开者**讲「怎么扩展」，含项目结构 structure）+ `reference/`（环境变量/安全/开发计划/常见问题）。
 - **功能手册与开发指南分家**：同一能力（如数据权限、多租户）分两篇——`manual/` 讲页面操作与配置，`development/` 讲源码扩展点，互不重复。
 - **Root Folder**：`docs/meta.json` 标 `root: true`，构成官网侧边栏顶部的项目切换器；每个目录含 `meta.json` 声明页面顺序。
 
 ### frontmatter 与命名
 
 - 每个 `.mdx` 顶部含 `title` 与 `description`（一句话说明本页解决什么问题）；`title` 用**纯中文**，技术术语保留英文原文。
-- 链接策略：**跨模块/跨分区引用用绝对路径** `/docs/admin/...` 或 `/docs/starter/...`；**同目录内引用用相对链接**（GitHub 裸看也能跳转）。
+- 链接策略：**跨模块/跨分区引用用绝对路径** `/docs/admin/...`；**同目录内引用用相对链接**（GitHub 裸看也能跳转）。
 
 ### 内容与准确性
 
 - **事实源优先级**：admin 源码（类名/默认值/枚举/表结构/报错串）> continew-starter 源码 > 上游官方文档。类名、配置键、默认值、URL 前缀、权限码必须以源码为准；示例场景去业务化（不贴演示站业务数据）。
-- **配置项归 starter，配置值归 admin**：框架级配置项（`continew-starter.*`）的定义链接到 [starter 文档](https://continew.top/docs/starter)；admin 文档只写 admin 给这些键填的具体值与环境变量注入方式。
-- 版本号给**具体值**（如 4.2.0-SNAPSHOT、ContiNew Starter 2.17.0）；文末「相关源码」链接指向 GitHub continew-org 对应仓库 `dev` 分支的具体路径。
+- **配置项归 starter，配置值归 admin**：框架级配置项（`continew-starter.*`）的定义链接到 starter 文档；admin 文档只写 admin 给这些键填的具体值与环境变量注入方式。
+- 版本号给**具体值**（如 4.2.0-SNAPSHOT、ContiNew Starter 2.17.0）；文末「相关源码」链接指向 GitHub okinawaken 对应仓库 `main` 分支的具体路径。
 - **文档-代码同步**：修改某功能代码（尤其接口、配置、行为）时，**必须在同一 PR 中同步更新对应文档**；纯文档改动无需跑 `./mvnw verify` 门禁。
 
 ### 写作风格（活人感 · 硬禁令）

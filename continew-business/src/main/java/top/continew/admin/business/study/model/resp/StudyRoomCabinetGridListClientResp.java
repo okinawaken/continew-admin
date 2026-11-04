@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 柜体格口列表（/mp/cabinetGrip/v2/cabinet/grid/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -32,7 +32,7 @@ import top.continew.starter.web.model.R;
 /**
  * 自习室套餐域接口：套餐浏览、下单、支付、我的订单与套餐
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Validated

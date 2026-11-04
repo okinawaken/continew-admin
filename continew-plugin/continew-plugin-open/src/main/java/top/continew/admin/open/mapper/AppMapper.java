@@ -10,7 +10,7 @@ import top.continew.starter.encrypt.field.annotation.FieldEncrypt;
 /**
  * 应用 Mapper
  *
- * @author chengzi
+ * @author bixiu
  * @since 3.4.0
  */
 @Mapper

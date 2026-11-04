@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * 套餐创建或修改请求参数
  *
- * @author 小熊
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.1
  */
 @Data

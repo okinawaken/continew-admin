@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 未购买套餐推荐
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * <p>账号、手机、邮箱、第三方登录以及 Refresh Token 刷新都必须经过此服务，确保
  * Sa-Token 登录参数、用户权限上下文和 Refresh Token 的创建逻辑保持一致。</p>
  *
- * @author luoqiz
+ * @author bixiu
  */
 public interface AuthTokenService {
 

@@ -8,7 +8,7 @@ import lombok.Data;
  * 定时任务需要跨租户扫描全部配置，因此除用户 ID 与配置内容外，额外携带租户 ID，
  * 供异步执行时恢复租户上下文。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

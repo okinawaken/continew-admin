@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 /**
  * 应用实体
  *
- * @author chengzi
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.0
  */
 @Data

@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 微信授权数据（bindMobile 的 wechatData）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

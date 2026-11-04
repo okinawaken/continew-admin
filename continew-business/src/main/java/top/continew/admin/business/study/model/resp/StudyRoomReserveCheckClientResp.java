@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 可预约校验结果（/mp/reserve/check）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

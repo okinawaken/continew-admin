@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 抖音券核销（/mp/douYin/certificate/prepareAndVerify）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

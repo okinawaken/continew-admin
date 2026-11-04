@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 刷新 sessionKey（/mp/user/refresh/sessionKey）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

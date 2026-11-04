@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * NextDoc4j 自定义路径过滤
  *
- * @author echo
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

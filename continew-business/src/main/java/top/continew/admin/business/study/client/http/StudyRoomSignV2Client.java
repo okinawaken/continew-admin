@@ -37,7 +37,7 @@ import java.util.List;
  * 与 {@link StudyRoomSignClient} 的接口一致，但每个方法都通过 {@code @Var} 显式传入用户 ID，
  * 供定时任务等无登录上下文的线程使用。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomSignV2Client extends StudyRoomBaseClient {

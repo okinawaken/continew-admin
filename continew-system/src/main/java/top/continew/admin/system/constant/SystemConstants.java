@@ -3,7 +3,7 @@ package top.continew.admin.system.constant;
 /**
  * 系统管理相关常量
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.0.0
  */
 public class SystemConstants {

@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 区域与座位号
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

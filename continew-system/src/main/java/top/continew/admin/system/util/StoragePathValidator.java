@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * 存储根目录之外，所有参与路径拼接的入参都必须先经过本校验。
  * </p>
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.2.0
  */
 public class StoragePathValidator {

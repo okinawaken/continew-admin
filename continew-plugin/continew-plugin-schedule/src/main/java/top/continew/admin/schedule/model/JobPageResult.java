@@ -7,8 +7,8 @@ import lombok.Data;
  * 任务调度服务端分页响应参数
  *
  * @param <T> 数据类型
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.2.0
  */
 @Data

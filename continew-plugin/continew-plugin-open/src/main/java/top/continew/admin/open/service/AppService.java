@@ -11,8 +11,8 @@ import top.continew.admin.open.model.resp.AppSecretResp;
 /**
  * 应用业务接口
  *
- * @author chengzi
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.0
  */
 public interface AppService extends BaseService<AppResp, AppDetailResp, AppQuery, AppReq> {

@@ -3,7 +3,7 @@ package top.continew.admin.tenant.constant;
 /**
  * 租户相关常量
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.0.0
  */
 public class TenantConstants {

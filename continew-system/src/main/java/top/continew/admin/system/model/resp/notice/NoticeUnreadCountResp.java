@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 未读公告数量响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.7.0
  */
 @Data

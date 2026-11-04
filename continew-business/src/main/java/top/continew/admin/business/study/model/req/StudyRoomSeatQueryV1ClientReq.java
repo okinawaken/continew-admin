@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 /**
  * v1 座位查询（/mp/reserve/seat/list，旧版按时间段查询）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -11,7 +11,7 @@ import java.io.Serial;
 /**
  * 文件响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 2.2.0
  */
 @Data

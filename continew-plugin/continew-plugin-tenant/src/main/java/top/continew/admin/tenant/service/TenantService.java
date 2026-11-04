@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * 租户业务接口
  *
- * @author 小熊
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.1
  */
 public interface TenantService

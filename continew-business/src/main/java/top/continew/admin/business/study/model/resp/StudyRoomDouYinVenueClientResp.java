@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 抖音核销门店
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

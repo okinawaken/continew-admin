@@ -11,7 +11,7 @@ import java.util.List;
  * <p>
  * 这是「签到记录」的唯一数据来源：{@link #userSignInfoList} 是当前在座的签到信息， {@link #userSignInfoNum} 是累计签到次数；小程序没有独立的签到明细列表接口。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

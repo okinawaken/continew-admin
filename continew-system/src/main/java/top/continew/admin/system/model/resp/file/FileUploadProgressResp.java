@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 文件上传进度响应参数
  *
- * @author echo
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

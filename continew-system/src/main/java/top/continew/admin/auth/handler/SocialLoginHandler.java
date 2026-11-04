@@ -46,8 +46,8 @@ import java.util.Collections;
 /**
  * 第三方账号登录处理器
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.5.0
  */
 @Component

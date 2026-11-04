@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 费用/签到状态（/mp/user/info/fee）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

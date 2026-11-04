@@ -11,7 +11,7 @@ import java.time.LocalTime;
  * <p>
  * 实测：时间可以不传（传空串），此时返回当天全部座位状态。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

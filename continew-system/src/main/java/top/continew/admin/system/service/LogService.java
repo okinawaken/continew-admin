@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * 系统日志业务接口
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 public interface LogService {

@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * 自动预约任务启用状态
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Getter

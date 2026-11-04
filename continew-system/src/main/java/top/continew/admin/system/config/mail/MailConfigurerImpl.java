@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * 邮件配置实现
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.1.0
  */
 @Slf4j

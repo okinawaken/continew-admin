@@ -6,7 +6,7 @@ import top.continew.starter.data.mapper.BaseMapper;
 /**
  * 生成配置 Mapper
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 public interface GenConfigMapper extends BaseMapper<GenConfigDO> {

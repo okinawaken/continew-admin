@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 日志查询条件
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Data

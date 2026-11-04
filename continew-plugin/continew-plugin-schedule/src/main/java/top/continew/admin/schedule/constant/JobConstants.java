@@ -3,7 +3,7 @@ package top.continew.admin.schedule.constant;
 /**
  * 任务调度常量
  *
- * @author KAI
+ * @author bixiu
  * @since 3.2.0
  */
 public class JobConstants {

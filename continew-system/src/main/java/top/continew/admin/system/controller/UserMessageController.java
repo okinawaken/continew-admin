@@ -41,7 +41,7 @@ import java.util.List;
 /**
  * 个人消息 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.6.0
  */
 @Tag(name = "个人消息 API")

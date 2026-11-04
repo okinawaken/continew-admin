@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * 消息模板枚举
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.3.0
  */
 @Getter

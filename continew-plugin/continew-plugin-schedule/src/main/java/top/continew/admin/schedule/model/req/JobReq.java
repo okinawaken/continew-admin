@@ -17,8 +17,8 @@ import java.io.Serializable;
 /**
  * 任务创建或修改请求参数
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.2.0
  */
 @Data

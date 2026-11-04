@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 按区域分组的套餐（/mp/buy/package/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

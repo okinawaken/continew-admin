@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 /**
  * 消息响应参数
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.3.0
  */
 @Data

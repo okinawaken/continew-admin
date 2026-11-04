@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 套餐列表（/mp/buy/v2/package/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

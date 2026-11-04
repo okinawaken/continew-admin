@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * 柜格价格（/mp/cabinetGrip/v2/grid/price）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

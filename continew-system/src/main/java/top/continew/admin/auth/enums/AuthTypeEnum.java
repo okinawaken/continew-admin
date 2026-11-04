@@ -8,8 +8,8 @@ import top.continew.starter.core.enums.BaseEnum;
 /**
  * 认证类型枚举
  *
- * @author KAI
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.5.0
  */
 @Getter

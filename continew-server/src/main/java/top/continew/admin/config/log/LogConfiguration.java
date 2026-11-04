@@ -11,7 +11,7 @@ import top.continew.starter.trace.autoconfigure.TraceProperties;
 /**
  * 日志配置
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Configuration

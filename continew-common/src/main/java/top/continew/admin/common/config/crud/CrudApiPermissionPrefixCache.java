@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * {@link CrudRequestMapping} 注解懒解析，避免读到 {@code null} 导致权限码退化为 {@code null:xxx} 而误判 403。
  * </p>
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.0.0
  */
 public class CrudApiPermissionPrefixCache {

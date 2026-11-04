@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 分片初始化请求参数
  *
- * @author KAI
+ * @author bixiu
  * @since 4.1.0
  */
 @Data

@@ -3,7 +3,7 @@ package top.continew.admin.business.study.service.autoreserve;
 /**
  * 自动预约执行器
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomAutoReserveExecutorService {

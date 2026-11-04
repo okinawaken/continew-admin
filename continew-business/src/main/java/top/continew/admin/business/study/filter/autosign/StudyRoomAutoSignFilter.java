@@ -7,7 +7,7 @@ import top.continew.admin.business.study.model.context.StudyRoomAutoSignContext;
 /**
  * 自动签到执行过滤器
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomAutoSignFilter extends Ordered {

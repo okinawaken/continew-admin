@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 /**
  * 文件回收站管理 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.1.0
  */
 @Tag(name = "文件回收站管理 API")

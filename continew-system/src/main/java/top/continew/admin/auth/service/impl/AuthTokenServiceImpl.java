@@ -58,7 +58,7 @@ import java.util.function.Supplier;
  * 两者职责分离：Access Token 负责短期接口访问，Refresh Token 负责在 Access Token
  * 过期后安全地轮换新令牌。</p>
  *
- * @author luoqiz
+ * @author bixiu
  */
 @Service
 @RequiredArgsConstructor

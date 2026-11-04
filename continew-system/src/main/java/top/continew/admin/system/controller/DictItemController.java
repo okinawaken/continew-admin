@@ -14,7 +14,7 @@ import top.continew.starter.log.annotation.Log;
 /**
  * 字典项管理 API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.2.0
  */
 @Log(module = "字典管理")

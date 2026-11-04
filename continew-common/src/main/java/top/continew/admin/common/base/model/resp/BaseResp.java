@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 /**
  * 响应参数基类
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.5.0
  */
 @Data

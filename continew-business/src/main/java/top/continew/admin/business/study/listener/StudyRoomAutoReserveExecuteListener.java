@@ -15,7 +15,7 @@ import top.continew.starter.json.jackson.util.JsonUtils;
  * <p>
  * 异步监听任务服务与调度器发布的执行事件，恢复事件携带的租户上下文后转交执行器处理。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

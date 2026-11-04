@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 任务执行请求参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.6.0
  */
 @Data

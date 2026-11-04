@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 自动签到执行事件
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

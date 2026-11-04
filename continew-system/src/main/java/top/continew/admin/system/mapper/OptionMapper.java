@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 参数 Mapper
  *
- * @author Bull-BCLS
+ * @author bixiu
  * @since 1.2.0
  */
 public interface OptionMapper extends BaseMapper<OptionDO> {

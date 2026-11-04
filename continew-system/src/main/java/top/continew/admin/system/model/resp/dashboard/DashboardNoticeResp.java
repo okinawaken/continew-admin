@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 仪表盘-公告响应参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.1.0
  */
 @Data

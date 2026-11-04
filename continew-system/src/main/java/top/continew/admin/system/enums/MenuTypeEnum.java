@@ -7,7 +7,7 @@ import top.continew.starter.core.enums.BaseEnum;
 /**
  * 菜单类型枚举
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.0.0
  */
 @Getter

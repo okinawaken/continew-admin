@@ -22,7 +22,7 @@ import top.continew.starter.auth.refresh.token.service.RefreshTokenService;
 /**
  * logout Cookie 安全边界测试
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.2.0
  */
 class SessionControllerTest {

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 /**
  * 执行星期过滤器
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Slf4j

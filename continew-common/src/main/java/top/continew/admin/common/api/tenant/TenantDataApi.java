@@ -5,8 +5,8 @@ import top.continew.admin.common.model.dto.TenantDTO;
 /**
  * 租户数据 API
  *
- * @author 小熊
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.4.1
  */
 public interface TenantDataApi {

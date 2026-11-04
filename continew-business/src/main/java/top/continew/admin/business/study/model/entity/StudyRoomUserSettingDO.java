@@ -13,7 +13,7 @@ import java.io.Serial;
  * <p>
  * 一个系统用户一份配置，由唯一索引 {@code uk_user_setting_tenant_user_id} 保证。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

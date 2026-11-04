@@ -12,7 +12,7 @@ import java.util.List;
  * <p>
  * 座位与区域至少配置一个：{@code seatId = 0} 表示未指定座位，{@code areaId = 0} 表示未指定区域。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

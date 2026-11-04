@@ -9,7 +9,7 @@ import top.continew.starter.core.enums.BaseEnum;
  * <p>
  * 上游返回的 {@code code} 是字符串业务码，不能直接当作系统错误码使用， 因此统一收敛成下面几个本地错误码，上游的具体文案原样透传给前端。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Getter

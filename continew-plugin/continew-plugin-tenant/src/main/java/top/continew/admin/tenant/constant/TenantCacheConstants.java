@@ -5,7 +5,7 @@ import top.continew.admin.common.constant.CacheConstants;
 /**
  * 租户缓存相关常量
  *
- * @author Charles7c
+ * @author bixiu
  * @since 4.0.0
  */
 public class TenantCacheConstants {

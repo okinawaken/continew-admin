@@ -20,8 +20,8 @@ import java.util.Map;
 /**
  * 密码策略枚举
  *
- * @author Kils
- * @author Charles7c
+ * @author bixiu
+ * @author bixiu
  * @since 3.1.0
  */
 @Getter

@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 签退（/mp/study/signOut）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

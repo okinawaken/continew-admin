@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 /**
  * v1 提交预约（/mp/reserve/seat/confirm）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

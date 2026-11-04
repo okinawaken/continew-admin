@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * 我的订单项（/mp/user/userOrder/list）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

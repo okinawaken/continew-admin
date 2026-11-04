@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 套餐详情（/mp/buy/v2/package/detail/{packageId}）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

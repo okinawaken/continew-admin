@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * 分片上传业务实现
  *
- * @author KAI
+ * @author bixiu
  * @since 4.1.0
  */
 @Service

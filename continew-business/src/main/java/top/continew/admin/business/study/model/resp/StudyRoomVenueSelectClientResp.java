@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 门店下拉列表（/mp/venue/select、/mp/reserve/venue/select、/mp/receipt/venue/select）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

@@ -11,7 +11,7 @@ import java.io.Serial;
 /**
  * 邮箱登录请求参数
  *
- * @author Charles7c
+ * @author bixiu
  * @since 1.3.0
  */
 @Data

@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * StudyRoomWxPayParamResp 视图对象
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

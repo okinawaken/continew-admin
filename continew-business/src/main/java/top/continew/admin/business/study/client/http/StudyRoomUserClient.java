@@ -23,7 +23,7 @@ import java.io.File;
 /**
  * 用户域：登录、token、资料、头像
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomUserClient extends StudyRoomBaseClient {

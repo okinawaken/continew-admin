@@ -7,7 +7,7 @@ import top.continew.admin.business.study.model.context.StudyRoomAutoReserveConte
 /**
  * 自动预约执行过滤器
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 public interface StudyRoomAutoReserveFilter extends Ordered {

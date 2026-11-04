@@ -9,7 +9,7 @@ import top.continew.starter.core.enums.BaseEnum;
  * <p>
  * 数值越小越先执行，供 {@code StudyRoomAutoReserveFilter} 实现类声明自身顺序。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Getter

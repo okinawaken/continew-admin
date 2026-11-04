@@ -9,7 +9,7 @@ import top.continew.admin.system.model.resp.file.MultipartUploadPartResp;
 /**
  * 分片上传业务接口
  *
- * @author KAI
+ * @author bixiu
  * @since 4.1.0
  */
 public interface MultipartUploadService {

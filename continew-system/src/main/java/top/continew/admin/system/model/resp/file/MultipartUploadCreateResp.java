@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * 分片上传初始化结果
  *
- * @author KAI
+ * @author bixiu
  * @since 4.1.0
  */
 @Data

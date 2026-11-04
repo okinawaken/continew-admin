@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 任务组 REST API
  *
- * @author Charles7c
+ * @author bixiu
  * @since 3.6.0
  */
 @FeignClient(value = "job-group", url = "${snail-job.server.api.url}", path = "/group",

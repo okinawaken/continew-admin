@@ -10,7 +10,7 @@ import top.continew.starter.auth.refresh.token.model.RefreshClientPolicy;
 /**
  * 系统客户端配置到认证会话策略的边界转换器。
  *
- * @author luoqiz
+ * @author bixiu
  */
 public final class RefreshClientPolicyMapper {
 

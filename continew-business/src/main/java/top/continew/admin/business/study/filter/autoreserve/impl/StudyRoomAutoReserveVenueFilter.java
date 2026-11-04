@@ -20,7 +20,7 @@ import java.util.Objects;
  * <p>
  * 查询门店详情并校验门店是否可预约，结果缓存到执行上下文。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Component

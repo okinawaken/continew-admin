@@ -13,7 +13,7 @@ import lombok.Data;
  * </ul>
  * 两边字段是并集，未返回的字段为 {@code null}。
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data

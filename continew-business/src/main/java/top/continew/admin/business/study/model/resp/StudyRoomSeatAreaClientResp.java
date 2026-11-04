@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 座位区域（座位图中的一个区域，含区域内全部座位）
  *
- * @author Amadeus
+ * @author bixiu
  * @since 4.2.0
  */
 @Data
