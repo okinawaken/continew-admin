@@ -4,19 +4,19 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.model.req.StudyRoomReserveConfirmReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomReserveConfirmV1ReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSeatQueryReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSeatQueryV1ReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomUserReserveCancelReqDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomReserveAnotherCheckRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomReserveCheckRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomReserveConfirmRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomReserveDateRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSeatMapRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserReserveCancelTipRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserReserveListRespDTO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomReserveConfirmReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomReserveConfirmV1Req;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSeatQueryReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSeatQueryV1Req;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomUserReserveCancelReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveAnotherCheckResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveCheckResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveConfirmResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveDateResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatMapResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveCancelTipResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveListResp;
 
 /**
  * 预约域：座位图、下单、我的预约、取消
@@ -32,7 +32,7 @@ public interface StudyRoomReserveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/reserve/check")
-    StudyRoomApiResultDTO<StudyRoomReserveCheckRespDTO> reserveCheck();
+    StudyRoomApiResult<StudyRoomReserveCheckResp> reserveCheck();
 
     /**
      * 可预约日期列表（默认返回今天起 N 天，N 由 sysConfig.reserveMaxDays 决定）
@@ -41,7 +41,7 @@ public interface StudyRoomReserveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/reserve/v2/date/select")
-    StudyRoomApiResultDTO<StudyRoomReserveDateRespDTO> reserveDateList(
+    StudyRoomApiResult<StudyRoomReserveDateResp> reserveDateList(
         @Query(value = "venueId") Integer venueId);
 
     /**
@@ -53,8 +53,8 @@ public interface StudyRoomReserveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/reserve/v2/seat/list")
-    StudyRoomApiResultDTO<StudyRoomSeatMapRespDTO> reserveV2SeatList(
-        @JSONBody StudyRoomSeatQueryReqDTO form);
+    StudyRoomApiResult<StudyRoomSeatMapResp> reserveV2SeatList(
+        @JSONBody StudyRoomSeatQueryReq form);
 
     /**
      * 提交预约（v2，推荐）
@@ -65,8 +65,8 @@ public interface StudyRoomReserveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/reserve/v2/seat/confirm")
-    StudyRoomApiResultDTO<StudyRoomReserveConfirmRespDTO> reserveV2SeatConfirm(
-        @JSONBody StudyRoomReserveConfirmReqDTO form);
+    StudyRoomApiResult<StudyRoomReserveConfirmResp> reserveV2SeatConfirm(
+        @JSONBody StudyRoomReserveConfirmReq form);
 
     /**
      * 座位图（v1，旧版）
@@ -77,8 +77,8 @@ public interface StudyRoomReserveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/reserve/seat/list")
-    StudyRoomApiResultDTO<StudyRoomSeatMapRespDTO> reserveSeatList(
-        @JSONBody StudyRoomSeatQueryV1ReqDTO form);
+    StudyRoomApiResult<StudyRoomSeatMapResp> reserveSeatList(
+        @JSONBody StudyRoomSeatQueryV1Req form);
 
     /**
      * 提交预约（v1，旧版）
@@ -89,8 +89,8 @@ public interface StudyRoomReserveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/reserve/seat/confirm")
-    StudyRoomApiResultDTO<StudyRoomReserveConfirmRespDTO> reserveSeatConfirm(
-        @JSONBody StudyRoomReserveConfirmV1ReqDTO form);
+    StudyRoomApiResult<StudyRoomReserveConfirmResp> reserveSeatConfirm(
+        @JSONBody StudyRoomReserveConfirmV1Req form);
 
     /**
      * 是否还能再预约一个座位
@@ -99,7 +99,7 @@ public interface StudyRoomReserveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/reserve/another/check")
-    StudyRoomApiResultDTO<StudyRoomReserveAnotherCheckRespDTO> reserveAnotherCheck(
+    StudyRoomApiResult<StudyRoomReserveAnotherCheckResp> reserveAnotherCheck(
         @Query(value = "userReserveId") Long userReserveId);
 
     /**
@@ -108,7 +108,7 @@ public interface StudyRoomReserveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/user/userReserve/list")
-    StudyRoomApiResultDTO<StudyRoomUserReserveListRespDTO> userReserveList();
+    StudyRoomApiResult<StudyRoomUserReserveListResp> userReserveList();
 
     /**
      * 取消预约前的提示（实测返回 {@code {tipDesc, userReserveId}}）
@@ -117,7 +117,7 @@ public interface StudyRoomReserveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/user/userReserve/cancel/tip")
-    StudyRoomApiResultDTO<StudyRoomUserReserveCancelTipRespDTO> userReserveCancelTip(
+    StudyRoomApiResult<StudyRoomUserReserveCancelTipResp> userReserveCancelTip(
         @Query(value = "userReserveId") Long userReserveId);
 
     /**
@@ -129,7 +129,7 @@ public interface StudyRoomReserveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/user/userReserve/cancel")
-    StudyRoomApiResultDTO<Integer> userReserveCancel(
-        @JSONBody StudyRoomUserReserveCancelReqDTO form);
+    StudyRoomApiResult<Integer> userReserveCancel(
+        @JSONBody StudyRoomUserReserveCancelReq form);
 
 }

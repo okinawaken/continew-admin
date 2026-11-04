@@ -5,18 +5,18 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.model.req.StudyRoomAuthorizeHeadImgReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomBindMobileReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomLoginReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomRefreshSessionReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomUpdateUserInfoReqDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomFileRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomLoginRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserDetailRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserFeeRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserIndexRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserSignListRespDTO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomAuthorizeHeadImgReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomBindMobileReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomLoginReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomRefreshSessionReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomUpdateUserInfoReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomFileResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomLoginResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserDetailResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserFeeResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserIndexResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserSignListResp;
 
 import java.io.File;
 
@@ -38,7 +38,7 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      */
     @Deprecated
     @Post(url = "/mp/user/login")
-    StudyRoomApiResultDTO<StudyRoomLoginRespDTO> login(@JSONBody StudyRoomLoginReqDTO form);
+    StudyRoomApiResult<StudyRoomLoginResp> login(@JSONBody StudyRoomLoginReq form);
 
     /**
      * 授权手机号登录（拿 token）
@@ -50,8 +50,8 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      */
     @Deprecated
     @Post(url = "/mp/user/authorize/bindMobile")
-    StudyRoomApiResultDTO<StudyRoomLoginRespDTO> bindMobile(
-        @JSONBody StudyRoomBindMobileReqDTO form);
+    StudyRoomApiResult<StudyRoomLoginResp> bindMobile(
+        @JSONBody StudyRoomBindMobileReq form);
 
     /**
      * 刷新 sessionKey
@@ -63,7 +63,7 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      */
     @Deprecated
     @Post(url = "/mp/user/refresh/sessionKey")
-    StudyRoomApiResultDTO<Void> refreshSessionKey(@JSONBody StudyRoomRefreshSessionReqDTO form);
+    StudyRoomApiResult<Void> refreshSessionKey(@JSONBody StudyRoomRefreshSessionReq form);
 
     /**
      * 用户概览：头像、手机号、累计签到次数、累计学习时长
@@ -71,7 +71,7 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/user/index")
-    StudyRoomApiResultDTO<StudyRoomUserIndexRespDTO> userIndex();
+    StudyRoomApiResult<StudyRoomUserIndexResp> userIndex();
 
     /**
      * 用户详情
@@ -79,7 +79,7 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/user/detailInfo")
-    StudyRoomApiResultDTO<StudyRoomUserDetailRespDTO> userDetail();
+    StudyRoomApiResult<StudyRoomUserDetailResp> userDetail();
 
     /**
      * 欠费 / 当前签到状态
@@ -87,7 +87,7 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/user/info/fee")
-    StudyRoomApiResultDTO<StudyRoomUserFeeRespDTO> userFee();
+    StudyRoomApiResult<StudyRoomUserFeeResp> userFee();
 
     /**
      * 修改资料
@@ -98,7 +98,7 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/user/updateInfo")
-    StudyRoomApiResultDTO<Integer> updateUserInfo(@JSONBody StudyRoomUpdateUserInfoReqDTO form);
+    StudyRoomApiResult<Integer> updateUserInfo(@JSONBody StudyRoomUpdateUserInfoReq form);
 
     /**
      * 更新授权头像（URL 形式）
@@ -109,7 +109,7 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/user/authorize/headImg")
-    StudyRoomApiResultDTO<Void> authorizeHeadImg(@JSONBody StudyRoomAuthorizeHeadImgReqDTO form);
+    StudyRoomApiResult<Void> authorizeHeadImg(@JSONBody StudyRoomAuthorizeHeadImgReq form);
 
     /**
      * 上传授权头像（文件形式，multipart 字段名 {@code files}）
@@ -118,7 +118,7 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/user/authorize/headImg/upload", contentType = "multipart/form-data")
-    StudyRoomApiResultDTO<StudyRoomFileRespDTO> uploadAuthorizeHeadImg(
+    StudyRoomApiResult<StudyRoomFileResp> uploadAuthorizeHeadImg(
         @DataFile(value = "files") File file);
 
     /**
@@ -127,18 +127,18 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/user/authorize/cancel")
-    StudyRoomApiResultDTO<Void> cancelAuthorize();
+    StudyRoomApiResult<Void> cancelAuthorize();
 
     /**
      * 签到记录列表（最近 N 条）
      * <p>
-     * 入参 {@code id} 传 0 即可；返回 {@code {list:[StudyRoomUserSignRespDTO]}}。
+     * 入参 {@code id} 传 0 即可；返回 {@code {list:[StudyRoomUserSignResp]}}。
      *
      * @param id ID
      * @return 响应数据
      */
     @Get(url = "/mp/user/userSign/list")
-    StudyRoomApiResultDTO<StudyRoomUserSignListRespDTO> userSignList(@Query(value = "id") Long id);
+    StudyRoomApiResult<StudyRoomUserSignListResp> userSignList(@Query(value = "id") Long id);
 
     /**
      * 更早的签到记录（分页续拉，无入参）
@@ -146,6 +146,6 @@ public interface StudyRoomUserClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/user/userSign/list/more")
-    StudyRoomApiResultDTO<StudyRoomUserSignListRespDTO> userSignListMore();
+    StudyRoomApiResult<StudyRoomUserSignListResp> userSignListMore();
 
 }

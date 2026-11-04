@@ -6,7 +6,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * StudyRoomRankUserRespDTO 视图对象
+ * StudyRoomRankUserResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0

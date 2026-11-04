@@ -4,9 +4,9 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.model.req.StudyRoomGuardOpenReqDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomGuardListRespDTO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomGuardOpenReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomGuardListResp;
 
 /**
  * 门禁域：门禁区域列表、开门
@@ -23,7 +23,7 @@ public interface StudyRoomGuardClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/guard/select")
-    StudyRoomApiResultDTO<StudyRoomGuardListRespDTO> guardSelect(
+    StudyRoomApiResult<StudyRoomGuardListResp> guardSelect(
         @Query(value = "venueId") Integer venueId);
 
     /**
@@ -33,6 +33,6 @@ public interface StudyRoomGuardClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/guard/open")
-    StudyRoomApiResultDTO<Void> guardOpen(@JSONBody StudyRoomGuardOpenReqDTO form);
+    StudyRoomApiResult<Void> guardOpen(@JSONBody StudyRoomGuardOpenReq form);
 
 }

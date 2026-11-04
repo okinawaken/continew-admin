@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * StudyRoomReserveCheckRespDTO 视图对象
+ * StudyRoomReserveCheckResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * StudyRoomGuardListRespDTO 视图对象
+ * StudyRoomGuardListResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0

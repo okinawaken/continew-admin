@@ -2,9 +2,9 @@ package top.continew.admin.business.study.model.context;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import top.continew.admin.business.study.client.model.resp.StudyRoomReserveConfirmRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSeatRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomVenueRespDTO;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveConfirmResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
 
 import java.time.LocalDate;
@@ -39,15 +39,15 @@ public class StudyRoomAutoReserveContext {
     /**
      * 选中的门店
      */
-    private StudyRoomVenueRespDTO venueRespDTO;
+    private StudyRoomVenueResp venueRespDTO;
 
     /**
      * 选中的座位
      */
-    private StudyRoomSeatRespDTO seatRespDTO;
+    private StudyRoomSeatResp seatRespDTO;
 
     /**
      * 预约确认结果
      */
-    private StudyRoomReserveConfirmRespDTO confirmRespDTO;
+    private StudyRoomReserveConfirmResp confirmRespDTO;
 }

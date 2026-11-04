@@ -4,28 +4,28 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.model.req.StudyRoomChangeSeatConfirmReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomChangeSeatReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomEspLightTurnReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomRankReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSeatConfirmReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSettlePackageReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSettlementReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSignOutReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSignSeatQueryReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomUserPackageConfirmReqDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomChangeSeatConfirmRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomIndexRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomRankRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSeatConfirmRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSettlePackageRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSettlementRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSignAnotherCheckRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSignOutRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSignSeatListRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSignSeatMapRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserPackageConfirmRespDTO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomChangeSeatConfirmReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomChangeSeatReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomEspLightTurnReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomRankReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSeatConfirmReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSettlePackageReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSettlementReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSignOutReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSignSeatQueryReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomUserPackageConfirmReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomChangeSeatConfirmResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomIndexResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomRankResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatConfirmResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSettlePackageResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSettlementResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSignAnotherCheckResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSignOutResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSignSeatListResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSignSeatMapResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageConfirmResp;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/study/index")
-    StudyRoomApiResultDTO<StudyRoomIndexRespDTO> studyIndex(
+    StudyRoomApiResult<StudyRoomIndexResp> studyIndex(
         @Query(value = "currentLng") Double currentLng,
         @Query(value = "currentLat") Double currentLat, @Query(value = "venueId") Integer venueId,
         @Query(value = "bssid") String bssid,
@@ -59,14 +59,14 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * <p>
      * 该接口有两种响应：普通用户返回座位图（{@code code=200}）；存在待签到预约的用户由上游直接完成签到，
      * 返回 {@code code=SV0001} + 「预约座位XXX签到成功！」文案（{@code data=1}）。
-     * 两种形态由 {@link StudyRoomSignSeatListRespDTO} 统一承接。
+     * 两种形态由 {@link StudyRoomSignSeatListResp} 统一承接。
      *
      * @param form 请求参数
      * @return 响应数据
      */
     @Post(url = "/mp/study/seat/list")
-    StudyRoomApiResultDTO<StudyRoomSignSeatListRespDTO> studySeatList(
-        @JSONBody StudyRoomSignSeatQueryReqDTO form);
+    StudyRoomApiResult<StudyRoomSignSeatListResp> studySeatList(
+        @JSONBody StudyRoomSignSeatQueryReq form);
 
     /**
      * 换座座位图
@@ -75,8 +75,8 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/study/change/seat/list")
-    StudyRoomApiResultDTO<StudyRoomSignSeatMapRespDTO> studyChangeSeatList(
-        @JSONBody StudyRoomChangeSeatReqDTO form);
+    StudyRoomApiResult<StudyRoomSignSeatMapResp> studyChangeSeatList(
+        @JSONBody StudyRoomChangeSeatReq form);
 
     /**
      * 签退可选结算套餐（实测 {@code data} 是数组）
@@ -85,8 +85,8 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/study/settlePackage/select")
-    StudyRoomApiResultDTO<List<StudyRoomSettlePackageRespDTO>> studySettlePackageSelect(
-        @JSONBody StudyRoomSettlePackageReqDTO form);
+    StudyRoomApiResult<List<StudyRoomSettlePackageResp>> studySettlePackageSelect(
+        @JSONBody StudyRoomSettlePackageReq form);
 
     /**
      * 是否可再签一个座位
@@ -95,7 +95,7 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/study/signAnother/check")
-    StudyRoomApiResultDTO<StudyRoomSignAnotherCheckRespDTO> studySignAnotherCheck(
+    StudyRoomApiResult<StudyRoomSignAnotherCheckResp> studySignAnotherCheck(
         @Query(value = "venueId") Integer venueId);
 
     /**
@@ -105,8 +105,8 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/study/signOut")
-    StudyRoomApiResultDTO<StudyRoomSignOutRespDTO> studySignOut(
-        @JSONBody StudyRoomSignOutReqDTO form);
+    StudyRoomApiResult<StudyRoomSignOutResp> studySignOut(
+        @JSONBody StudyRoomSignOutReq form);
 
     /**
      * 学习排行榜
@@ -115,7 +115,7 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/study/rank/index")
-    StudyRoomApiResultDTO<StudyRoomRankRespDTO> studyRank(@JSONBody StudyRoomRankReqDTO form);
+    StudyRoomApiResult<StudyRoomRankResp> studyRank(@JSONBody StudyRoomRankReq form);
 
     /**
      * 签到选座确认（真正入座）
@@ -126,8 +126,8 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/study/seat/confirm")
-    StudyRoomApiResultDTO<StudyRoomSeatConfirmRespDTO> studySeatConfirm(
-        @JSONBody StudyRoomSeatConfirmReqDTO form);
+    StudyRoomApiResult<StudyRoomSeatConfirmResp> studySeatConfirm(
+        @JSONBody StudyRoomSeatConfirmReq form);
 
     /**
      * 换座确认
@@ -138,8 +138,8 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/study/change/seat/confirm")
-    StudyRoomApiResultDTO<StudyRoomChangeSeatConfirmRespDTO> studyChangeSeatConfirm(
-        @JSONBody StudyRoomChangeSeatConfirmReqDTO form);
+    StudyRoomApiResult<StudyRoomChangeSeatConfirmResp> studyChangeSeatConfirm(
+        @JSONBody StudyRoomChangeSeatConfirmReq form);
 
     /**
      * 进入签退结算：返回结算明细 + 可选结算套餐
@@ -148,8 +148,8 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/study/settlement")
-    StudyRoomApiResultDTO<StudyRoomSettlementRespDTO> studySettlement(
-        @JSONBody StudyRoomSettlementReqDTO form);
+    StudyRoomApiResult<StudyRoomSettlementResp> studySettlement(
+        @JSONBody StudyRoomSettlementReq form);
 
     /**
      * 确认签退结算套餐（选套餐扣费）
@@ -158,8 +158,8 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/study/userPackage/confirm")
-    StudyRoomApiResultDTO<StudyRoomUserPackageConfirmRespDTO> studyUserPackageConfirm(
-        @JSONBody StudyRoomUserPackageConfirmReqDTO form);
+    StudyRoomApiResult<StudyRoomUserPackageConfirmResp> studyUserPackageConfirm(
+        @JSONBody StudyRoomUserPackageConfirmReq form);
 
     /**
      * 座位灯控（开灯 / 关灯）
@@ -168,6 +168,6 @@ public interface StudyRoomSignClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/espLight/turn")
-    StudyRoomApiResultDTO<Void> espLightTurn(@JSONBody StudyRoomEspLightTurnReqDTO form);
+    StudyRoomApiResult<Void> espLightTurn(@JSONBody StudyRoomEspLightTurnReq form);
 
 }

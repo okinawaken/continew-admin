@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * StudyRoomIndexRespDTO 视图对象
+ * StudyRoomIndexResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0

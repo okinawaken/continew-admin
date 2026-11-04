@@ -3,8 +3,8 @@ package top.continew.admin.business.study.filter.autoreserve.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomVenueV2Client;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomVenueRespDTO;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveFilterOrderEnum;
 import top.continew.admin.business.study.enums.StudyRoomReserveStatusEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
@@ -37,12 +37,12 @@ public class StudyRoomAutoReserveVenueFilter implements StudyRoomAutoReserveFilt
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
         StudyRoomAutoReserveTaskRespDTO taskRespDTO = context.getTaskRespDTO();
-        StudyRoomApiResultDTO<StudyRoomVenueRespDTO> resultDTO = studyRoomVenueV2Client
+        StudyRoomApiResult<StudyRoomVenueResp> resultDTO = studyRoomVenueV2Client
             .reserveVenueDetail(taskRespDTO.getVenueId(), taskRespDTO.getUserId());
         if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())) {
             throw new BusinessException("未查询到门店数据");
         }
-        StudyRoomVenueRespDTO venueRespDTO = resultDTO.getData();
+        StudyRoomVenueResp venueRespDTO = resultDTO.getData();
         context.setVenueRespDTO(venueRespDTO);
         if (!StudyRoomReserveStatusEnum.isCanReserve(venueRespDTO.getVenueReserveState())) {
             return FilterResultDTO.fail("门店当前不可预约");

@@ -11,27 +11,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomSignClient;
-import top.continew.admin.business.study.client.model.req.StudyRoomChangeSeatConfirmReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomChangeSeatReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomEspLightTurnReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomRankReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSeatConfirmReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSettlePackageReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSettlementReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSignOutReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomSignSeatQueryReqDTO;
-import top.continew.admin.business.study.client.model.req.StudyRoomUserPackageConfirmReqDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomChangeSeatConfirmRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomIndexRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomRankRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSeatConfirmRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSettlePackageRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSettlementRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSignAnotherCheckRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSignOutRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSignSeatListRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomSignSeatMapRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomUserPackageConfirmRespDTO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomChangeSeatConfirmReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomChangeSeatReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomEspLightTurnReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomRankReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSeatConfirmReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSettlePackageReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSettlementReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSignOutReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSignSeatQueryReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomUserPackageConfirmReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomChangeSeatConfirmResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomIndexResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomRankResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatConfirmResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSettlePackageResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSettlementResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSignAnotherCheckResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSignOutResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSignSeatListResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSignSeatMapResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageConfirmResp;
 import top.continew.admin.business.study.model.resp.StudyRoomChangeSeatConfirmVO;
 import top.continew.admin.business.study.model.resp.StudyRoomIndexVO;
 import top.continew.admin.business.study.model.resp.StudyRoomRankVO;
@@ -79,7 +79,7 @@ public class StudyRoomSignController {
         @RequestParam(name = "venueId", required = false) Integer venueId,
         @RequestParam(name = "bssid", required = false) String bssid,
         @RequestParam(name = "ssid", required = false) String ssid) {
-        StudyRoomIndexRespDTO dto =
+        StudyRoomIndexResp dto =
             signClient.studyIndex(currentLng, currentLat, venueId, bssid, ssid).getData();
         StudyRoomIndexVO vo = BeanUtil.copyProperties(dto, StudyRoomIndexVO.class);
         return R.ok(vo);
@@ -93,8 +93,8 @@ public class StudyRoomSignController {
      */
     @SaCheckPermission("business:study:sign:list")
     @PostMapping(value = "/seat/list")
-    public R<StudyRoomSignSeatMapVO> studySeatList(@RequestBody StudyRoomSignSeatQueryReqDTO form) {
-        StudyRoomSignSeatListRespDTO dto = signClient.studySeatList(form).getData();
+    public R<StudyRoomSignSeatMapVO> studySeatList(@RequestBody StudyRoomSignSeatQueryReq form) {
+        StudyRoomSignSeatListResp dto = signClient.studySeatList(form).getData();
         StudyRoomSignSeatMapVO vo = BeanUtil.copyProperties(dto, StudyRoomSignSeatMapVO.class);
         return R.ok(vo);
     }
@@ -108,8 +108,8 @@ public class StudyRoomSignController {
     @SaCheckPermission("business:study:sign:list")
     @PostMapping(value = "/change/seat/list")
     public R<StudyRoomSignSeatMapVO> studyChangeSeatList(
-        @RequestBody StudyRoomChangeSeatReqDTO form) {
-        StudyRoomSignSeatMapRespDTO dto = signClient.studyChangeSeatList(form).getData();
+        @RequestBody StudyRoomChangeSeatReq form) {
+        StudyRoomSignSeatMapResp dto = signClient.studyChangeSeatList(form).getData();
         StudyRoomSignSeatMapVO vo = BeanUtil.copyProperties(dto, StudyRoomSignSeatMapVO.class);
         return R.ok(vo);
     }
@@ -123,8 +123,8 @@ public class StudyRoomSignController {
     @SaCheckPermission("business:study:sign:list")
     @PostMapping(value = "/settle-package/select")
     public R<List<StudyRoomSettlePackageVO>> studySettlePackageSelect(
-        @RequestBody StudyRoomSettlePackageReqDTO form) {
-        List<StudyRoomSettlePackageRespDTO> dto =
+        @RequestBody StudyRoomSettlePackageReq form) {
+        List<StudyRoomSettlePackageResp> dto =
             signClient.studySettlePackageSelect(form).getData();
         List<StudyRoomSettlePackageVO> vo =
             BeanUtil.copyToList(dto, StudyRoomSettlePackageVO.class);
@@ -141,7 +141,7 @@ public class StudyRoomSignController {
     @GetMapping(value = "/another/check")
     public R<StudyRoomSignAnotherCheckVO> studySignAnotherCheck(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomSignAnotherCheckRespDTO dto = signClient.studySignAnotherCheck(venueId).getData();
+        StudyRoomSignAnotherCheckResp dto = signClient.studySignAnotherCheck(venueId).getData();
         StudyRoomSignAnotherCheckVO vo =
             BeanUtil.copyProperties(dto, StudyRoomSignAnotherCheckVO.class);
         return R.ok(vo);
@@ -155,8 +155,8 @@ public class StudyRoomSignController {
      */
     @SaCheckPermission("business:study:sign:create")
     @PostMapping(value = "/out")
-    public R<StudyRoomSignOutVO> studySignOut(@RequestBody StudyRoomSignOutReqDTO form) {
-        StudyRoomSignOutRespDTO dto = signClient.studySignOut(form).getData();
+    public R<StudyRoomSignOutVO> studySignOut(@RequestBody StudyRoomSignOutReq form) {
+        StudyRoomSignOutResp dto = signClient.studySignOut(form).getData();
         StudyRoomSignOutVO vo = BeanUtil.copyProperties(dto, StudyRoomSignOutVO.class);
         return R.ok(vo);
     }
@@ -169,8 +169,8 @@ public class StudyRoomSignController {
      */
     @SaCheckPermission("business:study:sign:list")
     @PostMapping(value = "/rank/index")
-    public R<StudyRoomRankVO> studyRank(@RequestBody StudyRoomRankReqDTO form) {
-        StudyRoomRankRespDTO dto = signClient.studyRank(form).getData();
+    public R<StudyRoomRankVO> studyRank(@RequestBody StudyRoomRankReq form) {
+        StudyRoomRankResp dto = signClient.studyRank(form).getData();
         StudyRoomRankVO vo = BeanUtil.copyProperties(dto, StudyRoomRankVO.class);
         return R.ok(vo);
     }
@@ -184,8 +184,8 @@ public class StudyRoomSignController {
     @SaCheckPermission("business:study:sign:create")
     @PostMapping(value = "/seat/confirm")
     public R<StudyRoomSeatConfirmVO> studySeatConfirm(
-        @RequestBody StudyRoomSeatConfirmReqDTO form) {
-        StudyRoomSeatConfirmRespDTO dto = signClient.studySeatConfirm(form).getData();
+        @RequestBody StudyRoomSeatConfirmReq form) {
+        StudyRoomSeatConfirmResp dto = signClient.studySeatConfirm(form).getData();
         StudyRoomSeatConfirmVO vo = BeanUtil.copyProperties(dto, StudyRoomSeatConfirmVO.class);
         return R.ok(vo);
     }
@@ -199,8 +199,8 @@ public class StudyRoomSignController {
     @SaCheckPermission("business:study:sign:create")
     @PostMapping(value = "/change/seat/confirm")
     public R<StudyRoomChangeSeatConfirmVO> studyChangeSeatConfirm(
-        @RequestBody StudyRoomChangeSeatConfirmReqDTO form) {
-        StudyRoomChangeSeatConfirmRespDTO dto = signClient.studyChangeSeatConfirm(form).getData();
+        @RequestBody StudyRoomChangeSeatConfirmReq form) {
+        StudyRoomChangeSeatConfirmResp dto = signClient.studyChangeSeatConfirm(form).getData();
         StudyRoomChangeSeatConfirmVO vo =
             BeanUtil.copyProperties(dto, StudyRoomChangeSeatConfirmVO.class);
         return R.ok(vo);
@@ -214,8 +214,8 @@ public class StudyRoomSignController {
      */
     @SaCheckPermission("business:study:sign:list")
     @PostMapping(value = "/settlement")
-    public R<StudyRoomSettlementVO> studySettlement(@RequestBody StudyRoomSettlementReqDTO form) {
-        StudyRoomSettlementRespDTO dto = signClient.studySettlement(form).getData();
+    public R<StudyRoomSettlementVO> studySettlement(@RequestBody StudyRoomSettlementReq form) {
+        StudyRoomSettlementResp dto = signClient.studySettlement(form).getData();
         StudyRoomSettlementVO vo = BeanUtil.copyProperties(dto, StudyRoomSettlementVO.class);
         return R.ok(vo);
     }
@@ -229,8 +229,8 @@ public class StudyRoomSignController {
     @SaCheckPermission("business:study:sign:create")
     @PostMapping(value = "/user-package/confirm")
     public R<StudyRoomUserPackageConfirmVO> studyUserPackageConfirm(
-        @RequestBody StudyRoomUserPackageConfirmReqDTO form) {
-        StudyRoomUserPackageConfirmRespDTO dto = signClient.studyUserPackageConfirm(form).getData();
+        @RequestBody StudyRoomUserPackageConfirmReq form) {
+        StudyRoomUserPackageConfirmResp dto = signClient.studyUserPackageConfirm(form).getData();
         StudyRoomUserPackageConfirmVO vo =
             BeanUtil.copyProperties(dto, StudyRoomUserPackageConfirmVO.class);
         return R.ok(vo);
@@ -244,7 +244,7 @@ public class StudyRoomSignController {
      */
     @SaCheckPermission("business:study:sign:create")
     @PostMapping(value = "/esp-light/turn")
-    public R<Void> espLightTurn(@Valid @RequestBody StudyRoomEspLightTurnReqDTO form) {
+    public R<Void> espLightTurn(@Valid @RequestBody StudyRoomEspLightTurnReq form) {
         signClient.espLightTurn(form);
         return R.ok();
     }

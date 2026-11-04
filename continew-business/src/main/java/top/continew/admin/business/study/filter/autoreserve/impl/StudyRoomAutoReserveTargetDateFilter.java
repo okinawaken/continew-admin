@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomReserveDateRespDTO;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveDateResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveFilterOrderEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autoreserve.StudyRoomAutoReserveFilter;
@@ -42,9 +42,9 @@ public class StudyRoomAutoReserveTargetDateFilter implements StudyRoomAutoReserv
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
         StudyRoomAutoReserveTaskRespDTO taskRespDTO = context.getTaskRespDTO();
-        StudyRoomApiResultDTO<StudyRoomReserveDateRespDTO> resultDTO =
+        StudyRoomApiResult<StudyRoomReserveDateResp> resultDTO =
             reserveV2Client.reserveDateList(taskRespDTO.getVenueId(), taskRespDTO.getUserId());
-        StudyRoomReserveDateRespDTO reserveDateRespDTO = resultDTO.getData();
+        StudyRoomReserveDateResp reserveDateRespDTO = resultDTO.getData();
 
         LocalDate targetDate = this.resolveMaxReserveDate(reserveDateRespDTO);
         context.setTargetDate(targetDate);
@@ -55,7 +55,7 @@ public class StudyRoomAutoReserveTargetDateFilter implements StudyRoomAutoReserv
         return FilterResultDTO.success(targetDate);
     }
 
-    private LocalDate resolveMaxReserveDate(StudyRoomReserveDateRespDTO dateData) {
+    private LocalDate resolveMaxReserveDate(StudyRoomReserveDateResp dateData) {
         if (CollUtil.isEmpty(dateData.getReserveDateList())) {
             throw new BusinessException("日期字符串返回为空");
         }

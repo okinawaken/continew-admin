@@ -6,7 +6,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * StudyRoomUserLeaveRespDTO 视图对象
+ * StudyRoomUserLeaveResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0

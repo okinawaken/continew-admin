@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * StudyRoomBuyV2PackageLabelRespDTO 视图对象
+ * StudyRoomBuyV2PackageLabelResp 视图对象
  *
  * @author Amadeus
  * @since 4.2.0

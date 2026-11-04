@@ -6,7 +6,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * StudyRoomGuardRespDTO 视图对象
+ * StudyRoomGuardResp 视图对象
  * <p>
  * 包含 {@code configJsonTwo}（TTLock ekey），供管理后台在浏览器蓝牙开锁时使用。
  * 该字段属于门锁钥匙，前端只能在内存中短暂持有，禁止持久化或输出到日志。

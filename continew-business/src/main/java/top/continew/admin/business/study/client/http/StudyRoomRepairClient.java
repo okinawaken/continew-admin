@@ -4,10 +4,10 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Var;
-import top.continew.admin.business.study.client.model.req.StudyRoomRepairSubmitReqDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomRepairListRespDTO;
-import top.continew.admin.business.study.client.model.resp.StudyRoomRepairRespDTO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomRepairSubmitReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairListResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairResp;
 
 /**
  * 报修域：提交报修、报修记录
@@ -24,7 +24,7 @@ public interface StudyRoomRepairClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/userRepair/submit")
-    StudyRoomApiResultDTO<Void> submitRepair(@JSONBody StudyRoomRepairSubmitReqDTO form);
+    StudyRoomApiResult<Void> submitRepair(@JSONBody StudyRoomRepairSubmitReq form);
 
     /**
      * 报修列表
@@ -32,7 +32,7 @@ public interface StudyRoomRepairClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/userRepair/list")
-    StudyRoomApiResultDTO<StudyRoomRepairListRespDTO> repairList();
+    StudyRoomApiResult<StudyRoomRepairListResp> repairList();
 
     /**
      * 报修详情
@@ -41,6 +41,6 @@ public interface StudyRoomRepairClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/userRepair/detail/${id}")
-    StudyRoomApiResultDTO<StudyRoomRepairRespDTO> repairDetail(@Var(value = "id") Long id);
+    StudyRoomApiResult<StudyRoomRepairResp> repairDetail(@Var(value = "id") Long id);
 
 }
