@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.springframework.stereotype.Service;
-import top.continew.admin.business.study.client.http.StudyRoomSignV2Client;
+import top.continew.admin.business.study.client.http.v2.StudyRoomSignV2Client;
 import top.continew.admin.business.study.constant.StudyRoomCacheConstants;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autosign.StudyRoomAutoSignFilterChain;

@@ -33,11 +33,16 @@ public class StudyRoomAuthInterceptor implements ForestInterceptor {
         request.addHeader(StudyRoomApiConstants.Header.HEADER_APPID,
             StudyRoomApiConstants.Gateway.APPID);
 
-        Long userId = this.resolveUserId(request);
-        StudyRoomUserConfigResp configResp = settingService.getConfig(userId);
-        StudyRoomUserConfigBO config = configResp.getConfig();
-        if (Objects.nonNull(config) && StrUtil.isNotEmpty(config.getToken())) {
-            request.addHeader(StudyRoomApiConstants.Header.HEADER_TOKEN, config.getToken());
+        String token = request.getHeaderValue(StudyRoomApiConstants.Header.HEADER_TOKEN);
+        if (StrUtil.isEmpty(token)) {
+            Long userId = this.resolveUserId(request);
+            StudyRoomUserConfigResp configResp = settingService.getConfig(userId);
+            if (Objects.nonNull(configResp)) {
+                StudyRoomUserConfigBO config = configResp.getConfig();
+                if (Objects.nonNull(config)) {
+                    request.addHeader(StudyRoomApiConstants.Header.HEADER_TOKEN, config.getToken());
+                }
+            }
         }
         return true;
     }

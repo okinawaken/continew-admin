@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import top.continew.admin.business.study.client.http.StudyRoomReserveClient;
+import top.continew.admin.business.study.client.http.v1.StudyRoomReserveClient;
 import top.continew.admin.business.study.model.req.StudyRoomReserveConfirmClientReq;
 import top.continew.admin.business.study.model.req.StudyRoomReserveConfirmV1ClientReq;
 import top.continew.admin.business.study.model.req.StudyRoomSeatQueryClientReq;

@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
+import top.continew.admin.business.study.client.http.v2.StudyRoomReserveV2Client;
 import top.continew.admin.business.study.constant.StudyRoomCacheConstants;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTaskRecordStatusEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import top.continew.admin.business.study.client.http.StudyRoomConfigClient;
+import top.continew.admin.business.study.client.http.v1.StudyRoomConfigClient;
 import top.continew.admin.business.study.model.resp.StudyRoomConfigClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomNoticeClientResp;
 import top.continew.starter.web.model.R;

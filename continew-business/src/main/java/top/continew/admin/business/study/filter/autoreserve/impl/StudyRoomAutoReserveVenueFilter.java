@@ -2,7 +2,7 @@ package top.continew.admin.business.study.filter.autoreserve.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import top.continew.admin.business.study.client.http.StudyRoomVenueV2Client;
+import top.continew.admin.business.study.client.http.v2.StudyRoomVenueV2Client;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveFilterOrderEnum;
 import top.continew.admin.business.study.enums.StudyRoomReserveStatusEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;

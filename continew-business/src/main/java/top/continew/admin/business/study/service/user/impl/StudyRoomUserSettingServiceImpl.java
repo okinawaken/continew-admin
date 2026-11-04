@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.continew.admin.business.study.client.http.StudyRoomUserClient;
+import top.continew.admin.business.study.client.http.v1.StudyRoomUserClient;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignInEnableEnum;
 import top.continew.admin.business.study.mapper.StudyRoomUserSettingMapper;
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
