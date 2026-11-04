@@ -36,14 +36,14 @@ public class StudyRoomAutoReserveVenueFilter implements StudyRoomAutoReserveFilt
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
         StudyRoomClientResult<StudyRoomVenueClientResp> resultDTO = studyRoomVenueV2Client
             .reserveVenueDetail(taskRespDTO.getVenueId(), taskRespDTO.getUserId());
         if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())) {
             throw new BusinessException("未查询到门店数据");
         }
         StudyRoomVenueClientResp venueRespDTO = resultDTO.getData();
-        context.setVenueRespDTO(venueRespDTO);
+        context.setVenueClientResp(venueRespDTO);
         if (!StudyRoomReserveStatusEnum.isCanReserve(venueRespDTO.getVenueReserveState())) {
             return FilterResultDTO.fail("门店当前不可预约");
         }

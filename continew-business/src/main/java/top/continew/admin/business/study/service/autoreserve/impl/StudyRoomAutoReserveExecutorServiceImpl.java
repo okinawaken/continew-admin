@@ -71,8 +71,8 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             }
 
             LocalDate targetDate = context.getTargetDate();
-            StudyRoomVenueClientResp venueRespDTO = context.getVenueRespDTO();
-            StudyRoomSeatClientResp seatRespDTO = context.getSeatRespDTO();
+            StudyRoomVenueClientResp venueRespDTO = context.getVenueClientResp();
+            StudyRoomSeatClientResp seatRespDTO = context.getSeatClientResp();
 
             StudyRoomReserveConfirmClientReq reqDTO = new StudyRoomReserveConfirmClientReq();
             reqDTO.setSeatId(seatRespDTO.getId());
@@ -84,7 +84,7 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             reqDTO.setReserveAnotherFlag(0);
             StudyRoomClientResult<StudyRoomReserveConfirmClientResp> resultDTO =
                 reserveV2Client.reserveV2SeatConfirm(reqDTO, taskRespDTO.getUserId());
-            context.setConfirmRespDTO(resultDTO.getData());
+            context.setReserveConfirmClientResp(resultDTO.getData());
 
             StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO = this.buildTaskRecordRespDTO(
                 context, StudyRoomAutoReserveTaskRecordStatusEnum.SUCCESS, null);
@@ -113,19 +113,19 @@ public class StudyRoomAutoReserveExecutorServiceImpl
         taskRecordRespDTO.setStatus(statusEnum.getValue());
         taskRecordRespDTO.setFailMsg(errorMsg);
 
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
         if (Objects.nonNull(taskRespDTO)) {
             taskRecordRespDTO.setTaskId(taskRespDTO.getId());
             taskRecordRespDTO.setUserId(taskRespDTO.getUserId());
             taskRecordRespDTO.setTimeRange(
                 taskRespDTO.getReserveStartTime() + "-" + taskRespDTO.getReserveEndTime());
         }
-        StudyRoomSeatClientResp seatRespDTO = context.getSeatRespDTO();
+        StudyRoomSeatClientResp seatRespDTO = context.getSeatClientResp();
         if (Objects.nonNull(seatRespDTO)) {
             taskRecordRespDTO.setSeatId(seatRespDTO.getId());
             taskRecordRespDTO.setSeatNumber(seatRespDTO.getSeatNumber());
         }
-        StudyRoomReserveConfirmClientResp confirmRespDTO = context.getConfirmRespDTO();
+        StudyRoomReserveConfirmClientResp confirmRespDTO = context.getReserveConfirmClientResp();
         if (Objects.nonNull(confirmRespDTO)) {
             taskRecordRespDTO.setUserReserveId(confirmRespDTO.getId());
         }

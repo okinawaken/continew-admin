@@ -26,7 +26,7 @@ public class StudyRoomAutoReserveEligibilityFilter implements StudyRoomAutoReser
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
         StudyRoomClientResult<StudyRoomReserveCheckClientResp> resultDTO =
             reserveV2Client.reserveCheck(taskRespDTO.getUserId());
         StudyRoomReserveCheckClientResp reserveCheckRespDTO = resultDTO.getData();

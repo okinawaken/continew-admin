@@ -41,7 +41,7 @@ public class StudyRoomAutoReserveTargetDateFilter implements StudyRoomAutoReserv
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
         StudyRoomClientResult<StudyRoomReserveDateClientResp> resultDTO =
             reserveV2Client.reserveDateList(taskRespDTO.getVenueId(), taskRespDTO.getUserId());
         StudyRoomReserveDateClientResp reserveDateRespDTO = resultDTO.getData();

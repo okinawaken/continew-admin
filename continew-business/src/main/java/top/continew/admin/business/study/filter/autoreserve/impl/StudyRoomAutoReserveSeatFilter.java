@@ -42,7 +42,7 @@ public class StudyRoomAutoReserveSeatFilter implements StudyRoomAutoReserveFilte
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
         LocalDate targetDate = context.getTargetDate();
 
         StudyRoomSeatQueryClientReq reqDTO = new StudyRoomSeatQueryClientReq();
@@ -58,7 +58,7 @@ public class StudyRoomAutoReserveSeatFilter implements StudyRoomAutoReserveFilte
         }
 
         StudyRoomSeatClientResp seatRespDTO = this.selectSeat(context, resultDTO.getData());
-        context.setSeatRespDTO(seatRespDTO);
+        context.setSeatClientResp(seatRespDTO);
         if (Objects.isNull(seatRespDTO)) {
             return FilterResultDTO.fail("期望时段无可预约座位");
         }
@@ -67,7 +67,7 @@ public class StudyRoomAutoReserveSeatFilter implements StudyRoomAutoReserveFilte
 
     private StudyRoomSeatClientResp selectSeat(StudyRoomAutoReserveContext context,
         StudyRoomSeatMapClientResp seatMap) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
         StudyRoomSeatClientResp areaSeatRespDTO = null;
         StudyRoomSeatClientResp anySeatRespDTO = null;
 

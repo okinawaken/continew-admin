@@ -29,7 +29,7 @@ public class StudyRoomAutoReserveWeekdayFilter implements StudyRoomAutoReserveFi
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
         LocalDate targetDate = context.getTargetDate();
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
         if (!CollUtil.contains(taskRespDTO.getWeekDays(), targetDate.getDayOfWeek().getValue())) {
             return FilterResultDTO.fail("目标日期不在执行计划内");
         }
