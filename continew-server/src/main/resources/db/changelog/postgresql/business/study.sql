@@ -2,34 +2,6 @@
 
 -- changeset bixiu:1
 -- comment 初始化自习室业务表结构
-CREATE TABLE IF NOT EXISTS "study_room_user_token" (
-    "id"          int8          NOT NULL,
-    "tenant_id"   int8          NOT NULL DEFAULT 0,
-    "user_id"     int8          NOT NULL DEFAULT 0,
-    "token"       varchar(1024) NOT NULL DEFAULT '',
-    "create_user" int8          NOT NULL,
-    "create_time" timestamp     NOT NULL,
-    "update_user" int8          DEFAULT NULL,
-    "update_time" timestamp     DEFAULT NULL,
-    "deleted"     int8          NOT NULL DEFAULT 0,
-    PRIMARY KEY ("id")
-);
-CREATE UNIQUE INDEX "uk_user_token_tenant_user_id" ON "study_room_user_token" ("tenant_id", "user_id", "deleted");
-CREATE INDEX "idx_user_token_tenant_id"            ON "study_room_user_token" ("tenant_id");
-CREATE INDEX "idx_user_token_create_user"          ON "study_room_user_token" ("create_user");
-CREATE INDEX "idx_user_token_update_user"          ON "study_room_user_token" ("update_user");
-CREATE INDEX "idx_user_token_deleted"              ON "study_room_user_token" ("deleted");
-COMMENT ON COLUMN "study_room_user_token"."id"          IS 'ID';
-COMMENT ON COLUMN "study_room_user_token"."user_id"     IS '系统用户ID';
-COMMENT ON COLUMN "study_room_user_token"."token"       IS '微信小程序token';
-COMMENT ON COLUMN "study_room_user_token"."tenant_id"   IS '租户ID';
-COMMENT ON COLUMN "study_room_user_token"."create_user" IS '创建人';
-COMMENT ON COLUMN "study_room_user_token"."create_time" IS '创建时间';
-COMMENT ON COLUMN "study_room_user_token"."update_user" IS '修改人';
-COMMENT ON COLUMN "study_room_user_token"."update_time" IS '修改时间';
-COMMENT ON COLUMN "study_room_user_token"."deleted"     IS '是否已删除（0：否；id：是）';
-COMMENT ON TABLE  "study_room_user_token"               IS '系统用户与微信小程序token映射表';
-
 CREATE TABLE IF NOT EXISTS "study_room_user_setting" (
     "id"          int8          NOT NULL,
     "tenant_id"   int8          NOT NULL DEFAULT 0,
@@ -49,7 +21,7 @@ CREATE INDEX "idx_user_setting_update_user"          ON "study_room_user_setting
 CREATE INDEX "idx_user_setting_deleted"              ON "study_room_user_setting" ("deleted");
 COMMENT ON COLUMN "study_room_user_setting"."id"          IS 'ID';
 COMMENT ON COLUMN "study_room_user_setting"."user_id"     IS '系统用户ID';
-COMMENT ON COLUMN "study_room_user_setting"."config_json" IS '自动预约配置（JSON）';
+COMMENT ON COLUMN "study_room_user_setting"."config_json" IS '用户配置（JSON，含小程序 token）';
 COMMENT ON COLUMN "study_room_user_setting"."tenant_id"   IS '租户ID';
 COMMENT ON COLUMN "study_room_user_setting"."create_user" IS '创建人';
 COMMENT ON COLUMN "study_room_user_setting"."create_time" IS '创建时间';

@@ -3,7 +3,7 @@ title: 自习室业务
 description: 说明 continew-business 中 study 模块的代理链路、用户设置、自动预约调度、多租户处理、数据表与接口约定。
 ---
 
-`continew-business` 的 `top.continew.admin.business.study` 包承载自习室预约代理业务。它把上游小程序接口（时不我待自习馆）转成后台可调用的 REST 接口，并在本地实现用户设置、自动预约、自动签到与用户 token 绑定。
+`continew-business` 的 `top.continew.admin.business.study` 包承载自习室预约代理业务。它把上游小程序接口（时不我待自习馆）转成后台可调用的 REST 接口，并在本地实现用户设置（含小程序 token）、自动预约与自动签到。
 
 ## 包结构
 
@@ -16,15 +16,13 @@ description: 说明 continew-business 中 study 模块的代理链路、用户�
 | `controller` | 代理接口，路径统一为 `/business/study/**` |
 | `controller.user` | 用户设置接口 `StudyRoomUserSettingController`，路径 `/business/study/user-setting` |
 | `controller.autoreserve` | 自动预约任务 `StudyRoomAutoReserveTaskController` 与执行记录 `StudyRoomAutoReserveTaskRecordController` |
-| `controller.token` | 小程序 token 绑定 `StudyRoomTokenController` |
-| `service.user` | 用户设置服务 `StudyRoomUserSettingService`，管理 `study_room_user_setting` |
+| `service.user` | 用户设置服务 `StudyRoomUserSettingService`，管理 `study_room_user_setting`（含小程序 token） |
 | `service.autoreserve` | 自动预约执行器、任务与执行记录服务 |
 | `service.autosign` | 自动签到执行器 |
-| `service.token` | token 绑定服务 |
 | `filter` | 自动预约与自动签到的过滤器链，按 `Ordered` 顺序执行，任一环节失败即终止 |
 | `model` | 后台自身模型：实体（`entity`）、后台接口请求（`req`）、响应 VO（`resp`）、JSON 配置对象（`bo`）、执行上下文（`context`）与事件（`event`） |
 | `scheduler` / `listener` | 定时扫描入口与异步事件监听器 |
-| `mapper` | 四个业务表的 MyBatis Plus Mapper |
+| `mapper` | 三个业务表的 MyBatis Plus Mapper |
 
 ## 上游接口配置
 
@@ -34,20 +32,14 @@ Forest 的扫描入口是 `top.continew.admin.business.study.config.ForestConfig
 
 ## 用户 token 与请求上下文
 
-后台用户与小程序 token 的映射保存在 `study_room_user_token`，唯一键为 `(tenant_id, user_id, deleted)`。调用链上有两种取 token 的方式：
+后台用户与小程序 token 不需要单独的表，token 与其他用户级配置一起保存在 `study_room_user_setting.config_json`，由 `StudyRoomUserConfigBO#token` 承载。调用链上有两种取 token 的方式：
 
-- 代理接口与 token 绑定接口通过 `UserContextHolder.getUserId()` 取当前登录用户，由 `StudyRoomAuthInterceptor` 查询 token。
+- 代理接口通过 `UserContextHolder.getUserId()` 取当前登录用户，由 `StudyRoomAuthInterceptor` 读取该用户的 `config_json`。
 - 自动预约与自动签到在异步线程执行，没有登录上下文，使用带 `@Var(StudyRoomApiConstants.Variable.USER_ID)` 的 `StudyRoomXxxV2Client` 显式传入用户 ID。
 
 两类客户端共用同一个拦截器，显式传入的 `userId` 优先于当前登录用户。
 
-调用代理接口前，用户需要先绑定上游 token。token 绑定接口为：
-
-| 方法 | 路径 | 权限码 | 说明 |
-|:-----|:-----|:-------|:-----|
-| `POST` | `/business/study/token/bind` | `business:study:token:update` | 绑定或更新当前用户 token，保存后立即调用上游用户详情校验 |
-| `GET` | `/business/study/token/detail` | `business:study:token:list` | 查询当前用户绑定状态与 token |
-| `DELETE` | `/business/study/token/unbind` | `business:study:token:delete` | 解绑当前用户 token |
+调用代理接口前，用户需要先绑定上游 token。token 的绑定、查询与解绑都走用户设置接口：`PUT /business/study/user-setting` 传入 `token` 即绑定，传入空字符串即解绑，`GET /business/study/user-setting` 返回当前 token。写入非空 token 后，服务会立即调用上游用户详情接口校验，校验失败则回滚本次更新。
 
 ## 用户设置
 
@@ -56,7 +48,8 @@ Forest 的扫描入口是 `top.continew.admin.business.study.config.ForestConfig
 ```json
 {
   "releaseTime": "20:00:00",
-  "signInEnable": 0
+  "signInEnable": 0,
+  "token": "eyJhbGciOiJIUzI1NiJ9..."
 }
 ```
 
@@ -64,15 +57,16 @@ Forest 的扫描入口是 `top.continew.admin.business.study.config.ForestConfig
 |:-----|:-----|:-----|
 | `releaseTime` | `LocalTime`，格式 `HH:mm:ss` | 放号时刻，未配置时默认 `20:00:00` |
 | `signInEnable` | `Integer` | 自动签到开关（0：关闭；1：开启），未配置时默认 0 |
+| `token` | `String` | 微信小程序 token，未绑定时为 null；写入非空值后立即调用上游用户详情校验 |
 
 接口由 `StudyRoomUserSettingController` 提供：
 
 | 方法 | 路径 | 权限码 | 说明 |
 |:-----|:-----|:-------|:-----|
 | `GET` | `/business/study/user-setting` | `business:study:userSetting:get` | 读取当前用户设置，无记录时返回默认值 |
-| `PUT` | `/business/study/user-setting` | `business:study:userSetting:update` | 整对象覆盖写入当前用户设置 |
+| `PUT` | `/business/study/user-setting` | `business:study:userSetting:update` | 局部更新当前用户设置，未传的字段保留原值 |
 
-`GET` 与 `PUT` 同时匹配带尾斜杠的 `/business/study/user-setting/`，兼容原项目的调用写法。
+`GET` 与 `PUT` 同时匹配带尾斜杠的 `/business/study/user-setting/`，兼容原项目的调用写法。`PUT` 的字段都可以省略：省略的字段保留原值，首次写入的用户其余字段回落默认值；`token` 传 `null`（省略）保留原值，传空字符串表示解绑。
 
 ## 自动预约与自动签到
 
@@ -146,7 +140,7 @@ Forest 的扫描入口是 `top.continew.admin.business.study.config.ForestConfig
 
 ## 多租户处理
 
-四张业务表都参与租户行级隔离，表结构包含 `tenant_id`，实体继承 `top.continew.admin.common.base.model.entity.TenantBaseDO`。HTTP 请求由租户拦截器写入上下文，SQL 自动追加 `tenant_id` 条件。
+三张业务表都参与租户行级隔离，表结构包含 `tenant_id`，实体继承 `top.continew.admin.common.base.model.entity.TenantBaseDO`。HTTP 请求由租户拦截器写入上下文，SQL 自动追加 `tenant_id` 条件。
 
 定时任务线程没有请求上下文，因此跨租户扫描方法标注 `@TenantIgnore`，例如 `StudyRoomAutoReserveTaskServiceImpl#listEnabledTasks` 与 `StudyRoomUserSettingServiceImpl#listAllConfigs`。扫描结果携带 `tenantId`，调度器用 `TenantUtils.execute(tenantId, ...)` 恢复租户上下文后再查询配置与执行记录；异步事件同样携带 `tenantId`，监听器执行前恢复上下文。
 
@@ -156,12 +150,11 @@ Forest 的扫描入口是 `top.continew.admin.business.study.config.ForestConfig
 
 | 表 | 用途 | 关键字段 |
 |:---|:-----|:---------|
-| `study_room_user_token` | 系统用户与小程序 token 的映射 | `user_id`、`token`，唯一键 `(tenant_id, user_id, deleted)` |
-| `study_room_user_setting` | 用户级设置（放号时刻、自动签到开关） | `config_json`，唯一键 `(tenant_id, user_id, deleted)` |
+| `study_room_user_setting` | 用户级设置（小程序 token、放号时刻、自动签到开关） | `config_json`，唯一键 `(tenant_id, user_id, deleted)` |
 | `study_room_auto_reserve_task` | 自动预约任务 | `venue_id`、`venue_name`、`task_json`、`enable_status`、`pause_reason`、`last_max_reserve_date`，索引 `(tenant_id, user_id, enable_status)` |
 | `study_room_auto_reserve_task_record` | 每轮执行的终态记录 | `task_id`、`trigger_type`、`target_date`、`status`、`detail_json`，索引 `(tenant_id, task_id)` |
 
-四张表都包含 `id`、`tenant_id`、`create_user`、`create_time`、`update_user`、`update_time`、`deleted`。`deleted` 由 MyBatis Plus 逻辑删除维护，值等于记录 ID。
+三张表都包含 `id`、`tenant_id`、`create_user`、`create_time`、`update_user`、`update_time`、`deleted`。`deleted` 由 MyBatis Plus 逻辑删除维护，值等于记录 ID。
 
 MySQL 与 PostgreSQL 脚本分别在 `continew-server/src/main/resources/db/changelog/mysql/business/study.sql` 与 `postgresql/business/study.sql`，菜单与权限数据在对应的 `study_data.sql`，并已在 `db.changelog-master.yaml` 登记。
 
@@ -201,7 +194,6 @@ MySQL 与 PostgreSQL 脚本分别在 `continew-server/src/main/resources/db/chan
 | 4080 | 门禁管理 | `/study/guard` | `business/study/guard/index` |
 | 4090 | 储物柜与其他 | `/study/misc` | `business/study/misc/index` |
 | 4100 | 用户中心 | `/study/user` | `business/study/user/index` |
-| 4110 | Token 绑定 | `/study/token` | `business/study/token/index` |
 | 4120 | 用户设置 | `/study/user-setting` | `business/study/userSetting/index` |
 | 4130 | 自动预约任务 | `/study/auto-reserve/task` | `business/study/autoReserve/task/index` |
 | 4140 | 执行记录 | `/study/auto-reserve/record` | `business/study/autoReserve/record/index` |

@@ -49,10 +49,12 @@ public interface StudyRoomUserSettingService {
     List<StudyRoomUserConfigView> listAllConfigs();
 
     /**
-     * 覆盖写用户配置
+     * 局部更新用户配置
+     * <p>
+     * 只写入非空项，未传的配置保留原值；token 传空字符串表示解绑，传非空值时立即调用上游用户详情校验。
      *
      * @param userId 系统用户 ID
-     * @param config 新配置，未传的项回落默认值
+     * @param config 新配置
      */
     void updateConfig(Long userId, StudyRoomUserConfigBO config);
 }

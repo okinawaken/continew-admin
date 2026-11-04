@@ -35,7 +35,7 @@ import top.continew.starter.web.model.R;
 import jakarta.validation.Valid;
 
 /**
- * 用户设置：放号时刻与自动签到开关
+ * 用户设置：小程序 token、放号时刻与自动签到开关
  *
  * @author Amadeus
  * @since 4.2.0
@@ -49,7 +49,7 @@ public class StudyRoomUserSettingController {
     private final StudyRoomUserSettingService settingService;
 
     /**
-     * 读取放号时刻，未设置时返回默认值
+     * 读取当前用户设置，未设置时返回默认值
      *
      * @return 详情数据
      */
@@ -64,7 +64,7 @@ public class StudyRoomUserSettingController {
     }
 
     /**
-     * 覆盖写放号时刻
+     * 局部更新当前用户设置
      *
      * @param dto 请求数据
      * @return 响应数据

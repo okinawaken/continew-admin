@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.constant.StudyRoomApiConstants;
-import top.continew.admin.business.study.service.token.StudyRoomTokenService;
+import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
 import top.continew.admin.common.context.UserContextHolder;
 
 import java.util.Objects;
@@ -40,7 +40,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class StudyRoomAuthInterceptor implements ForestInterceptor {
 
-    private final StudyRoomTokenService tokenService;
+    private final StudyRoomUserSettingService settingService;
 
     @Override
     public boolean beforeExecute(ForestRequest request) {
@@ -48,7 +48,7 @@ public class StudyRoomAuthInterceptor implements ForestInterceptor {
             StudyRoomApiConstants.Gateway.APPID);
 
         Long userId = this.resolveUserId(request);
-        String token = this.tokenService.get(userId);
+        String token = settingService.getConfig(userId).getToken();
         if (StrUtil.isNotEmpty(token)) {
             request.addHeader(StudyRoomApiConstants.Header.HEADER_TOKEN, token);
         }

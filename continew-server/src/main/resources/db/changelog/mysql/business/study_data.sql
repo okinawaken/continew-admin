@@ -49,11 +49,6 @@ VALUES
 (4103, '资料维护', 4100, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:user:update', 3, 1, 1, NOW()),
 (4104, '解除授权', 4100, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:user:delete', 4, 1, 1, NOW()),
 
-(4110, 'Token 绑定', 4000, 2, '/study/token', 'StudyToken', 'business/study/token/index', NULL, 'key', b'0', b'0', b'0', NULL, 11, 1, 1, NOW()),
-(4111, '查询', 4110, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:token:list', 1, 1, 1, NOW()),
-(4112, '绑定', 4110, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:token:update', 2, 1, 1, NOW()),
-(4113, '解绑', 4110, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:token:delete', 3, 1, 1, NOW()),
-
 (4120, '用户设置', 4000, 2, '/study/user-setting', 'StudyUserSetting', 'business/study/userSetting/index', NULL, 'clock-circle', b'0', b'0', b'0', NULL, 12, 1, 1, NOW()),
 (4121, '查询', 4120, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:userSetting:get', 1, 1, 1, NOW()),
 (4122, '修改', 4120, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:userSetting:update', 2, 1, 1, NOW()),

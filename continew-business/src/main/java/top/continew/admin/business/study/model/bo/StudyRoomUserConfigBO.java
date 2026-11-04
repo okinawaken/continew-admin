@@ -19,12 +19,15 @@ package top.continew.admin.business.study.model.bo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.ToString;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignInEnableEnum;
 
 import java.time.LocalTime;
 
 /**
  * 用户级配置，对应 {@code study_room_user_setting.config_json}
+ * <p>
+ * 微信小程序 token 也保存在这里，与放号时刻、自动签到开关共用同一条用户配置记录。
  *
  * @author Amadeus
  * @since 4.2.0
@@ -48,4 +51,10 @@ public class StudyRoomUserConfigBO {
      * 默认关闭，避免老用户被动开启。
      */
     private Integer signInEnable;
+
+    /**
+     * 微信小程序 token（JWT），属于凭据，禁止输出到日志
+     */
+    @ToString.Exclude
+    private String token;
 }

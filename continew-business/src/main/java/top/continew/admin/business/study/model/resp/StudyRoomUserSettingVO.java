@@ -40,4 +40,9 @@ public class StudyRoomUserSettingVO {
      * 是否启用自动签到：0 关闭，1 开启
      */
     private Integer signInEnable;
+
+    /**
+     * 微信小程序 token，未绑定时为 null
+     */
+    private String token;
 }
