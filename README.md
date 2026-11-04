@@ -418,7 +418,6 @@ continew-admin
 │  │  └─ pom.xml
 │  └─ pom.xml
 ├─ .github（GitHub 相关配置目录：工作流、Issue/PR 模板）
-├─ .agents（Agent 技能目录，供 AI 编程智能体使用）
 ├─ .idea
 │  └─ icon.png（IDEA 项目图标，实际开发时直接删除）
 ├─ .mvn（Maven Wrapper 配置目录）
