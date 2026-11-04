@@ -28,11 +28,22 @@ public interface StudyRoomAutoReserveTaskService {
 
     /**
      * 任务详情
+     * <p>
+     * 内部执行链路使用，不做归属校验；面向用户的查询请使用 {@link #getTask(Long, Long)}。
      *
      * @param taskId 任务 ID
      * @return 详情数据
      */
     StudyRoomAutoReserveTaskInfoResp getTask(Long taskId);
+
+    /**
+     * 任务详情，校验任务归属当前用户
+     *
+     * @param taskId 任务 ID
+     * @param userId 用户 ID
+     * @return 详情数据
+     */
+    StudyRoomAutoReserveTaskInfoResp getTask(Long taskId, Long userId);
 
     /**
      * 创建任务
@@ -44,41 +55,46 @@ public interface StudyRoomAutoReserveTaskService {
     Long createTask(Long userId, StudyRoomAutoReserveTaskReq dto);
 
     /**
-     * 修改任务
+     * 修改任务，校验任务归属当前用户
      *
      * @param taskId 任务 ID
+     * @param userId 用户 ID
      * @param dto 请求数据
      */
-    void updateTask(Long taskId, StudyRoomAutoReserveTaskReq dto);
+    void updateTask(Long taskId, Long userId, StudyRoomAutoReserveTaskReq dto);
 
     /**
-     * 删除任务，同事务删除执行历史
+     * 删除任务，同事务删除执行历史，校验任务归属当前用户
      *
      * @param taskId 任务 ID
+     * @param userId 用户 ID
      */
-    void deleteTask(Long taskId);
+    void deleteTask(Long taskId, Long userId);
 
     /**
-     * 以指定原因暂停任务
+     * 以指定原因暂停任务，校验任务归属当前用户
      *
      * @param taskId 任务 ID
+     * @param userId 用户 ID
      * @param pauseReason 暂停原因
      */
-    void pauseTask(Long taskId, String pauseReason);
+    void pauseTask(Long taskId, Long userId, String pauseReason);
 
     /**
-     * 恢复任务
+     * 恢复任务，校验任务归属当前用户
      *
      * @param taskId 任务 ID
+     * @param userId 用户 ID
      */
-    void resumeTask(Long taskId);
+    void resumeTask(Long taskId, Long userId);
 
     /**
-     * 手动执行一次
+     * 手动执行一次，校验任务归属当前用户
      *
      * @param taskId 任务 ID
+     * @param userId 用户 ID
      */
-    void executeTask(Long taskId);
+    void executeTask(Long taskId, Long userId);
 
     /**
      * 查询全部启用中的任务

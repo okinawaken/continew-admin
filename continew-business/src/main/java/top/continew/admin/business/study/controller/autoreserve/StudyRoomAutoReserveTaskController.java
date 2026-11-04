@@ -59,7 +59,7 @@ public class StudyRoomAutoReserveTaskController {
     @SaCheckPermission("business:study:autoReserveTask:get")
     @GetMapping(value = "/{id}")
     public R<StudyRoomAutoReserveTaskInfoResp> detail(@PathVariable(value = "id") Long id) {
-        return R.ok(taskService.getTask(id));
+        return R.ok(taskService.getTask(id, UserContextHolder.getUserId()));
     }
 
     /**
@@ -86,7 +86,7 @@ public class StudyRoomAutoReserveTaskController {
     @PutMapping(value = "/{id}")
     public R<Void> update(@PathVariable(value = "id") Long id,
         @Valid @RequestBody StudyRoomAutoReserveTaskReq dto) {
-        taskService.updateTask(id, dto);
+        taskService.updateTask(id, UserContextHolder.getUserId(), dto);
         return R.ok();
     }
 
@@ -99,7 +99,7 @@ public class StudyRoomAutoReserveTaskController {
     @SaCheckPermission("business:study:autoReserveTask:delete")
     @DeleteMapping(value = "/{id}")
     public R<Void> remove(@PathVariable(value = "id") Long id) {
-        taskService.deleteTask(id);
+        taskService.deleteTask(id, UserContextHolder.getUserId());
         return R.ok();
     }
 
@@ -112,7 +112,7 @@ public class StudyRoomAutoReserveTaskController {
     @SaCheckPermission("business:study:autoReserveTask:update")
     @PostMapping(value = "/{id}/pause")
     public R<Void> pause(@PathVariable(value = "id") Long id) {
-        taskService.pauseTask(id, "用户手动暂停");
+        taskService.pauseTask(id, UserContextHolder.getUserId(), "用户手动暂停");
         return R.ok();
     }
 
@@ -125,7 +125,7 @@ public class StudyRoomAutoReserveTaskController {
     @SaCheckPermission("business:study:autoReserveTask:update")
     @PostMapping(value = "/{id}/resume")
     public R<Void> resume(@PathVariable(value = "id") Long id) {
-        taskService.resumeTask(id);
+        taskService.resumeTask(id, UserContextHolder.getUserId());
         return R.ok();
     }
 
@@ -138,7 +138,7 @@ public class StudyRoomAutoReserveTaskController {
     @SaCheckPermission("business:study:autoReserveTask:execute")
     @PostMapping(value = "/{id}/execute")
     public R<Void> execute(@PathVariable(value = "id") Long id) {
-        taskService.executeTask(id);
+        taskService.executeTask(id, UserContextHolder.getUserId());
         return R.ok();
     }
 }
