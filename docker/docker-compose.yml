@@ -32,19 +32,6 @@ services:
       timeout: 3s
       retries: 20
       start_period: 30s
-#  postgresql:
-#    image: postgres:14.2
-#    container_name: postgresql
-#    restart: always
-#    ports:
-#      - '5432:5432'
-#    volumes:
-#      - /docker/postgresql/data/:/var/lib/postgresql/data/
-#    environment:
-#      TZ: Asia/Shanghai
-#      POSTGRES_USER: 你的用户名
-#      POSTGRES_PASSWORD: 你的用户密码
-#      POSTGRES_DB: continew_admin
   redis:
     image: redis:7.2.8
     container_name: redis

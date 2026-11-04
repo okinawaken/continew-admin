@@ -9,7 +9,7 @@
 - **第三方依赖版本不由本项目管理**：第三方依赖版本统一由父 POM（ContiNew Starter）的依赖管理供给，禁止在模块 POM 中硬编码版本号；升级基础能力通过更换 `continew-starter` parent 版本完成。
 - **内部模块依赖统一写 `${project.groupId}`**：模块 POM 中的内部依赖 groupId 一律使用 `${project.groupId}`，版本由根 POM `dependencyManagement`（`${revision}`）统一供给；`<parent>` 与项目自身坐标保持字面量。
 - **新增模块需在两处注册**：根 POM 的 `<modules>` 与根 POM `dependencyManagement`。
-- **数据库结构变更必须走 Liquibase**：新增或修改变更集后需在 `continew-server/src/main/resources/db/changelog/db.changelog-master.yaml` 登记，且 `mysql/` 与 `postgresql/` 两套 SQL 必须同步提供。
+- **数据库结构变更必须走 Liquibase**：新增或修改变更集后需在 `continew-server/src/main/resources/db/changelog/db.changelog-master.yaml` 登记，SQL 脚本统一放在 `mysql/` 目录。
 - **新增公共表需登记租户白名单**：不参与租户隔离的表必须加入 `continew-starter.tenant.ignore-tables` 配置。
 - **禁止硬编码敏感凭据**：密码、密钥、token 等不得硬编码进配置或源码。`application-prod.yml` 一律使用**无默认值**的环境变量占位符（如 `${DB_PWD}`，未配置即启动失败，强制注入）；`application-dev.yml` 可保留本地示例默认值以保证开箱即用。新增凭据遵循同一模式。
 - **披露 AI 使用**：当提交中较大部分由 AI 生成时，请在 commit message 末尾追加 trailer，注明实际使用的智能体，例如：

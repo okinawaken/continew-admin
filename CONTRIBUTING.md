@@ -39,7 +39,7 @@ ContiNew 系列项目采用清晰的分支策略，确保开发与维护有序�
 |:-----|:-----|
 | JDK 17+ | 项目基于 Java 17 |
 | Maven 3.9+ | 推荐直接使用仓库内置的 `./mvnw`（Windows 为 `mvnw.cmd`），无需单独安装 |
-| MySQL / PostgreSQL | 按需准备数据库，Liquibase 会在首次启动时自动初始化 |
+| MySQL | 按需准备数据库，Liquibase 会在首次启动时自动初始化 |
 | Redis | 缓存、认证令牌等依赖 Redis |
 | IDE（可选） | IntelliJ IDEA，可导入项目提供的代码风格配置（见下） |
 

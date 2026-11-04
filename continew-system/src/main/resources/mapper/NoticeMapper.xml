@@ -28,14 +28,7 @@
         WHERE t1.deleted = 0
         <if test="query.userId != null">
             AND t1.status = 3
-            <choose>
-                <when test="_databaseId == 'mysql'">
-                    AND (t1.notice_scope = 1 OR (t1.notice_scope = 2 AND JSON_CONTAINS(t1.notice_users, CONCAT('"', #{query.userId}, '"'))))
-                </when>
-                <when test="_databaseId == 'pgsql'">
-                    AND (t1.notice_scope = 1 OR (t1.notice_scope = 2 AND t1.notice_users::jsonb @> jsonb_build_array(#{query.userId}::text)))
-                </when>
-            </choose>
+            AND (t1.notice_scope = 1 OR (t1.notice_scope = 2 AND JSON_CONTAINS(t1.notice_users, CONCAT('"', #{query.userId}, '"'))))
         </if>
         <if test="query.title != null and query.title != ''">
             AND t1.title LIKE CONCAT('%', #{query.title}, '%')
@@ -57,23 +50,9 @@
         FROM sys_notice AS t1
         LEFT JOIN sys_notice_log AS t2 ON t2.notice_id = t1.id AND t2.user_id = #{userId}
         WHERE t1.deleted = 0 AND t1.status = 3
-        <choose>
-            <when test="_databaseId == 'mysql'">
-                AND (t1.notice_scope = 1 OR (t1.notice_scope = 2 AND JSON_CONTAINS(t1.notice_users, CONCAT('"', #{userId}, '"'))))
-            </when>
-            <when test="_databaseId == 'pgsql'">
-                AND (t1.notice_scope = 1 OR (t1.notice_scope = 2 AND t1.notice_users::jsonb @> jsonb_build_array(#{userId}::text)))
-            </when>
-        </choose>
+        AND (t1.notice_scope = 1 OR (t1.notice_scope = 2 AND JSON_CONTAINS(t1.notice_users, CONCAT('"', #{userId}, '"'))))
         <if test="noticeMethod != null">
-            <choose>
-                <when test="_databaseId == 'mysql'">
-                    AND JSON_CONTAINS(t1.notice_methods, CAST(#{noticeMethod} AS CHAR))
-                </when>
-                <when test="_databaseId == 'pgsql'">
-                    AND (t1.notice_methods::jsonb @> jsonb_build_array(#{noticeMethod}::text))
-                </when>
-            </choose>
+            AND JSON_CONTAINS(t1.notice_methods, CAST(#{noticeMethod} AS CHAR))
         </if>
         AND t2.read_time IS NULL
     </select>
@@ -85,14 +64,7 @@
         FROM sys_notice AS t1
         WHERE t1.deleted = 0 AND t1.status = 3
         <if test="userId != null">
-            <choose>
-                <when test="_databaseId == 'mysql'">
-                    AND (t1.notice_scope = 1 OR (t1.notice_scope = 2 AND JSON_CONTAINS(t1.notice_users, CONCAT('"', #{userId}, '"'))))
-                </when>
-                <when test="_databaseId == 'pgsql'">
-                    AND (t1.notice_scope = 1 OR (t1.notice_scope = 2 AND t1.notice_users::jsonb @> jsonb_build_array(#{userId}::text)))
-                </when>
-            </choose>
+            AND (t1.notice_scope = 1 OR (t1.notice_scope = 2 AND JSON_CONTAINS(t1.notice_users, CONCAT('"', #{userId}, '"'))))
         </if>
         ORDER BY t1.is_top DESC, t1.publish_time DESC
         LIMIT 5

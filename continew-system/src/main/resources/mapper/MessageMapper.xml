@@ -20,14 +20,7 @@
         LEFT JOIN sys_message_log AS t2 ON t2.message_id = t1.id <if test="query.userId != null">AND t2.user_id = #{query.userId}</if>
         WHERE t1.deleted = 0
         <if test="query.userId != null">
-            <choose>
-                <when test="_databaseId == 'mysql'">
-                    AND (t1.scope = 1 OR (t1.scope = 2 AND JSON_CONTAINS(t1.users, CONCAT('"', #{query.userId}, '"'))))
-                </when>
-                <when test="_databaseId == 'pgsql'">
-                    AND (t1.scope = 1 OR (t1.scope = 2 AND t1.users::jsonb @> jsonb_build_array(#{query.userId}::text)))
-                </when>
-            </choose>
+            AND (t1.scope = 1 OR (t1.scope = 2 AND JSON_CONTAINS(t1.users, CONCAT('"', #{query.userId}, '"'))))
         </if>
         <if test="query.title != null and query.title != ''">
             AND t1.title LIKE CONCAT('%', #{query.title}, '%')
@@ -62,14 +55,7 @@
         FROM sys_message AS t1
         LEFT JOIN sys_message_log AS t2 ON t2.message_id = t1.id AND t2.user_id = #{userId}
         WHERE t1.deleted = 0
-        <choose>
-            <when test="_databaseId == 'mysql'">
-                AND (t1.scope = 1 OR (t1.scope = 2 AND JSON_CONTAINS(t1.users, CONCAT('"', #{userId}, '"'))))
-            </when>
-            <when test="_databaseId == 'pgsql'">
-                AND (t1.scope = 1 OR (t1.scope = 2 AND t1.users::jsonb @> jsonb_build_array(#{userId}::text) ))
-            </when>
-        </choose>
+        AND (t1.scope = 1 OR (t1.scope = 2 AND JSON_CONTAINS(t1.users, CONCAT('"', #{userId}, '"'))))
         AND t2.read_time IS NULL
     </select>
 
@@ -79,14 +65,7 @@
         FROM sys_message AS t1
         LEFT JOIN sys_message_log AS t2 ON t2.message_id = t1.id AND t2.user_id = #{userId}
         WHERE t1.deleted = 0
-        <choose>
-            <when test="_databaseId == 'mysql'">
-                AND (t1.scope = 1 OR (t1.scope = 2 AND JSON_CONTAINS(t1.users, CONCAT('"', #{userId}, '"'))))
-            </when>
-            <when test="_databaseId == 'pgsql'">
-                AND (t1.scope = 1 OR (t1.scope = 2 AND t1.users::jsonb @> jsonb_build_array(#{userId}::text) ))
-            </when>
-        </choose>
+        AND (t1.scope = 1 OR (t1.scope = 2 AND JSON_CONTAINS(t1.users, CONCAT('"', #{userId}, '"'))))
         AND t2.read_time IS NULL
         <if test="type != null">
             AND t1.type = #{type}

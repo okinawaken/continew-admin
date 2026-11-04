@@ -96,7 +96,7 @@ IPage<GoodsDetailResp> selectGoodsPage(@Param("page") IPage<GoodsDO> page,
 | `roleDeptTableAlias` | `sys_role_dept` | 角色-部门关联表表名 |
 
 <Callout type="info">
-`DEPT_AND_CHILD` 依赖 `sys_dept.ancestors` 列做层级匹配，MySQL 用 `find_in_set`，PostgreSQL用 `concat + LIKE`。默认处理器目前只支持这两种数据库；其他数据库使用该范围时会抛 `DataPermissionException` 并中断查询，需要自定义 `DataPermissionHandler` 实现对应方言。
+`DEPT_AND_CHILD` 依赖 `sys_dept.ancestors` 列做层级匹配，MySQL 用 `find_in_set`。其他数据库方言使用该范围时会抛 `DataPermissionException` 并中断查询，需要自定义 `DataPermissionHandler` 实现对应方言。
 </Callout>
 
 ## 使用现状

@@ -38,29 +38,6 @@ generator:
       LocalDateTime:
         - datetime
         - timestamp
-    POSTGRE_SQL:
-      String:
-        - varchar
-        - char
-        - text
-        - json
-      Integer:
-        - int2
-        - int4
-      Long:
-        - int8
-      Float:
-        - float4
-      Double:
-        - float8
-      Boolean:
-        - bool
-      BigDecimal:
-        - decimal
-      LocalDate:
-        - date
-      LocalDateTime:
-        - timestamp
   ## 模板配置
   templateConfigs:
     DO:

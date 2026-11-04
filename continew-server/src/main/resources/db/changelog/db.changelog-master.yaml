@@ -15,20 +15,3 @@ databaseChangeLog:
       file: db/changelog/mysql/plugin/plugin_schedule.sql
   - include:
       file: db/changelog/mysql/plugin/plugin_generator.sql
-# PostgreSQL
-#  - include:
-#      file: db/changelog/postgresql/main_table.sql
-#  - include:
-#      file: db/changelog/postgresql/main_data.sql
-#  - include:
-#      file: db/changelog/postgresql/business/study.sql
-#  - include:
-#      file: db/changelog/postgresql/business/study_data.sql
-#  - include:
-#      file: db/changelog/postgresql/plugin/plugin_open.sql
-#  - include:
-#      file: db/changelog/postgresql/plugin/plugin_tenant.sql
-#  - include:
-#      file: db/changelog/postgresql/plugin/plugin_schedule.sql
-#  - include:
-#      file: db/changelog/postgresql/plugin/plugin_generator.sql

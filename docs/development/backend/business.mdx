@@ -156,7 +156,7 @@ Forest 的扫描入口是 `top.continew.admin.business.study.config.ForestConfig
 
 三张表都包含 `id`、`tenant_id`、`create_user`、`create_time`、`update_user`、`update_time`、`deleted`。`deleted` 由 MyBatis Plus 逻辑删除维护，值等于记录 ID。
 
-MySQL 与 PostgreSQL 脚本分别在 `continew-server/src/main/resources/db/changelog/mysql/business/study.sql` 与 `postgresql/business/study.sql`，菜单与权限数据在对应的 `study_data.sql`，并已在 `db.changelog-master.yaml` 登记。
+MySQL 脚本位于 `continew-server/src/main/resources/db/changelog/mysql/business/study.sql`，菜单与权限数据在同目录的 `study_data.sql`，并已在 `db.changelog-master.yaml` 登记。
 
 ## 代理接口一览
 

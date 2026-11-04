@@ -40,7 +40,7 @@ description: 代码生成器读取数据表元数据，按 15 个 FreeMarker 模
 
 ## 类型映射
 
-列类型到 Java 类型的映射由 `generator.typeMappings` 配置，按数据库方言分组。MySQL 默认映射：`varchar`、`char`、`text`、`json` 等映射为 `String`；`int`、`tinyint` 等映射为 `Integer`；`bigint` 映射为 `Long`；`decimal` 映射为 `BigDecimal`；`date` 映射为 `LocalDate`；`datetime`、`timestamp` 映射为 `LocalDateTime`。PostgreSQL 对应提供 `int2`/`int4`/`int8`、`float4`/`float8`、`bool`、`timestamp` 等映射。新列类型未命中映射时，在该配置中补充即可。
+列类型到 Java 类型的映射由 `generator.typeMappings` 配置，按数据库方言分组。MySQL 默认映射：`varchar`、`char`、`text`、`json` 等映射为 `String`；`int`、`tinyint` 等映射为 `Integer`；`bigint` 映射为 `Long`；`decimal` 映射为 `BigDecimal`；`date` 映射为 `LocalDate`；`datetime`、`timestamp` 映射为 `LocalDateTime`。新列类型未命中映射时，在该配置中补充即可。
 
 `generator.excludeTables` 配置不出现在可选表清单中的表，默认排除 Liquibase 的 `DATABASECHANGELOG*` 与生成器自身的两张配置表。
 

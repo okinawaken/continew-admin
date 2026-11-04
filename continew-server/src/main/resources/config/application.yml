@@ -295,7 +295,6 @@ mybatis-plus:
     # NONE：不启用 PARTIAL：只对非嵌套 resultMap 自动映射 FULL：对所有 resultMap 自动映射
     auto-mapping-behavior: PARTIAL
     database-id: mysql
-    #database-id: pgsql
   ## 全局配置
   global-config:
     banner: true

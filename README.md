@@ -324,7 +324,6 @@ continew-admin
 │  │  │     │  └─ application.yml（通用配置文件）
 │  │  │     ├─ db/changelog（Liquibase 数据脚本配置目录）
 │  │  │     │  ├─ mysql（MySQL 数据库初始 SQL 脚本目录）
-│  │  │     │  ├─ postgresql（PostgreSQL 数据库初始 SQL 脚本目录）
 │  │  │     │  └─ db.changelog-master.yaml（Liquibase 变更记录文件）
 │  │  │     ├─ templates（模板配置目录，例如：邮件模板）
 │  │  │     ├─ banner.txt（Banner 配置文件）
@@ -480,7 +479,6 @@ continew-admin
 │  │  │  │     │  └─ application.yml（通用配置文件）
 │  │  │  │     ├─ db/changelog（Liquibase 数据脚本配置目录）
 │  │  │  │     │  ├─ mysql（MySQL 数据库初始 SQL 脚本目录）
-│  │  │  │     │  ├─ postgresql（PostgreSQL 数据库初始 SQL 脚本目录）
 │  │  │  │     │  └─ db.changelog-master.yaml（Liquibase 变更记录文件）
 │  │  │  │     └─ logback-spring.xml（日志配置文件）
 │  │  │  └─ test（测试相关代码目录）
