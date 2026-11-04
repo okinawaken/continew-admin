@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.continew.admin.business.study.client.http.StudyRoomVenueClient;
+import top.continew.admin.business.study.client.http.v1.StudyRoomVenueClient;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTaskEnableStatusEnum;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTriggerTypeEnum;
 import top.continew.admin.business.study.mapper.StudyRoomAutoReserveTaskMapper;

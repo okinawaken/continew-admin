@@ -3,7 +3,7 @@ package top.continew.admin.business.study.filter.autosign.impl;
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
+import top.continew.admin.business.study.client.http.v2.StudyRoomReserveV2Client;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignFilterOrderEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autosign.StudyRoomAutoSignFilter;

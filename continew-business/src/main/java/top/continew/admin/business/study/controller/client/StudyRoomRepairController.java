@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.continew.admin.business.study.client.http.StudyRoomRepairClient;
+import top.continew.admin.business.study.client.http.v1.StudyRoomRepairClient;
 import top.continew.admin.business.study.model.req.StudyRoomRepairSubmitClientReq;
 import top.continew.admin.business.study.model.resp.StudyRoomRepairClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomRepairListClientResp;

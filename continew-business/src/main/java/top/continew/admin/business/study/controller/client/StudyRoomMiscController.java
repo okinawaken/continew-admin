@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import top.continew.admin.business.study.client.http.StudyRoomMiscClient;
+import top.continew.admin.business.study.client.http.v1.StudyRoomMiscClient;
 import top.continew.admin.business.study.model.req.StudyRoomCabinetLeaseCommitClientReq;
 import top.continew.admin.business.study.model.req.StudyRoomCabinetWifiOpenClientReq;
 import top.continew.admin.business.study.model.req.StudyRoomDouYinVerifyClientReq;

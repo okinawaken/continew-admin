@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import top.continew.admin.business.study.client.http.StudyRoomPackageClient;
+import top.continew.admin.business.study.client.http.v1.StudyRoomPackageClient;
 import top.continew.admin.business.study.model.req.StudyRoomBuyPackageConfirmClientReq;
 import top.continew.admin.business.study.model.req.StudyRoomBuyPayOrderClientReq;
 import top.continew.admin.business.study.model.req.StudyRoomBuyV2PackageConfirmClientReq;

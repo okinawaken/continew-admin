@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import top.continew.admin.business.study.client.http.StudyRoomVenueClient;
+import top.continew.admin.business.study.client.http.v1.StudyRoomVenueClient;
 import top.continew.admin.business.study.model.resp.StudyRoomAreaSelectClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomDouYinVenueSelectClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomReserveIndexClientResp;

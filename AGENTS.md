@@ -155,7 +155,3 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 ```bash
 ./mvnw verify     # 四道静态门禁必须全部通过（被 Spotless 拦截时使用 -Pformat）
 ```
-
-## 安全漏洞
-
-不得通过 GitHub Issue 报告安全漏洞。请使用 GitHub 私有漏洞报告。

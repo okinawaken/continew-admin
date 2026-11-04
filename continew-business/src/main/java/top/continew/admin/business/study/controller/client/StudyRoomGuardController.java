@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import top.continew.admin.business.study.client.http.StudyRoomGuardClient;
+import top.continew.admin.business.study.client.http.v1.StudyRoomGuardClient;
 import top.continew.admin.business.study.model.req.StudyRoomGuardOpenClientReq;
 import top.continew.admin.business.study.model.resp.StudyRoomGuardListClientResp;
 import top.continew.starter.web.model.R;

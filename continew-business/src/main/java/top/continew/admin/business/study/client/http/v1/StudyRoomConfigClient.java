@@ -1,7 +1,8 @@
-package top.continew.admin.business.study.client.http;
+package top.continew.admin.business.study.client.http.v1;
 
 import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.Query;
+import top.continew.admin.business.study.client.http.StudyRoomBaseClient;
 import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.model.resp.StudyRoomConfigClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomNoticeClientResp;
