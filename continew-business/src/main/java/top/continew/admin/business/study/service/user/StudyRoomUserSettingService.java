@@ -1,8 +1,7 @@
 package top.continew.admin.business.study.service.user;
 
-import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
-import top.continew.admin.business.study.model.bo.StudyRoomUserConfigViewBO;
 import top.continew.admin.business.study.model.req.StudyRoomUserSettingReq;
+import top.continew.admin.business.study.model.resp.StudyRoomUserConfigResp;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public interface StudyRoomUserSettingService {
      * @param userId 系统用户 ID
      * @return 详情数据
      */
-    StudyRoomUserConfigBO getConfig(Long userId);
+    StudyRoomUserConfigResp getConfig(Long userId);
 
     /**
      * 读取全部用户配置（跨租户扫描）
@@ -29,7 +28,7 @@ public interface StudyRoomUserSettingService {
      *
      * @return 列表数据
      */
-    List<StudyRoomUserConfigViewBO> listAllConfigs();
+    List<StudyRoomUserConfigResp> listAllConfigs();
 
     /**
      * 局部更新用户配置
