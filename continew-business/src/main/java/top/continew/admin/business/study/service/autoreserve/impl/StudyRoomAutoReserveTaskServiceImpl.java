@@ -61,12 +61,11 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
 
     @Override
     public StudyRoomAutoReserveTaskInfoResp getTask(Long taskId) {
-        return this.toDto(this.getTaskDO(taskId));
-    }
-
-    @Override
-    public StudyRoomAutoReserveTaskInfoResp getTask(Long taskId, Long userId) {
-        return this.toDto(this.getOwnedTaskDO(taskId, userId));
+        StudyRoomAutoReserveTaskDO task = taskMapper.selectById(taskId);
+        if (Objects.isNull(task)) {
+            throw new BusinessException("未查询到任务数据");
+        }
+        return this.toDto(task);
     }
 
     @Override
@@ -95,7 +94,10 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateTask(Long taskId, Long userId, StudyRoomAutoReserveTaskReq dto) {
-        StudyRoomAutoReserveTaskDO taskDO = this.getOwnedTaskDO(taskId, userId);
+        StudyRoomAutoReserveTaskDO taskDO = taskMapper.selectById(taskId);
+        if (Objects.isNull(taskDO)) {
+            throw new BusinessException("未查询到任务数据");
+        }
         StudyRoomClientResult<StudyRoomVenueClientResp> studyRoomResult =
             venueClient.reserveVenueDetail(dto.getVenueId());
         if (Objects.isNull(studyRoomResult) || Objects.isNull(studyRoomResult.getData())) {
@@ -114,7 +116,6 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteTask(Long taskId, Long userId) {
-        this.getOwnedTaskDO(taskId, userId);
         taskMapper.deleteById(taskId);
         recordService.deleteByTaskId(taskId);
     }
@@ -122,7 +123,10 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void pauseTask(Long taskId, Long userId, String pauseReason) {
-        StudyRoomAutoReserveTaskDO task = this.getOwnedTaskDO(taskId, userId);
+        StudyRoomAutoReserveTaskDO task = taskMapper.selectById(taskId);
+        if (Objects.isNull(task)) {
+            throw new BusinessException("未查询到任务数据");
+        }
 
         task.setEnableStatus(StudyRoomAutoReserveTaskEnableStatusEnum.PAUSED.getValue());
         task.setPauseReason(pauseReason);
@@ -132,7 +136,10 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void resumeTask(Long taskId, Long userId) {
-        StudyRoomAutoReserveTaskDO task = this.getOwnedTaskDO(taskId, userId);
+        StudyRoomAutoReserveTaskDO task = taskMapper.selectById(taskId);
+        if (Objects.isNull(task)) {
+            throw new BusinessException("未查询到任务数据");
+        }
 
         task.setEnableStatus(StudyRoomAutoReserveTaskEnableStatusEnum.ENABLED.getValue());
         task.setPauseReason(StrUtil.EMPTY);
@@ -141,10 +148,14 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
 
     @Override
     public void executeTask(Long taskId, Long userId) {
-        StudyRoomAutoReserveTaskDO task = this.getOwnedTaskDO(taskId, userId);
+        StudyRoomAutoReserveTaskDO task = taskMapper.selectById(taskId);
+        if (Objects.isNull(task)) {
+            throw new BusinessException("未查询到任务数据");
+        }
         if (!StudyRoomAutoReserveTaskEnableStatusEnum.isEnabled(task.getEnableStatus())) {
             throw new BusinessException("任务已暂停，请先恢复");
         }
+
         eventPublisher.publishEvent(new StudyRoomAutoReserveExecuteEvent(task.getId(),
             StudyRoomAutoReserveTriggerTypeEnum.MANUAL.getValue(),
             TenantContextHolder.getTenantId()));
@@ -168,22 +179,6 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
             .lt(StudyRoomAutoReserveTaskDO::getLastMaxReserveDate, targetDate)
             .set(StudyRoomAutoReserveTaskDO::getLastMaxReserveDate, targetDate);
         taskMapper.update(luw);
-    }
-
-    private StudyRoomAutoReserveTaskDO getTaskDO(Long taskId) {
-        StudyRoomAutoReserveTaskDO task = taskMapper.selectById(taskId);
-        if (Objects.isNull(task)) {
-            throw new BusinessException("未查询到任务数据");
-        }
-        return task;
-    }
-
-    private StudyRoomAutoReserveTaskDO getOwnedTaskDO(Long taskId, Long userId) {
-        StudyRoomAutoReserveTaskDO task = this.getTaskDO(taskId);
-        if (!Objects.equals(task.getUserId(), userId)) {
-            throw new BusinessException("无权操作该任务");
-        }
-        return task;
     }
 
     private StudyRoomAutoReserveTaskInfoResp toDto(StudyRoomAutoReserveTaskDO task) {

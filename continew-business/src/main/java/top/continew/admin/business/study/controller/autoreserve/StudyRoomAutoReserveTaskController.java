@@ -56,7 +56,7 @@ public class StudyRoomAutoReserveTaskController {
     @SaCheckPermission("business:study:autoReserveTask:get")
     @GetMapping(value = "/{id}")
     public R<StudyRoomAutoReserveTaskInfoResp> detail(@PathVariable(value = "id") Long id) {
-        return R.ok(taskService.getTask(id, UserContextHolder.getUserId()));
+        return R.ok(taskService.getTask(id));
     }
 
     /**

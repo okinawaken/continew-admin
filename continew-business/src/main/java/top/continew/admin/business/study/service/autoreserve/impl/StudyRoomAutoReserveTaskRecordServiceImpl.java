@@ -64,12 +64,13 @@ public class StudyRoomAutoReserveTaskRecordServiceImpl
         StudyRoomAutoReserveTaskRecordDO recordDO = new StudyRoomAutoReserveTaskRecordDO();
         recordDO.setTaskId(taskRecordRespDTO.getTaskId());
         recordDO.setUserId(taskRecordRespDTO.getUserId());
-        // 异步任务线程没有登录上下文，显式以任务归属用户作为创建人，避免 create_user 为空
-        recordDO.setCreateUser(taskRecordRespDTO.getUserId());
         recordDO.setTriggerType(taskRecordRespDTO.getTriggerType());
         recordDO.setTargetDate(taskRecordRespDTO.getTargetDate());
         recordDO.setStatus(taskRecordRespDTO.getStatus());
         recordDO.setDetailJson(JsonUtils.toJsonStr(detailBO));
+        recordDO.setTenantId(taskRecordRespDTO.getTenantId());
+        recordDO.setCreateUser(taskRecordRespDTO.getUserId());
+        recordDO.setUpdateUser(taskRecordRespDTO.getUserId());
         recordMapper.insert(recordDO);
     }
 
