@@ -63,7 +63,7 @@ public class GoodsDO extends TenantBaseDO {
 </Step>
 </Steps>
 
-Liquibase 脚本放进 `continew-server` 的 `db/changelog/mysql` 与 `db/changelog/postgresql` 两个目录，与存量脚本同一套 changeset 约定。PostgreSQL 侧同样要加 `tenant_id` 列，`plugin_tenant.sql` 的 postgresql 版本可对照。
+Liquibase 脚本放进 `continew-server` 的 `db/changelog/mysql` 目录，与存量脚本同一套 changeset 约定。
 
 ## ignore-tables 白名单
 

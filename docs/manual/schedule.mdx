@@ -16,7 +16,7 @@ description: 任务调度模块基于 Snail Job 实现分布式任务调度，�
 
 仓库提供 `continew-extension-schedule-server` 模块作为本地开发用的调度中心，启动类 `ScheduleServerApplication` 继承 Snail Job 官方的 `SnailJobServerApplication`，通过 Liquibase 独立 changelog 初始化 `sj_*` 表，数据默认落在 `continew_admin_job` 库。dev 环境 Web 端口 8001、通讯端口 17888，prod 环境 Web 端口 18001。生产部署也可以按 Snail Job 官方文档搭建服务端，二者等价。
 
-Docker Compose 部署时 `docker-compose.yml` 已包含 `schedule-server` 服务（镜像 `schedule-server:1.8.0`），与主服务同网编排。
+调度服务端与业务服务分开部署，业务服务通过 `application-prod.yml` 的 `snail-job` 配置连接，prod 默认启用。
 
 业务服务侧的连接配置（`application-dev.yml` 节选）。
 

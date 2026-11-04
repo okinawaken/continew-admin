@@ -123,7 +123,7 @@ public class DeptController extends BaseController<DeptService, DeptResp, DeptDe
 
 **7.Almost 最佳后端规范：** 后端严格遵循阿里巴巴 Java 编码规范，注释覆盖率 > 45%，接口参数示例 100%。代码分层清晰，变量与方法命名统一规范，前端代码同样采用严格的 ESLint、StyleLint 等检查。优秀的设计带来极高的代码复用率！开发时，你会有一种“无需多写，理应如此”的流畅感。
 
-**8.卓越工程化实践：** 后端采用模块化工程结构，集成了统一版本管理、编译时自动代码格式化等插件。提供自定义打包部署配置（配置文件、第三方依赖与主程序分离），以及全套环境和应用的 Docker Compose 部署脚本。
+**8.卓越工程化实践：** 后端采用模块化工程结构，集成了统一版本管理、编译时自动代码格式化等插件。提供自定义打包部署配置（配置文件、第三方依赖与主程序分离）。
 
 为减少新项目开发的改造成本，我们持续深度聚合项目品牌配置，通过简单的配置和结构修改，即可快速启动你的专属项目。
 
@@ -175,73 +175,6 @@ public class DeptController extends BaseController<DeptService, DeptResp, DeptDe
 - 任务管理：管理系统定时任务，包含新增、修改、删除、执行功能，支持 Cron（可配置式生成 Cron 表达式） 和固定频率
 - 任务日志：管理定时任务执行日志，包含停止、重试指定批次等功能
 - 代码生成：提供根据数据库表自动生成相应的前后端 CRUD 代码的功能，支持同步最新表结构及代码生成预览
-
-## 系统截图
-
-> [!TIP]
-> 受篇幅长度及功能更新频率影响，下方仅为系统 **部分** 功能于 **2024年11月18日** 进行的截图，更多新增功能及细节请登录演示环境或 clone 代码到本地启动查看。
-
-<table border="1" cellpadding="1" cellspacing="1" style="width: 500px">
-    <tbody>
-        <tr>
-            <td><img src=".image/screenshot/000登录页面.png" alt="登录页面" width="1920" /></td>
-            <td><img src=".image/screenshot/000登录页面-H5.png" alt="登录页面-H5" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/001仪表盘.png" alt="仪表盘" width="1920" /></td>
-            <td><img src=".image/screenshot/002分析页.png" alt="分析页" width="1920" /></td>
-        </tr>
-       <tr>
-            <td><img src=".image/screenshot/010个人中心.png" alt="个人中心" width="1920" /></td>
-            <td><img src=".image/screenshot/013消息中心.png" alt="消息中心" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/011安全设置-修改邮箱.png" alt="安全设置-修改邮箱" width="1920" /></td>
-            <td><img src=".image/screenshot/012安全设置-修改邮箱-邮箱验证码.png" alt="安全设置-修改邮箱-邮箱验证码" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/060系统管理-系统配置.png" alt="系统管理-系统配置" width="1920" /></td>
-            <td><img src=".image/screenshot/061系统管理-安全配置.png" alt="系统管理-安全配置" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/020系统管理-用户管理-列表.png" alt="系统管理-用户管理-列表" width="1920" /></td>
-            <td><img src=".image/screenshot/021系统管理-用户管理-新增.png" alt="系统管理-用户管理-新增" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/025系统管理-角色管理-列表.png" alt="系统管理-角色管理-列表" width="1920" /></td>
-            <td><img src=".image/screenshot/026系统管理-角色管理-新增.png" alt="系统管理-角色管理-新增" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/030系统管理-菜单管理-列表.png" alt="系统管理-菜单管理-列表" width="1920" /></td>
-            <td><img src=".image/screenshot/031系统管理-菜单管理-新增.png" alt="系统管理-菜单管理-新增" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/045系统管理-公告管理-列表.png" alt="系统管理-公告管理-列表" width="1920" /></td>
-            <td><img src=".image/screenshot/046系统管理-公告管理-修改.png" alt="系统管理-公告管理-修改" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/040系统管理-字典管理-列表.png" alt="系统管理-字典管理-列表" width="1920" /></td>
-            <td><img src=".image/screenshot/041系统管理-字典项管理.png" alt="系统管理-字典项管理" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/051系统管理-文件管理-列表-2.png" alt="系统管理-文件管理-列表-2" width="1920" /></td>
-            <td><img src=".image/screenshot/052系统管理-文件管理-查看文档.png" alt="系统管理-文件管理-查看文档" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/301系统工具-代码生成-配置.png" alt="系统工具-代码生成-配置" width="1920" /></td>
-            <td><img src=".image/screenshot/302系统工具-代码生成-预览.png" alt="系统工具-代码生成-预览" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/100系统监控-在线用户.png" alt="系统监控-在线用户" width="1920" /></td>
-            <td><img src=".image/screenshot/101系统监控-系统日志-登录日志.png" alt="系统监控-系统日志-登录日志" width="1920" /></td>
-        </tr>
-        <tr>
-            <td><img src=".image/screenshot/102系统监控-系统日志-操作日志.png" alt="系统监控-系统日志-操作日志" width="1920" /></td>
-            <td><img src=".image/screenshot/103系统监控-系统日志-操作日志-详情.png" alt="系统监控-系统日志-操作日志-详情" width="1920" /></td>
-        </tr>
-    </tbody>
-</table>
-
 
 ## 核心技术栈
 
@@ -324,7 +257,6 @@ continew-admin
 │  │  │     │  └─ application.yml（通用配置文件）
 │  │  │     ├─ db/changelog（Liquibase 数据脚本配置目录）
 │  │  │     │  ├─ mysql（MySQL 数据库初始 SQL 脚本目录）
-│  │  │     │  ├─ postgresql（PostgreSQL 数据库初始 SQL 脚本目录）
 │  │  │     │  └─ db.changelog-master.yaml（Liquibase 变更记录文件）
 │  │  │     ├─ templates（模板配置目录，例如：邮件模板）
 │  │  │     ├─ banner.txt（Banner 配置文件）
@@ -480,7 +412,6 @@ continew-admin
 │  │  │  │     │  └─ application.yml（通用配置文件）
 │  │  │  │     ├─ db/changelog（Liquibase 数据脚本配置目录）
 │  │  │  │     │  ├─ mysql（MySQL 数据库初始 SQL 脚本目录）
-│  │  │  │     │  ├─ postgresql（PostgreSQL 数据库初始 SQL 脚本目录）
 │  │  │  │     │  └─ db.changelog-master.yaml（Liquibase 变更记录文件）
 │  │  │  │     └─ logback-spring.xml（日志配置文件）
 │  │  │  └─ test（测试相关代码目录）
@@ -490,16 +421,10 @@ continew-admin
 ├─ .agents（Agent 技能目录，供 AI 编程智能体使用）
 ├─ .idea
 │  └─ icon.png（IDEA 项目图标，实际开发时直接删除）
-├─ .image（截图目录，实际开发时直接删除）
 ├─ .mvn（Maven Wrapper 配置目录）
 ├─ style（代码风格配置目录：Spotless/Checkstyle/IDEA 配置等，详见 style/STYLE.md）
 ├─ .gitignore（Git 忽略文件相关配置文件）
-├─ docker（项目部署相关配置目录，实际开发时可备份后直接删除）
 ├─ LICENSE（开源协议文件）
-├─ CHANGELOG.md（更新日志文件，实际开发时直接删除）
-├─ CODE_OF_CONDUCT.md（贡献者行为准则）
-├─ CONTRIBUTING.md（贡献指南）
-├─ SECURITY.md（安全策略）
 ├─ README.md（项目 README 文件，实际开发时替换为真实内容）
 ├─ lombok.config（Lombok 全局配置文件）
 ├─ mvnw / mvnw.cmd（Maven Wrapper 脚本，锁定 Maven 3.9.16）
@@ -519,9 +444,7 @@ ContiNew（Continue New）系列项目致力于通过持续迭代，为开发者
 - 💻 编写代码：修复 Bug、开发新功能、提升性能
 
 > [!IMPORTANT]
-> 安全漏洞请勿通过公开 Issue 反馈，请参阅 [安全策略](SECURITY.md) 通过 GitHub 安全通告负责任地披露。
-
-完整的贡献流程（环境准备、门禁自检、commit 规范、CLA 签署等）请查阅 [贡献指南](CONTRIBUTING.md)。
+> 安全漏洞请勿通过公开 Issue 反馈，请通过 GitHub 安全通告负责任地披露。
 
 ### 分支说明
 
@@ -534,16 +457,12 @@ ContiNew 系列项目采用清晰的分支策略，确保开发与维护有序�
 
 ## 反馈交流
 
-感谢您对 ContiNew 开源项目的关注与支持！我们非常重视每一位用户的反馈和建议，这是推动项目不断进步的动力。 欢迎扫描下方二维码加入我们的官方交流群，与项目维护团队及其他大佬用户实时交流探讨。
+感谢您对 ContiNew 开源项目的关注与支持！我们非常重视每一位用户的反馈和建议，这是推动项目不断进步的动力。欢迎加入我们的官方交流群，与项目维护团队及其他大佬用户实时交流探讨。
 
 - 与项目核心团队直接沟通，获取第一手项目动态
 - 解决使用过程中遇到的问题，分享经验心得
 - 参与功能讨论和需求收集，影响项目未来发展
 - 结识志同道合的技术爱好者，扩展人脉圈
-
-<div align="left">
-  <img src=".image/qrcode.jpg" alt="二维码" height="230px" />
-</div>
 
 ## 鸣谢
 
@@ -563,7 +482,3 @@ ContiNew 系列项目采用清晰的分支策略，确保开发与维护有序�
 
 - 遵循 <a href="https://github.com/continew-org/continew-admin/blob/dev/LICENSE" target="_blank">Apache-2.0</a> 开源许可协议
 - Copyright © 2022-present <a href="https://charles7c.top" target="_blank">Charles7c</a>
-
-## GitHub Star 趋势
-
-![GitHub Star 趋势](https://starchart.cc/charles7c/continew-admin.svg)

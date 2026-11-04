@@ -15,11 +15,38 @@
     <name>${project.artifactId}</name>
     <description>业务模块（存放具体业务功能）</description>
 
+    <properties>
+        <!--
+            Forest（声明式 HTTP 客户端）：ContiNew Starter 父 POM 未管理该依赖，
+            自习室业务模块沿用原项目已稳定运行的 1.8.1 版本，因此在本模块内管理版本。
+            这是对 AGENTS.md“第三方依赖版本由父 POM 供给”约定的模块级例外，
+            仅解决 study 业务的依赖声明。
+        -->
+        <forest.version>1.8.1</forest.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Forest（声明式 HTTP 客户端，调用自习室小程序上游接口） -->
+            <dependency>
+                <groupId>com.dtflys.forest</groupId>
+                <artifactId>forest-spring-boot-starter</artifactId>
+                <version>${forest.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <!-- 公共模块 -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>continew-common</artifactId>
+        </dependency>
+
+        <!-- Forest（声明式 HTTP 客户端，调用自习室小程序上游接口） -->
+        <dependency>
+            <groupId>com.dtflys.forest</groupId>
+            <artifactId>forest-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>

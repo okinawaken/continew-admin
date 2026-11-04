@@ -314,7 +314,7 @@
                 <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
                 <!--
                     Liquibase 变更脚本（DDL/种子数据）不参与代码分析：
-                    1. MySQL/PostgreSQL 方言脚本会被 PL/SQL 分析器误判（如要求 PostgreSQL 使用 Oracle 的 VARCHAR2）；
+                    1. MySQL 方言脚本会被 PL/SQL 分析器误判；
                     2. 种子数据中包含开源脚手架公开的默认账号密码哈希，并非真实凭据泄露。
                 -->
                 <sonar.exclusions>**/src/main/resources/db/changelog/**/*.sql</sonar.exclusions>
