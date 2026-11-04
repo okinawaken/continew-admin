@@ -180,16 +180,13 @@
                 <artifactId>spotless-maven-plugin</artifactId>
                 <configuration>
                     <java>
-                        <!-- 步骤按声明顺序执行：格式化 → 清理 → 补 License Header；@formatter:off/on 包裹的区间跳过 -->
+                        <!-- 步骤按声明顺序执行：格式化 → 清理；@formatter:off/on 包裹的区间跳过 -->
                         <toggleOffOn/>
                         <eclipse>
                             <file>${maven.multiModuleProjectDirectory}/style/ocn-eclipse-formatter.xml</file>
                         </eclipse>
                         <removeUnusedImports/>
                         <trimTrailingWhitespace/>
-                        <licenseHeader>
-                            <file>${maven.multiModuleProjectDirectory}/style/license-header</file>
-                        </licenseHeader>
                     </java>
                 </configuration>
                 <executions>
@@ -279,7 +276,7 @@
 
     <profiles>
         <!-- 格式化模式：跳过 validate 阶段的格式与规范门禁（Spotless check、Checkstyle），
-             改为编译前自动修复格式（格式化 → 清理 import → 补 License Header） -->
+             改为编译前自动修复格式（格式化 → 清理 import） -->
         <profile>
             <id>format</id>
             <properties>

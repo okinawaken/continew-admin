@@ -76,7 +76,7 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 # 编译单个模块（含依赖模块）
 ./mvnw -pl :continew-system -am compile
 
-# 自动修复格式（被 Spotless 门禁拦截时使用：格式化 + 清理无用 import + 补 License Header）
+# 自动修复格式（被 Spotless 门禁拦截时使用：格式化 + 清理无用 import）
 ./mvnw compile -Pformat
 
 # 打包（默认瘦包，依赖、配置外置，生产部署用）
@@ -139,28 +139,6 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 | 内联全限定名 | **禁止**（`InlineFullyQualifiedName`：与依赖库同名时应调整类名，而非内联全限定名绕过） |
 | 格式化豁免 | `// @formatter:off` 与 `// @formatter:on` 之间的代码不参与格式化 |
 | 命名 | `style/` 配置文件与 agent 技能统一使用 `ocn-` 前缀（OCN = OpenContiNew） |
-
-### License Header
-
-每个新增 Java 源文件**必须**包含 Apache-2.0 License Header。Spotless 在 validate 阶段校验，`./mvnw compile -Pformat` 可自动补全。模板位于 [`style/license-header`](style/license-header)：
-
-```java
-/*
- * Copyright (c) 2022-present Charles7c Authors. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-```
 
 ### Lombok 约定
 
