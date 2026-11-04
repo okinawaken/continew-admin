@@ -67,9 +67,9 @@ public class StudyRoomAutoSignExecutorServiceImpl implements StudyRoomAutoSignEx
             if (Objects.isNull(resultDTO.getData())) {
                 throw new BusinessException("签到结果返回为空");
             }
-            if (!resultDTO.getData().isSignInSuccess()) {
+            StudyRoomSignSeatListClientResp signSeatListClientResp = resultDTO.getData();
+            if (!signSeatListClientResp.isSignInSuccess()) {
                 log.info("签到失败，可能已签到过");
-                return;
             }
         } catch (Exception e) {
             log.error("自动签到执行失败，userId={}，context={}", userId, JsonUtils.toJsonStr(context), e);

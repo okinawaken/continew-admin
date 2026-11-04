@@ -36,6 +36,7 @@ public interface StudyRoomUserV3Client extends StudyRoomBaseClient {
      * <p>
      * 入参：{@code {wechatCode}}（实测）
      *
+     * @param token 用户 token
      * @param form 请求参数
      * @return 响应数据
      */
@@ -50,6 +51,7 @@ public interface StudyRoomUserV3Client extends StudyRoomBaseClient {
      * <p>
      * 入参：{@code {wechatCode, wechatData}}（实测）
      *
+     * @param token 用户 token
      * @param form 请求参数
      * @return 响应数据
      */
@@ -64,6 +66,7 @@ public interface StudyRoomUserV3Client extends StudyRoomBaseClient {
      * <p>
      * 入参：{@code {wechatCode}}（实测）；成功时 {@code data} 为 {@code null}
      *
+     * @param token 用户 token
      * @param form 请求参数
      * @return 响应数据
      */

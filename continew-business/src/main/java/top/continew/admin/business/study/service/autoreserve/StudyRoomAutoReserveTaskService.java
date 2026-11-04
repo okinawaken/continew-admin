@@ -29,21 +29,12 @@ public interface StudyRoomAutoReserveTaskService {
     /**
      * 任务详情
      * <p>
-     * 内部执行链路使用，不做归属校验；面向用户的查询请使用 {@link #getTask(Long, Long)}。
+     * 内部执行链路使用，不做归属校验；
      *
      * @param taskId 任务 ID
      * @return 详情数据
      */
     StudyRoomAutoReserveTaskInfoResp getTask(Long taskId);
-
-    /**
-     * 任务详情，校验任务归属当前用户
-     *
-     * @param taskId 任务 ID
-     * @param userId 用户 ID
-     * @return 详情数据
-     */
-    StudyRoomAutoReserveTaskInfoResp getTask(Long taskId, Long userId);
 
     /**
      * 创建任务

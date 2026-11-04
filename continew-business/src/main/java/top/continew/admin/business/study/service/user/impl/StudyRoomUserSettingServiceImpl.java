@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.continew.admin.business.study.client.http.v1.StudyRoomUserClient;
+import top.continew.admin.business.study.client.http.v3.StudyRoomUserV3Client;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignInEnableEnum;
 import top.continew.admin.business.study.mapper.StudyRoomUserSettingMapper;
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
@@ -34,7 +34,7 @@ import java.util.Objects;
 public class StudyRoomUserSettingServiceImpl implements StudyRoomUserSettingService {
 
     private final StudyRoomUserSettingMapper settingMapper;
-    private final StudyRoomUserClient studyRoomUserClient;
+    private final StudyRoomUserV3Client userV3Client;
 
     @Override
     public StudyRoomUserConfigResp getConfig(Long userId) {
@@ -43,14 +43,14 @@ public class StudyRoomUserSettingServiceImpl implements StudyRoomUserSettingServ
         StudyRoomUserSettingDO studyRoomUserSettingDO = settingMapper.selectOne(lqw);
         if (Objects.isNull(studyRoomUserSettingDO)) {
             StudyRoomUserConfigResp resp = new StudyRoomUserConfigResp();
-            resp.setUserId(userId);
             resp.setTenantId(TenantContextHolder.getTenantId());
+            resp.setUserId(userId);
             resp.setConfig(this.defaultConfig());
             return resp;
         }
         StudyRoomUserConfigResp resp = new StudyRoomUserConfigResp();
-        resp.setUserId(studyRoomUserSettingDO.getUserId());
         resp.setTenantId(studyRoomUserSettingDO.getTenantId());
+        resp.setUserId(studyRoomUserSettingDO.getUserId());
         resp.setConfig(
             JsonUtils.toBean(studyRoomUserSettingDO.getConfigJson(), StudyRoomUserConfigBO.class));
         return resp;
@@ -62,18 +62,19 @@ public class StudyRoomUserSettingServiceImpl implements StudyRoomUserSettingServ
         LambdaQueryWrapper<StudyRoomUserSettingDO> lqw = Wrappers.lambdaQuery();
         List<StudyRoomUserSettingDO> settingList = settingMapper.selectList(lqw);
         return settingList.stream().map(studyRoomUserSettingDO -> {
-            StudyRoomUserConfigResp view = new StudyRoomUserConfigResp();
-            view.setTenantId(studyRoomUserSettingDO.getTenantId());
-            view.setUserId(studyRoomUserSettingDO.getUserId());
-            view.setConfig(JsonUtils.toBean(studyRoomUserSettingDO.getConfigJson(),
+            StudyRoomUserConfigResp configResp = new StudyRoomUserConfigResp();
+            configResp.setTenantId(studyRoomUserSettingDO.getTenantId());
+            configResp.setUserId(studyRoomUserSettingDO.getUserId());
+            configResp.setConfig(JsonUtils.toBean(studyRoomUserSettingDO.getConfigJson(),
                 StudyRoomUserConfigBO.class));
-            return view;
+            return configResp;
         }).toList();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateConfig(Long userId, StudyRoomUserSettingReq req) {
+        userV3Client.userDetail(req.getToken());
         StudyRoomUserConfigBO config = BeanUtil.copyProperties(req, StudyRoomUserConfigBO.class);
 
         LambdaQueryWrapper<StudyRoomUserSettingDO> lqw = Wrappers.lambdaQuery();

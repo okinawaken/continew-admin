@@ -1,5 +1,6 @@
 package top.continew.admin.business.study.service.autoreserve.impl;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
@@ -93,7 +94,7 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             context.setReserveConfirmClientResp(resultDTO.getData());
 
             StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO = this.buildTaskRecordRespDTO(
-                context, StudyRoomAutoReserveTaskRecordStatusEnum.SUCCESS, null);
+                context, StudyRoomAutoReserveTaskRecordStatusEnum.SUCCESS, StrUtil.EMPTY);
             recordService.saveRecord(taskRecordRespDTO);
             taskService.advanceLastMaxReserveDate(taskId, context.getTargetDate());
         } catch (Exception e) {
@@ -123,6 +124,7 @@ public class StudyRoomAutoReserveExecutorServiceImpl
         if (Objects.nonNull(taskRespDTO)) {
             taskRecordRespDTO.setTaskId(taskRespDTO.getId());
             taskRecordRespDTO.setUserId(taskRespDTO.getUserId());
+            taskRecordRespDTO.setTenantId(taskRespDTO.getTenantId());
             taskRecordRespDTO.setTimeRange(
                 taskRespDTO.getReserveStartTime() + "-" + taskRespDTO.getReserveEndTime());
         }
