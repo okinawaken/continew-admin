@@ -41,9 +41,7 @@ public class StudyRoomVenueController {
     public R<StudyRoomVenueSelectClientResp> venueSelect(
         @RequestParam(value = "currentLng") Double currentLng,
         @RequestParam(value = "currentLat") Double currentLat) {
-        StudyRoomVenueSelectClientResp dto =
-            venueClient.venueSelect(currentLng, currentLat).getData();
-        return R.ok(dto);
+        return R.ok(venueClient.venueSelect(currentLng, currentLat).getData());
     }
 
     /**
@@ -54,8 +52,7 @@ public class StudyRoomVenueController {
     @SaCheckPermission("business:study:venue:list")
     @GetMapping(value = "/reserve/select")
     public R<StudyRoomVenueSelectClientResp> reserveVenueSelect() {
-        StudyRoomVenueSelectClientResp dto = venueClient.reserveVenueSelect().getData();
-        return R.ok(dto);
+        return R.ok(venueClient.reserveVenueSelect().getData());
     }
 
     /**
@@ -68,8 +65,7 @@ public class StudyRoomVenueController {
     @GetMapping(value = "/reserve/detail")
     public R<StudyRoomVenueClientResp> reserveVenueDetail(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomVenueClientResp dto = venueClient.reserveVenueDetail(venueId).getData();
-        return R.ok(dto);
+        return R.ok(venueClient.reserveVenueDetail(venueId).getData());
     }
 
     /**
@@ -90,9 +86,9 @@ public class StudyRoomVenueController {
         @RequestParam(name = "venueName", required = false) String venueName,
         @RequestParam(name = "channelBili", required = false) Integer channelBili,
         @RequestParam(name = "areaId", required = false) Long areaId) {
-        StudyRoomReserveIndexClientResp dto = venueClient
-            .reserveIndex(currentLng, currentLat, venueName, channelBili, areaId).getData();
-        return R.ok(dto);
+        return R.ok(venueClient
+            .reserveIndex(currentLng, currentLat, venueName, channelBili, areaId)
+            .getData());
     }
 
     /**
@@ -103,8 +99,7 @@ public class StudyRoomVenueController {
     @SaCheckPermission("business:study:venue:list")
     @GetMapping(value = "/reserve/area/select")
     public R<StudyRoomAreaSelectClientResp> reserveAreaSelect() {
-        StudyRoomAreaSelectClientResp dto = venueClient.reserveAreaSelect().getData();
-        return R.ok(dto);
+        return R.ok(venueClient.reserveAreaSelect().getData());
     }
 
     /**
@@ -119,9 +114,7 @@ public class StudyRoomVenueController {
     public R<StudyRoomVenueSelectClientResp> receiptVenueSelect(
         @RequestParam(value = "currentLng") Double currentLng,
         @RequestParam(value = "currentLat") Double currentLat) {
-        StudyRoomVenueSelectClientResp dto =
-            venueClient.receiptVenueSelect(currentLng, currentLat).getData();
-        return R.ok(dto);
+        return R.ok(venueClient.receiptVenueSelect(currentLng, currentLat).getData());
     }
 
     /**
@@ -136,8 +129,6 @@ public class StudyRoomVenueController {
     public R<StudyRoomDouYinVenueSelectClientResp> douYinVenueSelect(
         @RequestParam(value = "currentLng") Double currentLng,
         @RequestParam(value = "currentLat") Double currentLat) {
-        StudyRoomDouYinVenueSelectClientResp dto =
-            venueClient.douYinVenueSelect(currentLng, currentLat).getData();
-        return R.ok(dto);
+        return R.ok(venueClient.douYinVenueSelect(currentLng, currentLat).getData());
     }
 }

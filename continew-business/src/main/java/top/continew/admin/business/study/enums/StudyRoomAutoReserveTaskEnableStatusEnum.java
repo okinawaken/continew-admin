@@ -31,16 +31,6 @@ public enum StudyRoomAutoReserveTaskEnableStatusEnum implements BaseEnum<Integer
     private final String description;
 
     /**
-     * 是否暂停
-     *
-     * @param value 枚举值
-     * @return 是否暂停
-     */
-    public static boolean isPaused(Integer value) {
-        return Objects.equals(PAUSED.getValue(), value);
-    }
-
-    /**
      * 是否启用
      *
      * @param value 枚举值

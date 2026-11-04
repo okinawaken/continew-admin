@@ -34,8 +34,7 @@ public class StudyRoomConfigController {
     @SaCheckPermission("business:study:config:list")
     @GetMapping(value = "/sys")
     public R<StudyRoomConfigClientResp> sysConfig() {
-        StudyRoomConfigClientResp dto = configClient.sysConfig().getData();
-        return R.ok(dto);
+        return R.ok(configClient.sysConfig().getData());
     }
 
     /**
@@ -48,7 +47,6 @@ public class StudyRoomConfigController {
     @GetMapping(value = "/notice")
     public R<StudyRoomNoticeClientResp> noticeBoard(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomNoticeClientResp dto = configClient.noticeBoard(venueId).getData();
-        return R.ok(dto);
+        return R.ok(configClient.noticeBoard(venueId).getData());
     }
 }

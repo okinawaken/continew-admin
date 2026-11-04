@@ -12,6 +12,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomIndexClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomUserPackageClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
+import top.continew.starter.core.exception.BusinessException;
 
 import java.util.Objects;
 
@@ -36,20 +37,19 @@ public class StudyRoomAutoSignPackageFilter implements StudyRoomAutoSignFilter {
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoSignContext context) {
-        StudyRoomUserReserveClientResp reserveRespDTO = context.getReserveRespDTO();
-        StudyRoomVenueClientResp venueRespDTO = context.getVenueRespDTO();
+        StudyRoomUserReserveClientResp reserveClientResp = context.getReserveClientResp();
+        StudyRoomVenueClientResp venueClientResp = context.getVenueClientResp();
 
         StudyRoomClientResult<StudyRoomIndexClientResp> resultDTO =
-            signV2Client.studyIndex(venueRespDTO.getVenueLng(), venueRespDTO.getVenueLat(),
-                reserveRespDTO.getVenueId(), null, null, context.getUserId());
-        if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())
-            || Objects.isNull(resultDTO.getData().getSignInUserPackage())) {
-            return FilterResultDTO.fail("签到首页返回为空");
+            signV2Client.studyIndex(venueClientResp.getVenueLng(), venueClientResp.getVenueLat(),
+                reserveClientResp.getVenueId(), null, null, context.getUserId());
+        if (Objects.isNull(resultDTO.getData())) {
+            throw new BusinessException("签到首页返回为空");
         }
 
-        StudyRoomUserPackageClientResp signInUserPackage =
+        StudyRoomUserPackageClientResp userPackageClientResp =
             resultDTO.getData().getSignInUserPackage();
-        context.setUserPackageRespDTO(signInUserPackage);
-        return FilterResultDTO.success(signInUserPackage);
+        context.setUserPackageClientResp(userPackageClientResp);
+        return FilterResultDTO.success(userPackageClientResp);
     }
 }

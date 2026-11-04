@@ -68,9 +68,7 @@ public class StudyRoomSignController {
         @RequestParam(name = "venueId", required = false) Integer venueId,
         @RequestParam(name = "bssid", required = false) String bssid,
         @RequestParam(name = "ssid", required = false) String ssid) {
-        StudyRoomIndexClientResp dto =
-            signClient.studyIndex(currentLng, currentLat, venueId, bssid, ssid).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studyIndex(currentLng, currentLat, venueId, bssid, ssid).getData());
     }
 
     /**
@@ -83,8 +81,7 @@ public class StudyRoomSignController {
     @PostMapping(value = "/seat/list")
     public R<StudyRoomSignSeatListClientResp> studySeatList(
         @RequestBody StudyRoomSignSeatQueryClientReq form) {
-        StudyRoomSignSeatListClientResp dto = signClient.studySeatList(form).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studySeatList(form).getData());
     }
 
     /**
@@ -97,8 +94,7 @@ public class StudyRoomSignController {
     @PostMapping(value = "/change/seat/list")
     public R<StudyRoomSignSeatMapClientResp> studyChangeSeatList(
         @RequestBody StudyRoomChangeSeatClientReq form) {
-        StudyRoomSignSeatMapClientResp dto = signClient.studyChangeSeatList(form).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studyChangeSeatList(form).getData());
     }
 
     /**
@@ -111,9 +107,7 @@ public class StudyRoomSignController {
     @PostMapping(value = "/settle-package/select")
     public R<List<StudyRoomSettlePackageClientResp>> studySettlePackageSelect(
         @RequestBody StudyRoomSettlePackageClientReq form) {
-        List<StudyRoomSettlePackageClientResp> dto =
-            signClient.studySettlePackageSelect(form).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studySettlePackageSelect(form).getData());
     }
 
     /**
@@ -126,9 +120,7 @@ public class StudyRoomSignController {
     @GetMapping(value = "/another/check")
     public R<StudyRoomSignAnotherCheckClientResp> studySignAnotherCheck(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomSignAnotherCheckClientResp dto =
-            signClient.studySignAnotherCheck(venueId).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studySignAnotherCheck(venueId).getData());
     }
 
     /**
@@ -140,8 +132,7 @@ public class StudyRoomSignController {
     @SaCheckPermission("business:study:sign:create")
     @PostMapping(value = "/out")
     public R<StudyRoomSignOutClientResp> studySignOut(@RequestBody StudyRoomSignOutClientReq form) {
-        StudyRoomSignOutClientResp dto = signClient.studySignOut(form).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studySignOut(form).getData());
     }
 
     /**
@@ -153,8 +144,7 @@ public class StudyRoomSignController {
     @SaCheckPermission("business:study:sign:list")
     @PostMapping(value = "/rank/index")
     public R<StudyRoomRankClientResp> studyRank(@RequestBody StudyRoomRankClientReq form) {
-        StudyRoomRankClientResp dto = signClient.studyRank(form).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studyRank(form).getData());
     }
 
     /**
@@ -167,8 +157,7 @@ public class StudyRoomSignController {
     @PostMapping(value = "/seat/confirm")
     public R<StudyRoomSeatConfirmClientResp> studySeatConfirm(
         @RequestBody StudyRoomSeatConfirmClientReq form) {
-        StudyRoomSeatConfirmClientResp dto = signClient.studySeatConfirm(form).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studySeatConfirm(form).getData());
     }
 
     /**
@@ -181,9 +170,7 @@ public class StudyRoomSignController {
     @PostMapping(value = "/change/seat/confirm")
     public R<StudyRoomChangeSeatConfirmClientResp> studyChangeSeatConfirm(
         @RequestBody StudyRoomChangeSeatConfirmClientReq form) {
-        StudyRoomChangeSeatConfirmClientResp dto =
-            signClient.studyChangeSeatConfirm(form).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studyChangeSeatConfirm(form).getData());
     }
 
     /**
@@ -196,8 +183,7 @@ public class StudyRoomSignController {
     @PostMapping(value = "/settlement")
     public R<StudyRoomSettlementClientResp> studySettlement(
         @RequestBody StudyRoomSettlementClientReq form) {
-        StudyRoomSettlementClientResp dto = signClient.studySettlement(form).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studySettlement(form).getData());
     }
 
     /**
@@ -210,9 +196,7 @@ public class StudyRoomSignController {
     @PostMapping(value = "/user-package/confirm")
     public R<StudyRoomUserPackageConfirmClientResp> studyUserPackageConfirm(
         @RequestBody StudyRoomUserPackageConfirmClientReq form) {
-        StudyRoomUserPackageConfirmClientResp dto =
-            signClient.studyUserPackageConfirm(form).getData();
-        return R.ok(dto);
+        return R.ok(signClient.studyUserPackageConfirm(form).getData());
     }
 
     /**

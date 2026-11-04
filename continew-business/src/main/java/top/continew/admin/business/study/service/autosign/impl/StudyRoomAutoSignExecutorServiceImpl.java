@@ -53,8 +53,8 @@ public class StudyRoomAutoSignExecutorServiceImpl implements StudyRoomAutoSignEx
                 return;
             }
 
-            StudyRoomUserReserveClientResp reserveRespDTO = context.getReserveRespDTO();
-            StudyRoomUserPackageClientResp userPackageRespDTO = context.getUserPackageRespDTO();
+            StudyRoomUserReserveClientResp reserveRespDTO = context.getReserveClientResp();
+            StudyRoomUserPackageClientResp userPackageRespDTO = context.getUserPackageClientResp();
 
             StudyRoomSignSeatQueryClientReq reqDTO = new StudyRoomSignSeatQueryClientReq();
             reqDTO.setQrCode(StrUtil.EMPTY);

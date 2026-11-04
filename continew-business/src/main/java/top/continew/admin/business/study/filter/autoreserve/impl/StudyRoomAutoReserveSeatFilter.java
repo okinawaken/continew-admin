@@ -53,16 +53,16 @@ public class StudyRoomAutoReserveSeatFilter implements StudyRoomAutoReserveFilte
         reqDTO.setReserveAnotherFlag(0);
         StudyRoomClientResult<StudyRoomSeatMapClientResp> resultDTO =
             reserveV2Client.reserveV2SeatList(reqDTO, taskRespDTO.getUserId());
-        if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())) {
+        if (Objects.isNull(resultDTO.getData())) {
             throw new BusinessException("座位图返回为空");
         }
 
-        StudyRoomSeatClientResp seatRespDTO = this.selectSeat(context, resultDTO.getData());
-        context.setSeatClientResp(seatRespDTO);
-        if (Objects.isNull(seatRespDTO)) {
+        StudyRoomSeatClientResp seatClientResp = this.selectSeat(context, resultDTO.getData());
+        context.setSeatClientResp(seatClientResp);
+        if (Objects.isNull(seatClientResp)) {
             return FilterResultDTO.fail("期望时段无可预约座位");
         }
-        return FilterResultDTO.success(seatRespDTO);
+        return FilterResultDTO.success(seatClientResp);
     }
 
     private StudyRoomSeatClientResp selectSeat(StudyRoomAutoReserveContext context,

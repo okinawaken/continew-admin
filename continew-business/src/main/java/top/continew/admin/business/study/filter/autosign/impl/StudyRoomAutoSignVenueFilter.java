@@ -11,8 +11,6 @@ import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
 
-import java.util.Objects;
-
 /**
  * 签到门店校验过滤器
  * <p>
@@ -35,15 +33,12 @@ public class StudyRoomAutoSignVenueFilter implements StudyRoomAutoSignFilter {
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoSignContext context) {
-        StudyRoomUserReserveClientResp reserveRespDTO = context.getReserveRespDTO();
+        StudyRoomUserReserveClientResp userReserveClientResp = context.getReserveClientResp();
         StudyRoomClientResult<StudyRoomVenueClientResp> resultDTO =
-            venueV2Client.reserveVenueDetail(reserveRespDTO.getVenueId(), context.getUserId());
-        if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())) {
-            return FilterResultDTO.fail("未查询到门店数据");
-        }
+            venueV2Client.reserveVenueDetail(userReserveClientResp.getVenueId(), context.getUserId());
 
-        StudyRoomVenueClientResp venueRespDTO = resultDTO.getData();
-        context.setVenueRespDTO(venueRespDTO);
-        return FilterResultDTO.success(venueRespDTO);
+        StudyRoomVenueClientResp venueClientResp = resultDTO.getData();
+        context.setVenueClientResp(venueClientResp);
+        return FilterResultDTO.success(venueClientResp);
     }
 }

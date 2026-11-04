@@ -24,15 +24,15 @@ public class StudyRoomAutoSignContext {
     /**
      * 待签到预约
      */
-    private StudyRoomUserReserveClientResp reserveRespDTO;
+    private StudyRoomUserReserveClientResp reserveClientResp;
 
     /**
      * 签到门店
      */
-    private StudyRoomVenueClientResp venueRespDTO;
+    private StudyRoomVenueClientResp venueClientResp;
 
     /**
      * 签到扣费套餐
      */
-    private StudyRoomUserPackageClientResp userPackageRespDTO;
+    private StudyRoomUserPackageClientResp userPackageClientResp;
 }

@@ -47,8 +47,7 @@ public class StudyRoomUserController {
     @SaCheckPermission("business:study:user:create")
     @PostMapping(value = "/login")
     public R<StudyRoomLoginClientResp> login(@RequestBody StudyRoomLoginClientReq form) {
-        StudyRoomLoginClientResp dto = userClient.login(form).getData();
-        return R.ok(dto);
+        return R.ok(userClient.login(form).getData());
     }
 
     /**
@@ -61,8 +60,7 @@ public class StudyRoomUserController {
     @SaCheckPermission("business:study:user:create")
     @PostMapping(value = "/bind-mobile")
     public R<StudyRoomLoginClientResp> bindMobile(@RequestBody StudyRoomBindMobileClientReq form) {
-        StudyRoomLoginClientResp dto = userClient.bindMobile(form).getData();
-        return R.ok(dto);
+        return R.ok(userClient.bindMobile(form).getData());
     }
 
     /**
@@ -87,8 +85,7 @@ public class StudyRoomUserController {
     @SaCheckPermission("business:study:user:list")
     @GetMapping(value = "/index")
     public R<StudyRoomUserIndexClientResp> userIndex() {
-        StudyRoomUserIndexClientResp dto = userClient.userIndex().getData();
-        return R.ok(dto);
+        return R.ok(userClient.userIndex().getData());
     }
 
     /**
@@ -99,8 +96,7 @@ public class StudyRoomUserController {
     @SaCheckPermission("business:study:user:list")
     @GetMapping(value = "/detail")
     public R<StudyRoomUserDetailClientResp> userDetail() {
-        StudyRoomUserDetailClientResp dto = userClient.userDetail().getData();
-        return R.ok(dto);
+        return R.ok(userClient.userDetail().getData());
     }
 
     /**
@@ -111,8 +107,7 @@ public class StudyRoomUserController {
     @SaCheckPermission("business:study:user:list")
     @GetMapping(value = "/fee")
     public R<StudyRoomUserFeeClientResp> userFee() {
-        StudyRoomUserFeeClientResp dto = userClient.userFee().getData();
-        return R.ok(dto);
+        return R.ok(userClient.userFee().getData());
     }
 
     /**
@@ -124,8 +119,7 @@ public class StudyRoomUserController {
     @SaCheckPermission("business:study:user:update")
     @PostMapping(value = "/update-info")
     public R<Integer> updateUserInfo(@RequestBody StudyRoomUpdateUserInfoClientReq form) {
-        Integer data = userClient.updateUserInfo(form).getData();
-        return R.ok(data);
+        return R.ok(userClient.updateUserInfo(form).getData());
     }
 
     /**
@@ -173,8 +167,7 @@ public class StudyRoomUserController {
     @SaCheckPermission("business:study:user:list")
     @GetMapping(value = "/sign/list")
     public R<StudyRoomUserSignListClientResp> userSignList(@RequestParam(value = "id") Long id) {
-        StudyRoomUserSignListClientResp dto = userClient.userSignList(id).getData();
-        return R.ok(dto);
+        return R.ok(userClient.userSignList(id).getData());
     }
 
     /**
@@ -185,7 +178,6 @@ public class StudyRoomUserController {
     @SaCheckPermission("business:study:user:list")
     @GetMapping(value = "/sign/list/more")
     public R<StudyRoomUserSignListClientResp> userSignListMore() {
-        StudyRoomUserSignListClientResp dto = userClient.userSignListMore().getData();
-        return R.ok(dto);
+        return R.ok(userClient.userSignListMore().getData());
     }
 }

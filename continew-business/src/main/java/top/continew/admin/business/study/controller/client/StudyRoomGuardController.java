@@ -40,8 +40,7 @@ public class StudyRoomGuardController {
     @GetMapping(value = "/select")
     public R<StudyRoomGuardListClientResp> guardSelect(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomGuardListClientResp dto = guardClient.guardSelect(venueId).getData();
-        return R.ok(dto);
+        return R.ok(guardClient.guardSelect(venueId).getData());
     }
 
     /**

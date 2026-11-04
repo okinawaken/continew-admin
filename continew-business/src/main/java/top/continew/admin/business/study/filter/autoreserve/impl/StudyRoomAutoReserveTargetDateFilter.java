@@ -41,15 +41,17 @@ public class StudyRoomAutoReserveTargetDateFilter implements StudyRoomAutoReserv
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
+        StudyRoomAutoReserveTaskInfoResp taskInfoResp = context.getTaskInfoResp();
         StudyRoomClientResult<StudyRoomReserveDateClientResp> resultDTO =
-            reserveV2Client.reserveDateList(taskRespDTO.getVenueId(), taskRespDTO.getUserId());
-        StudyRoomReserveDateClientResp reserveDateRespDTO = resultDTO.getData();
+            reserveV2Client.reserveDateList(taskInfoResp.getVenueId(), taskInfoResp.getUserId());
+        if (Objects.isNull(resultDTO.getData())){
+            throw new BusinessException("预约日期返回为空");
+        }
 
-        LocalDate targetDate = this.resolveMaxReserveDate(reserveDateRespDTO);
+        LocalDate targetDate = this.resolveMaxReserveDate(resultDTO.getData());
         context.setTargetDate(targetDate);
 
-        if (!targetDate.isAfter(taskRespDTO.getLastMaxReserveDate())) {
+        if (!targetDate.isAfter(taskInfoResp.getLastMaxReserveDate())) {
             return FilterResultDTO.fail("未放出新日期的预约");
         }
         return FilterResultDTO.success(targetDate);

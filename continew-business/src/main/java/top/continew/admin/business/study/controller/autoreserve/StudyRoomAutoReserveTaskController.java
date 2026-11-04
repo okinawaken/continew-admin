@@ -1,7 +1,6 @@
 package top.continew.admin.business.study.controller.autoreserve;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,9 +44,7 @@ public class StudyRoomAutoReserveTaskController {
     @SaCheckPermission("business:study:autoReserveTask:list")
     @GetMapping(value = "/list")
     public PageResp<StudyRoomAutoReserveTaskInfoResp> list(PageQuery pageQuery) {
-        IPage<StudyRoomAutoReserveTaskInfoResp> dtoPage = taskService
-            .pageList(UserContextHolder.getUserId(), pageQuery);
-        return PageResp.build(dtoPage);
+        return PageResp.build(taskService.pageList(UserContextHolder.getUserId(), pageQuery));
     }
 
     /**
@@ -71,8 +68,7 @@ public class StudyRoomAutoReserveTaskController {
     @SaCheckPermission("business:study:autoReserveTask:create")
     @PostMapping
     public R<Long> create(@Valid @RequestBody StudyRoomAutoReserveTaskReq dto) {
-        Long taskId = taskService.createTask(UserContextHolder.getUserId(), dto);
-        return R.ok(taskId);
+        return R.ok(taskService.createTask(UserContextHolder.getUserId(), dto));
     }
 
     /**

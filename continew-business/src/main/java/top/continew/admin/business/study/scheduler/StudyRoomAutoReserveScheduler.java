@@ -46,33 +46,20 @@ public class StudyRoomAutoReserveScheduler {
     @Scheduled(cron = "0 * * * * ?")
     public void scan() {
         List<StudyRoomAutoReserveTaskInfoResp> taskList = taskService.listEnabledTasks();
-        if (CollUtil.isEmpty(taskList)) {
-            return;
-        }
         for (StudyRoomAutoReserveTaskInfoResp task : taskList) {
-            Long tenantId = Objects.requireNonNullElse(task.getTenantId(), 0L);
-            TenantUtils.execute(tenantId, () -> this.scanTask(task));
+            LocalDate nowDate = LocalDate.now();
+            LocalTime nowTime = LocalTime.now();
+            StudyRoomUserConfigBO config = settingService.getConfig(task.getUserId());
+            if (nowTime.isBefore(config.getReleaseTime())) {
+                return;
+            }
+            List<StudyRoomAutoReserveTaskRecordInfoResp> recordList = recordService
+                    .listByTaskIdAndCreateDate(task.getId(), nowDate);
+            if (CollUtil.isNotEmpty(recordList)) {
+                return;
+            }
+            eventPublisher.publishEvent(new StudyRoomAutoReserveExecuteEvent(task.getId(),
+                    StudyRoomAutoReserveTriggerTypeEnum.SCHEDULED.getValue(), task.getTenantId()));
         }
-    }
-
-    /**
-     * 在任务所属租户上下文中完成单任务扫描
-     *
-     * @param task 参数 task
-     */
-    private void scanTask(StudyRoomAutoReserveTaskInfoResp task) {
-        LocalDate nowDate = LocalDate.now();
-        LocalTime nowTime = LocalTime.now();
-        StudyRoomUserConfigBO config = settingService.getConfig(task.getUserId());
-        if (nowTime.isBefore(config.getReleaseTime())) {
-            return;
-        }
-        List<StudyRoomAutoReserveTaskRecordInfoResp> recordList = recordService
-            .listByTaskIdAndCreateDate(task.getId(), nowDate);
-        if (CollUtil.isNotEmpty(recordList)) {
-            return;
-        }
-        eventPublisher.publishEvent(new StudyRoomAutoReserveExecuteEvent(task.getId(),
-            StudyRoomAutoReserveTriggerTypeEnum.SCHEDULED.getValue(), task.getTenantId()));
     }
 }

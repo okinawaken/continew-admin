@@ -50,8 +50,7 @@ public class StudyRoomMiscController {
     @SaCheckPermission("business:study:misc:list")
     @PostMapping(value = "/cabinet/lease/order/list")
     public R<StudyRoomCabinetLeaseOrderListClientResp> cabinetLeaseOrderList() {
-        StudyRoomCabinetLeaseOrderListClientResp dto = miscClient.cabinetLeaseOrderList().getData();
-        return R.ok(dto);
+        return R.ok(miscClient.cabinetLeaseOrderList().getData());
     }
 
     /**
@@ -81,8 +80,7 @@ public class StudyRoomMiscController {
     @PostMapping(value = "/cabinet/lease/commit")
     public R<StudyRoomCabinetLeaseCommitClientResp> cabinetLeaseCommit(
         @RequestBody StudyRoomCabinetLeaseCommitClientReq form) {
-        StudyRoomCabinetLeaseCommitClientResp dto = miscClient.cabinetLeaseCommit(form).getData();
-        return R.ok(dto);
+        return R.ok(miscClient.cabinetLeaseCommit(form).getData());
     }
 
     /**
@@ -97,9 +95,7 @@ public class StudyRoomMiscController {
     public R<StudyRoomCabinetLeaseOverduePayClientResp> cabinetLeaseOverduePay(
         @RequestParam(value = "leaseId") Long leaseId,
         @RequestParam(value = "userCode") String userCode) {
-        StudyRoomCabinetLeaseOverduePayClientResp dto =
-            miscClient.cabinetLeaseOverduePay(leaseId, userCode).getData();
-        return R.ok(dto);
+        return R.ok(miscClient.cabinetLeaseOverduePay(leaseId, userCode).getData());
     }
 
     /**
@@ -138,8 +134,7 @@ public class StudyRoomMiscController {
     @GetMapping(value = "/cabinet/venue/list")
     public R<StudyRoomCabinetVenueListClientResp> cabinetVenueList(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomCabinetVenueListClientResp dto = miscClient.cabinetVenueList(venueId).getData();
-        return R.ok(dto);
+        return R.ok(miscClient.cabinetVenueList(venueId).getData());
     }
 
     /**
@@ -152,8 +147,7 @@ public class StudyRoomMiscController {
     @GetMapping(value = "/cabinet/grid/list")
     public R<StudyRoomCabinetGridListClientResp> cabinetGridList(
         @RequestParam(value = "cabinetId") Integer cabinetId) {
-        StudyRoomCabinetGridListClientResp dto = miscClient.cabinetGridList(cabinetId).getData();
-        return R.ok(dto);
+        return R.ok(miscClient.cabinetGridList(cabinetId).getData());
     }
 
     /**
@@ -166,9 +160,7 @@ public class StudyRoomMiscController {
     @GetMapping(value = "/cabinet/user/grid/list")
     public R<StudyRoomCabinetUserGridListClientResp> cabinetUserGridList(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomCabinetUserGridListClientResp dto =
-            miscClient.cabinetUserGridList(venueId).getData();
-        return R.ok(dto);
+        return R.ok(miscClient.cabinetUserGridList(venueId).getData());
     }
 
     /**
@@ -181,8 +173,7 @@ public class StudyRoomMiscController {
     @GetMapping(value = "/cabinet/grid/price")
     public R<StudyRoomCabinetGridPriceClientResp> cabinetGridPrice(
         @RequestParam(value = "gridId") Integer gridId) {
-        StudyRoomCabinetGridPriceClientResp dto = miscClient.cabinetGridPrice(gridId).getData();
-        return R.ok(dto);
+        return R.ok(miscClient.cabinetGridPrice(gridId).getData());
     }
 
     /**
@@ -195,8 +186,7 @@ public class StudyRoomMiscController {
     @PostMapping(value = "/receipt/consume")
     public R<StudyRoomConsumeResultClientResp> receiptConsume(
         @RequestBody StudyRoomReceiptConsumeClientReq form) {
-        StudyRoomConsumeResultClientResp dto = miscClient.receiptConsume(form).getData();
-        return R.ok(dto);
+        return R.ok(miscClient.receiptConsume(form).getData());
     }
 
     /**
@@ -209,8 +199,7 @@ public class StudyRoomMiscController {
     @PostMapping(value = "/douyin/verify")
     public R<StudyRoomConsumeResultClientResp> douYinVerify(
         @RequestBody StudyRoomDouYinVerifyClientReq form) {
-        StudyRoomConsumeResultClientResp dto = miscClient.douYinVerify(form).getData();
-        return R.ok(dto);
+        return R.ok(miscClient.douYinVerify(form).getData());
     }
 
     /**

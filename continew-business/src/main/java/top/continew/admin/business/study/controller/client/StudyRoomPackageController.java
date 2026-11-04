@@ -51,8 +51,7 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:list")
     @GetMapping(value = "/list")
     public R<StudyRoomBuyPackageListClientResp> buyPackageList() {
-        StudyRoomBuyPackageListClientResp dto = packageClient.buyPackageList().getData();
-        return R.ok(dto);
+        return R.ok(packageClient.buyPackageList().getData());
     }
 
     /**
@@ -65,8 +64,7 @@ public class StudyRoomPackageController {
     @PostMapping(value = "/v2/list")
     public R<StudyRoomBuyV2PackageListClientResp> buyV2PackageList(
         @RequestBody StudyRoomBuyV2PackageListClientReq form) {
-        StudyRoomBuyV2PackageListClientResp dto = packageClient.buyV2PackageList(form).getData();
-        return R.ok(dto);
+        return R.ok(packageClient.buyV2PackageList(form).getData());
     }
 
     /**
@@ -81,9 +79,7 @@ public class StudyRoomPackageController {
     public R<StudyRoomBuyV2PackageOptClientResp> buyV2PackageOptList(
         @RequestParam(name = "currentLng", required = false) Double currentLng,
         @RequestParam(name = "currentLat", required = false) Double currentLat) {
-        StudyRoomBuyV2PackageOptClientResp dto =
-            packageClient.buyV2PackageOptList(currentLng, currentLat).getData();
-        return R.ok(dto);
+        return R.ok(packageClient.buyV2PackageOptList(currentLng, currentLat).getData());
     }
 
     /**
@@ -96,9 +92,7 @@ public class StudyRoomPackageController {
     @GetMapping(value = "/v2/label/select-list")
     public R<StudyRoomBuyV2PackageLabelClientResp> buyV2PackageLabelList(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomBuyV2PackageLabelClientResp dto =
-            packageClient.buyV2PackageLabelList(venueId).getData();
-        return R.ok(dto);
+        return R.ok(packageClient.buyV2PackageLabelList(venueId).getData());
     }
 
     /**
@@ -111,9 +105,7 @@ public class StudyRoomPackageController {
     @GetMapping(value = "/v2/detail/{packageId}")
     public R<StudyRoomBuyV2PackageDetailClientResp> buyV2PackageDetail(
         @PathVariable(value = "packageId") Long packageId) {
-        StudyRoomBuyV2PackageDetailClientResp dto =
-            packageClient.buyV2PackageDetail(packageId).getData();
-        return R.ok(dto);
+        return R.ok(packageClient.buyV2PackageDetail(packageId).getData());
     }
 
     /**
@@ -126,8 +118,7 @@ public class StudyRoomPackageController {
     @PostMapping(value = "/confirm")
     public R<StudyRoomBuyOrderClientResp> buyPackageConfirm(
         @RequestBody StudyRoomBuyPackageConfirmClientReq form) {
-        StudyRoomBuyOrderClientResp dto = packageClient.buyPackageConfirm(form).getData();
-        return R.ok(dto);
+        return R.ok(packageClient.buyPackageConfirm(form).getData());
     }
 
     /**
@@ -140,8 +131,7 @@ public class StudyRoomPackageController {
     @PostMapping(value = "/v2/confirm")
     public R<StudyRoomBuyOrderClientResp> buyV2PackageConfirm(
         @RequestBody StudyRoomBuyV2PackageConfirmClientReq form) {
-        StudyRoomBuyOrderClientResp dto = packageClient.buyV2PackageConfirm(form).getData();
-        return R.ok(dto);
+        return R.ok(packageClient.buyV2PackageConfirm(form).getData());
     }
 
     /**
@@ -167,8 +157,7 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:list")
     @GetMapping(value = "/user/order/list")
     public R<StudyRoomUserOrderListClientResp> userOrderList() {
-        StudyRoomUserOrderListClientResp dto = packageClient.userOrderList().getData();
-        return R.ok(dto);
+        return R.ok(packageClient.userOrderList().getData());
     }
 
     /**
@@ -179,8 +168,7 @@ public class StudyRoomPackageController {
     @SaCheckPermission("business:study:package:list")
     @GetMapping(value = "/user/package/list")
     public R<StudyRoomUserPackageListClientResp> userPackageList() {
-        StudyRoomUserPackageListClientResp dto = packageClient.userPackageList().getData();
-        return R.ok(dto);
+        return R.ok(packageClient.userPackageList().getData());
     }
 
     /**
@@ -193,7 +181,6 @@ public class StudyRoomPackageController {
     @PostMapping(value = "/wx/query/status/{payId}")
     public R<StudyRoomWxPayQueryClientResp> wxPayQueryStatus(
         @PathVariable(value = "payId") Long payId) {
-        StudyRoomWxPayQueryClientResp dto = packageClient.wxPayQueryStatus(payId).getData();
-        return R.ok(dto);
+        return R.ok(packageClient.wxPayQueryStatus(payId).getData());
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.model.event.StudyRoomAutoReserveExecuteEvent;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveExecutorService;
 import top.continew.starter.extension.tenant.util.TenantUtils;
+import top.continew.starter.json.jackson.util.JsonUtils;
 
 import java.util.Objects;
 
@@ -34,9 +35,8 @@ public class StudyRoomAutoReserveExecuteListener {
     @Async
     @EventListener
     public void onExecuteEvent(StudyRoomAutoReserveExecuteEvent event) {
-        log.info("收到自动预约执行事件：taskId={}, triggerType={}", event.getTaskId(), event.getTriggerType());
-        Long tenantId = Objects.requireNonNullElse(event.getTenantId(), 0L);
-        TenantUtils.execute(tenantId,
+        log.info("收到自动预约执行事件：event={}", JsonUtils.toJsonStr(event));
+        TenantUtils.execute(event.getTenantId(),
             () -> executorService.execute(event.getTaskId(), event.getTriggerType()));
     }
 }

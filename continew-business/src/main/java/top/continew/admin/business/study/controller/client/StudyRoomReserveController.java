@@ -46,8 +46,7 @@ public class StudyRoomReserveController {
     @SaCheckPermission("business:study:reserve:list")
     @GetMapping(value = "/check")
     public R<StudyRoomReserveCheckClientResp> reserveCheck() {
-        StudyRoomReserveCheckClientResp dto = reserveClient.reserveCheck().getData();
-        return R.ok(dto);
+        return R.ok(reserveClient.reserveCheck().getData());
     }
 
     /**
@@ -60,8 +59,7 @@ public class StudyRoomReserveController {
     @GetMapping(value = "/v2/date/select")
     public R<StudyRoomReserveDateClientResp> reserveDateList(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomReserveDateClientResp dto = reserveClient.reserveDateList(venueId).getData();
-        return R.ok(dto);
+        return R.ok(reserveClient.reserveDateList(venueId).getData());
     }
 
     /**
@@ -74,8 +72,7 @@ public class StudyRoomReserveController {
     @PostMapping(value = "/v2/seat/list")
     public R<StudyRoomSeatMapClientResp> reserveV2SeatList(
         @RequestBody StudyRoomSeatQueryClientReq form) {
-        StudyRoomSeatMapClientResp dto = reserveClient.reserveV2SeatList(form).getData();
-        return R.ok(dto);
+        return R.ok(reserveClient.reserveV2SeatList(form).getData());
     }
 
     /**
@@ -88,8 +85,7 @@ public class StudyRoomReserveController {
     @PostMapping(value = "/v2/seat/confirm")
     public R<StudyRoomReserveConfirmClientResp> reserveV2SeatConfirm(
         @RequestBody StudyRoomReserveConfirmClientReq form) {
-        StudyRoomReserveConfirmClientResp dto = reserveClient.reserveV2SeatConfirm(form).getData();
-        return R.ok(dto);
+        return R.ok(reserveClient.reserveV2SeatConfirm(form).getData());
     }
 
     /**
@@ -102,8 +98,7 @@ public class StudyRoomReserveController {
     @PostMapping(value = "/seat/list")
     public R<StudyRoomSeatMapClientResp> reserveSeatList(
         @RequestBody StudyRoomSeatQueryV1ClientReq form) {
-        StudyRoomSeatMapClientResp dto = reserveClient.reserveSeatList(form).getData();
-        return R.ok(dto);
+        return R.ok(reserveClient.reserveSeatList(form).getData());
     }
 
     /**
@@ -116,8 +111,7 @@ public class StudyRoomReserveController {
     @PostMapping(value = "/seat/confirm")
     public R<StudyRoomReserveConfirmClientResp> reserveSeatConfirm(
         @RequestBody StudyRoomReserveConfirmV1ClientReq form) {
-        StudyRoomReserveConfirmClientResp dto = reserveClient.reserveSeatConfirm(form).getData();
-        return R.ok(dto);
+        return R.ok(reserveClient.reserveSeatConfirm(form).getData());
     }
 
     /**
@@ -130,9 +124,7 @@ public class StudyRoomReserveController {
     @GetMapping(value = "/another/check")
     public R<StudyRoomReserveAnotherCheckClientResp> reserveAnotherCheck(
         @RequestParam(value = "userReserveId") Long userReserveId) {
-        StudyRoomReserveAnotherCheckClientResp dto =
-            reserveClient.reserveAnotherCheck(userReserveId).getData();
-        return R.ok(dto);
+        return R.ok(reserveClient.reserveAnotherCheck(userReserveId).getData());
     }
 
     /**
@@ -143,8 +135,7 @@ public class StudyRoomReserveController {
     @SaCheckPermission("business:study:reserve:list")
     @GetMapping(value = "/user/list")
     public R<StudyRoomUserReserveListClientResp> userReserveList() {
-        StudyRoomUserReserveListClientResp dto = reserveClient.userReserveList().getData();
-        return R.ok(dto);
+        return R.ok(reserveClient.userReserveList().getData());
     }
 
     /**
@@ -157,9 +148,7 @@ public class StudyRoomReserveController {
     @GetMapping(value = "/user/cancel/tip")
     public R<StudyRoomUserReserveCancelTipClientResp> userReserveCancelTip(
         @RequestParam(value = "userReserveId") Long userReserveId) {
-        StudyRoomUserReserveCancelTipClientResp dto =
-            reserveClient.userReserveCancelTip(userReserveId).getData();
-        return R.ok(dto);
+        return R.ok(reserveClient.userReserveCancelTip(userReserveId).getData());
     }
 
     /**
@@ -171,7 +160,6 @@ public class StudyRoomReserveController {
     @SaCheckPermission("business:study:reserve:delete")
     @PostMapping(value = "/user/cancel")
     public R<Integer> userReserveCancel(@RequestBody StudyRoomUserReserveCancelClientReq form) {
-        Integer data = reserveClient.userReserveCancel(form).getData();
-        return R.ok(data);
+        return R.ok(reserveClient.userReserveCancel(form).getData());
     }
 }

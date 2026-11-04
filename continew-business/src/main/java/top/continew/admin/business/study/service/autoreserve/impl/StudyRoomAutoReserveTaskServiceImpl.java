@@ -142,7 +142,7 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
     @Override
     public void executeTask(Long taskId, Long userId) {
         StudyRoomAutoReserveTaskDO task = this.getOwnedTaskDO(taskId, userId);
-        if (StudyRoomAutoReserveTaskEnableStatusEnum.isPaused(task.getEnableStatus())) {
+        if (!StudyRoomAutoReserveTaskEnableStatusEnum.isEnabled(task.getEnableStatus())) {
             throw new BusinessException("任务已暂停，请先恢复");
         }
         eventPublisher.publishEvent(new StudyRoomAutoReserveExecuteEvent(task.getId(),
