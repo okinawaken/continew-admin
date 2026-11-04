@@ -67,7 +67,7 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 ## 构建与运行命令
 
 ```bash
-# 完整构建（validate 阶段 Enforcer -> Spotless -> Checkstyle，编译 + 单元测试，verify 阶段 SpotBugs）
+# 完整构建（validate 阶段 Enforcer -> Spotless -> Checkstyle，编译，verify 阶段 SpotBugs）
 ./mvnw verify
 
 # 仅编译（含 validate 阶段三道门禁，不含 SpotBugs）——仅用于快速迭代，不可作为提交前自检
@@ -89,7 +89,7 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 ./mvnw clean
 ```
 
-单元测试随 `./mvnw verify` 一并执行（`ContiNewAdminApplicationTests` 上下文加载测试依赖 MySQL/Redis 等基础设施，已在 surefire 中排除，待引入 Testcontainers 后随集成测试启用）。代码改动的验证方式是执行 `./mvnw verify` 确保门禁与单元测试全部通过。
+项目不包含单元测试。代码改动的验证方式是执行 `./mvnw verify` 确保门禁全部通过。
 
 运行时配置通过环境变量注入，配置文件位于 `continew-server/src/main/resources/config/`（application.yml 通用，application-dev.yml / application-prod.yml 分环境）。
 
@@ -100,15 +100,15 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 
 提交 Java 代码前，AI 智能体**必须**让门禁通过：
 
-1. 执行 `./mvnw verify`。门禁依次为：validate 阶段的 **Enforcer**（构建环境与依赖合规）、**Spotless check**（代码格式）、**Checkstyle**（代码规范），编译后 test 阶段的**单元测试**，以及 verify 阶段的 **SpotBugs**（字节码缺陷），任一不通过都会直接构建失败。
+1. 执行 `./mvnw verify`。门禁依次为：validate 阶段的 **Enforcer**（构建环境与依赖合规）、**Spotless check**（代码格式）、**Checkstyle**（代码规范），以及 verify 阶段的 **SpotBugs**（字节码缺陷），任一不通过都会直接构建失败。
 2. 若被 Spotless 拦截，执行 `./mvnw compile -Pformat` 自动修复，然后再执行一次 `./mvnw verify` 确认通过。
-3. 全部门禁与单元测试通过后才能提交。
+3. 全部门禁通过后才能提交。
 
-> **无需跑门禁**：四道静态门禁与单元测试只作用于 Java 源码与 POM。仅改文档（`*.md`）、运行时配置（`application*.yml`、`*.properties`）、CI workflow 或脚本时，不触发任何门禁，可直接提交，无需执行 `./mvnw verify`。
+> **无需跑门禁**：四道静态门禁只作用于 Java 源码与 POM。仅改文档（`*.md`）、运行时配置（`application*.yml`、`*.properties`）、CI workflow 或脚本时，不触发任何门禁，可直接提交，无需执行 `./mvnw verify`。
 
 构建过程**不会修改任何源码文件**；`-Pformat` 是唯一会修改源码的 profile。不要用 IDE 格式化或 `git diff --check` 替代 Spotless 门禁——IDE 格式化引擎是另一套实现，可能放行项目格式化器拒绝的代码。
 
-> **Sonar 覆盖率**：`./mvnw verify -Psonar` 会激活 JaCoCo（prepare-agent + report），Sonar 分析自动读取各模块 `target/site/jacoco/jacoco.xml`；日常 `./mvnw verify` 不激活该 profile，无额外开销。
+> **Sonar 分析**：`./mvnw verify -Psonar` 会激活 Sonar 分析所需配置；项目不包含单元测试，因此不采集覆盖率数据。日常 `./mvnw verify` 不激活该 profile，无额外开销。
 
 > **Windows 注意**：提交前执行 `./mvnw verify` 后勿再在 IDE 中打开代码窗口，避免不同 IDE 配置导致的格式差异。
 
@@ -153,7 +153,7 @@ Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revis
 **提交前检查**：
 
 ```bash
-./mvnw verify     # 四道静态门禁与单元测试必须全部通过（被 Spotless 拦截时使用 -Pformat）
+./mvnw verify     # 四道静态门禁必须全部通过（被 Spotless 拦截时使用 -Pformat）
 ```
 
 ## 安全漏洞
