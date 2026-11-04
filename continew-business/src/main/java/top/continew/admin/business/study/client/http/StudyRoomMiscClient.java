@@ -67,7 +67,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      */
     @Post(url = "/mp/cabinetGrip/v2/lease/pay")
     StudyRoomApiResultDTO<StudyRoomWxPayParamRespDTO> cabinetLeasePay(
-        @Query(value = "leaseId") Integer leaseId, @Query(value = "userId") Long userId);
+        @Query(value = "leaseId") Long leaseId, @Query(value = "userId") Long userId);
 
     /**
      * 美团团购券核销
