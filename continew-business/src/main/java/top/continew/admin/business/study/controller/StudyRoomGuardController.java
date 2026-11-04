@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomGuardClient;
-import top.continew.admin.business.study.client.model.StudyRoomGuardListRespDTO;
-import top.continew.admin.business.study.model.req.StudyRoomGuardOpenReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomGuardOpenReqDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomGuardListRespDTO;
 import top.continew.admin.business.study.model.resp.StudyRoomGuardListVO;
 import top.continew.starter.web.model.R;
 

@@ -20,19 +20,19 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.model.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.StudyRoomReserveAnotherCheckRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomReserveCheckRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomReserveConfirmRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomReserveDateRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomSeatMapRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomUserReserveCancelTipRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomUserReserveListRespDTO;
-import top.continew.admin.business.study.model.req.StudyRoomReserveConfirmReqDTO;
-import top.continew.admin.business.study.model.req.StudyRoomReserveConfirmV1ReqDTO;
-import top.continew.admin.business.study.model.req.StudyRoomSeatQueryReqDTO;
-import top.continew.admin.business.study.model.req.StudyRoomSeatQueryV1ReqDTO;
-import top.continew.admin.business.study.model.req.StudyRoomUserReserveCancelReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomReserveConfirmReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomReserveConfirmV1ReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomSeatQueryReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomSeatQueryV1ReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomUserReserveCancelReqDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomReserveAnotherCheckRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomReserveCheckRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomReserveConfirmRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomReserveDateRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomSeatMapRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomUserReserveCancelTipRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomUserReserveListRespDTO;
 
 /**
  * 预约域：座位图、下单、我的预约、取消

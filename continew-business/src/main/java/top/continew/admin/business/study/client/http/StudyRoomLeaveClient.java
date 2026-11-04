@@ -20,10 +20,10 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.model.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.StudyRoomUserLeaveEnterRespDTO;
-import top.continew.admin.business.study.model.req.StudyRoomUserLeaveCancelReqDTO;
-import top.continew.admin.business.study.model.req.StudyRoomUserLeaveConfirmReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomUserLeaveCancelReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomUserLeaveConfirmReqDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomUserLeaveEnterRespDTO;
 
 /**
  * 请假域：套餐请假

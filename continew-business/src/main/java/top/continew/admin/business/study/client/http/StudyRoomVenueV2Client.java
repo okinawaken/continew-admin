@@ -19,12 +19,12 @@ package top.continew.admin.business.study.client.http;
 import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.Query;
 import com.dtflys.forest.annotation.Var;
-import top.continew.admin.business.study.client.model.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.StudyRoomAreaSelectRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomDouYinVenueSelectRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomReserveIndexRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomVenueRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomVenueSelectRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomAreaSelectRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomDouYinVenueSelectRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomReserveIndexRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomVenueRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomVenueSelectRespDTO;
 import top.continew.admin.business.study.constant.StudyRoomApiConstants;
 
 /**

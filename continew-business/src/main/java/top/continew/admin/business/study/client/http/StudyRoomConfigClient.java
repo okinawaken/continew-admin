@@ -18,9 +18,9 @@ package top.continew.admin.business.study.client.http;
 
 import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.model.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.StudyRoomConfigRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomNoticeRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomConfigRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomNoticeRespDTO;
 
 /**
  * 配置域：全局配置、公告

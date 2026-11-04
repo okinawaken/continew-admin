@@ -27,9 +27,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomLeaveClient;
-import top.continew.admin.business.study.client.model.StudyRoomUserLeaveEnterRespDTO;
-import top.continew.admin.business.study.model.req.StudyRoomUserLeaveCancelReqDTO;
-import top.continew.admin.business.study.model.req.StudyRoomUserLeaveConfirmReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomUserLeaveCancelReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomUserLeaveConfirmReqDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomUserLeaveEnterRespDTO;
 import top.continew.admin.business.study.model.resp.StudyRoomUserLeaveEnterVO;
 import top.continew.starter.web.model.R;
 

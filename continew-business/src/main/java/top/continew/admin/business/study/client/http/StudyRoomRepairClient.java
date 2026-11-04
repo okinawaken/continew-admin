@@ -20,10 +20,10 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Var;
-import top.continew.admin.business.study.client.model.StudyRoomApiResultDTO;
-import top.continew.admin.business.study.client.model.StudyRoomRepairListRespDTO;
-import top.continew.admin.business.study.client.model.StudyRoomRepairRespDTO;
-import top.continew.admin.business.study.model.req.StudyRoomRepairSubmitReqDTO;
+import top.continew.admin.business.study.client.model.req.StudyRoomRepairSubmitReqDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomApiResultDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomRepairListRespDTO;
+import top.continew.admin.business.study.client.model.resp.StudyRoomRepairRespDTO;
 
 /**
  * 报修域：提交报修、报修记录

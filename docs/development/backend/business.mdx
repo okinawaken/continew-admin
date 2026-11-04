@@ -11,7 +11,8 @@ description: 说明 continew-business 中 study 模块的代理链路、用户�
 |:-----|:-----|
 | `client.http` | Forest 声明式客户端，按配置域、门店域、套餐域、预约域、签到域等拆分。`StudyRoomBaseClient` 统一声明上游地址、内容类型与拦截器 |
 | `client.http.interceptor` | `StudyRoomAuthInterceptor` 注入 `appid` 与用户 token，`StudyRoomResponseInterceptor` 统一校验上游业务码并抛出 `BusinessException` |
-| `client.model` | 上游接口的响应与请求模型，响应模型标注 `@JsonIgnoreProperties(ignoreUnknown = true)` |
+| `client.model.req` | 上游接口的请求模型，代理接口入参直接复用 |
+| `client.model.resp` | 上游接口的响应模型，标注 `@JsonIgnoreProperties(ignoreUnknown = true)`；`StudyRoomApiResultDTO` 为统一响应体 |
 | `controller` | 代理接口，路径统一为 `/business/study/**` |
 | `controller.user` | 用户设置接口 `StudyRoomUserSettingController`，路径 `/business/study/user-setting` |
 | `controller.autoreserve` | 自动预约任务 `StudyRoomAutoReserveTaskController` 与执行记录 `StudyRoomAutoReserveTaskRecordController` |
@@ -21,7 +22,7 @@ description: 说明 continew-business 中 study 模块的代理链路、用户�
 | `service.autosign` | 自动签到执行器 |
 | `service.token` | token 绑定服务 |
 | `filter` | 自动预约与自动签到的过滤器链，按 `Ordered` 顺序执行，任一环节失败即终止 |
-| `model` | 实体（`entity`）、请求（`req`）、响应（`resp`）、JSON 配置对象（`bo`）、执行上下文（`context`）与事件（`event`） |
+| `model` | 后台自身模型：实体（`entity`）、后台接口请求（`req`）、响应 VO（`resp`）、JSON 配置对象（`bo`）、执行上下文（`context`）与事件（`event`） |
 | `scheduler` / `listener` | 定时扫描入口与异步事件监听器 |
 | `mapper` | 四个业务表的 MyBatis Plus Mapper |
 
