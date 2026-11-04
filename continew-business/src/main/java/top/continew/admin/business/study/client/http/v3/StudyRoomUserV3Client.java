@@ -41,7 +41,9 @@ public interface StudyRoomUserV3Client extends StudyRoomBaseClient {
      */
     @Deprecated
     @Post(url = "/mp/user/login")
-    StudyRoomClientResult<StudyRoomLoginClientResp> login(@JSONBody StudyRoomLoginClientReq form);
+    StudyRoomClientResult<StudyRoomLoginClientResp> login(
+        @Header(value = StudyRoomApiConstants.Header.HEADER_TOKEN) String token,
+        @JSONBody StudyRoomLoginClientReq form);
 
     /**
      * 授权手机号登录（拿 token）
@@ -54,6 +56,7 @@ public interface StudyRoomUserV3Client extends StudyRoomBaseClient {
     @Deprecated
     @Post(url = "/mp/user/authorize/bindMobile")
     StudyRoomClientResult<StudyRoomLoginClientResp> bindMobile(
+        @Header(value = StudyRoomApiConstants.Header.HEADER_TOKEN) String token,
         @JSONBody StudyRoomBindMobileClientReq form);
 
     /**
@@ -66,7 +69,9 @@ public interface StudyRoomUserV3Client extends StudyRoomBaseClient {
      */
     @Deprecated
     @Post(url = "/mp/user/refresh/sessionKey")
-    StudyRoomClientResult<Void> refreshSessionKey(@JSONBody StudyRoomRefreshSessionClientReq form);
+    StudyRoomClientResult<Void> refreshSessionKey(
+        @Header(value = StudyRoomApiConstants.Header.HEADER_TOKEN) String token,
+        @JSONBody StudyRoomRefreshSessionClientReq form);
 
     /**
      * 用户概览：头像、手机号、累计签到次数、累计学习时长
