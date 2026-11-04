@@ -22,6 +22,11 @@
             <artifactId>continew-system</artifactId>
         </dependency>
 
+        <!-- 业务模块 -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>continew-business</artifactId>
+        </dependency>
 
         <!-- 能力开放插件 -->
         <dependency>
