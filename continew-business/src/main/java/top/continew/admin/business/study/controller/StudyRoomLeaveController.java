@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomLeaveClient;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomUserLeaveCancelReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomUserLeaveConfirmReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserLeaveEnterResp;
-import top.continew.admin.business.study.model.resp.StudyRoomUserLeaveEnterVO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomUserLeaveCancelClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomUserLeaveConfirmClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserLeaveEnterClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserLeaveEnterResp;
 import top.continew.starter.web.model.R;
 
 /**
@@ -39,11 +39,11 @@ public class StudyRoomLeaveController {
      */
     @SaCheckPermission("business:study:leave:list")
     @GetMapping(value = "/enter")
-    public R<StudyRoomUserLeaveEnterVO> userLeaveEnter(
+    public R<StudyRoomUserLeaveEnterResp> userLeaveEnter(
         @RequestParam(value = "userPackageId") Long userPackageId) {
-        StudyRoomUserLeaveEnterResp dto = leaveClient.userLeaveEnter(userPackageId).getData();
-        StudyRoomUserLeaveEnterVO vo =
-            BeanUtil.copyProperties(dto, StudyRoomUserLeaveEnterVO.class);
+        StudyRoomUserLeaveEnterClientResp dto = leaveClient.userLeaveEnter(userPackageId).getData();
+        StudyRoomUserLeaveEnterResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomUserLeaveEnterResp.class);
         return R.ok(vo);
     }
 
@@ -55,7 +55,7 @@ public class StudyRoomLeaveController {
      */
     @SaCheckPermission("business:study:leave:create")
     @PostMapping(value = "/confirm")
-    public R<Integer> userLeaveConfirm(@RequestBody StudyRoomUserLeaveConfirmReq form) {
+    public R<Integer> userLeaveConfirm(@RequestBody StudyRoomUserLeaveConfirmClientReq form) {
         Integer data = leaveClient.userLeaveConfirm(form).getData();
         return R.ok(data);
     }
@@ -68,7 +68,7 @@ public class StudyRoomLeaveController {
      */
     @SaCheckPermission("business:study:leave:delete")
     @PostMapping(value = "/cancel")
-    public R<Integer> userLeaveCancel(@RequestBody StudyRoomUserLeaveCancelReq form) {
+    public R<Integer> userLeaveCancel(@RequestBody StudyRoomUserLeaveCancelClientReq form) {
         Integer data = leaveClient.userLeaveCancel(form).getData();
         return R.ok(data);
     }

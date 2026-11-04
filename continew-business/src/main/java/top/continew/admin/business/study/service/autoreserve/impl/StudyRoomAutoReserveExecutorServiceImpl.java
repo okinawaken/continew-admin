@@ -6,18 +6,18 @@ import org.redisson.api.RLock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomReserveConfirmReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveConfirmResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomReserveConfirmClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveConfirmClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueClientResp;
 import top.continew.admin.business.study.constant.StudyRoomCacheConstants;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTaskRecordStatusEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autoreserve.StudyRoomAutoReserveFilterChain;
 import top.continew.admin.business.study.model.context.StudyRoomAutoReserveContext;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordRespDTO;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordInfoResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveExecutorService;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
@@ -47,7 +47,7 @@ public class StudyRoomAutoReserveExecutorServiceImpl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void execute(Long taskId, Integer triggerType) {
-        StudyRoomAutoReserveTaskRespDTO taskRespDTO = taskService.getTask(taskId);
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = taskService.getTask(taskId);
 
         String lockKey = StudyRoomCacheConstants.AUTO_RESERVE_EXECUTE_LOCK + taskId;
         RLock lock = RedisUtils.getClient().getLock(lockKey);
@@ -62,7 +62,7 @@ public class StudyRoomAutoReserveExecutorServiceImpl
         try {
             FilterResultDTO<?> filterResultDTO = filterChain.doFilter(context);
             if (!filterResultDTO.isSuccess()) {
-                StudyRoomAutoReserveTaskRecordRespDTO taskRecordRespDTO =
+                StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO =
                     this.buildTaskRecordRespDTO(context,
                         StudyRoomAutoReserveTaskRecordStatusEnum.SKIPPED,
                         filterResultDTO.getErrorMsg());
@@ -71,10 +71,10 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             }
 
             LocalDate targetDate = context.getTargetDate();
-            StudyRoomVenueResp venueRespDTO = context.getVenueRespDTO();
-            StudyRoomSeatResp seatRespDTO = context.getSeatRespDTO();
+            StudyRoomVenueClientResp venueRespDTO = context.getVenueRespDTO();
+            StudyRoomSeatClientResp seatRespDTO = context.getSeatRespDTO();
 
-            StudyRoomReserveConfirmReq reqDTO = new StudyRoomReserveConfirmReq();
+            StudyRoomReserveConfirmClientReq reqDTO = new StudyRoomReserveConfirmClientReq();
             reqDTO.setSeatId(seatRespDTO.getId());
             reqDTO.setReserveDateStr(targetDate);
             reqDTO.setReserveStartTimeStr(taskRespDTO.getReserveStartTime());
@@ -82,18 +82,18 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             reqDTO.setCurrentLng(venueRespDTO.getVenueLng());
             reqDTO.setCurrentLat(venueRespDTO.getVenueLat());
             reqDTO.setReserveAnotherFlag(0);
-            StudyRoomApiResult<StudyRoomReserveConfirmResp> resultDTO =
+            StudyRoomClientResult<StudyRoomReserveConfirmClientResp> resultDTO =
                 reserveV2Client.reserveV2SeatConfirm(reqDTO, taskRespDTO.getUserId());
             context.setConfirmRespDTO(resultDTO.getData());
 
-            StudyRoomAutoReserveTaskRecordRespDTO taskRecordRespDTO = this.buildTaskRecordRespDTO(
+            StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO = this.buildTaskRecordRespDTO(
                 context, StudyRoomAutoReserveTaskRecordStatusEnum.SUCCESS, null);
             recordService.saveRecord(taskRecordRespDTO);
             taskService.advanceLastMaxReserveDate(taskId, context.getTargetDate());
         } catch (Exception e) {
             log.error("自动预约任务执行失败，taskId={}，triggerType={}, context={}", taskId, triggerType,
                 JsonUtils.toJsonStr(context), e);
-            StudyRoomAutoReserveTaskRecordRespDTO taskRecordRespDTO = this.buildTaskRecordRespDTO(
+            StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO = this.buildTaskRecordRespDTO(
                 context, StudyRoomAutoReserveTaskRecordStatusEnum.FAILED, e.getMessage());
             recordService.saveRecord(taskRecordRespDTO);
         } finally {
@@ -103,29 +103,29 @@ public class StudyRoomAutoReserveExecutorServiceImpl
         }
     }
 
-    private StudyRoomAutoReserveTaskRecordRespDTO buildTaskRecordRespDTO(
+    private StudyRoomAutoReserveTaskRecordInfoResp buildTaskRecordRespDTO(
         StudyRoomAutoReserveContext context, StudyRoomAutoReserveTaskRecordStatusEnum statusEnum,
         String errorMsg) {
-        StudyRoomAutoReserveTaskRecordRespDTO taskRecordRespDTO =
-            new StudyRoomAutoReserveTaskRecordRespDTO();
+        StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO =
+            new StudyRoomAutoReserveTaskRecordInfoResp();
         taskRecordRespDTO.setTriggerType(context.getTriggerType());
         taskRecordRespDTO.setTargetDate(context.getTargetDate());
         taskRecordRespDTO.setStatus(statusEnum.getValue());
         taskRecordRespDTO.setFailMsg(errorMsg);
 
-        StudyRoomAutoReserveTaskRespDTO taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
         if (Objects.nonNull(taskRespDTO)) {
             taskRecordRespDTO.setTaskId(taskRespDTO.getId());
             taskRecordRespDTO.setUserId(taskRespDTO.getUserId());
             taskRecordRespDTO.setTimeRange(
                 taskRespDTO.getReserveStartTime() + "-" + taskRespDTO.getReserveEndTime());
         }
-        StudyRoomSeatResp seatRespDTO = context.getSeatRespDTO();
+        StudyRoomSeatClientResp seatRespDTO = context.getSeatRespDTO();
         if (Objects.nonNull(seatRespDTO)) {
             taskRecordRespDTO.setSeatId(seatRespDTO.getId());
             taskRecordRespDTO.setSeatNumber(seatRespDTO.getSeatNumber());
         }
-        StudyRoomReserveConfirmResp confirmRespDTO = context.getConfirmRespDTO();
+        StudyRoomReserveConfirmClientResp confirmRespDTO = context.getConfirmRespDTO();
         if (Objects.nonNull(confirmRespDTO)) {
             taskRecordRespDTO.setUserReserveId(confirmRespDTO.getId());
         }

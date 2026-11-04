@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTriggerTypeEnum;
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
 import top.continew.admin.business.study.model.event.StudyRoomAutoReserveExecuteEvent;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordRespDTO;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordInfoResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
@@ -45,11 +45,11 @@ public class StudyRoomAutoReserveScheduler {
      */
     @Scheduled(cron = "0 * * * * ?")
     public void scan() {
-        List<StudyRoomAutoReserveTaskRespDTO> taskList = taskService.listEnabledTasks();
+        List<StudyRoomAutoReserveTaskInfoResp> taskList = taskService.listEnabledTasks();
         if (CollUtil.isEmpty(taskList)) {
             return;
         }
-        for (StudyRoomAutoReserveTaskRespDTO task : taskList) {
+        for (StudyRoomAutoReserveTaskInfoResp task : taskList) {
             Long tenantId = Objects.requireNonNullElse(task.getTenantId(), 0L);
             TenantUtils.execute(tenantId, () -> this.scanTask(task));
         }
@@ -60,14 +60,14 @@ public class StudyRoomAutoReserveScheduler {
      *
      * @param task 参数 task
      */
-    private void scanTask(StudyRoomAutoReserveTaskRespDTO task) {
+    private void scanTask(StudyRoomAutoReserveTaskInfoResp task) {
         LocalDate nowDate = LocalDate.now();
         LocalTime nowTime = LocalTime.now();
         StudyRoomUserConfigBO config = settingService.getConfig(task.getUserId());
         if (nowTime.isBefore(config.getReleaseTime())) {
             return;
         }
-        List<StudyRoomAutoReserveTaskRecordRespDTO> recordList = recordService
+        List<StudyRoomAutoReserveTaskRecordInfoResp> recordList = recordService
             .listByTaskIdAndCreateDate(task.getId(), nowDate);
         if (CollUtil.isNotEmpty(recordList)) {
             return;

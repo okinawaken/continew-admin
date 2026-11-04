@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
-import top.continew.admin.business.study.model.req.StudyRoomUserSettingReqDTO;
-import top.continew.admin.business.study.model.resp.StudyRoomUserSettingVO;
+import top.continew.admin.business.study.model.req.StudyRoomUserSettingReq;
+import top.continew.admin.business.study.model.resp.StudyRoomUserSettingResp;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
 import top.continew.admin.common.context.UserContextHolder;
 import top.continew.starter.web.model.R;
@@ -39,11 +39,11 @@ public class StudyRoomUserSettingController {
      */
     @SaCheckPermission("business:study:userSetting:get")
     @GetMapping(value = {"", "/"})
-    public R<StudyRoomUserSettingVO> getSetting() {
+    public R<StudyRoomUserSettingResp> getSetting() {
         StudyRoomUserConfigBO config =
             settingService.getConfig(UserContextHolder.getUserId());
-        StudyRoomUserSettingVO vo =
-            BeanUtil.copyProperties(config, StudyRoomUserSettingVO.class);
+        StudyRoomUserSettingResp vo =
+            BeanUtil.copyProperties(config, StudyRoomUserSettingResp.class);
         return R.ok(vo);
     }
 
@@ -55,7 +55,7 @@ public class StudyRoomUserSettingController {
      */
     @SaCheckPermission("business:study:userSetting:update")
     @PutMapping(value = {"", "/"})
-    public R<Void> updateSetting(@Valid @RequestBody StudyRoomUserSettingReqDTO dto) {
+    public R<Void> updateSetting(@Valid @RequestBody StudyRoomUserSettingReq dto) {
         StudyRoomUserConfigBO config = BeanUtil
             .copyProperties(dto, StudyRoomUserConfigBO.class);
         settingService.updateConfig(UserContextHolder.getUserId(), config);

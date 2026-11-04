@@ -5,21 +5,21 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomCabinetLeaseCommitReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomCabinetWifiOpenReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomDouYinVerifyReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomReceiptConsumeReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetGridListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetGridPriceResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseCommitResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseOrderListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseOverduePayResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetUserGridListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetVenueListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomConsumeResultResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomFileResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayParamResp;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomCabinetLeaseCommitClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomCabinetWifiOpenClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomDouYinVerifyClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomReceiptConsumeClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetGridListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetGridPriceClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseCommitClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseOrderListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseOverduePayClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetUserGridListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetVenueListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomConsumeResultClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomFileClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayParamClientResp;
 
 import java.io.File;
 import java.util.List;
@@ -40,7 +40,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/cabinetGrip/v2/lease/order/list")
-    StudyRoomApiResult<StudyRoomCabinetLeaseOrderListResp> cabinetLeaseOrderList();
+    StudyRoomClientResult<StudyRoomCabinetLeaseOrderListClientResp> cabinetLeaseOrderList();
 
     /**
      * 储物柜租赁支付（参数走 query，且 leaseId 必须是整数）
@@ -50,7 +50,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/cabinetGrip/v2/lease/pay")
-    StudyRoomApiResult<StudyRoomWxPayParamResp> cabinetLeasePay(
+    StudyRoomClientResult<StudyRoomWxPayParamClientResp> cabinetLeasePay(
         @Query(value = "leaseId") Long leaseId, @Query(value = "userId") Long userId);
 
     /**
@@ -60,8 +60,8 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/receipt/consume")
-    StudyRoomApiResult<StudyRoomConsumeResultResp> receiptConsume(
-        @JSONBody StudyRoomReceiptConsumeReq form);
+    StudyRoomClientResult<StudyRoomConsumeResultClientResp> receiptConsume(
+        @JSONBody StudyRoomReceiptConsumeClientReq form);
 
     /**
      * 抖音券核销
@@ -70,8 +70,8 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/douYin/certificate/prepareAndVerify")
-    StudyRoomApiResult<StudyRoomConsumeResultResp> douYinVerify(
-        @JSONBody StudyRoomDouYinVerifyReq form);
+    StudyRoomClientResult<StudyRoomConsumeResultClientResp> douYinVerify(
+        @JSONBody StudyRoomDouYinVerifyClientReq form);
 
     /**
      * 图片上传（报修图片等，multipart 字段名 {@code files}）
@@ -82,7 +82,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/image/upload", contentType = "multipart/form-data")
-    StudyRoomApiResult<List<StudyRoomFileResp>> uploadImage(
+    StudyRoomClientResult<List<StudyRoomFileClientResp>> uploadImage(
         @DataFile(value = "files") File file);
 
     // ------------------------------------------------------------------
@@ -96,7 +96,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/cabinetGrip/v2/venue/cabinet/list")
-    StudyRoomApiResult<StudyRoomCabinetVenueListResp> cabinetVenueList(
+    StudyRoomClientResult<StudyRoomCabinetVenueListClientResp> cabinetVenueList(
         @Query(value = "venueId") Integer venueId);
 
     /**
@@ -106,7 +106,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/cabinetGrip/v2/cabinet/grid/list")
-    StudyRoomApiResult<StudyRoomCabinetGridListResp> cabinetGridList(
+    StudyRoomClientResult<StudyRoomCabinetGridListClientResp> cabinetGridList(
         @Query(value = "cabinetId") Integer cabinetId);
 
     /**
@@ -116,7 +116,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/cabinetGrip/v2/user/cabinet/grid/list")
-    StudyRoomApiResult<StudyRoomCabinetUserGridListResp> cabinetUserGridList(
+    StudyRoomClientResult<StudyRoomCabinetUserGridListClientResp> cabinetUserGridList(
         @Query(value = "venueId") Integer venueId);
 
     /**
@@ -126,7 +126,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/cabinetGrip/v2/grid/price")
-    StudyRoomApiResult<StudyRoomCabinetGridPriceResp> cabinetGridPrice(
+    StudyRoomClientResult<StudyRoomCabinetGridPriceClientResp> cabinetGridPrice(
         @Query(value = "gridId") Integer gridId);
 
     /**
@@ -136,8 +136,8 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/cabinetGrip/v2/lease/commit")
-    StudyRoomApiResult<StudyRoomCabinetLeaseCommitResp> cabinetLeaseCommit(
-        @JSONBody StudyRoomCabinetLeaseCommitReq form);
+    StudyRoomClientResult<StudyRoomCabinetLeaseCommitClientResp> cabinetLeaseCommit(
+        @JSONBody StudyRoomCabinetLeaseCommitClientReq form);
 
     /**
      * 储物柜开锁（WiFi 开锁，按柜格）
@@ -146,7 +146,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/cabinetGrip/v2/wifi/open")
-    StudyRoomApiResult<Void> cabinetWifiOpen(@JSONBody StudyRoomCabinetWifiOpenReq form);
+    StudyRoomClientResult<Void> cabinetWifiOpen(@JSONBody StudyRoomCabinetWifiOpenClientReq form);
 
     /**
      * 储物柜自动退租（按最近一次租约）
@@ -155,7 +155,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/cabinetGrip/v2/lease/autoCheckout")
-    StudyRoomApiResult<Void> cabinetLeaseAutoCheckout(
+    StudyRoomClientResult<Void> cabinetLeaseAutoCheckout(
         @Query(value = "lastLeaseId") Long lastLeaseId);
 
     /**
@@ -166,7 +166,7 @@ public interface StudyRoomMiscClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/cabinetGrip/v2/lease/overdue/pay")
-    StudyRoomApiResult<StudyRoomCabinetLeaseOverduePayResp> cabinetLeaseOverduePay(
+    StudyRoomClientResult<StudyRoomCabinetLeaseOverduePayClientResp> cabinetLeaseOverduePay(
         @Query(value = "leaseId") Long leaseId,
         @Query(value = "userCode") String userCode);
 

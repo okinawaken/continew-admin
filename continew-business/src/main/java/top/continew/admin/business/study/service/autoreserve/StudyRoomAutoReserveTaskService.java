@@ -1,8 +1,8 @@
 package top.continew.admin.business.study.service.autoreserve;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import top.continew.admin.business.study.model.req.StudyRoomAutoReserveTaskReqDTO;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.model.req.StudyRoomAutoReserveTaskReq;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 import top.continew.starter.extension.crud.model.query.PageQuery;
 import top.continew.starter.extension.tenant.annotation.TenantIgnore;
 
@@ -24,7 +24,7 @@ public interface StudyRoomAutoReserveTaskService {
      * @param pageQuery 分页查询条件
      * @return 列表数据
      */
-    IPage<StudyRoomAutoReserveTaskRespDTO> pageList(Long userId, PageQuery pageQuery);
+    IPage<StudyRoomAutoReserveTaskInfoResp> pageList(Long userId, PageQuery pageQuery);
 
     /**
      * 任务详情
@@ -32,7 +32,7 @@ public interface StudyRoomAutoReserveTaskService {
      * @param taskId 任务 ID
      * @return 详情数据
      */
-    StudyRoomAutoReserveTaskRespDTO getTask(Long taskId);
+    StudyRoomAutoReserveTaskInfoResp getTask(Long taskId);
 
     /**
      * 创建任务
@@ -41,7 +41,7 @@ public interface StudyRoomAutoReserveTaskService {
      * @param dto 请求数据
      * @return 响应数据
      */
-    Long createTask(Long userId, StudyRoomAutoReserveTaskReqDTO dto);
+    Long createTask(Long userId, StudyRoomAutoReserveTaskReq dto);
 
     /**
      * 修改任务
@@ -49,7 +49,7 @@ public interface StudyRoomAutoReserveTaskService {
      * @param taskId 任务 ID
      * @param dto 请求数据
      */
-    void updateTask(Long taskId, StudyRoomAutoReserveTaskReqDTO dto);
+    void updateTask(Long taskId, StudyRoomAutoReserveTaskReq dto);
 
     /**
      * 删除任务，同事务删除执行历史
@@ -86,7 +86,7 @@ public interface StudyRoomAutoReserveTaskService {
      * @return 列表数据
      */
     @TenantIgnore
-    List<StudyRoomAutoReserveTaskRespDTO> listEnabledTasks();
+    List<StudyRoomAutoReserveTaskInfoResp> listEnabledTasks();
 
     /**
      * 条件推进放号基线日期

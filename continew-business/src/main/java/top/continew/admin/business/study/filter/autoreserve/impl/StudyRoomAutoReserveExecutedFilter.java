@@ -8,8 +8,8 @@ import top.continew.admin.business.study.enums.StudyRoomAutoReserveFilterOrderEn
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autoreserve.StudyRoomAutoReserveFilter;
 import top.continew.admin.business.study.model.context.StudyRoomAutoReserveContext;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordRespDTO;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordInfoResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 
 import java.time.LocalDate;
@@ -37,8 +37,8 @@ public class StudyRoomAutoReserveExecutedFilter implements StudyRoomAutoReserveF
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskRespDTO taskRespDTO = context.getTaskRespDTO();
-        List<StudyRoomAutoReserveTaskRecordRespDTO> recordList =
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        List<StudyRoomAutoReserveTaskRecordInfoResp> recordList =
             recordService.listByTaskIdAndCreateDate(taskRespDTO.getId(), LocalDate.now());
         if (CollUtil.isNotEmpty(recordList)) {
             return FilterResultDTO.fail("今日已执行");

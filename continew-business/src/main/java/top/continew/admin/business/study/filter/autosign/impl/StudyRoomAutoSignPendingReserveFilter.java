@@ -4,9 +4,9 @@ import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveListClientResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignFilterOrderEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autosign.StudyRoomAutoSignFilter;
@@ -35,7 +35,8 @@ public class StudyRoomAutoSignPendingReserveFilter implements StudyRoomAutoSignF
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoSignContext context) {
-        StudyRoomUserReserveResp reserveRespDTO = this.findPendingReserve(context.getUserId());
+        StudyRoomUserReserveClientResp reserveRespDTO =
+            this.findPendingReserve(context.getUserId());
         context.setReserveRespDTO(reserveRespDTO);
         if (Objects.isNull(reserveRespDTO)) {
             return FilterResultDTO.fail("当前无待签到预约");
@@ -43,8 +44,8 @@ public class StudyRoomAutoSignPendingReserveFilter implements StudyRoomAutoSignF
         return FilterResultDTO.success(reserveRespDTO);
     }
 
-    private StudyRoomUserReserveResp findPendingReserve(Long userId) {
-        StudyRoomApiResult<StudyRoomUserReserveListResp> resultDTO =
+    private StudyRoomUserReserveClientResp findPendingReserve(Long userId) {
+        StudyRoomClientResult<StudyRoomUserReserveListClientResp> resultDTO =
             reserveV2Client.userReserveList(userId);
         return resultDTO.getData().getList().stream()
             .filter(reserve -> StrUtil.equals(reserve.getReserveStatusDesc(), "待签到"))

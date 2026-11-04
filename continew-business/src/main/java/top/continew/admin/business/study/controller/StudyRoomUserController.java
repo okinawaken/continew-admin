@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomUserClient;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomAuthorizeHeadImgReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomBindMobileReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomLoginReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomRefreshSessionReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomUpdateUserInfoReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomLoginResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserDetailResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserFeeResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserIndexResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserSignListResp;
-import top.continew.admin.business.study.model.resp.StudyRoomLoginVO;
-import top.continew.admin.business.study.model.resp.StudyRoomUserDetailVO;
-import top.continew.admin.business.study.model.resp.StudyRoomUserFeeVO;
-import top.continew.admin.business.study.model.resp.StudyRoomUserIndexVO;
-import top.continew.admin.business.study.model.resp.StudyRoomUserSignListVO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomAuthorizeHeadImgClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomBindMobileClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomLoginClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomRefreshSessionClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomUpdateUserInfoClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomLoginClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserDetailClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserFeeClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserIndexClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserSignListClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomLoginResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserDetailResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserFeeResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserIndexResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserSignListResp;
 import top.continew.starter.core.exception.BusinessException;
 import top.continew.starter.web.model.R;
 
@@ -52,9 +52,9 @@ public class StudyRoomUserController {
     @Deprecated
     @SaCheckPermission("business:study:user:create")
     @PostMapping(value = "/login")
-    public R<StudyRoomLoginVO> login(@RequestBody StudyRoomLoginReq form) {
-        StudyRoomLoginResp dto = userClient.login(form).getData();
-        StudyRoomLoginVO vo = BeanUtil.copyProperties(dto, StudyRoomLoginVO.class);
+    public R<StudyRoomLoginResp> login(@RequestBody StudyRoomLoginClientReq form) {
+        StudyRoomLoginClientResp dto = userClient.login(form).getData();
+        StudyRoomLoginResp vo = BeanUtil.copyProperties(dto, StudyRoomLoginResp.class);
         return R.ok(vo);
     }
 
@@ -67,9 +67,9 @@ public class StudyRoomUserController {
     @Deprecated
     @SaCheckPermission("business:study:user:create")
     @PostMapping(value = "/bind-mobile")
-    public R<StudyRoomLoginVO> bindMobile(@RequestBody StudyRoomBindMobileReq form) {
-        StudyRoomLoginResp dto = userClient.bindMobile(form).getData();
-        StudyRoomLoginVO vo = BeanUtil.copyProperties(dto, StudyRoomLoginVO.class);
+    public R<StudyRoomLoginResp> bindMobile(@RequestBody StudyRoomBindMobileClientReq form) {
+        StudyRoomLoginClientResp dto = userClient.bindMobile(form).getData();
+        StudyRoomLoginResp vo = BeanUtil.copyProperties(dto, StudyRoomLoginResp.class);
         return R.ok(vo);
     }
 
@@ -82,7 +82,7 @@ public class StudyRoomUserController {
     @Deprecated
     @SaCheckPermission("business:study:user:create")
     @PostMapping(value = "/refresh-session-key")
-    public R<Void> refreshSessionKey(@RequestBody StudyRoomRefreshSessionReq form) {
+    public R<Void> refreshSessionKey(@RequestBody StudyRoomRefreshSessionClientReq form) {
         userClient.refreshSessionKey(form);
         return R.ok();
     }
@@ -94,9 +94,9 @@ public class StudyRoomUserController {
      */
     @SaCheckPermission("business:study:user:list")
     @GetMapping(value = "/index")
-    public R<StudyRoomUserIndexVO> userIndex() {
-        StudyRoomUserIndexResp dto = userClient.userIndex().getData();
-        StudyRoomUserIndexVO vo = BeanUtil.copyProperties(dto, StudyRoomUserIndexVO.class);
+    public R<StudyRoomUserIndexResp> userIndex() {
+        StudyRoomUserIndexClientResp dto = userClient.userIndex().getData();
+        StudyRoomUserIndexResp vo = BeanUtil.copyProperties(dto, StudyRoomUserIndexResp.class);
         return R.ok(vo);
     }
 
@@ -107,9 +107,9 @@ public class StudyRoomUserController {
      */
     @SaCheckPermission("business:study:user:list")
     @GetMapping(value = "/detail")
-    public R<StudyRoomUserDetailVO> userDetail() {
-        StudyRoomUserDetailResp dto = userClient.userDetail().getData();
-        StudyRoomUserDetailVO vo = BeanUtil.copyProperties(dto, StudyRoomUserDetailVO.class);
+    public R<StudyRoomUserDetailResp> userDetail() {
+        StudyRoomUserDetailClientResp dto = userClient.userDetail().getData();
+        StudyRoomUserDetailResp vo = BeanUtil.copyProperties(dto, StudyRoomUserDetailResp.class);
         return R.ok(vo);
     }
 
@@ -120,9 +120,9 @@ public class StudyRoomUserController {
      */
     @SaCheckPermission("business:study:user:list")
     @GetMapping(value = "/fee")
-    public R<StudyRoomUserFeeVO> userFee() {
-        StudyRoomUserFeeResp dto = userClient.userFee().getData();
-        StudyRoomUserFeeVO vo = BeanUtil.copyProperties(dto, StudyRoomUserFeeVO.class);
+    public R<StudyRoomUserFeeResp> userFee() {
+        StudyRoomUserFeeClientResp dto = userClient.userFee().getData();
+        StudyRoomUserFeeResp vo = BeanUtil.copyProperties(dto, StudyRoomUserFeeResp.class);
         return R.ok(vo);
     }
 
@@ -134,7 +134,7 @@ public class StudyRoomUserController {
      */
     @SaCheckPermission("business:study:user:update")
     @PostMapping(value = "/update-info")
-    public R<Integer> updateUserInfo(@RequestBody StudyRoomUpdateUserInfoReq form) {
+    public R<Integer> updateUserInfo(@RequestBody StudyRoomUpdateUserInfoClientReq form) {
         Integer data = userClient.updateUserInfo(form).getData();
         return R.ok(data);
     }
@@ -147,7 +147,7 @@ public class StudyRoomUserController {
      */
     @SaCheckPermission("business:study:user:update")
     @PostMapping(value = "/authorize/head-img")
-    public R<Void> authorizeHeadImg(@RequestBody StudyRoomAuthorizeHeadImgReq form) {
+    public R<Void> authorizeHeadImg(@RequestBody StudyRoomAuthorizeHeadImgClientReq form) {
         userClient.authorizeHeadImg(form);
         return R.ok();
     }
@@ -183,9 +183,10 @@ public class StudyRoomUserController {
      */
     @SaCheckPermission("business:study:user:list")
     @GetMapping(value = "/sign/list")
-    public R<StudyRoomUserSignListVO> userSignList(@RequestParam(value = "id") Long id) {
-        StudyRoomUserSignListResp dto = userClient.userSignList(id).getData();
-        StudyRoomUserSignListVO vo = BeanUtil.copyProperties(dto, StudyRoomUserSignListVO.class);
+    public R<StudyRoomUserSignListResp> userSignList(@RequestParam(value = "id") Long id) {
+        StudyRoomUserSignListClientResp dto = userClient.userSignList(id).getData();
+        StudyRoomUserSignListResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomUserSignListResp.class);
         return R.ok(vo);
     }
 
@@ -196,9 +197,10 @@ public class StudyRoomUserController {
      */
     @SaCheckPermission("business:study:user:list")
     @GetMapping(value = "/sign/list/more")
-    public R<StudyRoomUserSignListVO> userSignListMore() {
-        StudyRoomUserSignListResp dto = userClient.userSignListMore().getData();
-        StudyRoomUserSignListVO vo = BeanUtil.copyProperties(dto, StudyRoomUserSignListVO.class);
+    public R<StudyRoomUserSignListResp> userSignListMore() {
+        StudyRoomUserSignListClientResp dto = userClient.userSignListMore().getData();
+        StudyRoomUserSignListResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomUserSignListResp.class);
         return R.ok(vo);
     }
 }

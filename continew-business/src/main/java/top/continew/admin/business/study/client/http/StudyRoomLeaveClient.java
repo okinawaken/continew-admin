@@ -4,10 +4,10 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomUserLeaveCancelReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomUserLeaveConfirmReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserLeaveEnterResp;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomUserLeaveCancelClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomUserLeaveConfirmClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserLeaveEnterClientResp;
 
 /**
  * 请假域：套餐请假
@@ -24,7 +24,7 @@ public interface StudyRoomLeaveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/user/userLeave/enterLeave")
-    StudyRoomApiResult<StudyRoomUserLeaveEnterResp> userLeaveEnter(
+    StudyRoomClientResult<StudyRoomUserLeaveEnterClientResp> userLeaveEnter(
         @Query(value = "userPackageId") Long userPackageId);
 
     /**
@@ -34,7 +34,8 @@ public interface StudyRoomLeaveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/user/userLeave/confirmLeave")
-    StudyRoomApiResult<Integer> userLeaveConfirm(@JSONBody StudyRoomUserLeaveConfirmReq form);
+    StudyRoomClientResult<Integer> userLeaveConfirm(
+        @JSONBody StudyRoomUserLeaveConfirmClientReq form);
 
     /**
      * 取消请假
@@ -43,6 +44,7 @@ public interface StudyRoomLeaveClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/user/userLeave/cancelLeave")
-    StudyRoomApiResult<Integer> userLeaveCancel(@JSONBody StudyRoomUserLeaveCancelReq form);
+    StudyRoomClientResult<Integer> userLeaveCancel(
+        @JSONBody StudyRoomUserLeaveCancelClientReq form);
 
 }

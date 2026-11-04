@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomRepairClient;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomRepairSubmitReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairResp;
-import top.continew.admin.business.study.model.resp.StudyRoomRepairListVO;
-import top.continew.admin.business.study.model.resp.StudyRoomRepairVO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomRepairSubmitClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairListClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomRepairListResp;
+import top.continew.admin.business.study.model.resp.StudyRoomRepairResp;
 import top.continew.starter.web.model.R;
 
 /**
@@ -40,7 +40,7 @@ public class StudyRoomRepairController {
      */
     @SaCheckPermission("business:study:repair:create")
     @PostMapping(value = "/submit")
-    public R<Void> submitRepair(@RequestBody StudyRoomRepairSubmitReq form) {
+    public R<Void> submitRepair(@RequestBody StudyRoomRepairSubmitClientReq form) {
         repairClient.submitRepair(form);
         return R.ok();
     }
@@ -52,9 +52,9 @@ public class StudyRoomRepairController {
      */
     @SaCheckPermission("business:study:repair:list")
     @GetMapping(value = "/list")
-    public R<StudyRoomRepairListVO> repairList() {
-        StudyRoomRepairListResp dto = repairClient.repairList().getData();
-        StudyRoomRepairListVO vo = BeanUtil.copyProperties(dto, StudyRoomRepairListVO.class);
+    public R<StudyRoomRepairListResp> repairList() {
+        StudyRoomRepairListClientResp dto = repairClient.repairList().getData();
+        StudyRoomRepairListResp vo = BeanUtil.copyProperties(dto, StudyRoomRepairListResp.class);
         return R.ok(vo);
     }
 
@@ -66,9 +66,9 @@ public class StudyRoomRepairController {
      */
     @SaCheckPermission("business:study:repair:list")
     @GetMapping(value = "/detail/{id}")
-    public R<StudyRoomRepairVO> repairDetail(@PathVariable(value = "id") Long id) {
-        StudyRoomRepairResp dto = repairClient.repairDetail(id).getData();
-        StudyRoomRepairVO vo = BeanUtil.copyProperties(dto, StudyRoomRepairVO.class);
+    public R<StudyRoomRepairResp> repairDetail(@PathVariable(value = "id") Long id) {
+        StudyRoomRepairClientResp dto = repairClient.repairDetail(id).getData();
+        StudyRoomRepairResp vo = BeanUtil.copyProperties(dto, StudyRoomRepairResp.class);
         return R.ok(vo);
     }
 }

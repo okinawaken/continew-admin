@@ -3,12 +3,12 @@ package top.continew.admin.business.study.client.http;
 import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.Query;
 import com.dtflys.forest.annotation.Var;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomAreaSelectResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomDouYinVenueSelectResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveIndexResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueSelectResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomAreaSelectClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomDouYinVenueSelectClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveIndexClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueSelectClientResp;
 import top.continew.admin.business.study.constant.StudyRoomApiConstants;
 
 /**
@@ -28,7 +28,7 @@ public interface StudyRoomVenueV2Client extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/venue/select")
-    StudyRoomApiResult<StudyRoomVenueSelectResp> venueSelect(
+    StudyRoomClientResult<StudyRoomVenueSelectClientResp> venueSelect(
         @Query(value = "currentLng") Double currentLng,
         @Query(value = "currentLat") Double currentLat,
         @Var(value = StudyRoomApiConstants.Variable.USER_ID) Long userId);
@@ -40,7 +40,7 @@ public interface StudyRoomVenueV2Client extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/reserve/venue/select")
-    StudyRoomApiResult<StudyRoomVenueSelectResp> reserveVenueSelect(
+    StudyRoomClientResult<StudyRoomVenueSelectClientResp> reserveVenueSelect(
         @Var(value = StudyRoomApiConstants.Variable.USER_ID) Long userId);
 
     /**
@@ -51,7 +51,7 @@ public interface StudyRoomVenueV2Client extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/reserve/venue/detail")
-    StudyRoomApiResult<StudyRoomVenueResp> reserveVenueDetail(
+    StudyRoomClientResult<StudyRoomVenueClientResp> reserveVenueDetail(
         @Query(value = "venueId") Integer venueId,
         @Var(value = StudyRoomApiConstants.Variable.USER_ID) Long userId);
 
@@ -67,7 +67,7 @@ public interface StudyRoomVenueV2Client extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/reserve/index")
-    StudyRoomApiResult<StudyRoomReserveIndexResp> reserveIndex(
+    StudyRoomClientResult<StudyRoomReserveIndexClientResp> reserveIndex(
         @Query(value = "currentLng") Double currentLng,
         @Query(value = "currentLat") Double currentLat,
         @Query(value = "venueName") String venueName,
@@ -81,7 +81,7 @@ public interface StudyRoomVenueV2Client extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/reserve/area/select")
-    StudyRoomApiResult<StudyRoomAreaSelectResp> reserveAreaSelect(
+    StudyRoomClientResult<StudyRoomAreaSelectClientResp> reserveAreaSelect(
         @Var(value = StudyRoomApiConstants.Variable.USER_ID) Long userId);
 
     /**
@@ -93,7 +93,7 @@ public interface StudyRoomVenueV2Client extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/receipt/venue/select")
-    StudyRoomApiResult<StudyRoomVenueSelectResp> receiptVenueSelect(
+    StudyRoomClientResult<StudyRoomVenueSelectClientResp> receiptVenueSelect(
         @Query(value = "currentLng") Double currentLng,
         @Query(value = "currentLat") Double currentLat,
         @Var(value = StudyRoomApiConstants.Variable.USER_ID) Long userId);
@@ -107,7 +107,7 @@ public interface StudyRoomVenueV2Client extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/douYin/venue/select")
-    StudyRoomApiResult<StudyRoomDouYinVenueSelectResp> douYinVenueSelect(
+    StudyRoomClientResult<StudyRoomDouYinVenueSelectClientResp> douYinVenueSelect(
         @Query(value = "currentLng") Double currentLng,
         @Query(value = "currentLat") Double currentLat,
         @Var(value = StudyRoomApiConstants.Variable.USER_ID) Long userId);

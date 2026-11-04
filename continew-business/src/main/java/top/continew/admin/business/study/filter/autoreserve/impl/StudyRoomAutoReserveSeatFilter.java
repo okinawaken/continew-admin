@@ -3,18 +3,18 @@ package top.continew.admin.business.study.filter.autoreserve.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomSeatQueryReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatAreaResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatMapResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatValidTimeResp;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSeatQueryClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatAreaClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatMapClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatValidTimeClientResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveFilterOrderEnum;
 import top.continew.admin.business.study.enums.StudyRoomSeatStatusEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autoreserve.StudyRoomAutoReserveFilter;
 import top.continew.admin.business.study.model.context.StudyRoomAutoReserveContext;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 import top.continew.starter.core.exception.BusinessException;
 
 import java.time.LocalDate;
@@ -42,22 +42,22 @@ public class StudyRoomAutoReserveSeatFilter implements StudyRoomAutoReserveFilte
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskRespDTO taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
         LocalDate targetDate = context.getTargetDate();
 
-        StudyRoomSeatQueryReq reqDTO = new StudyRoomSeatQueryReq();
+        StudyRoomSeatQueryClientReq reqDTO = new StudyRoomSeatQueryClientReq();
         reqDTO.setVenueId(taskRespDTO.getVenueId());
         reqDTO.setReserveDateStr(targetDate);
         reqDTO.setReserveStartTimeStr(taskRespDTO.getReserveStartTime());
         reqDTO.setReserveEndTimeStr(taskRespDTO.getReserveEndTime());
         reqDTO.setReserveAnotherFlag(0);
-        StudyRoomApiResult<StudyRoomSeatMapResp> resultDTO =
+        StudyRoomClientResult<StudyRoomSeatMapClientResp> resultDTO =
             reserveV2Client.reserveV2SeatList(reqDTO, taskRespDTO.getUserId());
         if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())) {
             throw new BusinessException("座位图返回为空");
         }
 
-        StudyRoomSeatResp seatRespDTO = this.selectSeat(context, resultDTO.getData());
+        StudyRoomSeatClientResp seatRespDTO = this.selectSeat(context, resultDTO.getData());
         context.setSeatRespDTO(seatRespDTO);
         if (Objects.isNull(seatRespDTO)) {
             return FilterResultDTO.fail("期望时段无可预约座位");
@@ -65,16 +65,16 @@ public class StudyRoomAutoReserveSeatFilter implements StudyRoomAutoReserveFilte
         return FilterResultDTO.success(seatRespDTO);
     }
 
-    private StudyRoomSeatResp selectSeat(StudyRoomAutoReserveContext context,
-        StudyRoomSeatMapResp seatMap) {
-        StudyRoomAutoReserveTaskRespDTO taskRespDTO = context.getTaskRespDTO();
-        StudyRoomSeatResp areaSeatRespDTO = null;
-        StudyRoomSeatResp anySeatRespDTO = null;
+    private StudyRoomSeatClientResp selectSeat(StudyRoomAutoReserveContext context,
+        StudyRoomSeatMapClientResp seatMap) {
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomSeatClientResp areaSeatRespDTO = null;
+        StudyRoomSeatClientResp anySeatRespDTO = null;
 
-        for (StudyRoomSeatAreaResp seatAreaRespDTO : seatMap.getVenueAreaList()) {
+        for (StudyRoomSeatAreaClientResp seatAreaRespDTO : seatMap.getVenueAreaList()) {
             boolean isPreferredArea =
                 Objects.equals(seatAreaRespDTO.getId(), taskRespDTO.getAreaId());
-            for (StudyRoomSeatResp seatRespDTO : seatAreaRespDTO.getVenueAreaSeatList()) {
+            for (StudyRoomSeatClientResp seatRespDTO : seatAreaRespDTO.getVenueAreaSeatList()) {
                 boolean seatAvailable = this.isSeatAvailable(seatRespDTO,
                     taskRespDTO.getReserveStartTime(), taskRespDTO.getReserveEndTime());
                 if (!seatAvailable) {
@@ -94,13 +94,13 @@ public class StudyRoomAutoReserveSeatFilter implements StudyRoomAutoReserveFilte
         return Objects.nonNull(areaSeatRespDTO) ? areaSeatRespDTO : anySeatRespDTO;
     }
 
-    private boolean isSeatAvailable(StudyRoomSeatResp seat, LocalTime startTime,
+    private boolean isSeatAvailable(StudyRoomSeatClientResp seat, LocalTime startTime,
         LocalTime endTime) {
         if (!StudyRoomSeatStatusEnum.isCanReserve(seat.getSeatReserveState())) {
             return false;
         }
 
-        for (StudyRoomSeatValidTimeResp validTime : seat.getValidTimeStrList()) {
+        for (StudyRoomSeatValidTimeClientResp validTime : seat.getValidTimeStrList()) {
             if (!startTime.isBefore(validTime.getValidStartTimeStr())
                 && !endTime.isAfter(validTime.getValidEndTimeStr())) {
                 return true;

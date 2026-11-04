@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.continew.admin.business.study.model.req.StudyRoomAutoReserveTaskReqDTO;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskVO;
+import top.continew.admin.business.study.model.req.StudyRoomAutoReserveTaskReq;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
 import top.continew.admin.common.context.UserContextHolder;
 import top.continew.starter.extension.crud.model.query.PageQuery;
@@ -46,10 +46,10 @@ public class StudyRoomAutoReserveTaskController {
      */
     @SaCheckPermission("business:study:autoReserveTask:list")
     @GetMapping(value = "/list")
-    public PageResp<StudyRoomAutoReserveTaskVO> list(PageQuery pageQuery) {
-        IPage<StudyRoomAutoReserveTaskRespDTO> dtoPage = taskService
+    public PageResp<StudyRoomAutoReserveTaskResp> list(PageQuery pageQuery) {
+        IPage<StudyRoomAutoReserveTaskInfoResp> dtoPage = taskService
             .pageList(UserContextHolder.getUserId(), pageQuery);
-        return PageResp.build(dtoPage, StudyRoomAutoReserveTaskVO.class);
+        return PageResp.build(dtoPage, StudyRoomAutoReserveTaskResp.class);
     }
 
     /**
@@ -60,10 +60,10 @@ public class StudyRoomAutoReserveTaskController {
      */
     @SaCheckPermission("business:study:autoReserveTask:get")
     @GetMapping(value = "/{id}")
-    public R<StudyRoomAutoReserveTaskVO> detail(@PathVariable(value = "id") Long id) {
-        StudyRoomAutoReserveTaskRespDTO dto = taskService.getTask(id);
-        StudyRoomAutoReserveTaskVO vo =
-            BeanUtil.copyProperties(dto, StudyRoomAutoReserveTaskVO.class);
+    public R<StudyRoomAutoReserveTaskResp> detail(@PathVariable(value = "id") Long id) {
+        StudyRoomAutoReserveTaskInfoResp dto = taskService.getTask(id);
+        StudyRoomAutoReserveTaskResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomAutoReserveTaskResp.class);
         return R.ok(vo);
     }
 
@@ -75,7 +75,7 @@ public class StudyRoomAutoReserveTaskController {
      */
     @SaCheckPermission("business:study:autoReserveTask:create")
     @PostMapping
-    public R<Long> create(@Valid @RequestBody StudyRoomAutoReserveTaskReqDTO dto) {
+    public R<Long> create(@Valid @RequestBody StudyRoomAutoReserveTaskReq dto) {
         Long taskId = taskService.createTask(UserContextHolder.getUserId(), dto);
         return R.ok(taskId);
     }
@@ -90,7 +90,7 @@ public class StudyRoomAutoReserveTaskController {
     @SaCheckPermission("business:study:autoReserveTask:update")
     @PutMapping(value = "/{id}")
     public R<Void> update(@PathVariable(value = "id") Long id,
-        @Valid @RequestBody StudyRoomAutoReserveTaskReqDTO dto) {
+        @Valid @RequestBody StudyRoomAutoReserveTaskReq dto) {
         taskService.updateTask(id, dto);
         return R.ok();
     }
