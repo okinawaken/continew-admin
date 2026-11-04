@@ -28,6 +28,7 @@
     <modules>
         <module>continew-server</module>
         <module>continew-system</module>
+        <module>continew-business</module>
         <module>continew-plugin</module>
         <module>continew-common</module>
         <module>continew-extension</module>
@@ -52,6 +53,13 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>continew-system</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- 业务模块（存放具体业务功能） -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>continew-business</artifactId>
                 <version>${revision}</version>
             </dependency>
 

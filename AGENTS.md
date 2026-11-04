@@ -27,12 +27,13 @@ ContiNew Admin（Continue New Admin）是基于 ContiNew Starter 构建的多租
 
 ## 核心架构
 
-Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revision}` 版本。模块依赖自上而下（server 依赖 system，system 依赖 common）：
+Maven 多模块工程，根 `pom.xml` 用 `flatten-maven-plugin` 统一 `${revision}` 版本。模块依赖自上而下（server 依赖 system/business，二者依赖 common）：
 
 | 模块 | 职责 |
 |:-----|:-----|
 | `continew-server` | 打包部署入口（启动类 + 通用 controller + Liquibase + 配置文件） |
 | `continew-system` | 核心业务：auth（系统认证）、system（部门/角色/用户/菜单/字典/文件/公告/系统配置等） |
+| `continew-business` | 业务功能：承载项目自身的业务代码，按下方分层约定组织子包 |
 | `continew-common` | 公共基类、工具、配置（CRUD/MyBatis/Websocket/Doc/Excel/Exception） |
 | `continew-plugin` | 独立可插拔插件：open（能力开放 AK/SK）、tenant（多租户 SaaS）、schedule（任务调度）、generator（代码生成器） |
 | `continew-extension` | 可独立部署的扩展服务（continew-extension-schedule-server 为 Snail Job 服务端，可选） |
