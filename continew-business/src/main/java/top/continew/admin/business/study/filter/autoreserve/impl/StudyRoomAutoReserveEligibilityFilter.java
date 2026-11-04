@@ -3,14 +3,14 @@ package top.continew.admin.business.study.filter.autoreserve.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveCheckResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveCheckClientResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveFilterOrderEnum;
 import top.continew.admin.business.study.enums.StudyRoomReserveStatusEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autoreserve.StudyRoomAutoReserveFilter;
 import top.continew.admin.business.study.model.context.StudyRoomAutoReserveContext;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 
 /**
  * 预约资格校验过滤器
@@ -26,10 +26,10 @@ public class StudyRoomAutoReserveEligibilityFilter implements StudyRoomAutoReser
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskRespDTO taskRespDTO = context.getTaskRespDTO();
-        StudyRoomApiResult<StudyRoomReserveCheckResp> resultDTO =
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomClientResult<StudyRoomReserveCheckClientResp> resultDTO =
             reserveV2Client.reserveCheck(taskRespDTO.getUserId());
-        StudyRoomReserveCheckResp reserveCheckRespDTO = resultDTO.getData();
+        StudyRoomReserveCheckClientResp reserveCheckRespDTO = resultDTO.getData();
 
         if (!StudyRoomReserveStatusEnum.isCanReserve(reserveCheckRespDTO.getReserveState())) {
             return FilterResultDTO.fail("无预约资格");

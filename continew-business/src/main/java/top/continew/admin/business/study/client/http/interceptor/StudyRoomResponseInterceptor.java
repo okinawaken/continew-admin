@@ -6,7 +6,7 @@ import com.dtflys.forest.interceptor.ForestInterceptor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.constant.StudyRoomApiConstants;
 import top.continew.admin.business.study.enums.StudyRoomApiErrorCodeEnum;
 import top.continew.starter.core.exception.BusinessException;
@@ -33,7 +33,7 @@ public class StudyRoomResponseInterceptor implements ForestInterceptor {
         if (Objects.isNull(resultData)) {
             throw new BusinessException(StudyRoomApiErrorCodeEnum.EMPTY_RESPONSE.getDescription());
         }
-        if (resultData instanceof StudyRoomApiResult<?> result) {
+        if (resultData instanceof StudyRoomClientResult<?> result) {
             String code = result.getCode();
             if (!Objects.equals(code, StudyRoomApiConstants.ApiCode.SUCCESS_CODE)
                 && !Objects.equals(code, StudyRoomApiConstants.ApiCode.BUSINESS_CODE)) {

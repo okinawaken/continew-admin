@@ -12,16 +12,16 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.continew.admin.business.study.client.http.StudyRoomVenueClient;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueClientResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTaskEnableStatusEnum;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTriggerTypeEnum;
 import top.continew.admin.business.study.mapper.StudyRoomAutoReserveTaskMapper;
 import top.continew.admin.business.study.model.bo.StudyRoomAutoReserveTaskConfigBO;
 import top.continew.admin.business.study.model.entity.StudyRoomAutoReserveTaskDO;
 import top.continew.admin.business.study.model.event.StudyRoomAutoReserveExecuteEvent;
-import top.continew.admin.business.study.model.req.StudyRoomAutoReserveTaskReqDTO;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.model.req.StudyRoomAutoReserveTaskReq;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
 import top.continew.starter.core.exception.BusinessException;
@@ -50,7 +50,7 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
-    public IPage<StudyRoomAutoReserveTaskRespDTO> pageList(Long userId, PageQuery pageQuery) {
+    public IPage<StudyRoomAutoReserveTaskInfoResp> pageList(Long userId, PageQuery pageQuery) {
         LambdaQueryWrapper<StudyRoomAutoReserveTaskDO> lqw = Wrappers.lambdaQuery();
         lqw.eq(StudyRoomAutoReserveTaskDO::getUserId, userId)
             .orderByDesc(StudyRoomAutoReserveTaskDO::getCreateTime);
@@ -60,7 +60,7 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
     }
 
     @Override
-    public StudyRoomAutoReserveTaskRespDTO getTask(Long taskId) {
+    public StudyRoomAutoReserveTaskInfoResp getTask(Long taskId) {
         StudyRoomAutoReserveTaskDO task = taskMapper.selectById(taskId);
         if (Objects.isNull(task)) {
             throw new BusinessException("未查询到任务数据");
@@ -70,14 +70,14 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long createTask(Long userId, StudyRoomAutoReserveTaskReqDTO dto) {
-        StudyRoomApiResult<StudyRoomVenueResp> studyRoomResult =
+    public Long createTask(Long userId, StudyRoomAutoReserveTaskReq dto) {
+        StudyRoomClientResult<StudyRoomVenueClientResp> studyRoomResult =
             venueClient.reserveVenueDetail(dto.getVenueId());
         if (Objects.isNull(studyRoomResult) || Objects.isNull(studyRoomResult.getData())) {
             throw new BusinessException("未查询到门店数据");
         }
 
-        StudyRoomVenueResp venueRespDTO = studyRoomResult.getData();
+        StudyRoomVenueClientResp venueRespDTO = studyRoomResult.getData();
         StudyRoomAutoReserveTaskConfigBO config =
             BeanUtil.copyProperties(dto, StudyRoomAutoReserveTaskConfigBO.class);
 
@@ -93,8 +93,8 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateTask(Long taskId, StudyRoomAutoReserveTaskReqDTO dto) {
-        StudyRoomApiResult<StudyRoomVenueResp> studyRoomResult =
+    public void updateTask(Long taskId, StudyRoomAutoReserveTaskReq dto) {
+        StudyRoomClientResult<StudyRoomVenueClientResp> studyRoomResult =
             venueClient.reserveVenueDetail(dto.getVenueId());
         if (Objects.isNull(studyRoomResult) || Objects.isNull(studyRoomResult.getData())) {
             throw new BusinessException("未查询到门店数据");
@@ -103,7 +103,7 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
         if (Objects.isNull(taskDO)) {
             throw new BusinessException("未查询到任务数据");
         }
-        StudyRoomVenueResp venueRespDTO = studyRoomResult.getData();
+        StudyRoomVenueClientResp venueRespDTO = studyRoomResult.getData();
         StudyRoomAutoReserveTaskConfigBO config =
             BeanUtil.copyProperties(dto, StudyRoomAutoReserveTaskConfigBO.class);
 
@@ -162,7 +162,7 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
 
     @Override
     @TenantIgnore
-    public List<StudyRoomAutoReserveTaskRespDTO> listEnabledTasks() {
+    public List<StudyRoomAutoReserveTaskInfoResp> listEnabledTasks() {
         LambdaQueryWrapper<StudyRoomAutoReserveTaskDO> lqw = Wrappers.lambdaQuery();
         lqw.eq(StudyRoomAutoReserveTaskDO::getEnableStatus,
             StudyRoomAutoReserveTaskEnableStatusEnum.ENABLED.getValue());
@@ -180,11 +180,11 @@ public class StudyRoomAutoReserveTaskServiceImpl implements StudyRoomAutoReserve
         taskMapper.update(luw);
     }
 
-    private StudyRoomAutoReserveTaskRespDTO toDto(StudyRoomAutoReserveTaskDO task) {
+    private StudyRoomAutoReserveTaskInfoResp toDto(StudyRoomAutoReserveTaskDO task) {
         if (Objects.isNull(task)) {
             return null;
         }
-        StudyRoomAutoReserveTaskRespDTO taskRespDTO = new StudyRoomAutoReserveTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = new StudyRoomAutoReserveTaskInfoResp();
         taskRespDTO.setId(task.getId());
         taskRespDTO.setUserId(task.getUserId());
         taskRespDTO.setTenantId(task.getTenantId());

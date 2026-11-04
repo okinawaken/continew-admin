@@ -2,10 +2,10 @@ package top.continew.admin.business.study.model.context;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveConfirmResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveConfirmClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 
 import java.time.LocalDate;
 
@@ -24,7 +24,7 @@ public class StudyRoomAutoReserveContext {
     /**
      * 任务数据
      */
-    private final StudyRoomAutoReserveTaskRespDTO taskRespDTO;
+    private final StudyRoomAutoReserveTaskInfoResp taskRespDTO;
 
     /**
      * 触发方式
@@ -39,15 +39,15 @@ public class StudyRoomAutoReserveContext {
     /**
      * 选中的门店
      */
-    private StudyRoomVenueResp venueRespDTO;
+    private StudyRoomVenueClientResp venueRespDTO;
 
     /**
      * 选中的座位
      */
-    private StudyRoomSeatResp seatRespDTO;
+    private StudyRoomSeatClientResp seatRespDTO;
 
     /**
      * 预约确认结果
      */
-    private StudyRoomReserveConfirmResp confirmRespDTO;
+    private StudyRoomReserveConfirmClientResp confirmRespDTO;
 }

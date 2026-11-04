@@ -11,28 +11,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomMiscClient;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomCabinetLeaseCommitReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomCabinetWifiOpenReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomDouYinVerifyReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomReceiptConsumeReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetGridListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetGridPriceResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseCommitResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseOrderListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseOverduePayResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetUserGridListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetVenueListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomConsumeResultResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayParamResp;
-import top.continew.admin.business.study.model.resp.StudyRoomCabinetGridListVO;
-import top.continew.admin.business.study.model.resp.StudyRoomCabinetGridPriceVO;
-import top.continew.admin.business.study.model.resp.StudyRoomCabinetLeaseCommitVO;
-import top.continew.admin.business.study.model.resp.StudyRoomCabinetLeaseOrderListVO;
-import top.continew.admin.business.study.model.resp.StudyRoomCabinetLeaseOverduePayVO;
-import top.continew.admin.business.study.model.resp.StudyRoomCabinetUserGridListVO;
-import top.continew.admin.business.study.model.resp.StudyRoomCabinetVenueListVO;
-import top.continew.admin.business.study.model.resp.StudyRoomConsumeResultVO;
-import top.continew.admin.business.study.model.resp.StudyRoomWxPayParamVO;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomCabinetLeaseCommitClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomCabinetWifiOpenClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomDouYinVerifyClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomReceiptConsumeClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetGridListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetGridPriceClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseCommitClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseOrderListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetLeaseOverduePayClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetUserGridListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomCabinetVenueListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomConsumeResultClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayParamClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomCabinetGridListResp;
+import top.continew.admin.business.study.model.resp.StudyRoomCabinetGridPriceResp;
+import top.continew.admin.business.study.model.resp.StudyRoomCabinetLeaseCommitResp;
+import top.continew.admin.business.study.model.resp.StudyRoomCabinetLeaseOrderListResp;
+import top.continew.admin.business.study.model.resp.StudyRoomCabinetLeaseOverduePayResp;
+import top.continew.admin.business.study.model.resp.StudyRoomCabinetUserGridListResp;
+import top.continew.admin.business.study.model.resp.StudyRoomCabinetVenueListResp;
+import top.continew.admin.business.study.model.resp.StudyRoomConsumeResultResp;
+import top.continew.admin.business.study.model.resp.StudyRoomWxPayParamResp;
 import top.continew.starter.core.exception.BusinessException;
 import top.continew.starter.web.model.R;
 
@@ -57,10 +57,10 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:list")
     @PostMapping(value = "/cabinet/lease/order/list")
-    public R<StudyRoomCabinetLeaseOrderListVO> cabinetLeaseOrderList() {
-        StudyRoomCabinetLeaseOrderListResp dto = miscClient.cabinetLeaseOrderList().getData();
-        StudyRoomCabinetLeaseOrderListVO vo =
-            BeanUtil.copyProperties(dto, StudyRoomCabinetLeaseOrderListVO.class);
+    public R<StudyRoomCabinetLeaseOrderListResp> cabinetLeaseOrderList() {
+        StudyRoomCabinetLeaseOrderListClientResp dto = miscClient.cabinetLeaseOrderList().getData();
+        StudyRoomCabinetLeaseOrderListResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomCabinetLeaseOrderListResp.class);
         return R.ok(vo);
     }
 
@@ -73,11 +73,11 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:create")
     @PostMapping(value = "/cabinet/lease/pay")
-    public R<StudyRoomWxPayParamVO> cabinetLeasePay(
+    public R<StudyRoomWxPayParamResp> cabinetLeasePay(
         @RequestParam(value = "leaseId") Long leaseId,
         @RequestParam(value = "userId") Long userId) {
-        StudyRoomWxPayParamResp dto = miscClient.cabinetLeasePay(leaseId, userId).getData();
-        StudyRoomWxPayParamVO vo = BeanUtil.copyProperties(dto, StudyRoomWxPayParamVO.class);
+        StudyRoomWxPayParamClientResp dto = miscClient.cabinetLeasePay(leaseId, userId).getData();
+        StudyRoomWxPayParamResp vo = BeanUtil.copyProperties(dto, StudyRoomWxPayParamResp.class);
         return R.ok(vo);
     }
 
@@ -89,11 +89,11 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:create")
     @PostMapping(value = "/cabinet/lease/commit")
-    public R<StudyRoomCabinetLeaseCommitVO> cabinetLeaseCommit(
-        @RequestBody StudyRoomCabinetLeaseCommitReq form) {
-        StudyRoomCabinetLeaseCommitResp dto = miscClient.cabinetLeaseCommit(form).getData();
-        StudyRoomCabinetLeaseCommitVO vo =
-            BeanUtil.copyProperties(dto, StudyRoomCabinetLeaseCommitVO.class);
+    public R<StudyRoomCabinetLeaseCommitResp> cabinetLeaseCommit(
+        @RequestBody StudyRoomCabinetLeaseCommitClientReq form) {
+        StudyRoomCabinetLeaseCommitClientResp dto = miscClient.cabinetLeaseCommit(form).getData();
+        StudyRoomCabinetLeaseCommitResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomCabinetLeaseCommitResp.class);
         return R.ok(vo);
     }
 
@@ -106,13 +106,13 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:create")
     @PostMapping(value = "/cabinet/lease/overdue/pay")
-    public R<StudyRoomCabinetLeaseOverduePayVO> cabinetLeaseOverduePay(
+    public R<StudyRoomCabinetLeaseOverduePayResp> cabinetLeaseOverduePay(
         @RequestParam(value = "leaseId") Long leaseId,
         @RequestParam(value = "userCode") String userCode) {
-        StudyRoomCabinetLeaseOverduePayResp dto =
+        StudyRoomCabinetLeaseOverduePayClientResp dto =
             miscClient.cabinetLeaseOverduePay(leaseId, userCode).getData();
-        StudyRoomCabinetLeaseOverduePayVO vo =
-            BeanUtil.copyProperties(dto, StudyRoomCabinetLeaseOverduePayVO.class);
+        StudyRoomCabinetLeaseOverduePayResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomCabinetLeaseOverduePayResp.class);
         return R.ok(vo);
     }
 
@@ -137,7 +137,7 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:create")
     @PostMapping(value = "/cabinet/wifi/open")
-    public R<Void> cabinetWifiOpen(@RequestBody StudyRoomCabinetWifiOpenReq form) {
+    public R<Void> cabinetWifiOpen(@RequestBody StudyRoomCabinetWifiOpenClientReq form) {
         miscClient.cabinetWifiOpen(form);
         return R.ok();
     }
@@ -150,11 +150,11 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:list")
     @GetMapping(value = "/cabinet/venue/list")
-    public R<StudyRoomCabinetVenueListVO> cabinetVenueList(
+    public R<StudyRoomCabinetVenueListResp> cabinetVenueList(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomCabinetVenueListResp dto = miscClient.cabinetVenueList(venueId).getData();
-        StudyRoomCabinetVenueListVO vo =
-            BeanUtil.copyProperties(dto, StudyRoomCabinetVenueListVO.class);
+        StudyRoomCabinetVenueListClientResp dto = miscClient.cabinetVenueList(venueId).getData();
+        StudyRoomCabinetVenueListResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomCabinetVenueListResp.class);
         return R.ok(vo);
     }
 
@@ -166,11 +166,11 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:list")
     @GetMapping(value = "/cabinet/grid/list")
-    public R<StudyRoomCabinetGridListVO> cabinetGridList(
+    public R<StudyRoomCabinetGridListResp> cabinetGridList(
         @RequestParam(value = "cabinetId") Integer cabinetId) {
-        StudyRoomCabinetGridListResp dto = miscClient.cabinetGridList(cabinetId).getData();
-        StudyRoomCabinetGridListVO vo =
-            BeanUtil.copyProperties(dto, StudyRoomCabinetGridListVO.class);
+        StudyRoomCabinetGridListClientResp dto = miscClient.cabinetGridList(cabinetId).getData();
+        StudyRoomCabinetGridListResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomCabinetGridListResp.class);
         return R.ok(vo);
     }
 
@@ -182,11 +182,12 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:list")
     @GetMapping(value = "/cabinet/user/grid/list")
-    public R<StudyRoomCabinetUserGridListVO> cabinetUserGridList(
+    public R<StudyRoomCabinetUserGridListResp> cabinetUserGridList(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomCabinetUserGridListResp dto = miscClient.cabinetUserGridList(venueId).getData();
-        StudyRoomCabinetUserGridListVO vo =
-            BeanUtil.copyProperties(dto, StudyRoomCabinetUserGridListVO.class);
+        StudyRoomCabinetUserGridListClientResp dto =
+            miscClient.cabinetUserGridList(venueId).getData();
+        StudyRoomCabinetUserGridListResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomCabinetUserGridListResp.class);
         return R.ok(vo);
     }
 
@@ -198,11 +199,11 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:list")
     @GetMapping(value = "/cabinet/grid/price")
-    public R<StudyRoomCabinetGridPriceVO> cabinetGridPrice(
+    public R<StudyRoomCabinetGridPriceResp> cabinetGridPrice(
         @RequestParam(value = "gridId") Integer gridId) {
-        StudyRoomCabinetGridPriceResp dto = miscClient.cabinetGridPrice(gridId).getData();
-        StudyRoomCabinetGridPriceVO vo =
-            BeanUtil.copyProperties(dto, StudyRoomCabinetGridPriceVO.class);
+        StudyRoomCabinetGridPriceClientResp dto = miscClient.cabinetGridPrice(gridId).getData();
+        StudyRoomCabinetGridPriceResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomCabinetGridPriceResp.class);
         return R.ok(vo);
     }
 
@@ -214,10 +215,11 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:create")
     @PostMapping(value = "/receipt/consume")
-    public R<StudyRoomConsumeResultVO> receiptConsume(
-        @RequestBody StudyRoomReceiptConsumeReq form) {
-        StudyRoomConsumeResultResp dto = miscClient.receiptConsume(form).getData();
-        StudyRoomConsumeResultVO vo = BeanUtil.copyProperties(dto, StudyRoomConsumeResultVO.class);
+    public R<StudyRoomConsumeResultResp> receiptConsume(
+        @RequestBody StudyRoomReceiptConsumeClientReq form) {
+        StudyRoomConsumeResultClientResp dto = miscClient.receiptConsume(form).getData();
+        StudyRoomConsumeResultResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomConsumeResultResp.class);
         return R.ok(vo);
     }
 
@@ -229,9 +231,11 @@ public class StudyRoomMiscController {
      */
     @SaCheckPermission("business:study:misc:create")
     @PostMapping(value = "/douyin/verify")
-    public R<StudyRoomConsumeResultVO> douYinVerify(@RequestBody StudyRoomDouYinVerifyReq form) {
-        StudyRoomConsumeResultResp dto = miscClient.douYinVerify(form).getData();
-        StudyRoomConsumeResultVO vo = BeanUtil.copyProperties(dto, StudyRoomConsumeResultVO.class);
+    public R<StudyRoomConsumeResultResp> douYinVerify(
+        @RequestBody StudyRoomDouYinVerifyClientReq form) {
+        StudyRoomConsumeResultClientResp dto = miscClient.douYinVerify(form).getData();
+        StudyRoomConsumeResultResp vo =
+            BeanUtil.copyProperties(dto, StudyRoomConsumeResultResp.class);
         return R.ok(vo);
     }
 

@@ -1,7 +1,7 @@
 package top.continew.admin.business.study.service.autoreserve;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordRespDTO;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordInfoResp;
 import top.continew.starter.extension.crud.model.query.PageQuery;
 
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ public interface StudyRoomAutoReserveTaskRecordService {
      * @param pageQuery 分页查询条件
      * @return 列表数据
      */
-    IPage<StudyRoomAutoReserveTaskRecordRespDTO> pageByTaskId(Long taskId, PageQuery pageQuery);
+    IPage<StudyRoomAutoReserveTaskRecordInfoResp> pageByTaskId(Long taskId, PageQuery pageQuery);
 
     /**
      * 删除任务的全部执行历史，供任务硬删时级联使用
@@ -36,14 +36,14 @@ public interface StudyRoomAutoReserveTaskRecordService {
      *
      * @param taskRecordRespDTO 任务记录
      */
-    void saveRecord(StudyRoomAutoReserveTaskRecordRespDTO taskRecordRespDTO);
+    void saveRecord(StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO);
 
     /**
      * 按主键更新一条执行记录
      *
      * @param taskRecordRespDTO 任务记录
      */
-    void updateRecord(StudyRoomAutoReserveTaskRecordRespDTO taskRecordRespDTO);
+    void updateRecord(StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO);
 
     /**
      * 查询任务在指定日期的全部执行记录
@@ -52,6 +52,6 @@ public interface StudyRoomAutoReserveTaskRecordService {
      * @param createDate 创建日期
      * @return 列表数据
      */
-    List<StudyRoomAutoReserveTaskRecordRespDTO> listByTaskIdAndCreateDate(Long taskId,
+    List<StudyRoomAutoReserveTaskRecordInfoResp> listByTaskIdAndCreateDate(Long taskId,
         LocalDate createDate);
 }

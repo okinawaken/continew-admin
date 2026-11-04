@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import top.continew.admin.business.study.mapper.StudyRoomAutoReserveTaskRecordMapper;
 import top.continew.admin.business.study.model.bo.StudyRoomAutoReserveTaskRecordDetailBO;
 import top.continew.admin.business.study.model.entity.StudyRoomAutoReserveTaskRecordDO;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordRespDTO;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordInfoResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 import top.continew.starter.core.exception.BusinessException;
 import top.continew.starter.extension.crud.model.query.PageQuery;
@@ -37,7 +37,7 @@ public class StudyRoomAutoReserveTaskRecordServiceImpl
     private final StudyRoomAutoReserveTaskRecordMapper recordMapper;
 
     @Override
-    public IPage<StudyRoomAutoReserveTaskRecordRespDTO> pageByTaskId(Long taskId,
+    public IPage<StudyRoomAutoReserveTaskRecordInfoResp> pageByTaskId(Long taskId,
         PageQuery pageQuery) {
         LambdaQueryWrapper<StudyRoomAutoReserveTaskRecordDO> lqw = Wrappers.lambdaQuery();
         lqw.eq(StudyRoomAutoReserveTaskRecordDO::getTaskId, taskId)
@@ -57,7 +57,7 @@ public class StudyRoomAutoReserveTaskRecordServiceImpl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveRecord(StudyRoomAutoReserveTaskRecordRespDTO taskRecordRespDTO) {
+    public void saveRecord(StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO) {
         StudyRoomAutoReserveTaskRecordDetailBO detailBO = BeanUtil
             .copyProperties(taskRecordRespDTO, StudyRoomAutoReserveTaskRecordDetailBO.class);
 
@@ -75,7 +75,7 @@ public class StudyRoomAutoReserveTaskRecordServiceImpl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateRecord(StudyRoomAutoReserveTaskRecordRespDTO taskRecordRespDTO) {
+    public void updateRecord(StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO) {
         StudyRoomAutoReserveTaskRecordDO recordDO =
             recordMapper.selectById(taskRecordRespDTO.getId());
         if (Objects.isNull(recordDO)) {
@@ -90,7 +90,7 @@ public class StudyRoomAutoReserveTaskRecordServiceImpl
     }
 
     @Override
-    public List<StudyRoomAutoReserveTaskRecordRespDTO> listByTaskIdAndCreateDate(Long taskId,
+    public List<StudyRoomAutoReserveTaskRecordInfoResp> listByTaskIdAndCreateDate(Long taskId,
         LocalDate createDate) {
         LambdaQueryWrapper<StudyRoomAutoReserveTaskRecordDO> lqw = Wrappers.lambdaQuery();
         lqw.eq(StudyRoomAutoReserveTaskRecordDO::getTaskId, taskId)
@@ -102,15 +102,15 @@ public class StudyRoomAutoReserveTaskRecordServiceImpl
         return recordList.stream().map(this::toDto).toList();
     }
 
-    private StudyRoomAutoReserveTaskRecordRespDTO toDto(StudyRoomAutoReserveTaskRecordDO record) {
+    private StudyRoomAutoReserveTaskRecordInfoResp toDto(StudyRoomAutoReserveTaskRecordDO record) {
         if (Objects.isNull(record)) {
             return null;
         }
         StudyRoomAutoReserveTaskRecordDetailBO detail =
             JsonUtils.toBean(record.getDetailJson(), StudyRoomAutoReserveTaskRecordDetailBO.class);
 
-        StudyRoomAutoReserveTaskRecordRespDTO recordRespDTO =
-            new StudyRoomAutoReserveTaskRecordRespDTO();
+        StudyRoomAutoReserveTaskRecordInfoResp recordRespDTO =
+            new StudyRoomAutoReserveTaskRecordInfoResp();
         recordRespDTO.setId(record.getId());
         recordRespDTO.setTaskId(record.getTaskId());
         recordRespDTO.setUserId(record.getUserId());

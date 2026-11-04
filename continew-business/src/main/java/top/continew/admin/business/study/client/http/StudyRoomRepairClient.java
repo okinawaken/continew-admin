@@ -4,10 +4,10 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Var;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomRepairSubmitReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairResp;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomRepairSubmitClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairListClientResp;
 
 /**
  * 报修域：提交报修、报修记录
@@ -24,7 +24,7 @@ public interface StudyRoomRepairClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/userRepair/submit")
-    StudyRoomApiResult<Void> submitRepair(@JSONBody StudyRoomRepairSubmitReq form);
+    StudyRoomClientResult<Void> submitRepair(@JSONBody StudyRoomRepairSubmitClientReq form);
 
     /**
      * 报修列表
@@ -32,7 +32,7 @@ public interface StudyRoomRepairClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/userRepair/list")
-    StudyRoomApiResult<StudyRoomRepairListResp> repairList();
+    StudyRoomClientResult<StudyRoomRepairListClientResp> repairList();
 
     /**
      * 报修详情
@@ -41,6 +41,6 @@ public interface StudyRoomRepairClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/userRepair/detail/${id}")
-    StudyRoomApiResult<StudyRoomRepairResp> repairDetail(@Var(value = "id") Long id);
+    StudyRoomClientResult<StudyRoomRepairClientResp> repairDetail(@Var(value = "id") Long id);
 
 }

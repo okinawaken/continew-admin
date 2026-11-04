@@ -3,9 +3,9 @@ package top.continew.admin.business.study.filter.autosign.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomVenueV2Client;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueClientResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignFilterOrderEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autosign.StudyRoomAutoSignFilter;
@@ -35,14 +35,14 @@ public class StudyRoomAutoSignVenueFilter implements StudyRoomAutoSignFilter {
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoSignContext context) {
-        StudyRoomUserReserveResp reserveRespDTO = context.getReserveRespDTO();
-        StudyRoomApiResult<StudyRoomVenueResp> resultDTO =
+        StudyRoomUserReserveClientResp reserveRespDTO = context.getReserveRespDTO();
+        StudyRoomClientResult<StudyRoomVenueClientResp> resultDTO =
             venueV2Client.reserveVenueDetail(reserveRespDTO.getVenueId(), context.getUserId());
         if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())) {
             return FilterResultDTO.fail("未查询到门店数据");
         }
 
-        StudyRoomVenueResp venueRespDTO = resultDTO.getData();
+        StudyRoomVenueClientResp venueRespDTO = resultDTO.getData();
         context.setVenueRespDTO(venueRespDTO);
         return FilterResultDTO.success(venueRespDTO);
     }

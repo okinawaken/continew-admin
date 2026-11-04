@@ -3,14 +3,14 @@ package top.continew.admin.business.study.filter.autoreserve.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomVenueV2Client;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueClientResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveFilterOrderEnum;
 import top.continew.admin.business.study.enums.StudyRoomReserveStatusEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autoreserve.StudyRoomAutoReserveFilter;
 import top.continew.admin.business.study.model.context.StudyRoomAutoReserveContext;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 import top.continew.starter.core.exception.BusinessException;
 
 import java.util.Objects;
@@ -36,13 +36,13 @@ public class StudyRoomAutoReserveVenueFilter implements StudyRoomAutoReserveFilt
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskRespDTO taskRespDTO = context.getTaskRespDTO();
-        StudyRoomApiResult<StudyRoomVenueResp> resultDTO = studyRoomVenueV2Client
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomClientResult<StudyRoomVenueClientResp> resultDTO = studyRoomVenueV2Client
             .reserveVenueDetail(taskRespDTO.getVenueId(), taskRespDTO.getUserId());
         if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())) {
             throw new BusinessException("未查询到门店数据");
         }
-        StudyRoomVenueResp venueRespDTO = resultDTO.getData();
+        StudyRoomVenueClientResp venueRespDTO = resultDTO.getData();
         context.setVenueRespDTO(venueRespDTO);
         if (!StudyRoomReserveStatusEnum.isCanReserve(venueRespDTO.getVenueReserveState())) {
             return FilterResultDTO.fail("门店当前不可预约");

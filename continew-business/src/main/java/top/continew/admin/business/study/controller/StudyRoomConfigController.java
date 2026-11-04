@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomConfigClient;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomConfigResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomNoticeResp;
-import top.continew.admin.business.study.model.resp.StudyRoomConfigVO;
-import top.continew.admin.business.study.model.resp.StudyRoomNoticeVO;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomConfigClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomNoticeClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomConfigResp;
+import top.continew.admin.business.study.model.resp.StudyRoomNoticeResp;
 import top.continew.starter.web.model.R;
 
 /**
@@ -36,9 +36,9 @@ public class StudyRoomConfigController {
      */
     @SaCheckPermission("business:study:config:list")
     @GetMapping(value = "/sys")
-    public R<StudyRoomConfigVO> sysConfig() {
-        StudyRoomConfigResp dto = configClient.sysConfig().getData();
-        StudyRoomConfigVO vo = BeanUtil.copyProperties(dto, StudyRoomConfigVO.class);
+    public R<StudyRoomConfigResp> sysConfig() {
+        StudyRoomConfigClientResp dto = configClient.sysConfig().getData();
+        StudyRoomConfigResp vo = BeanUtil.copyProperties(dto, StudyRoomConfigResp.class);
         return R.ok(vo);
     }
 
@@ -50,9 +50,9 @@ public class StudyRoomConfigController {
      */
     @SaCheckPermission("business:study:config:list")
     @GetMapping(value = "/notice")
-    public R<StudyRoomNoticeVO> noticeBoard(@RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomNoticeResp dto = configClient.noticeBoard(venueId).getData();
-        StudyRoomNoticeVO vo = BeanUtil.copyProperties(dto, StudyRoomNoticeVO.class);
+    public R<StudyRoomNoticeResp> noticeBoard(@RequestParam(value = "venueId") Integer venueId) {
+        StudyRoomNoticeClientResp dto = configClient.noticeBoard(venueId).getData();
+        StudyRoomNoticeResp vo = BeanUtil.copyProperties(dto, StudyRoomNoticeResp.class);
         return R.ok(vo);
     }
 }

@@ -7,7 +7,7 @@ import top.continew.admin.business.study.enums.StudyRoomAutoReserveTaskEnableSta
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autoreserve.StudyRoomAutoReserveFilter;
 import top.continew.admin.business.study.model.context.StudyRoomAutoReserveContext;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 
 /**
  * 任务启用状态过滤器
@@ -28,7 +28,7 @@ public class StudyRoomAutoReserveEnabledFilter implements StudyRoomAutoReserveFi
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskRespDTO taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
         if (StudyRoomAutoReserveTaskEnableStatusEnum.isPaused(taskRespDTO.getEnableStatus())) {
             return FilterResultDTO.fail("任务已暂停");
         }

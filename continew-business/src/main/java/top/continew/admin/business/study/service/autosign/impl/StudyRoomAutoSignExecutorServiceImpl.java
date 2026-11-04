@@ -6,11 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.springframework.stereotype.Service;
 import top.continew.admin.business.study.client.http.StudyRoomSignV2Client;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomSignSeatQueryReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomSignSeatListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveResp;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomSignSeatQueryClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomSignSeatListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveClientResp;
 import top.continew.admin.business.study.constant.StudyRoomCacheConstants;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autosign.StudyRoomAutoSignFilterChain;
@@ -53,15 +53,15 @@ public class StudyRoomAutoSignExecutorServiceImpl implements StudyRoomAutoSignEx
                 return;
             }
 
-            StudyRoomUserReserveResp reserveRespDTO = context.getReserveRespDTO();
-            StudyRoomUserPackageResp userPackageRespDTO = context.getUserPackageRespDTO();
+            StudyRoomUserReserveClientResp reserveRespDTO = context.getReserveRespDTO();
+            StudyRoomUserPackageClientResp userPackageRespDTO = context.getUserPackageRespDTO();
 
-            StudyRoomSignSeatQueryReq reqDTO = new StudyRoomSignSeatQueryReq();
+            StudyRoomSignSeatQueryClientReq reqDTO = new StudyRoomSignSeatQueryClientReq();
             reqDTO.setQrCode(StrUtil.EMPTY);
             reqDTO.setVenueId(reserveRespDTO.getVenueId());
             reqDTO.setSignInUserPackageId(userPackageRespDTO.getSignInUserPackageId());
             reqDTO.setSignAnotherFlag(0);
-            StudyRoomApiResult<StudyRoomSignSeatListResp> resultDTO =
+            StudyRoomClientResult<StudyRoomSignSeatListClientResp> resultDTO =
                 signV2Client.studySeatList(reqDTO, userId);
             if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())
                 || !resultDTO.getData().isSignInSuccess()) {

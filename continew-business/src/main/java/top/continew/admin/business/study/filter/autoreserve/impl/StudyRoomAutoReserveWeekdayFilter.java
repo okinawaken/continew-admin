@@ -7,7 +7,7 @@ import top.continew.admin.business.study.enums.StudyRoomAutoReserveFilterOrderEn
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autoreserve.StudyRoomAutoReserveFilter;
 import top.continew.admin.business.study.model.context.StudyRoomAutoReserveContext;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRespDTO;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 
 import java.time.LocalDate;
 
@@ -29,7 +29,7 @@ public class StudyRoomAutoReserveWeekdayFilter implements StudyRoomAutoReserveFi
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
         LocalDate targetDate = context.getTargetDate();
-        StudyRoomAutoReserveTaskRespDTO taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
         if (!CollUtil.contains(taskRespDTO.getWeekDays(), targetDate.getDayOfWeek().getValue())) {
             return FilterResultDTO.fail("目标日期不在执行计划内");
         }

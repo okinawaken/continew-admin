@@ -5,21 +5,21 @@ import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
 import com.dtflys.forest.annotation.Var;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyPackageConfirmReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyPayOrderReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyV2PackageConfirmReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyV2PackageListReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomApiResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyOrderResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyPackageListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageDetailResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageLabelResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageOptResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserOrderListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageListResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayParamResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayQueryResp;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyPackageConfirmClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyPayOrderClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyV2PackageConfirmClientReq;
+import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyV2PackageListClientReq;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyOrderClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyPackageListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageDetailClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageLabelClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageOptClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserOrderListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageListClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayParamClientResp;
+import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayQueryClientResp;
 
 /**
  * 套餐域：套餐浏览、下单、支付、我的订单与套餐
@@ -35,7 +35,7 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/buy/package/list", timeout = 15000, readTimeout = 15000)
-    StudyRoomApiResult<StudyRoomBuyPackageListResp> buyPackageList();
+    StudyRoomClientResult<StudyRoomBuyPackageListClientResp> buyPackageList();
 
     /**
      * 套餐列表（v2，按门店/区域/类型筛选）
@@ -46,8 +46,8 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/buy/v2/package/list")
-    StudyRoomApiResult<StudyRoomBuyV2PackageListResp> buyV2PackageList(
-        @JSONBody StudyRoomBuyV2PackageListReq form);
+    StudyRoomClientResult<StudyRoomBuyV2PackageListClientResp> buyV2PackageList(
+        @JSONBody StudyRoomBuyV2PackageListClientReq form);
 
     /**
      * 套餐筛选项（门店、类型、标签）
@@ -57,7 +57,7 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/buy/v2/package/optList")
-    StudyRoomApiResult<StudyRoomBuyV2PackageOptResp> buyV2PackageOptList(
+    StudyRoomClientResult<StudyRoomBuyV2PackageOptClientResp> buyV2PackageOptList(
         @Query(value = "currentLng") Double currentLng,
         @Query(value = "currentLat") Double currentLat);
 
@@ -68,7 +68,7 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/buy/v2/package/label/selectList")
-    StudyRoomApiResult<StudyRoomBuyV2PackageLabelResp> buyV2PackageLabelList(
+    StudyRoomClientResult<StudyRoomBuyV2PackageLabelClientResp> buyV2PackageLabelList(
         @Query(value = "venueId") Integer venueId);
 
     /**
@@ -78,7 +78,7 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/buy/v2/package/detail/${packageId}")
-    StudyRoomApiResult<StudyRoomBuyV2PackageDetailResp> buyV2PackageDetail(
+    StudyRoomClientResult<StudyRoomBuyV2PackageDetailClientResp> buyV2PackageDetail(
         @Var(value = "packageId") Long packageId);
 
     /**
@@ -88,8 +88,8 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/buy/package/confirm")
-    StudyRoomApiResult<StudyRoomBuyOrderResp> buyPackageConfirm(
-        @JSONBody StudyRoomBuyPackageConfirmReq form);
+    StudyRoomClientResult<StudyRoomBuyOrderClientResp> buyPackageConfirm(
+        @JSONBody StudyRoomBuyPackageConfirmClientReq form);
 
     /**
      * 确认下单（v2）
@@ -98,8 +98,8 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/buy/v2/package/confirm")
-    StudyRoomApiResult<StudyRoomBuyOrderResp> buyV2PackageConfirm(
-        @JSONBody StudyRoomBuyV2PackageConfirmReq form);
+    StudyRoomClientResult<StudyRoomBuyOrderClientResp> buyV2PackageConfirm(
+        @JSONBody StudyRoomBuyV2PackageConfirmClientReq form);
 
     /**
      * 微信支付下单（返回小程序 wx.requestPayment 所需参数）
@@ -108,8 +108,8 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/buy/package/payOrder")
-    StudyRoomApiResult<StudyRoomWxPayParamResp> buyPackagePayOrder(
-        @JSONBody StudyRoomBuyPayOrderReq form);
+    StudyRoomClientResult<StudyRoomWxPayParamClientResp> buyPackagePayOrder(
+        @JSONBody StudyRoomBuyPayOrderClientReq form);
 
     /**
      * 我的订单
@@ -117,7 +117,7 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/user/userOrder/list")
-    StudyRoomApiResult<StudyRoomUserOrderListResp> userOrderList();
+    StudyRoomClientResult<StudyRoomUserOrderListClientResp> userOrderList();
 
     /**
      * 我的套餐
@@ -125,7 +125,7 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Get(url = "/mp/user/userPackage/list")
-    StudyRoomApiResult<StudyRoomUserPackageListResp> userPackageList();
+    StudyRoomClientResult<StudyRoomUserPackageListClientResp> userPackageList();
 
     /**
      * 微信支付状态查询（按支付单ID）
@@ -136,7 +136,7 @@ public interface StudyRoomPackageClient extends StudyRoomBaseClient {
      * @return 响应数据
      */
     @Post(url = "/mp/wx/payment/v2/wx/query/status/{payId}")
-    StudyRoomApiResult<StudyRoomWxPayQueryResp> wxPayQueryStatus(
+    StudyRoomClientResult<StudyRoomWxPayQueryClientResp> wxPayQueryStatus(
         @Var(value = "payId") Long payId);
 
 }
