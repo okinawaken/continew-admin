@@ -50,6 +50,7 @@ public class StudyRoomAutoSignExecutorServiceImpl implements StudyRoomAutoSignEx
         try {
             FilterResultDTO<?> filterResultDTO = filterChain.doFilter(context);
             if (!filterResultDTO.isSuccess()) {
+                log.info("自动签到执行被过滤，userId={}，context={}", userId, JsonUtils.toJsonStr(context));
                 return;
             }
 
@@ -63,9 +64,12 @@ public class StudyRoomAutoSignExecutorServiceImpl implements StudyRoomAutoSignEx
             reqDTO.setSignAnotherFlag(0);
             StudyRoomClientResult<StudyRoomSignSeatListClientResp> resultDTO =
                 signV2Client.studySeatList(reqDTO, userId);
-            if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())
-                || !resultDTO.getData().isSignInSuccess()) {
-                throw new BusinessException("签到失败");
+            if (Objects.isNull(resultDTO.getData())) {
+                throw new BusinessException("签到结果返回为空");
+            }
+            if (!resultDTO.getData().isSignInSuccess()) {
+                log.info("签到失败，可能已签到过");
+                return;
             }
         } catch (Exception e) {
             log.error("自动签到执行失败，userId={}，context={}", userId, JsonUtils.toJsonStr(context), e);

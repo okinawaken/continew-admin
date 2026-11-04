@@ -10,6 +10,9 @@ import top.continew.admin.business.study.model.context.StudyRoomAutoSignContext;
 import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
+import top.continew.starter.core.exception.BusinessException;
+
+import java.util.Objects;
 
 /**
  * 签到门店校验过滤器
@@ -35,7 +38,11 @@ public class StudyRoomAutoSignVenueFilter implements StudyRoomAutoSignFilter {
     public FilterResultDTO<?> doFilter(StudyRoomAutoSignContext context) {
         StudyRoomUserReserveClientResp userReserveClientResp = context.getReserveClientResp();
         StudyRoomClientResult<StudyRoomVenueClientResp> resultDTO =
-            venueV2Client.reserveVenueDetail(userReserveClientResp.getVenueId(), context.getUserId());
+            venueV2Client.reserveVenueDetail(userReserveClientResp.getVenueId(),
+                context.getUserId());
+        if (Objects.isNull(resultDTO.getData())) {
+            throw new BusinessException("门店信息返回为空");
+        }
 
         StudyRoomVenueClientResp venueClientResp = resultDTO.getData();
         context.setVenueClientResp(venueClientResp);

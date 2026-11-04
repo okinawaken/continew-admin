@@ -10,8 +10,6 @@ import top.continew.admin.business.study.service.autosign.StudyRoomAutoSignExecu
 import top.continew.starter.extension.tenant.util.TenantUtils;
 import top.continew.starter.json.jackson.util.JsonUtils;
 
-import java.util.Objects;
-
 /**
  * 自动签到执行事件监听器
  * <p>

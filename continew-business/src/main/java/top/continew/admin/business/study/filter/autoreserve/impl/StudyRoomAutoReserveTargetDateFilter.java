@@ -44,7 +44,7 @@ public class StudyRoomAutoReserveTargetDateFilter implements StudyRoomAutoReserv
         StudyRoomAutoReserveTaskInfoResp taskInfoResp = context.getTaskInfoResp();
         StudyRoomClientResult<StudyRoomReserveDateClientResp> resultDTO =
             reserveV2Client.reserveDateList(taskInfoResp.getVenueId(), taskInfoResp.getUserId());
-        if (Objects.isNull(resultDTO.getData())){
+        if (Objects.isNull(resultDTO.getData())) {
             throw new BusinessException("预约日期返回为空");
         }
 

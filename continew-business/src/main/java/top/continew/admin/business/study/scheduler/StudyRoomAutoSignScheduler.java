@@ -1,13 +1,13 @@
 package top.continew.admin.business.study.scheduler;
 
-import cn.hutool.core.collection.CollUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignInEnableEnum;
-import top.continew.admin.business.study.model.bo.StudyRoomUserConfigView;
+import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
+import top.continew.admin.business.study.model.bo.StudyRoomUserConfigViewBO;
 import top.continew.admin.business.study.model.event.StudyRoomAutoSignExecuteEvent;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
 
@@ -32,16 +32,14 @@ public class StudyRoomAutoSignScheduler {
      */
     @Scheduled(cron = "0 0/10 * * * ?")
     public void scan() {
-        List<StudyRoomUserConfigView> configList = settingService.listAllConfigs();
-        if (CollUtil.isEmpty(configList)) {
-            return;
-        }
-        for (StudyRoomUserConfigView view : configList) {
-            if (!StudyRoomAutoSignInEnableEnum.isEnabled(view.getConfig().getSignInEnable())) {
-                continue;
+        List<StudyRoomUserConfigViewBO> configViewBOList = settingService.listAllConfigs();
+        for (StudyRoomUserConfigViewBO configViewBO : configViewBOList) {
+            StudyRoomUserConfigBO config = configViewBO.getConfig();
+            if (StudyRoomAutoSignInEnableEnum.isEnabled(config.getSignInEnable())) {
+                eventPublisher.publishEvent(
+                    new StudyRoomAutoSignExecuteEvent(configViewBO.getUserId(),
+                        configViewBO.getTenantId()));
             }
-            eventPublisher.publishEvent(
-                new StudyRoomAutoSignExecuteEvent(view.getUserId(), view.getTenantId()));
         }
     }
 }

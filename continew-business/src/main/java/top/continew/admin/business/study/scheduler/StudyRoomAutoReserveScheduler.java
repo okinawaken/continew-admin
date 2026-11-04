@@ -14,12 +14,10 @@ import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskReco
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
-import top.continew.starter.extension.tenant.util.TenantUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 自动预约调度器
@@ -50,16 +48,15 @@ public class StudyRoomAutoReserveScheduler {
             LocalDate nowDate = LocalDate.now();
             LocalTime nowTime = LocalTime.now();
             StudyRoomUserConfigBO config = settingService.getConfig(task.getUserId());
-            if (nowTime.isBefore(config.getReleaseTime())) {
-                return;
-            }
-            List<StudyRoomAutoReserveTaskRecordInfoResp> recordList = recordService
+            if (!nowTime.isBefore(config.getReleaseTime())) {
+                List<StudyRoomAutoReserveTaskRecordInfoResp> recordList = recordService
                     .listByTaskIdAndCreateDate(task.getId(), nowDate);
-            if (CollUtil.isNotEmpty(recordList)) {
-                return;
+                if (CollUtil.isEmpty(recordList)) {
+                    eventPublisher.publishEvent(new StudyRoomAutoReserveExecuteEvent(task.getId(),
+                        StudyRoomAutoReserveTriggerTypeEnum.SCHEDULED.getValue(),
+                        task.getTenantId()));
+                }
             }
-            eventPublisher.publishEvent(new StudyRoomAutoReserveExecuteEvent(task.getId(),
-                    StudyRoomAutoReserveTriggerTypeEnum.SCHEDULED.getValue(), task.getTenantId()));
         }
     }
 }
