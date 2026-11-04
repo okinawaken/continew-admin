@@ -40,7 +40,6 @@ jobs:
             tenant
             schedule
             generator
-            docker
           requireScope: false
           # if true, the PR title must match the commit message
           validateSingleCommit: false

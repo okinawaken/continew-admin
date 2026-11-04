@@ -123,7 +123,7 @@ public class DeptController extends BaseController<DeptService, DeptResp, DeptDe
 
 **7.Almost 最佳后端规范：** 后端严格遵循阿里巴巴 Java 编码规范，注释覆盖率 > 45%，接口参数示例 100%。代码分层清晰，变量与方法命名统一规范，前端代码同样采用严格的 ESLint、StyleLint 等检查。优秀的设计带来极高的代码复用率！开发时，你会有一种“无需多写，理应如此”的流畅感。
 
-**8.卓越工程化实践：** 后端采用模块化工程结构，集成了统一版本管理、编译时自动代码格式化等插件。提供自定义打包部署配置（配置文件、第三方依赖与主程序分离），以及全套环境和应用的 Docker Compose 部署脚本。
+**8.卓越工程化实践：** 后端采用模块化工程结构，集成了统一版本管理、编译时自动代码格式化等插件。提供自定义打包部署配置（配置文件、第三方依赖与主程序分离）。
 
 为减少新项目开发的改造成本，我们持续深度聚合项目品牌配置，通过简单的配置和结构修改，即可快速启动你的专属项目。
 
@@ -492,7 +492,6 @@ continew-admin
 ├─ .mvn（Maven Wrapper 配置目录）
 ├─ style（代码风格配置目录：Spotless/Checkstyle/IDEA 配置等，详见 style/STYLE.md）
 ├─ .gitignore（Git 忽略文件相关配置文件）
-├─ docker（项目部署相关配置目录，实际开发时可备份后直接删除）
 ├─ LICENSE（开源协议文件）
 ├─ README.md（项目 README 文件，实际开发时替换为真实内容）
 ├─ lombok.config（Lombok 全局配置文件）

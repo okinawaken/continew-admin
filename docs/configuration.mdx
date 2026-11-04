@@ -30,7 +30,7 @@ dev 预置了字段加密的示例 RSA 密钥对与 AES 密钥，仅供本地联
 
 配置文件中所有 `${VAR}` 形式的值都来自环境变量。非凭据类变量在 dev 中带默认值，可以不改；凭据类变量在 prod 中强制注入，缺失即启动失败，这是有意设计，让配置问题在启动期暴露而不是运行到一半才炸。
 
-本地用 IDEA 启动时，在运行配置的 Environment variables 里追加；Docker 部署通过 compose 的 `environment` 段注入，见[部署](/docs/admin/reference/deployment)。完整的变量清单（用途、dev 默认值、prod 是否必填）见[环境变量参考](/docs/admin/reference/environment)。
+本地用 IDEA 启动时，在运行配置的 Environment variables 里追加；生产部署通过环境变量注入，见[部署](/docs/admin/reference/deployment)。完整的变量清单（用途、dev 默认值、prod 是否必填）见[环境变量参考](/docs/admin/reference/environment)。
 
 <Callout type="info">
 变量名统一大写下划线风格，与配置里的 `${...}` 占位一一对应。新增凭据时沿用同一模式：prod 中不给默认值。
