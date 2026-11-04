@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordInfoResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
-import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
-import top.continew.admin.common.context.UserContextHolder;
 import top.continew.starter.extension.crud.model.query.PageQuery;
 import top.continew.starter.extension.crud.model.resp.PageResp;
 
@@ -27,7 +25,6 @@ import top.continew.starter.extension.crud.model.resp.PageResp;
 public class StudyRoomAutoReserveTaskRecordController {
 
     private final StudyRoomAutoReserveTaskRecordService recordService;
-    private final StudyRoomAutoReserveTaskService taskService;
 
     /**
      * 执行历史分页
@@ -41,8 +38,6 @@ public class StudyRoomAutoReserveTaskRecordController {
     public PageResp<StudyRoomAutoReserveTaskRecordInfoResp> record(
         @PathVariable(value = "taskId") Long taskId,
         PageQuery pageQuery) {
-        // 先校验任务归属，避免读到他人任务的执行历史
-        taskService.getTask(taskId, UserContextHolder.getUserId());
         return PageResp.build(recordService.pageByTaskId(taskId, pageQuery));
     }
 }
