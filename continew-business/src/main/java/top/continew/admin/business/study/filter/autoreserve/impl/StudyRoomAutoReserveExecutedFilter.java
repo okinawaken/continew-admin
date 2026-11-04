@@ -48,7 +48,7 @@ public class StudyRoomAutoReserveExecutedFilter implements StudyRoomAutoReserveF
 
     @Override
     public int getOrder() {
-        return StudyRoomAutoReserveFilterOrderEnum.EXECUTED.getOrder();
+        return StudyRoomAutoReserveFilterOrderEnum.EXECUTED.getValue();
     }
 
     @Override

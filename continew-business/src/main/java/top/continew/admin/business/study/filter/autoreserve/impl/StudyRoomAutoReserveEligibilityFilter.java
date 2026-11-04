@@ -55,6 +55,6 @@ public class StudyRoomAutoReserveEligibilityFilter implements StudyRoomAutoReser
 
     @Override
     public int getOrder() {
-        return StudyRoomAutoReserveFilterOrderEnum.ELIGIBILITY.getOrder();
+        return StudyRoomAutoReserveFilterOrderEnum.ELIGIBILITY.getValue();
     }
 }

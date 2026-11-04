@@ -39,7 +39,7 @@ public class StudyRoomAutoReserveEnabledFilter implements StudyRoomAutoReserveFi
 
     @Override
     public int getOrder() {
-        return StudyRoomAutoReserveFilterOrderEnum.ENABLED.getOrder();
+        return StudyRoomAutoReserveFilterOrderEnum.ENABLED.getValue();
     }
 
     @Override

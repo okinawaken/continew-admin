@@ -16,8 +16,9 @@
 
 package top.continew.admin.business.study.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import top.continew.starter.core.enums.BaseEnum;
 
 /**
  * 自习室小程序上游错误码
@@ -28,8 +29,8 @@ import lombok.Getter;
  * @since 4.2.0
  */
 @Getter
-@AllArgsConstructor
-public enum StudyRoomApiErrorCodeEnum {
+@RequiredArgsConstructor
+public enum StudyRoomApiErrorCodeEnum implements BaseEnum<Integer> {
 
     /**
      * 绑定的小程序 token 已失效（上游返回 401）
@@ -52,12 +53,12 @@ public enum StudyRoomApiErrorCodeEnum {
     ACCOUNT_ABNORMAL(40105, "自习室账号异常，平台已限制预约");
 
     /**
-     * 错误码
+     * 枚举值
      */
-    private final Integer code;
+    private final Integer value;
 
     /**
-     * 错误提示
+     * 枚举描述
      */
-    private final String msg;
+    private final String description;
 }

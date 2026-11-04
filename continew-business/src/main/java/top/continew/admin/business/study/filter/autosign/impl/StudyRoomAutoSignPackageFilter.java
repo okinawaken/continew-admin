@@ -47,7 +47,7 @@ public class StudyRoomAutoSignPackageFilter implements StudyRoomAutoSignFilter {
 
     @Override
     public int getOrder() {
-        return StudyRoomAutoSignFilterOrderEnum.SIGN_IN_PACKAGE.getOrder();
+        return StudyRoomAutoSignFilterOrderEnum.SIGN_IN_PACKAGE.getValue();
     }
 
     @Override

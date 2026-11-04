@@ -47,7 +47,7 @@ public class StudyRoomAutoReserveVenueFilter implements StudyRoomAutoReserveFilt
 
     @Override
     public int getOrder() {
-        return StudyRoomAutoReserveFilterOrderEnum.VENUE.getOrder();
+        return StudyRoomAutoReserveFilterOrderEnum.VENUE.getValue();
     }
 
     @Override

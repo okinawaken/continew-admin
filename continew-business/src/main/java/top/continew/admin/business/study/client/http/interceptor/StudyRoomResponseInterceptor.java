@@ -48,7 +48,7 @@ public class StudyRoomResponseInterceptor implements ForestInterceptor {
         }
         Object resultData = response.getResult();
         if (Objects.isNull(resultData)) {
-            throw new BusinessException(StudyRoomApiErrorCodeEnum.EMPTY_RESPONSE.getMsg());
+            throw new BusinessException(StudyRoomApiErrorCodeEnum.EMPTY_RESPONSE.getDescription());
         }
         if (resultData instanceof StudyRoomApiResultDTO<?> result) {
             String code = result.getCode();
@@ -66,7 +66,9 @@ public class StudyRoomResponseInterceptor implements ForestInterceptor {
      * @return 响应数据
      */
     private String resolveErrorMessage(StudyRoomApiResultDTO<?> result) {
-        return StrUtil.isEmpty(result.getContent()) ? "自习室接口调用失败(" + result.getCode() + ")"
-            : result.getContent();
+        if (StrUtil.isNotEmpty(result.getContent())) {
+            return result.getContent();
+        }
+        return "自习室接口调用失败(" + result.getCode() + ")";
     }
 }
