@@ -4,9 +4,9 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomGuardOpenClientReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomGuardListClientResp;
+import top.continew.admin.business.study.model.req.StudyRoomGuardOpenClientReq;
+import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.model.resp.StudyRoomGuardListClientResp;
 
 /**
  * 门禁域：门禁区域列表、开门

@@ -1,7 +1,6 @@
 package top.continew.admin.business.study.controller.user;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.hutool.core.bean.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
 import top.continew.admin.business.study.model.req.StudyRoomUserSettingReq;
-import top.continew.admin.business.study.model.resp.StudyRoomUserSettingResp;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
 import top.continew.admin.common.context.UserContextHolder;
 import top.continew.starter.web.model.R;
@@ -39,12 +37,8 @@ public class StudyRoomUserSettingController {
      */
     @SaCheckPermission("business:study:userSetting:get")
     @GetMapping(value = {"", "/"})
-    public R<StudyRoomUserSettingResp> getSetting() {
-        StudyRoomUserConfigBO config =
-            settingService.getConfig(UserContextHolder.getUserId());
-        StudyRoomUserSettingResp vo =
-            BeanUtil.copyProperties(config, StudyRoomUserSettingResp.class);
-        return R.ok(vo);
+    public R<StudyRoomUserConfigBO> getSetting() {
+        return R.ok(settingService.getConfig(UserContextHolder.getUserId()));
     }
 
     /**
@@ -56,9 +50,7 @@ public class StudyRoomUserSettingController {
     @SaCheckPermission("business:study:userSetting:update")
     @PutMapping(value = {"", "/"})
     public R<Void> updateSetting(@Valid @RequestBody StudyRoomUserSettingReq dto) {
-        StudyRoomUserConfigBO config = BeanUtil
-            .copyProperties(dto, StudyRoomUserConfigBO.class);
-        settingService.updateConfig(UserContextHolder.getUserId(), config);
+        settingService.updateConfig(UserContextHolder.getUserId(), dto);
         return R.ok();
     }
 }

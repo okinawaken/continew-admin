@@ -5,21 +5,21 @@ import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
 import com.dtflys.forest.annotation.Var;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyPackageConfirmClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyPayOrderClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyV2PackageConfirmClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomBuyV2PackageListClientReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyOrderClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyPackageListClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageDetailClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageLabelClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageListClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomBuyV2PackageOptClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserOrderListClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageListClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayParamClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomWxPayQueryClientResp;
+import top.continew.admin.business.study.model.req.StudyRoomBuyPackageConfirmClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomBuyPayOrderClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomBuyV2PackageConfirmClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomBuyV2PackageListClientReq;
+import top.continew.admin.business.study.model.resp.StudyRoomBuyOrderClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomBuyPackageListClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomBuyV2PackageDetailClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomBuyV2PackageLabelClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomBuyV2PackageListClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomBuyV2PackageOptClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.model.resp.StudyRoomUserOrderListClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserPackageListClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomWxPayParamClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomWxPayQueryClientResp;
 
 /**
  * 套餐域：套餐浏览、下单、支付、我的订单与套餐

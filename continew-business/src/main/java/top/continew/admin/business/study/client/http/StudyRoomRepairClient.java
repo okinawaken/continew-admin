@@ -4,10 +4,10 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Var;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomRepairSubmitClientReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomRepairListClientResp;
+import top.continew.admin.business.study.model.req.StudyRoomRepairSubmitClientReq;
+import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.model.resp.StudyRoomRepairClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomRepairListClientResp;
 
 /**
  * 报修域：提交报修、报修记录

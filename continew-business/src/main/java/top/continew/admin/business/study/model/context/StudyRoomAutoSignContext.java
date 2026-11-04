@@ -2,9 +2,9 @@ package top.continew.admin.business.study.model.context;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserPackageClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserPackageClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
 
 /**
  * 自动签到执行上下文

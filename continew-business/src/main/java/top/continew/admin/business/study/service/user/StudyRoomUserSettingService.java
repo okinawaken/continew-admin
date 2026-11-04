@@ -2,6 +2,7 @@ package top.continew.admin.business.study.service.user;
 
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigView;
+import top.continew.admin.business.study.model.req.StudyRoomUserSettingReq;
 import top.continew.starter.extension.tenant.annotation.TenantIgnore;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public interface StudyRoomUserSettingService {
      * 只写入非空项，未传的配置保留原值；token 传空字符串表示解绑，传非空值时立即调用上游用户详情校验。
      *
      * @param userId 系统用户 ID
-     * @param config 新配置
+     * @param req 新配置
      */
-    void updateConfig(Long userId, StudyRoomUserConfigBO config);
+    void updateConfig(Long userId, StudyRoomUserSettingReq req);
 }

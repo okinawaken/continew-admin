@@ -4,19 +4,19 @@ import com.dtflys.forest.annotation.Get;
 import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomReserveConfirmClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomReserveConfirmV1ClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomSeatQueryClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomSeatQueryV1ClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomUserReserveCancelClientReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveAnotherCheckClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveCheckClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveConfirmClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveDateClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatMapClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveCancelTipClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveListClientResp;
+import top.continew.admin.business.study.model.req.StudyRoomReserveConfirmClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomReserveConfirmV1ClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomSeatQueryClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomSeatQueryV1ClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomUserReserveCancelClientReq;
+import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveAnotherCheckClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveCheckClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveConfirmClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveDateClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomSeatMapClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserReserveCancelTipClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserReserveListClientResp;
 
 /**
  * 预约域：座位图、下单、我的预约、取消

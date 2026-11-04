@@ -114,6 +114,7 @@ public class StudyRoomAutoReserveTaskRecordServiceImpl
         recordRespDTO.setId(record.getId());
         recordRespDTO.setTaskId(record.getTaskId());
         recordRespDTO.setUserId(record.getUserId());
+        recordRespDTO.setTenantId(record.getTenantId());
         recordRespDTO.setTriggerType(record.getTriggerType());
         recordRespDTO.setTargetDate(record.getTargetDate());
         recordRespDTO.setStatus(record.getStatus());

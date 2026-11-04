@@ -1,7 +1,6 @@
 package top.continew.admin.business.study.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.hutool.core.bean.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,25 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomReserveClient;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomReserveConfirmClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomReserveConfirmV1ClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomSeatQueryClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomSeatQueryV1ClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomUserReserveCancelClientReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveAnotherCheckClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveCheckClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveConfirmClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveDateClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatMapClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveCancelTipClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserReserveListClientResp;
-import top.continew.admin.business.study.model.resp.StudyRoomReserveAnotherCheckResp;
-import top.continew.admin.business.study.model.resp.StudyRoomReserveCheckResp;
-import top.continew.admin.business.study.model.resp.StudyRoomReserveConfirmResp;
-import top.continew.admin.business.study.model.resp.StudyRoomReserveDateResp;
-import top.continew.admin.business.study.model.resp.StudyRoomSeatMapResp;
-import top.continew.admin.business.study.model.resp.StudyRoomUserReserveCancelTipResp;
-import top.continew.admin.business.study.model.resp.StudyRoomUserReserveListResp;
+import top.continew.admin.business.study.model.req.StudyRoomReserveConfirmClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomReserveConfirmV1ClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomSeatQueryClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomSeatQueryV1ClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomUserReserveCancelClientReq;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveAnotherCheckClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveCheckClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveConfirmClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveDateClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomSeatMapClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserReserveCancelTipClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserReserveListClientResp;
 import top.continew.starter.web.model.R;
 
 /**
@@ -53,11 +45,9 @@ public class StudyRoomReserveController {
      */
     @SaCheckPermission("business:study:reserve:list")
     @GetMapping(value = "/check")
-    public R<StudyRoomReserveCheckResp> reserveCheck() {
+    public R<StudyRoomReserveCheckClientResp> reserveCheck() {
         StudyRoomReserveCheckClientResp dto = reserveClient.reserveCheck().getData();
-        StudyRoomReserveCheckResp vo =
-            BeanUtil.copyProperties(dto, StudyRoomReserveCheckResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -68,11 +58,10 @@ public class StudyRoomReserveController {
      */
     @SaCheckPermission("business:study:reserve:list")
     @GetMapping(value = "/v2/date/select")
-    public R<StudyRoomReserveDateResp> reserveDateList(
+    public R<StudyRoomReserveDateClientResp> reserveDateList(
         @RequestParam(value = "venueId") Integer venueId) {
         StudyRoomReserveDateClientResp dto = reserveClient.reserveDateList(venueId).getData();
-        StudyRoomReserveDateResp vo = BeanUtil.copyProperties(dto, StudyRoomReserveDateResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -83,11 +72,10 @@ public class StudyRoomReserveController {
      */
     @SaCheckPermission("business:study:reserve:list")
     @PostMapping(value = "/v2/seat/list")
-    public R<StudyRoomSeatMapResp> reserveV2SeatList(
+    public R<StudyRoomSeatMapClientResp> reserveV2SeatList(
         @RequestBody StudyRoomSeatQueryClientReq form) {
         StudyRoomSeatMapClientResp dto = reserveClient.reserveV2SeatList(form).getData();
-        StudyRoomSeatMapResp vo = BeanUtil.copyProperties(dto, StudyRoomSeatMapResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -98,12 +86,10 @@ public class StudyRoomReserveController {
      */
     @SaCheckPermission("business:study:reserve:create")
     @PostMapping(value = "/v2/seat/confirm")
-    public R<StudyRoomReserveConfirmResp> reserveV2SeatConfirm(
+    public R<StudyRoomReserveConfirmClientResp> reserveV2SeatConfirm(
         @RequestBody StudyRoomReserveConfirmClientReq form) {
         StudyRoomReserveConfirmClientResp dto = reserveClient.reserveV2SeatConfirm(form).getData();
-        StudyRoomReserveConfirmResp vo =
-            BeanUtil.copyProperties(dto, StudyRoomReserveConfirmResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -114,11 +100,10 @@ public class StudyRoomReserveController {
      */
     @SaCheckPermission("business:study:reserve:list")
     @PostMapping(value = "/seat/list")
-    public R<StudyRoomSeatMapResp> reserveSeatList(
+    public R<StudyRoomSeatMapClientResp> reserveSeatList(
         @RequestBody StudyRoomSeatQueryV1ClientReq form) {
         StudyRoomSeatMapClientResp dto = reserveClient.reserveSeatList(form).getData();
-        StudyRoomSeatMapResp vo = BeanUtil.copyProperties(dto, StudyRoomSeatMapResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -129,12 +114,10 @@ public class StudyRoomReserveController {
      */
     @SaCheckPermission("business:study:reserve:create")
     @PostMapping(value = "/seat/confirm")
-    public R<StudyRoomReserveConfirmResp> reserveSeatConfirm(
+    public R<StudyRoomReserveConfirmClientResp> reserveSeatConfirm(
         @RequestBody StudyRoomReserveConfirmV1ClientReq form) {
         StudyRoomReserveConfirmClientResp dto = reserveClient.reserveSeatConfirm(form).getData();
-        StudyRoomReserveConfirmResp vo =
-            BeanUtil.copyProperties(dto, StudyRoomReserveConfirmResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -145,13 +128,11 @@ public class StudyRoomReserveController {
      */
     @SaCheckPermission("business:study:reserve:list")
     @GetMapping(value = "/another/check")
-    public R<StudyRoomReserveAnotherCheckResp> reserveAnotherCheck(
+    public R<StudyRoomReserveAnotherCheckClientResp> reserveAnotherCheck(
         @RequestParam(value = "userReserveId") Long userReserveId) {
         StudyRoomReserveAnotherCheckClientResp dto =
             reserveClient.reserveAnotherCheck(userReserveId).getData();
-        StudyRoomReserveAnotherCheckResp vo =
-            BeanUtil.copyProperties(dto, StudyRoomReserveAnotherCheckResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -161,11 +142,9 @@ public class StudyRoomReserveController {
      */
     @SaCheckPermission("business:study:reserve:list")
     @GetMapping(value = "/user/list")
-    public R<StudyRoomUserReserveListResp> userReserveList() {
+    public R<StudyRoomUserReserveListClientResp> userReserveList() {
         StudyRoomUserReserveListClientResp dto = reserveClient.userReserveList().getData();
-        StudyRoomUserReserveListResp vo =
-            BeanUtil.copyProperties(dto, StudyRoomUserReserveListResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -176,13 +155,11 @@ public class StudyRoomReserveController {
      */
     @SaCheckPermission("business:study:reserve:list")
     @GetMapping(value = "/user/cancel/tip")
-    public R<StudyRoomUserReserveCancelTipResp> userReserveCancelTip(
+    public R<StudyRoomUserReserveCancelTipClientResp> userReserveCancelTip(
         @RequestParam(value = "userReserveId") Long userReserveId) {
         StudyRoomUserReserveCancelTipClientResp dto =
             reserveClient.userReserveCancelTip(userReserveId).getData();
-        StudyRoomUserReserveCancelTipResp vo =
-            BeanUtil.copyProperties(dto, StudyRoomUserReserveCancelTipResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**

@@ -12,6 +12,7 @@ import top.continew.admin.business.study.mapper.StudyRoomUserSettingMapper;
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigView;
 import top.continew.admin.business.study.model.entity.StudyRoomUserSettingDO;
+import top.continew.admin.business.study.model.req.StudyRoomUserSettingReq;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
 import top.continew.starter.extension.tenant.annotation.TenantIgnore;
 import top.continew.starter.json.jackson.util.JsonUtils;
@@ -56,12 +57,12 @@ public class StudyRoomUserSettingServiceImpl implements StudyRoomUserSettingServ
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateConfig(Long userId, StudyRoomUserConfigBO config) {
+    public void updateConfig(Long userId, StudyRoomUserSettingReq req) {
         StudyRoomUserSettingDO exist = this.getEntity(userId);
         StudyRoomUserConfigBO merged = Objects.isNull(exist)
             ? this.defaultConfig()
             : this.parseConfig(exist.getConfigJson());
-        boolean tokenChanged = this.mergeConfig(merged, config);
+        boolean tokenChanged = this.mergeConfig(merged, req);
         String configJson = JsonUtils.toJsonStr(merged);
         if (Objects.nonNull(exist)) {
             exist.setConfigJson(configJson);
@@ -90,7 +91,7 @@ public class StudyRoomUserSettingServiceImpl implements StudyRoomUserSettingServ
      * @param source 请求配置
      * @return token 是否发生变化
      */
-    private boolean mergeConfig(StudyRoomUserConfigBO target, StudyRoomUserConfigBO source) {
+    private boolean mergeConfig(StudyRoomUserConfigBO target, StudyRoomUserSettingReq source) {
         if (Objects.nonNull(source.getReleaseTime())) {
             target.setReleaseTime(source.getReleaseTime());
         }

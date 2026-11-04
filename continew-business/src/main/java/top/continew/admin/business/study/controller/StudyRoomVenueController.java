@@ -1,7 +1,6 @@
 package top.continew.admin.business.study.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.hutool.core.bean.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,16 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomVenueClient;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomAreaSelectClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomDouYinVenueSelectClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveIndexClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueSelectClientResp;
-import top.continew.admin.business.study.model.resp.StudyRoomAreaSelectResp;
-import top.continew.admin.business.study.model.resp.StudyRoomDouYinVenueSelectResp;
-import top.continew.admin.business.study.model.resp.StudyRoomReserveIndexResp;
-import top.continew.admin.business.study.model.resp.StudyRoomVenueResp;
-import top.continew.admin.business.study.model.resp.StudyRoomVenueSelectResp;
+import top.continew.admin.business.study.model.resp.StudyRoomAreaSelectClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomDouYinVenueSelectClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveIndexClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomVenueSelectClientResp;
 import top.continew.starter.web.model.R;
 
 /**
@@ -44,13 +38,12 @@ public class StudyRoomVenueController {
      */
     @SaCheckPermission("business:study:venue:list")
     @GetMapping(value = "/select")
-    public R<StudyRoomVenueSelectResp> venueSelect(
+    public R<StudyRoomVenueSelectClientResp> venueSelect(
         @RequestParam(value = "currentLng") Double currentLng,
         @RequestParam(value = "currentLat") Double currentLat) {
         StudyRoomVenueSelectClientResp dto =
             venueClient.venueSelect(currentLng, currentLat).getData();
-        StudyRoomVenueSelectResp vo = BeanUtil.copyProperties(dto, StudyRoomVenueSelectResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -60,10 +53,9 @@ public class StudyRoomVenueController {
      */
     @SaCheckPermission("business:study:venue:list")
     @GetMapping(value = "/reserve/select")
-    public R<StudyRoomVenueSelectResp> reserveVenueSelect() {
+    public R<StudyRoomVenueSelectClientResp> reserveVenueSelect() {
         StudyRoomVenueSelectClientResp dto = venueClient.reserveVenueSelect().getData();
-        StudyRoomVenueSelectResp vo = BeanUtil.copyProperties(dto, StudyRoomVenueSelectResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -74,11 +66,10 @@ public class StudyRoomVenueController {
      */
     @SaCheckPermission("business:study:venue:list")
     @GetMapping(value = "/reserve/detail")
-    public R<StudyRoomVenueResp> reserveVenueDetail(
+    public R<StudyRoomVenueClientResp> reserveVenueDetail(
         @RequestParam(value = "venueId") Integer venueId) {
         StudyRoomVenueClientResp dto = venueClient.reserveVenueDetail(venueId).getData();
-        StudyRoomVenueResp vo = BeanUtil.copyProperties(dto, StudyRoomVenueResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -93,7 +84,7 @@ public class StudyRoomVenueController {
      */
     @SaCheckPermission("business:study:venue:list")
     @GetMapping(value = "/reserve/index")
-    public R<StudyRoomReserveIndexResp> reserveIndex(
+    public R<StudyRoomReserveIndexClientResp> reserveIndex(
         @RequestParam(name = "currentLng", required = false) Double currentLng,
         @RequestParam(name = "currentLat", required = false) Double currentLat,
         @RequestParam(name = "venueName", required = false) String venueName,
@@ -101,9 +92,7 @@ public class StudyRoomVenueController {
         @RequestParam(name = "areaId", required = false) Long areaId) {
         StudyRoomReserveIndexClientResp dto = venueClient
             .reserveIndex(currentLng, currentLat, venueName, channelBili, areaId).getData();
-        StudyRoomReserveIndexResp vo =
-            BeanUtil.copyProperties(dto, StudyRoomReserveIndexResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -113,10 +102,9 @@ public class StudyRoomVenueController {
      */
     @SaCheckPermission("business:study:venue:list")
     @GetMapping(value = "/reserve/area/select")
-    public R<StudyRoomAreaSelectResp> reserveAreaSelect() {
+    public R<StudyRoomAreaSelectClientResp> reserveAreaSelect() {
         StudyRoomAreaSelectClientResp dto = venueClient.reserveAreaSelect().getData();
-        StudyRoomAreaSelectResp vo = BeanUtil.copyProperties(dto, StudyRoomAreaSelectResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -128,13 +116,12 @@ public class StudyRoomVenueController {
      */
     @SaCheckPermission("business:study:venue:list")
     @GetMapping(value = "/receipt/select")
-    public R<StudyRoomVenueSelectResp> receiptVenueSelect(
+    public R<StudyRoomVenueSelectClientResp> receiptVenueSelect(
         @RequestParam(value = "currentLng") Double currentLng,
         @RequestParam(value = "currentLat") Double currentLat) {
         StudyRoomVenueSelectClientResp dto =
             venueClient.receiptVenueSelect(currentLng, currentLat).getData();
-        StudyRoomVenueSelectResp vo = BeanUtil.copyProperties(dto, StudyRoomVenueSelectResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**
@@ -146,13 +133,11 @@ public class StudyRoomVenueController {
      */
     @SaCheckPermission("business:study:venue:list")
     @GetMapping(value = "/douyin/select")
-    public R<StudyRoomDouYinVenueSelectResp> douYinVenueSelect(
+    public R<StudyRoomDouYinVenueSelectClientResp> douYinVenueSelect(
         @RequestParam(value = "currentLng") Double currentLng,
         @RequestParam(value = "currentLat") Double currentLat) {
         StudyRoomDouYinVenueSelectClientResp dto =
             venueClient.douYinVenueSelect(currentLng, currentLat).getData();
-        StudyRoomDouYinVenueSelectResp vo =
-            BeanUtil.copyProperties(dto, StudyRoomDouYinVenueSelectResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 }
