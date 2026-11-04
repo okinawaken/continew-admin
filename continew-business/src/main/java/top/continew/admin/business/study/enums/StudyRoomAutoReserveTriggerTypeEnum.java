@@ -16,8 +16,9 @@
 
 package top.continew.admin.business.study.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import top.continew.starter.core.enums.BaseEnum;
 
 /**
  * 自动预约触发方式
@@ -26,8 +27,8 @@ import lombok.Getter;
  * @since 4.2.0
  */
 @Getter
-@AllArgsConstructor
-public enum StudyRoomAutoReserveTriggerTypeEnum {
+@RequiredArgsConstructor
+public enum StudyRoomAutoReserveTriggerTypeEnum implements BaseEnum<Integer> {
 
     /**
      * 放号时刻由定时任务触发
@@ -41,5 +42,5 @@ public enum StudyRoomAutoReserveTriggerTypeEnum {
 
     private final Integer value;
 
-    private final String desc;
+    private final String description;
 }

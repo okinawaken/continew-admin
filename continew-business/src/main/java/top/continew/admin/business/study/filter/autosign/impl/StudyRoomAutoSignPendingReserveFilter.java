@@ -46,7 +46,7 @@ public class StudyRoomAutoSignPendingReserveFilter implements StudyRoomAutoSignF
 
     @Override
     public int getOrder() {
-        return StudyRoomAutoSignFilterOrderEnum.PENDING_RESERVE.getOrder();
+        return StudyRoomAutoSignFilterOrderEnum.PENDING_RESERVE.getValue();
     }
 
     @Override

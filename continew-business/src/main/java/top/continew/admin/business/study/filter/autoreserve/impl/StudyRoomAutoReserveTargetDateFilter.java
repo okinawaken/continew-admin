@@ -52,7 +52,7 @@ public class StudyRoomAutoReserveTargetDateFilter implements StudyRoomAutoReserv
 
     @Override
     public int getOrder() {
-        return StudyRoomAutoReserveFilterOrderEnum.TARGET_DATE.getOrder();
+        return StudyRoomAutoReserveFilterOrderEnum.TARGET_DATE.getValue();
     }
 
     @Override

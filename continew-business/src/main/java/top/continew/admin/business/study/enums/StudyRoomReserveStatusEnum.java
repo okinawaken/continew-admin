@@ -16,8 +16,9 @@
 
 package top.continew.admin.business.study.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import top.continew.starter.core.enums.BaseEnum;
 
 import java.util.Objects;
 
@@ -28,8 +29,8 @@ import java.util.Objects;
  * @since 4.2.0
  */
 @Getter
-@AllArgsConstructor
-public enum StudyRoomReserveStatusEnum {
+@RequiredArgsConstructor
+public enum StudyRoomReserveStatusEnum implements BaseEnum<Integer> {
 
     /**
      * 0 可预约
@@ -43,7 +44,7 @@ public enum StudyRoomReserveStatusEnum {
 
     private final Integer value;
 
-    private final String desc;
+    private final String description;
 
     /**
      * 是否可预约

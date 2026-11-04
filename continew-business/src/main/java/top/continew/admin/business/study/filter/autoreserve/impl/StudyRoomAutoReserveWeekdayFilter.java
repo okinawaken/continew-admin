@@ -39,7 +39,7 @@ public class StudyRoomAutoReserveWeekdayFilter implements StudyRoomAutoReserveFi
 
     @Override
     public int getOrder() {
-        return StudyRoomAutoReserveFilterOrderEnum.WEEKDAY.getOrder();
+        return StudyRoomAutoReserveFilterOrderEnum.WEEKDAY.getValue();
     }
 
     @Override

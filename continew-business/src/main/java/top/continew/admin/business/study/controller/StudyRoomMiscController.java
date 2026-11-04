@@ -90,7 +90,7 @@ public class StudyRoomMiscController {
     @SaCheckPermission("business:study:misc:create")
     @PostMapping(value = "/cabinet/lease/pay")
     public R<StudyRoomWxPayParamVO> cabinetLeasePay(
-        @RequestParam(value = "leaseId") Integer leaseId,
+        @RequestParam(value = "leaseId") Long leaseId,
         @RequestParam(value = "userId") Long userId) {
         StudyRoomWxPayParamRespDTO dto = miscClient.cabinetLeasePay(leaseId, userId).getData();
         StudyRoomWxPayParamVO vo = BeanUtil.copyProperties(dto, StudyRoomWxPayParamVO.class);

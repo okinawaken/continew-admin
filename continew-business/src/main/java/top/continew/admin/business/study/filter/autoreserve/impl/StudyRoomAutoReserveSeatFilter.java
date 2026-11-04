@@ -53,7 +53,7 @@ public class StudyRoomAutoReserveSeatFilter implements StudyRoomAutoReserveFilte
 
     @Override
     public int getOrder() {
-        return StudyRoomAutoReserveFilterOrderEnum.SEAT.getOrder();
+        return StudyRoomAutoReserveFilterOrderEnum.SEAT.getValue();
     }
 
     @Override

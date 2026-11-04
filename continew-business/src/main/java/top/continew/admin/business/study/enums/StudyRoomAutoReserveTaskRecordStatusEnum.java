@@ -16,8 +16,9 @@
 
 package top.continew.admin.business.study.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import top.continew.starter.core.enums.BaseEnum;
 
 /**
  * 自动预约执行记录状态：跳过、成功、失败三种终态
@@ -26,8 +27,8 @@ import lombok.Getter;
  * @since 4.2.0
  */
 @Getter
-@AllArgsConstructor
-public enum StudyRoomAutoReserveTaskRecordStatusEnum {
+@RequiredArgsConstructor
+public enum StudyRoomAutoReserveTaskRecordStatusEnum implements BaseEnum<Integer> {
 
     /**
      * 跳过
@@ -46,5 +47,5 @@ public enum StudyRoomAutoReserveTaskRecordStatusEnum {
 
     private final Integer value;
 
-    private final String desc;
+    private final String description;
 }

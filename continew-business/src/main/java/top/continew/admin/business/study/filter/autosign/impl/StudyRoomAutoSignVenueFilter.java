@@ -46,7 +46,7 @@ public class StudyRoomAutoSignVenueFilter implements StudyRoomAutoSignFilter {
 
     @Override
     public int getOrder() {
-        return StudyRoomAutoSignFilterOrderEnum.VENUE.getOrder();
+        return StudyRoomAutoSignFilterOrderEnum.VENUE.getValue();
     }
 
     @Override

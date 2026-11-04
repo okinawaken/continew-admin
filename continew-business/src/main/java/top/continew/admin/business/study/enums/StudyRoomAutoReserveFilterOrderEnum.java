@@ -16,8 +16,9 @@
 
 package top.continew.admin.business.study.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import top.continew.starter.core.enums.BaseEnum;
 
 /**
  * 自动预约过滤器执行顺序
@@ -28,8 +29,8 @@ import lombok.Getter;
  * @since 4.2.0
  */
 @Getter
-@AllArgsConstructor
-public enum StudyRoomAutoReserveFilterOrderEnum {
+@RequiredArgsConstructor
+public enum StudyRoomAutoReserveFilterOrderEnum implements BaseEnum<Integer> {
 
     /**
      * 启用状态校验
@@ -67,12 +68,12 @@ public enum StudyRoomAutoReserveFilterOrderEnum {
     ELIGIBILITY(700, "预约资格校验");
 
     /**
-     * 执行顺序，值越小越先执行
+     * 枚举值，值越小越先执行
      */
-    private final int order;
+    private final Integer value;
 
     /**
-     * 说明
+     * 枚举描述
      */
-    private final String desc;
+    private final String description;
 }
