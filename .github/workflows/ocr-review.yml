@@ -80,6 +80,10 @@ jobs:
           || startsWith(github.event.comment.body, '@continew-code-review')
         )
       )
+    env:
+      # 禁用 OCR 启动器的后台自动更新：更新会用 npm 替换全局 ocr 命令，
+      # 与后续调用并发时会出现 Cannot find module '/usr/local/bin/ocr'
+      OCR_NO_UPDATE: '1'
     steps:
       - name: Get PR context
         id: pr-context
@@ -106,7 +110,23 @@ jobs:
           client-id: ${{ secrets.CR_BOT_APP_CLIENT_ID }}
           private-key: ${{ secrets.CR_BOT_APP_PRIVATE_KEY }}
 
+      # fork 或未配置 LLM 凭据的仓库跳过评审，避免缺 secret 时出现必红检查
+      - name: Check OCR configuration
+        id: ocr-config
+        env:
+          OCR_LLM_URL: ${{ secrets.OCR_LLM_URL }}
+          OCR_LLM_AUTH_TOKEN: ${{ secrets.OCR_LLM_AUTH_TOKEN }}
+          OCR_LLM_MODEL: ${{ secrets.OCR_LLM_MODEL || vars.OCR_LLM_MODEL }}
+        run: |
+          if [[ -z "$OCR_LLM_URL" || -z "$OCR_LLM_AUTH_TOKEN" || -z "$OCR_LLM_MODEL" ]]; then
+            echo "OCR LLM secrets are not configured; skipping AI code review."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run OpenCodeReview
+        if: steps.ocr-config.outputs.enabled == 'true'
         uses: alibaba/open-code-review@8d023aafcec05f8ba5628fca3eaba88078e5d201 # v1.11.1
         with:
           ocr_version: '1.11.1'
