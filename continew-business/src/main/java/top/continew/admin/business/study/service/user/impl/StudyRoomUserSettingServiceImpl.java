@@ -11,11 +11,12 @@ import top.continew.admin.business.study.client.http.StudyRoomUserClient;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignInEnableEnum;
 import top.continew.admin.business.study.mapper.StudyRoomUserSettingMapper;
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
-import top.continew.admin.business.study.model.bo.StudyRoomUserConfigViewBO;
 import top.continew.admin.business.study.model.entity.StudyRoomUserSettingDO;
 import top.continew.admin.business.study.model.req.StudyRoomUserSettingReq;
+import top.continew.admin.business.study.model.resp.StudyRoomUserConfigResp;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
 import top.continew.starter.extension.tenant.annotation.TenantIgnore;
+import top.continew.starter.extension.tenant.context.TenantContextHolder;
 import top.continew.starter.json.jackson.util.JsonUtils;
 
 import java.time.LocalTime;
@@ -36,24 +37,32 @@ public class StudyRoomUserSettingServiceImpl implements StudyRoomUserSettingServ
     private final StudyRoomUserClient studyRoomUserClient;
 
     @Override
-    public StudyRoomUserConfigBO getConfig(Long userId) {
+    public StudyRoomUserConfigResp getConfig(Long userId) {
         LambdaQueryWrapper<StudyRoomUserSettingDO> lqw = Wrappers.lambdaQuery();
         lqw.eq(StudyRoomUserSettingDO::getUserId, userId);
         StudyRoomUserSettingDO studyRoomUserSettingDO = settingMapper.selectOne(lqw);
         if (Objects.isNull(studyRoomUserSettingDO)) {
-            return this.defaultConfig();
+            StudyRoomUserConfigResp resp = new StudyRoomUserConfigResp();
+            resp.setUserId(userId);
+            resp.setTenantId(TenantContextHolder.getTenantId());
+            resp.setConfig(this.defaultConfig());
+            return resp;
         }
-        return JsonUtils.toBean(studyRoomUserSettingDO.getConfigJson(),
-            StudyRoomUserConfigBO.class);
+        StudyRoomUserConfigResp resp = new StudyRoomUserConfigResp();
+        resp.setUserId(studyRoomUserSettingDO.getUserId());
+        resp.setTenantId(studyRoomUserSettingDO.getTenantId());
+        resp.setConfig(
+            JsonUtils.toBean(studyRoomUserSettingDO.getConfigJson(), StudyRoomUserConfigBO.class));
+        return resp;
     }
 
     @Override
     @TenantIgnore
-    public List<StudyRoomUserConfigViewBO> listAllConfigs() {
+    public List<StudyRoomUserConfigResp> listAllConfigs() {
         LambdaQueryWrapper<StudyRoomUserSettingDO> lqw = Wrappers.lambdaQuery();
         List<StudyRoomUserSettingDO> settingList = settingMapper.selectList(lqw);
         return settingList.stream().map(studyRoomUserSettingDO -> {
-            StudyRoomUserConfigViewBO view = new StudyRoomUserConfigViewBO();
+            StudyRoomUserConfigResp view = new StudyRoomUserConfigResp();
             view.setTenantId(studyRoomUserSettingDO.getTenantId());
             view.setUserId(studyRoomUserSettingDO.getUserId());
             view.setConfig(JsonUtils.toBean(studyRoomUserSettingDO.getConfigJson(),

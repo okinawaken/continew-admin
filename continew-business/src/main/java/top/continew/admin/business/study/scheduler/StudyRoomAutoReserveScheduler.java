@@ -11,6 +11,7 @@ import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
 import top.continew.admin.business.study.model.event.StudyRoomAutoReserveExecuteEvent;
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordInfoResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserConfigResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
@@ -47,7 +48,8 @@ public class StudyRoomAutoReserveScheduler {
         for (StudyRoomAutoReserveTaskInfoResp task : taskList) {
             LocalDate nowDate = LocalDate.now();
             LocalTime nowTime = LocalTime.now();
-            StudyRoomUserConfigBO config = settingService.getConfig(task.getUserId());
+            StudyRoomUserConfigResp configResp = settingService.getConfig(task.getUserId());
+            StudyRoomUserConfigBO config = configResp.getConfig();
             if (!nowTime.isBefore(config.getReleaseTime())) {
                 List<StudyRoomAutoReserveTaskRecordInfoResp> recordList = recordService
                     .listByTaskIdAndCreateDate(task.getId(), nowDate);

@@ -7,8 +7,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignInEnableEnum;
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
-import top.continew.admin.business.study.model.bo.StudyRoomUserConfigViewBO;
 import top.continew.admin.business.study.model.event.StudyRoomAutoSignExecuteEvent;
+import top.continew.admin.business.study.model.resp.StudyRoomUserConfigResp;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
 
 import java.util.List;
@@ -32,8 +32,8 @@ public class StudyRoomAutoSignScheduler {
      */
     @Scheduled(cron = "0 0/10 * * * ?")
     public void scan() {
-        List<StudyRoomUserConfigViewBO> configViewBoList = settingService.listAllConfigs();
-        for (StudyRoomUserConfigViewBO configViewBO : configViewBoList) {
+        List<StudyRoomUserConfigResp> configViewBoList = settingService.listAllConfigs();
+        for (StudyRoomUserConfigResp configViewBO : configViewBoList) {
             StudyRoomUserConfigBO config = configViewBO.getConfig();
             if (StudyRoomAutoSignInEnableEnum.isEnabled(config.getSignInEnable())) {
                 eventPublisher.publishEvent(

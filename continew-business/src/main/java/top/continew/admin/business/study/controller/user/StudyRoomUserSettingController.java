@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
 import top.continew.admin.business.study.model.req.StudyRoomUserSettingReq;
+import top.continew.admin.business.study.model.resp.StudyRoomUserConfigResp;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
 import top.continew.admin.common.context.UserContextHolder;
 import top.continew.starter.web.model.R;
@@ -37,7 +37,7 @@ public class StudyRoomUserSettingController {
      */
     @SaCheckPermission("business:study:userSetting:get")
     @GetMapping(value = "/")
-    public R<StudyRoomUserConfigBO> getSetting() {
+    public R<StudyRoomUserConfigResp> getSetting() {
         return R.ok(settingService.getConfig(UserContextHolder.getUserId()));
     }
 
