@@ -1,7 +1,6 @@
 package top.continew.admin.business.study.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.hutool.core.bean.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomLeaveClient;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomUserLeaveCancelClientReq;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomUserLeaveConfirmClientReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomUserLeaveEnterClientResp;
-import top.continew.admin.business.study.model.resp.StudyRoomUserLeaveEnterResp;
+import top.continew.admin.business.study.model.req.StudyRoomUserLeaveCancelClientReq;
+import top.continew.admin.business.study.model.req.StudyRoomUserLeaveConfirmClientReq;
+import top.continew.admin.business.study.model.resp.StudyRoomUserLeaveEnterClientResp;
 import top.continew.starter.web.model.R;
 
 /**
@@ -39,12 +37,10 @@ public class StudyRoomLeaveController {
      */
     @SaCheckPermission("business:study:leave:list")
     @GetMapping(value = "/enter")
-    public R<StudyRoomUserLeaveEnterResp> userLeaveEnter(
+    public R<StudyRoomUserLeaveEnterClientResp> userLeaveEnter(
         @RequestParam(value = "userPackageId") Long userPackageId) {
         StudyRoomUserLeaveEnterClientResp dto = leaveClient.userLeaveEnter(userPackageId).getData();
-        StudyRoomUserLeaveEnterResp vo =
-            BeanUtil.copyProperties(dto, StudyRoomUserLeaveEnterResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**

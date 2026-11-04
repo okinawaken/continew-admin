@@ -1,7 +1,6 @@
 package top.continew.admin.business.study.controller.autoreserve;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.model.req.StudyRoomAutoReserveTaskReq;
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
 import top.continew.admin.common.context.UserContextHolder;
 import top.continew.starter.extension.crud.model.query.PageQuery;
@@ -46,10 +44,10 @@ public class StudyRoomAutoReserveTaskController {
      */
     @SaCheckPermission("business:study:autoReserveTask:list")
     @GetMapping(value = "/list")
-    public PageResp<StudyRoomAutoReserveTaskResp> list(PageQuery pageQuery) {
+    public PageResp<StudyRoomAutoReserveTaskInfoResp> list(PageQuery pageQuery) {
         IPage<StudyRoomAutoReserveTaskInfoResp> dtoPage = taskService
             .pageList(UserContextHolder.getUserId(), pageQuery);
-        return PageResp.build(dtoPage, StudyRoomAutoReserveTaskResp.class);
+        return PageResp.build(dtoPage);
     }
 
     /**
@@ -60,11 +58,8 @@ public class StudyRoomAutoReserveTaskController {
      */
     @SaCheckPermission("business:study:autoReserveTask:get")
     @GetMapping(value = "/{id}")
-    public R<StudyRoomAutoReserveTaskResp> detail(@PathVariable(value = "id") Long id) {
-        StudyRoomAutoReserveTaskInfoResp dto = taskService.getTask(id);
-        StudyRoomAutoReserveTaskResp vo =
-            BeanUtil.copyProperties(dto, StudyRoomAutoReserveTaskResp.class);
-        return R.ok(vo);
+    public R<StudyRoomAutoReserveTaskInfoResp> detail(@PathVariable(value = "id") Long id) {
+        return R.ok(taskService.getTask(id));
     }
 
     /**

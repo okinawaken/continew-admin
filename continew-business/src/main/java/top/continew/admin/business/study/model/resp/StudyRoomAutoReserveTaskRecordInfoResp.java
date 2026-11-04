@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 /**
  * 自动预约执行记录结果模型
  * <p>
- * 由执行记录 PO 与 {@code detail_json} 明细合并而来，供 Controller 组装 StudyRoomAutoReserveTaskRecordResp。
+ * 由执行记录 PO 与 {@code detail_json} 明细合并而来，页面接口与执行器共用。
  *
  * @author Amadeus
  * @since 4.2.0
@@ -31,6 +31,11 @@ public class StudyRoomAutoReserveTaskRecordInfoResp {
      * 系统用户 ID
      */
     private Long userId;
+
+    /**
+     * 租户 ID
+     */
+    private Long tenantId;
 
     /**
      * 触发方式：0 定时，1 手动

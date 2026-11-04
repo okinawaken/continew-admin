@@ -2,9 +2,9 @@ package top.continew.admin.business.study.model.context;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomReserveConfirmClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomSeatClientResp;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomVenueClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveConfirmClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomSeatClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 
 import java.time.LocalDate;

@@ -1,7 +1,6 @@
 package top.continew.admin.business.study.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.hutool.core.bean.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.continew.admin.business.study.client.http.StudyRoomGuardClient;
-import top.continew.admin.business.study.client.http.model.req.StudyRoomGuardOpenClientReq;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomGuardListClientResp;
-import top.continew.admin.business.study.model.resp.StudyRoomGuardListResp;
+import top.continew.admin.business.study.model.req.StudyRoomGuardOpenClientReq;
+import top.continew.admin.business.study.model.resp.StudyRoomGuardListClientResp;
 import top.continew.starter.web.model.R;
 
 import jakarta.validation.Valid;
@@ -40,10 +38,10 @@ public class StudyRoomGuardController {
      */
     @SaCheckPermission("business:study:guard:list")
     @GetMapping(value = "/select")
-    public R<StudyRoomGuardListResp> guardSelect(@RequestParam(value = "venueId") Integer venueId) {
+    public R<StudyRoomGuardListClientResp> guardSelect(
+        @RequestParam(value = "venueId") Integer venueId) {
         StudyRoomGuardListClientResp dto = guardClient.guardSelect(venueId).getData();
-        StudyRoomGuardListResp vo = BeanUtil.copyProperties(dto, StudyRoomGuardListResp.class);
-        return R.ok(vo);
+        return R.ok(dto);
     }
 
     /**

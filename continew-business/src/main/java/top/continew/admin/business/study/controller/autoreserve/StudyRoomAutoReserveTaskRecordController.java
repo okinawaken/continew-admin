@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordResp;
+import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordInfoResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 import top.continew.starter.extension.crud.model.query.PageQuery;
 import top.continew.starter.extension.crud.model.resp.PageResp;
@@ -35,10 +35,9 @@ public class StudyRoomAutoReserveTaskRecordController {
      */
     @SaCheckPermission("business:study:autoReserveRecord:list")
     @GetMapping(value = "/{taskId}")
-    public PageResp<StudyRoomAutoReserveTaskRecordResp> record(
+    public PageResp<StudyRoomAutoReserveTaskRecordInfoResp> record(
         @PathVariable(value = "taskId") Long taskId,
         PageQuery pageQuery) {
-        return PageResp.build(recordService.pageByTaskId(taskId, pageQuery),
-            StudyRoomAutoReserveTaskRecordResp.class);
+        return PageResp.build(recordService.pageByTaskId(taskId, pageQuery));
     }
 }

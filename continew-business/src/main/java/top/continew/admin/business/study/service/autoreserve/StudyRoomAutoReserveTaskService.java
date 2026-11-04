@@ -18,7 +18,7 @@ import java.util.List;
 public interface StudyRoomAutoReserveTaskService {
 
     /**
-     * 当前用户的任务分页，含当日执行状态
+     * 当前用户的任务分页
      *
      * @param userId 用户 ID
      * @param pageQuery 分页查询条件

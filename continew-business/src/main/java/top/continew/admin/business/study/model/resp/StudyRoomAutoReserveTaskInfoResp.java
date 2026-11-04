@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 自动预约任务结果模型
  * <p>
- * 由任务 PO 与 {@code task_json} 规则合并而来，供 Controller 组装 StudyRoomAutoReserveTaskResp。
+ * 由任务 PO 与 {@code task_json} 规则合并而来，页面接口与调度、执行器共用。
  *
  * @author Amadeus
  * @since 4.2.0

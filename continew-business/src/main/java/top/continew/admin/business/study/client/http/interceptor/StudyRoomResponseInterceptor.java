@@ -6,7 +6,7 @@ import com.dtflys.forest.interceptor.ForestInterceptor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import top.continew.admin.business.study.client.http.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.constant.StudyRoomApiConstants;
 import top.continew.admin.business.study.enums.StudyRoomApiErrorCodeEnum;
 import top.continew.starter.core.exception.BusinessException;
