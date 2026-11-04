@@ -12,7 +12,7 @@ import lombok.Data;
  * @since 4.2.0
  */
 @Data
-public class StudyRoomUserConfigView {
+public class StudyRoomUserConfigViewBO {
 
     /**
      * 租户 ID

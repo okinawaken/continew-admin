@@ -3,13 +3,14 @@ package top.continew.admin.business.study.filter.autosign.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomVenueV2Client;
-import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
-import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
-import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignFilterOrderEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autosign.StudyRoomAutoSignFilter;
 import top.continew.admin.business.study.model.context.StudyRoomAutoSignContext;
+import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
+import top.continew.starter.core.exception.BusinessException;
 
 import java.util.Objects;
 
@@ -35,15 +36,16 @@ public class StudyRoomAutoSignVenueFilter implements StudyRoomAutoSignFilter {
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoSignContext context) {
-        StudyRoomUserReserveClientResp reserveRespDTO = context.getReserveRespDTO();
+        StudyRoomUserReserveClientResp userReserveClientResp = context.getReserveClientResp();
         StudyRoomClientResult<StudyRoomVenueClientResp> resultDTO =
-            venueV2Client.reserveVenueDetail(reserveRespDTO.getVenueId(), context.getUserId());
-        if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())) {
-            return FilterResultDTO.fail("未查询到门店数据");
+            venueV2Client.reserveVenueDetail(userReserveClientResp.getVenueId(),
+                context.getUserId());
+        if (Objects.isNull(resultDTO.getData())) {
+            throw new BusinessException("门店信息返回为空");
         }
 
-        StudyRoomVenueClientResp venueRespDTO = resultDTO.getData();
-        context.setVenueRespDTO(venueRespDTO);
-        return FilterResultDTO.success(venueRespDTO);
+        StudyRoomVenueClientResp venueClientResp = resultDTO.getData();
+        context.setVenueClientResp(venueClientResp);
+        return FilterResultDTO.success(venueClientResp);
     }
 }

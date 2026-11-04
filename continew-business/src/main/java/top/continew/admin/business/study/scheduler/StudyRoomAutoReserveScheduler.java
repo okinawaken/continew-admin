@@ -14,12 +14,10 @@ import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskReco
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
 import top.continew.admin.business.study.service.user.StudyRoomUserSettingService;
-import top.continew.starter.extension.tenant.util.TenantUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 自动预约调度器
@@ -46,33 +44,19 @@ public class StudyRoomAutoReserveScheduler {
     @Scheduled(cron = "0 * * * * ?")
     public void scan() {
         List<StudyRoomAutoReserveTaskInfoResp> taskList = taskService.listEnabledTasks();
-        if (CollUtil.isEmpty(taskList)) {
-            return;
-        }
         for (StudyRoomAutoReserveTaskInfoResp task : taskList) {
-            Long tenantId = Objects.requireNonNullElse(task.getTenantId(), 0L);
-            TenantUtils.execute(tenantId, () -> this.scanTask(task));
+            LocalDate nowDate = LocalDate.now();
+            LocalTime nowTime = LocalTime.now();
+            StudyRoomUserConfigBO config = settingService.getConfig(task.getUserId());
+            if (!nowTime.isBefore(config.getReleaseTime())) {
+                List<StudyRoomAutoReserveTaskRecordInfoResp> recordList = recordService
+                    .listByTaskIdAndCreateDate(task.getId(), nowDate);
+                if (CollUtil.isEmpty(recordList)) {
+                    eventPublisher.publishEvent(new StudyRoomAutoReserveExecuteEvent(task.getId(),
+                        StudyRoomAutoReserveTriggerTypeEnum.SCHEDULED.getValue(),
+                        task.getTenantId()));
+                }
+            }
         }
-    }
-
-    /**
-     * 在任务所属租户上下文中完成单任务扫描
-     *
-     * @param task 参数 task
-     */
-    private void scanTask(StudyRoomAutoReserveTaskInfoResp task) {
-        LocalDate nowDate = LocalDate.now();
-        LocalTime nowTime = LocalTime.now();
-        StudyRoomUserConfigBO config = settingService.getConfig(task.getUserId());
-        if (nowTime.isBefore(config.getReleaseTime())) {
-            return;
-        }
-        List<StudyRoomAutoReserveTaskRecordInfoResp> recordList = recordService
-            .listByTaskIdAndCreateDate(task.getId(), nowDate);
-        if (CollUtil.isNotEmpty(recordList)) {
-            return;
-        }
-        eventPublisher.publishEvent(new StudyRoomAutoReserveExecuteEvent(task.getId(),
-            StudyRoomAutoReserveTriggerTypeEnum.SCHEDULED.getValue(), task.getTenantId()));
     }
 }

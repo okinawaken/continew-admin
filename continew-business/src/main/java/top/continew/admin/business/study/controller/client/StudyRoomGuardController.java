@@ -1,4 +1,4 @@
-package top.continew.admin.business.study.controller;
+package top.continew.admin.business.study.controller.client;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +40,7 @@ public class StudyRoomGuardController {
     @GetMapping(value = "/select")
     public R<StudyRoomGuardListClientResp> guardSelect(
         @RequestParam(value = "venueId") Integer venueId) {
-        StudyRoomGuardListClientResp dto = guardClient.guardSelect(venueId).getData();
-        return R.ok(dto);
+        return R.ok(guardClient.guardSelect(venueId).getData());
     }
 
     /**

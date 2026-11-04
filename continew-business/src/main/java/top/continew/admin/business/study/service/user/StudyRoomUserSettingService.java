@@ -1,9 +1,8 @@
 package top.continew.admin.business.study.service.user;
 
 import top.continew.admin.business.study.model.bo.StudyRoomUserConfigBO;
-import top.continew.admin.business.study.model.bo.StudyRoomUserConfigView;
+import top.continew.admin.business.study.model.bo.StudyRoomUserConfigViewBO;
 import top.continew.admin.business.study.model.req.StudyRoomUserSettingReq;
-import top.continew.starter.extension.tenant.annotation.TenantIgnore;
 
 import java.util.List;
 
@@ -30,8 +29,7 @@ public interface StudyRoomUserSettingService {
      *
      * @return 列表数据
      */
-    @TenantIgnore
-    List<StudyRoomUserConfigView> listAllConfigs();
+    List<StudyRoomUserConfigViewBO> listAllConfigs();
 
     /**
      * 局部更新用户配置

@@ -5,13 +5,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
-import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
-import top.continew.admin.business.study.model.resp.StudyRoomReserveDateClientResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveFilterOrderEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autoreserve.StudyRoomAutoReserveFilter;
 import top.continew.admin.business.study.model.context.StudyRoomAutoReserveContext;
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
+import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveDateClientResp;
 import top.continew.starter.core.exception.BusinessException;
 
 import java.time.LocalDate;
@@ -41,15 +41,17 @@ public class StudyRoomAutoReserveTargetDateFilter implements StudyRoomAutoReserv
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskInfoResp = context.getTaskInfoResp();
         StudyRoomClientResult<StudyRoomReserveDateClientResp> resultDTO =
-            reserveV2Client.reserveDateList(taskRespDTO.getVenueId(), taskRespDTO.getUserId());
-        StudyRoomReserveDateClientResp reserveDateRespDTO = resultDTO.getData();
+            reserveV2Client.reserveDateList(taskInfoResp.getVenueId(), taskInfoResp.getUserId());
+        if (Objects.isNull(resultDTO.getData())) {
+            throw new BusinessException("预约日期返回为空");
+        }
 
-        LocalDate targetDate = this.resolveMaxReserveDate(reserveDateRespDTO);
+        LocalDate targetDate = this.resolveMaxReserveDate(resultDTO.getData());
         context.setTargetDate(targetDate);
 
-        if (!targetDate.isAfter(taskRespDTO.getLastMaxReserveDate())) {
+        if (!targetDate.isAfter(taskInfoResp.getLastMaxReserveDate())) {
             return FilterResultDTO.fail("未放出新日期的预约");
         }
         return FilterResultDTO.success(targetDate);

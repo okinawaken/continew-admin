@@ -1,4 +1,4 @@
-package top.continew.admin.business.study.controller;
+package top.continew.admin.business.study.controller.client;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import lombok.RequiredArgsConstructor;
@@ -50,8 +50,7 @@ public class StudyRoomRepairController {
     @SaCheckPermission("business:study:repair:list")
     @GetMapping(value = "/list")
     public R<StudyRoomRepairListClientResp> repairList() {
-        StudyRoomRepairListClientResp dto = repairClient.repairList().getData();
-        return R.ok(dto);
+        return R.ok(repairClient.repairList().getData());
     }
 
     /**
@@ -63,7 +62,6 @@ public class StudyRoomRepairController {
     @SaCheckPermission("business:study:repair:list")
     @GetMapping(value = "/detail/{id}")
     public R<StudyRoomRepairClientResp> repairDetail(@PathVariable(value = "id") Long id) {
-        StudyRoomRepairClientResp dto = repairClient.repairDetail(id).getData();
-        return R.ok(dto);
+        return R.ok(repairClient.repairDetail(id).getData());
     }
 }

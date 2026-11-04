@@ -4,13 +4,14 @@ import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
-import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
-import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
-import top.continew.admin.business.study.model.resp.StudyRoomUserReserveListClientResp;
 import top.continew.admin.business.study.enums.StudyRoomAutoSignFilterOrderEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autosign.StudyRoomAutoSignFilter;
 import top.continew.admin.business.study.model.context.StudyRoomAutoSignContext;
+import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomUserReserveListClientResp;
+import top.continew.starter.core.exception.BusinessException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -35,18 +36,21 @@ public class StudyRoomAutoSignPendingReserveFilter implements StudyRoomAutoSignF
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoSignContext context) {
-        StudyRoomUserReserveClientResp reserveRespDTO =
+        StudyRoomUserReserveClientResp userReserveClientResp =
             this.findPendingReserve(context.getUserId());
-        context.setReserveRespDTO(reserveRespDTO);
-        if (Objects.isNull(reserveRespDTO)) {
+        context.setReserveClientResp(userReserveClientResp);
+        if (Objects.isNull(userReserveClientResp)) {
             return FilterResultDTO.fail("当前无待签到预约");
         }
-        return FilterResultDTO.success(reserveRespDTO);
+        return FilterResultDTO.success(userReserveClientResp);
     }
 
     private StudyRoomUserReserveClientResp findPendingReserve(Long userId) {
         StudyRoomClientResult<StudyRoomUserReserveListClientResp> resultDTO =
             reserveV2Client.userReserveList(userId);
+        if (Objects.isNull(resultDTO.getData())) {
+            throw new BusinessException("我的预约返回为空");
+        }
         return resultDTO.getData().getList().stream()
             .filter(reserve -> StrUtil.equals(reserve.getReserveStatusDesc(), "待签到"))
             .filter(reserve -> Objects.equals(reserve.getReserveDateStr(), LocalDate.now()))

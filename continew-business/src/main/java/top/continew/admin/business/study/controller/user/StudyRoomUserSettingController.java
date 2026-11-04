@@ -36,7 +36,7 @@ public class StudyRoomUserSettingController {
      * @return 详情数据
      */
     @SaCheckPermission("business:study:userSetting:get")
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = "/")
     public R<StudyRoomUserConfigBO> getSetting() {
         return R.ok(settingService.getConfig(UserContextHolder.getUserId()));
     }
@@ -48,7 +48,7 @@ public class StudyRoomUserSettingController {
      * @return 响应数据
      */
     @SaCheckPermission("business:study:userSetting:update")
-    @PutMapping(value = {"", "/"})
+    @PutMapping(value = "/")
     public R<Void> updateSetting(@Valid @RequestBody StudyRoomUserSettingReq dto) {
         settingService.updateConfig(UserContextHolder.getUserId(), dto);
         return R.ok();

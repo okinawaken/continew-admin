@@ -28,10 +28,10 @@ public class StudyRoomAutoReserveEnabledFilter implements StudyRoomAutoReserveFi
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
-        if (StudyRoomAutoReserveTaskEnableStatusEnum.isPaused(taskRespDTO.getEnableStatus())) {
+        StudyRoomAutoReserveTaskInfoResp taskInfoResp = context.getTaskInfoResp();
+        if (!StudyRoomAutoReserveTaskEnableStatusEnum.isEnabled(taskInfoResp.getEnableStatus())) {
             return FilterResultDTO.fail("任务已暂停");
         }
-        return FilterResultDTO.success(taskRespDTO);
+        return FilterResultDTO.success(taskInfoResp);
     }
 }

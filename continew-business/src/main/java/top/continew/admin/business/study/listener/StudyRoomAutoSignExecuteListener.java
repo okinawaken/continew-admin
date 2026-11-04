@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 import top.continew.admin.business.study.model.event.StudyRoomAutoSignExecuteEvent;
 import top.continew.admin.business.study.service.autosign.StudyRoomAutoSignExecutorService;
 import top.continew.starter.extension.tenant.util.TenantUtils;
-
-import java.util.Objects;
+import top.continew.starter.json.jackson.util.JsonUtils;
 
 /**
  * 自动签到执行事件监听器
@@ -34,8 +33,7 @@ public class StudyRoomAutoSignExecuteListener {
     @Async
     @EventListener
     public void onExecuteEvent(StudyRoomAutoSignExecuteEvent event) {
-        log.info("收到自动签到执行事件：userId={}", event.getUserId());
-        Long tenantId = Objects.requireNonNullElse(event.getTenantId(), 0L);
-        TenantUtils.execute(tenantId, () -> executorService.execute(event.getUserId()));
+        log.info("收到自动签到执行事件：event={}", JsonUtils.toJsonStr(event));
+        TenantUtils.execute(event.getTenantId(), () -> executorService.execute(event.getUserId()));
     }
 }

@@ -1,4 +1,4 @@
-package top.continew.admin.business.study.controller;
+package top.continew.admin.business.study.controller.client;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import lombok.RequiredArgsConstructor;
@@ -39,8 +39,7 @@ public class StudyRoomLeaveController {
     @GetMapping(value = "/enter")
     public R<StudyRoomUserLeaveEnterClientResp> userLeaveEnter(
         @RequestParam(value = "userPackageId") Long userPackageId) {
-        StudyRoomUserLeaveEnterClientResp dto = leaveClient.userLeaveEnter(userPackageId).getData();
-        return R.ok(dto);
+        return R.ok(leaveClient.userLeaveEnter(userPackageId).getData());
     }
 
     /**
@@ -52,8 +51,7 @@ public class StudyRoomLeaveController {
     @SaCheckPermission("business:study:leave:create")
     @PostMapping(value = "/confirm")
     public R<Integer> userLeaveConfirm(@RequestBody StudyRoomUserLeaveConfirmClientReq form) {
-        Integer data = leaveClient.userLeaveConfirm(form).getData();
-        return R.ok(data);
+        return R.ok(leaveClient.userLeaveConfirm(form).getData());
     }
 
     /**
@@ -65,7 +63,6 @@ public class StudyRoomLeaveController {
     @SaCheckPermission("business:study:leave:delete")
     @PostMapping(value = "/cancel")
     public R<Integer> userLeaveCancel(@RequestBody StudyRoomUserLeaveCancelClientReq form) {
-        Integer data = leaveClient.userLeaveCancel(form).getData();
-        return R.ok(data);
+        return R.ok(leaveClient.userLeaveCancel(form).getData());
     }
 }

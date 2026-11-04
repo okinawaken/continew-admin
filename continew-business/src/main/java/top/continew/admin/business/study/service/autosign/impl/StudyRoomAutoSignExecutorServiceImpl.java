@@ -6,15 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.springframework.stereotype.Service;
 import top.continew.admin.business.study.client.http.StudyRoomSignV2Client;
+import top.continew.admin.business.study.constant.StudyRoomCacheConstants;
+import top.continew.admin.business.study.filter.FilterResultDTO;
+import top.continew.admin.business.study.filter.autosign.StudyRoomAutoSignFilterChain;
+import top.continew.admin.business.study.model.context.StudyRoomAutoSignContext;
 import top.continew.admin.business.study.model.req.StudyRoomSignSeatQueryClientReq;
 import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.model.resp.StudyRoomSignSeatListClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomUserPackageClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
-import top.continew.admin.business.study.constant.StudyRoomCacheConstants;
-import top.continew.admin.business.study.filter.FilterResultDTO;
-import top.continew.admin.business.study.filter.autosign.StudyRoomAutoSignFilterChain;
-import top.continew.admin.business.study.model.context.StudyRoomAutoSignContext;
 import top.continew.admin.business.study.service.autosign.StudyRoomAutoSignExecutorService;
 import top.continew.starter.cache.redisson.util.RedisUtils;
 import top.continew.starter.core.exception.BusinessException;
@@ -50,11 +50,12 @@ public class StudyRoomAutoSignExecutorServiceImpl implements StudyRoomAutoSignEx
         try {
             FilterResultDTO<?> filterResultDTO = filterChain.doFilter(context);
             if (!filterResultDTO.isSuccess()) {
+                log.info("自动签到执行被过滤，userId={}，context={}", userId, JsonUtils.toJsonStr(context));
                 return;
             }
 
-            StudyRoomUserReserveClientResp reserveRespDTO = context.getReserveRespDTO();
-            StudyRoomUserPackageClientResp userPackageRespDTO = context.getUserPackageRespDTO();
+            StudyRoomUserReserveClientResp reserveRespDTO = context.getReserveClientResp();
+            StudyRoomUserPackageClientResp userPackageRespDTO = context.getUserPackageClientResp();
 
             StudyRoomSignSeatQueryClientReq reqDTO = new StudyRoomSignSeatQueryClientReq();
             reqDTO.setQrCode(StrUtil.EMPTY);
@@ -63,9 +64,12 @@ public class StudyRoomAutoSignExecutorServiceImpl implements StudyRoomAutoSignEx
             reqDTO.setSignAnotherFlag(0);
             StudyRoomClientResult<StudyRoomSignSeatListClientResp> resultDTO =
                 signV2Client.studySeatList(reqDTO, userId);
-            if (Objects.isNull(resultDTO) || Objects.isNull(resultDTO.getData())
-                || !resultDTO.getData().isSignInSuccess()) {
-                throw new BusinessException("签到失败");
+            if (Objects.isNull(resultDTO.getData())) {
+                throw new BusinessException("签到结果返回为空");
+            }
+            if (!resultDTO.getData().isSignInSuccess()) {
+                log.info("签到失败，可能已签到过");
+                return;
             }
         } catch (Exception e) {
             log.error("自动签到执行失败，userId={}，context={}", userId, JsonUtils.toJsonStr(context), e);

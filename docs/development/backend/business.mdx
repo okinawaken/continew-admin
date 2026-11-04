@@ -13,7 +13,7 @@ description: 说明 continew-business 中 study 模块的代理链路、用户�
 | `client.http.interceptor` | `StudyRoomAuthInterceptor` 注入 `appid` 与用户 token，`StudyRoomResponseInterceptor` 统一校验上游业务码并抛出 `BusinessException` |
 | `client.model.req` | 上游接口的请求模型，代理接口入参直接复用 |
 | `client.model.resp` | 上游接口的响应模型，标注 `@JsonIgnoreProperties(ignoreUnknown = true)`；`StudyRoomApiResultDTO` 为统一响应体 |
-| `controller` | 代理接口，路径统一为 `/business/study/**` |
+| `controller.client` | 上游代理接口，路径统一为 `/business/study/**` |
 | `controller.user` | 用户设置接口 `StudyRoomUserSettingController`，路径 `/business/study/user-setting` |
 | `controller.autoreserve` | 自动预约任务 `StudyRoomAutoReserveTaskController` 与执行记录 `StudyRoomAutoReserveTaskRecordController` |
 | `service.user` | 用户设置服务 `StudyRoomUserSettingService`，管理 `study_room_user_setting`（含小程序 token） |
@@ -127,7 +127,7 @@ Forest 的扫描入口是 `top.continew.admin.business.study.config.ForestConfig
 | `POST` | `/business/study/auto-reserve/task/{id}/resume` | `business:study:autoReserveTask:update` |
 | `POST` | `/business/study/auto-reserve/task/{id}/execute` | `business:study:autoReserveTask:execute` |
 
-执行记录接口为 `GET /business/study/auto-reserve/task/record/{taskId}`，权限码 `business:study:autoReserveRecord:list`。
+执行记录接口为 `GET /business/study/auto-reserve/task/record/{taskId}`，权限码 `business:study:autoReserveRecord:list`，仅受租户隔离，不校验任务归属。任务详情、修改、删除、暂停、恢复与手动执行在服务层校验任务归属当前用户，非归属用户请求返回「无权操作该任务」。定时调度与异步执行链路使用不带用户 ID 的任务查询，不受该限制。
 
 ### 自动签到
 
@@ -210,4 +210,4 @@ MySQL 脚本位于 `continew-server/src/main/resources/db/changelog/mysql/busine
 
 - 图片与头像上传接口（`/business/study/misc/image/upload`、`/business/study/user/authorize/head-img/upload`）在上游不可用，当前直接抛出 `BusinessException("暂不支持文件上传")`。
 - 上游错误码在迁移后统一转换为 `BusinessException`，响应体使用 ContiNew 的全局响应码，不再保留原项目的 `40102`、`40103` 等数字错误码。需要区分 token 失效时，可根据 `StudyRoomApiErrorCodeEnum` 的提示文案或上游 `content` 判断。
-- 自动预约任务按当前登录用户过滤；执行记录按任务 ID 查询，仅受租户隔离，没有额外校验任务归属。需要跨用户管理或更严格的行级权限时，需要另加管理员视角的查询接口与数据权限配置。
+- 自动预约任务按当前登录用户过滤，任务详情与写操作校验任务归属；执行记录按任务 ID 查询，仅受租户隔离，没有额外校验任务归属。需要跨用户管理或更严格的行级权限时，需要另加管理员视角的查询接口与数据权限配置。

@@ -5,6 +5,7 @@ import com.dtflys.forest.annotation.JSONBody;
 import com.dtflys.forest.annotation.Post;
 import com.dtflys.forest.annotation.Query;
 import com.dtflys.forest.annotation.Var;
+import top.continew.admin.business.study.constant.StudyRoomApiConstants;
 import top.continew.admin.business.study.model.req.StudyRoomChangeSeatClientReq;
 import top.continew.admin.business.study.model.req.StudyRoomChangeSeatConfirmClientReq;
 import top.continew.admin.business.study.model.req.StudyRoomEspLightTurnClientReq;
@@ -27,7 +28,6 @@ import top.continew.admin.business.study.model.resp.StudyRoomSignOutClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomSignSeatListClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomSignSeatMapClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomUserPackageConfirmClientResp;
-import top.continew.admin.business.study.constant.StudyRoomApiConstants;
 
 import java.util.List;
 

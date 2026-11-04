@@ -6,22 +6,23 @@ import org.redisson.api.RLock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.continew.admin.business.study.client.http.StudyRoomReserveV2Client;
-import top.continew.admin.business.study.model.req.StudyRoomReserveConfirmClientReq;
-import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
-import top.continew.admin.business.study.model.resp.StudyRoomReserveConfirmClientResp;
-import top.continew.admin.business.study.model.resp.StudyRoomSeatClientResp;
-import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
 import top.continew.admin.business.study.constant.StudyRoomCacheConstants;
 import top.continew.admin.business.study.enums.StudyRoomAutoReserveTaskRecordStatusEnum;
 import top.continew.admin.business.study.filter.FilterResultDTO;
 import top.continew.admin.business.study.filter.autoreserve.StudyRoomAutoReserveFilterChain;
 import top.continew.admin.business.study.model.context.StudyRoomAutoReserveContext;
+import top.continew.admin.business.study.model.req.StudyRoomReserveConfirmClientReq;
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordInfoResp;
+import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
+import top.continew.admin.business.study.model.resp.StudyRoomReserveConfirmClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomSeatClientResp;
+import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveExecutorService;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
 import top.continew.starter.cache.redisson.util.RedisUtils;
+import top.continew.starter.core.exception.BusinessException;
 import top.continew.starter.json.jackson.util.JsonUtils;
 
 import java.time.LocalDate;
@@ -62,6 +63,8 @@ public class StudyRoomAutoReserveExecutorServiceImpl
         try {
             FilterResultDTO<?> filterResultDTO = filterChain.doFilter(context);
             if (!filterResultDTO.isSuccess()) {
+                log.info("自动预约任务被过滤，taskId={}，triggerType={}, context={}", taskId, triggerType,
+                    JsonUtils.toJsonStr(context));
                 StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO =
                     this.buildTaskRecordRespDTO(context,
                         StudyRoomAutoReserveTaskRecordStatusEnum.SKIPPED,
@@ -71,8 +74,8 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             }
 
             LocalDate targetDate = context.getTargetDate();
-            StudyRoomVenueClientResp venueRespDTO = context.getVenueRespDTO();
-            StudyRoomSeatClientResp seatRespDTO = context.getSeatRespDTO();
+            StudyRoomVenueClientResp venueRespDTO = context.getVenueClientResp();
+            StudyRoomSeatClientResp seatRespDTO = context.getSeatClientResp();
 
             StudyRoomReserveConfirmClientReq reqDTO = new StudyRoomReserveConfirmClientReq();
             reqDTO.setSeatId(seatRespDTO.getId());
@@ -84,7 +87,10 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             reqDTO.setReserveAnotherFlag(0);
             StudyRoomClientResult<StudyRoomReserveConfirmClientResp> resultDTO =
                 reserveV2Client.reserveV2SeatConfirm(reqDTO, taskRespDTO.getUserId());
-            context.setConfirmRespDTO(resultDTO.getData());
+            if (Objects.isNull(resultDTO)) {
+                throw new BusinessException("提交预约返回结果为空");
+            }
+            context.setReserveConfirmClientResp(resultDTO.getData());
 
             StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO = this.buildTaskRecordRespDTO(
                 context, StudyRoomAutoReserveTaskRecordStatusEnum.SUCCESS, null);
@@ -113,19 +119,19 @@ public class StudyRoomAutoReserveExecutorServiceImpl
         taskRecordRespDTO.setStatus(statusEnum.getValue());
         taskRecordRespDTO.setFailMsg(errorMsg);
 
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskRespDTO();
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
         if (Objects.nonNull(taskRespDTO)) {
             taskRecordRespDTO.setTaskId(taskRespDTO.getId());
             taskRecordRespDTO.setUserId(taskRespDTO.getUserId());
             taskRecordRespDTO.setTimeRange(
                 taskRespDTO.getReserveStartTime() + "-" + taskRespDTO.getReserveEndTime());
         }
-        StudyRoomSeatClientResp seatRespDTO = context.getSeatRespDTO();
+        StudyRoomSeatClientResp seatRespDTO = context.getSeatClientResp();
         if (Objects.nonNull(seatRespDTO)) {
             taskRecordRespDTO.setSeatId(seatRespDTO.getId());
             taskRecordRespDTO.setSeatNumber(seatRespDTO.getSeatNumber());
         }
-        StudyRoomReserveConfirmClientResp confirmRespDTO = context.getConfirmRespDTO();
+        StudyRoomReserveConfirmClientResp confirmRespDTO = context.getReserveConfirmClientResp();
         if (Objects.nonNull(confirmRespDTO)) {
             taskRecordRespDTO.setUserReserveId(confirmRespDTO.getId());
         }
