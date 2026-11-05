@@ -12,9 +12,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomIndexClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomUserPackageClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
-import top.continew.starter.core.exception.BusinessException;
-
-import java.util.Objects;
+import top.continew.starter.core.util.validation.CheckUtils;
 
 /**
  * 签到扣费套餐查询过滤器
@@ -40,15 +38,13 @@ public class StudyRoomAutoSignPackageFilter implements StudyRoomAutoSignFilter {
         StudyRoomUserReserveClientResp reserveClientResp = context.getReserveClientResp();
         StudyRoomVenueClientResp venueClientResp = context.getVenueClientResp();
 
-        StudyRoomClientResult<StudyRoomIndexClientResp> resultDTO =
+        StudyRoomClientResult<StudyRoomIndexClientResp> clientResult =
             signV2Client.studyIndex(venueClientResp.getVenueLng(), venueClientResp.getVenueLat(),
                 reserveClientResp.getVenueId(), null, null, context.getUserId());
-        if (Objects.isNull(resultDTO.getData())) {
-            throw new BusinessException("签到首页返回为空");
-        }
+        CheckUtils.throwIfNull(clientResult.getData(), "签到首页返回为空");
 
         StudyRoomUserPackageClientResp userPackageClientResp =
-            resultDTO.getData().getSignInUserPackage();
+            clientResult.getData().getSignInUserPackage();
         context.setUserPackageClientResp(userPackageClientResp);
         return FilterResultDTO.success(userPackageClientResp);
     }

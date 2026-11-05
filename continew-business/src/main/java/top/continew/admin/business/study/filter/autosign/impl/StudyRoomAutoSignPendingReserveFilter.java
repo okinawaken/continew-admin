@@ -11,7 +11,7 @@ import top.continew.admin.business.study.model.context.StudyRoomAutoSignContext;
 import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomUserReserveListClientResp;
-import top.continew.starter.core.exception.BusinessException;
+import top.continew.starter.core.util.validation.CheckUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -46,12 +46,10 @@ public class StudyRoomAutoSignPendingReserveFilter implements StudyRoomAutoSignF
     }
 
     private StudyRoomUserReserveClientResp findPendingReserve(Long userId) {
-        StudyRoomClientResult<StudyRoomUserReserveListClientResp> resultDTO =
+        StudyRoomClientResult<StudyRoomUserReserveListClientResp> clientResult =
             reserveV2Client.userReserveList(userId);
-        if (Objects.isNull(resultDTO.getData())) {
-            throw new BusinessException("我的预约返回为空");
-        }
-        return resultDTO.getData().getList().stream()
+        CheckUtils.throwIfNull(clientResult.getData(), "我的预约返回为空");
+        return clientResult.getData().getList().stream()
             .filter(reserve -> StrUtil.equals(reserve.getReserveStatusDesc(), "待签到"))
             .filter(reserve -> Objects.equals(reserve.getReserveDateStr(), LocalDate.now()))
             .filter(reserve -> {

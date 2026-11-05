@@ -36,7 +36,7 @@ public class StudyRoomAuthInterceptor implements ForestInterceptor {
         String token = request.getHeaderValue(StudyRoomApiConstants.Header.HEADER_TOKEN);
         if (StrUtil.isEmpty(token)) {
             Long userId = this.resolveUserId(request);
-            StudyRoomUserConfigResp configResp = settingService.getConfig(userId);
+            StudyRoomUserConfigResp configResp = settingService.get(userId);
             if (Objects.nonNull(configResp)) {
                 StudyRoomUserConfigBO config = configResp.getConfig();
                 if (Objects.nonNull(config)) {

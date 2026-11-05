@@ -13,11 +13,10 @@ CREATE TABLE IF NOT EXISTS `study_room_user_setting` (
     `update_time` datetime     DEFAULT NULL                COMMENT '修改时间',
     `deleted`     bigint       NOT NULL DEFAULT 0          COMMENT '是否已删除（0：否；id：是）',
     PRIMARY KEY (`id`),
-    UNIQUE INDEX `uk_user_setting_tenant_user_id`(`tenant_id`, `user_id`, `deleted`),
-    INDEX `idx_user_setting_tenant_id`(`tenant_id`),
-    INDEX `idx_user_setting_create_user`(`create_user`),
-    INDEX `idx_user_setting_update_user`(`update_user`),
-    INDEX `idx_user_setting_deleted`(`deleted`)
+    UNIQUE INDEX `uk_tenant_id_user_id`(`tenant_id`, `user_id`, `deleted`),
+    INDEX `idx_create_user`(`create_user`),
+    INDEX `idx_update_user`(`update_user`),
+    INDEX `idx_deleted`(`deleted`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='自习室用户设置表';
 
 CREATE TABLE IF NOT EXISTS `study_room_auto_reserve_task` (
@@ -36,11 +35,11 @@ CREATE TABLE IF NOT EXISTS `study_room_auto_reserve_task` (
     `update_time`           datetime        DEFAULT NULL                COMMENT '修改时间',
     `deleted`               bigint          NOT NULL DEFAULT 0          COMMENT '是否已删除（0：否；id：是）',
     PRIMARY KEY (`id`),
-    INDEX `idx_task_tenant_user_status`(`tenant_id`, `user_id`, `enable_status`),
-    INDEX `idx_task_tenant_id`(`tenant_id`),
-    INDEX `idx_task_create_user`(`create_user`),
-    INDEX `idx_task_update_user`(`update_user`),
-    INDEX `idx_task_deleted`(`deleted`)
+    INDEX `idx_tenant_id_user_id_enable_status`(`tenant_id`, `user_id`, `enable_status`),
+    INDEX `idx_enable_status`(`enable_status`),
+    INDEX `idx_create_user`(`create_user`),
+    INDEX `idx_update_user`(`update_user`),
+    INDEX `idx_deleted`(`deleted`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='自动预约任务表';
 
 CREATE TABLE IF NOT EXISTS `study_room_auto_reserve_task_record` (
@@ -58,9 +57,8 @@ CREATE TABLE IF NOT EXISTS `study_room_auto_reserve_task_record` (
     `update_time`  datetime        DEFAULT NULL                COMMENT '修改时间',
     `deleted`      bigint          NOT NULL DEFAULT 0          COMMENT '是否已删除（0：否；id：是）',
     PRIMARY KEY (`id`),
-    INDEX `idx_record_tenant_task_id`(`tenant_id`, `task_id`),
-    INDEX `idx_record_tenant_id`(`tenant_id`),
-    INDEX `idx_record_create_user`(`create_user`),
-    INDEX `idx_record_update_user`(`update_user`),
-    INDEX `idx_record_deleted`(`deleted`)
+    INDEX `idx_tenant_id_task_id_create_time`(`tenant_id`, `task_id`, `create_time`),
+    INDEX `idx_create_user`(`create_user`),
+    INDEX `idx_update_user`(`update_user`),
+    INDEX `idx_deleted`(`deleted`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='自动预约执行记录表';

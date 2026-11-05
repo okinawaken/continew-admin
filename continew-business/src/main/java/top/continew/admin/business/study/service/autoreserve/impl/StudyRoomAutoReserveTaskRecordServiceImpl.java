@@ -2,19 +2,18 @@ package top.continew.admin.business.study.service.autoreserve.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.continew.admin.business.study.mapper.StudyRoomAutoReserveTaskRecordMapper;
 import top.continew.admin.business.study.model.bo.StudyRoomAutoReserveTaskRecordDetailBO;
 import top.continew.admin.business.study.model.entity.StudyRoomAutoReserveTaskRecordDO;
+import top.continew.admin.business.study.model.query.StudyRoomAutoReserveTaskRecordQuery;
+import top.continew.admin.business.study.model.req.StudyRoomAutoReserveTaskRecordReq;
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskRecordInfoResp;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
-import top.continew.starter.core.exception.BusinessException;
-import top.continew.starter.extension.crud.model.query.PageQuery;
+import top.continew.admin.common.base.service.BaseServiceImpl;
+import top.continew.starter.core.util.validation.CheckUtils;
 import top.continew.starter.json.jackson.util.JsonUtils;
 
 import java.time.LocalDate;
@@ -30,29 +29,20 @@ import java.util.Objects;
  * @since 4.2.0
  */
 @Service
-@RequiredArgsConstructor
-public class StudyRoomAutoReserveTaskRecordServiceImpl
+// @formatter:off
+public class StudyRoomAutoReserveTaskRecordServiceImpl extends
+    BaseServiceImpl<StudyRoomAutoReserveTaskRecordMapper, StudyRoomAutoReserveTaskRecordDO,
+        StudyRoomAutoReserveTaskRecordInfoResp, StudyRoomAutoReserveTaskRecordInfoResp,
+        StudyRoomAutoReserveTaskRecordQuery, StudyRoomAutoReserveTaskRecordReq>
     implements StudyRoomAutoReserveTaskRecordService {
-
-    private final StudyRoomAutoReserveTaskRecordMapper recordMapper;
-
-    @Override
-    public IPage<StudyRoomAutoReserveTaskRecordInfoResp> pageByTaskId(Long taskId,
-        PageQuery pageQuery) {
-        LambdaQueryWrapper<StudyRoomAutoReserveTaskRecordDO> lqw = Wrappers.lambdaQuery();
-        lqw.eq(StudyRoomAutoReserveTaskRecordDO::getTaskId, taskId)
-            .orderByDesc(StudyRoomAutoReserveTaskRecordDO::getCreateTime);
-        Page<StudyRoomAutoReserveTaskRecordDO> page =
-            recordMapper.selectPage(new Page<>(pageQuery.getPage(), pageQuery.getSize()), lqw);
-        return page.convert(this::toDto);
-    }
+    // @formatter:on
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteByTaskId(Long taskId) {
         LambdaQueryWrapper<StudyRoomAutoReserveTaskRecordDO> lqw = Wrappers.lambdaQuery();
         lqw.eq(StudyRoomAutoReserveTaskRecordDO::getTaskId, taskId);
-        recordMapper.delete(lqw);
+        baseMapper.delete(lqw);
     }
 
     @Override
@@ -71,23 +61,21 @@ public class StudyRoomAutoReserveTaskRecordServiceImpl
         recordDO.setTenantId(taskRecordRespDTO.getTenantId());
         recordDO.setCreateUser(taskRecordRespDTO.getUserId());
         recordDO.setUpdateUser(taskRecordRespDTO.getUserId());
-        recordMapper.insert(recordDO);
+        baseMapper.insert(recordDO);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateRecord(StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO) {
-        StudyRoomAutoReserveTaskRecordDO recordDO =
-            recordMapper.selectById(taskRecordRespDTO.getId());
-        if (Objects.isNull(recordDO)) {
-            throw new BusinessException("未查询到任务记录数据");
-        }
+        StudyRoomAutoReserveTaskRecordDO recordDO = baseMapper
+            .selectById(taskRecordRespDTO.getId());
+        CheckUtils.throwIfNull(recordDO, "未查询到任务记录数据");
 
         StudyRoomAutoReserveTaskRecordDetailBO detailBO = BeanUtil
             .copyProperties(taskRecordRespDTO, StudyRoomAutoReserveTaskRecordDetailBO.class);
         recordDO.setStatus(taskRecordRespDTO.getStatus());
         recordDO.setDetailJson(JsonUtils.toJsonStr(detailBO));
-        recordMapper.updateById(recordDO);
+        baseMapper.updateById(recordDO);
     }
 
     @Override
@@ -99,27 +87,21 @@ public class StudyRoomAutoReserveTaskRecordServiceImpl
             .lt(StudyRoomAutoReserveTaskRecordDO::getCreateTime,
                 createDate.plusDays(1).atStartOfDay())
             .orderByDesc(StudyRoomAutoReserveTaskRecordDO::getCreateTime);
-        List<StudyRoomAutoReserveTaskRecordDO> recordList = recordMapper.selectList(lqw);
-        return recordList.stream().map(this::toDto).toList();
+        List<StudyRoomAutoReserveTaskRecordDO> recordList = baseMapper.selectList(lqw);
+        List<StudyRoomAutoReserveTaskRecordInfoResp> recordRespList =
+            BeanUtil.copyToList(recordList, StudyRoomAutoReserveTaskRecordInfoResp.class);
+        recordRespList.forEach(this::fill);
+        return recordRespList;
     }
 
-    private StudyRoomAutoReserveTaskRecordInfoResp toDto(StudyRoomAutoReserveTaskRecordDO record) {
-        if (Objects.isNull(record)) {
-            return null;
+    @Override
+    protected void fill(Object obj) {
+        super.fill(obj);
+        if (!(obj instanceof StudyRoomAutoReserveTaskRecordInfoResp recordRespDTO)) {
+            return;
         }
-        StudyRoomAutoReserveTaskRecordDetailBO detail =
-            JsonUtils.toBean(record.getDetailJson(), StudyRoomAutoReserveTaskRecordDetailBO.class);
-
-        StudyRoomAutoReserveTaskRecordInfoResp recordRespDTO =
-            new StudyRoomAutoReserveTaskRecordInfoResp();
-        recordRespDTO.setId(record.getId());
-        recordRespDTO.setTaskId(record.getTaskId());
-        recordRespDTO.setUserId(record.getUserId());
-        recordRespDTO.setTenantId(record.getTenantId());
-        recordRespDTO.setTriggerType(record.getTriggerType());
-        recordRespDTO.setTargetDate(record.getTargetDate());
-        recordRespDTO.setStatus(record.getStatus());
-        recordRespDTO.setCreateTime(record.getCreateTime());
+        StudyRoomAutoReserveTaskRecordDetailBO detail = JsonUtils
+            .toBean(recordRespDTO.getDetailJson(), StudyRoomAutoReserveTaskRecordDetailBO.class);
         if (Objects.nonNull(detail)) {
             recordRespDTO.setSeatId(detail.getSeatId());
             recordRespDTO.setSeatNumber(detail.getSeatNumber());
@@ -127,6 +109,5 @@ public class StudyRoomAutoReserveTaskRecordServiceImpl
             recordRespDTO.setUserReserveId(detail.getUserReserveId());
             recordRespDTO.setFailMsg(detail.getFailMsg());
         }
-        return recordRespDTO;
     }
 }

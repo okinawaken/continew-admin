@@ -1,6 +1,8 @@
 package top.continew.admin.business.study.model.resp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -83,4 +85,11 @@ public class StudyRoomAutoReserveTaskRecordInfoResp {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
+
+    /**
+     * 执行明细 JSON，仅用于数据填充，不对外输出
+     */
+    @JsonIgnore
+    @Schema(hidden = true)
+    private String detailJson;
 }

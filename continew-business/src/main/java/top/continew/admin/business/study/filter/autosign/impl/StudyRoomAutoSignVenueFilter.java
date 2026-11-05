@@ -10,9 +10,7 @@ import top.continew.admin.business.study.model.context.StudyRoomAutoSignContext;
 import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
-import top.continew.starter.core.exception.BusinessException;
-
-import java.util.Objects;
+import top.continew.starter.core.util.validation.CheckUtils;
 
 /**
  * 签到门店校验过滤器
@@ -37,14 +35,12 @@ public class StudyRoomAutoSignVenueFilter implements StudyRoomAutoSignFilter {
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoSignContext context) {
         StudyRoomUserReserveClientResp userReserveClientResp = context.getReserveClientResp();
-        StudyRoomClientResult<StudyRoomVenueClientResp> resultDTO =
+        StudyRoomClientResult<StudyRoomVenueClientResp> clientResult =
             venueV2Client.reserveVenueDetail(userReserveClientResp.getVenueId(),
                 context.getUserId());
-        if (Objects.isNull(resultDTO.getData())) {
-            throw new BusinessException("门店信息返回为空");
-        }
+        CheckUtils.throwIfNull(clientResult.getData(), "门店信息返回为空");
 
-        StudyRoomVenueClientResp venueClientResp = resultDTO.getData();
+        StudyRoomVenueClientResp venueClientResp = clientResult.getData();
         context.setVenueClientResp(venueClientResp);
         return FilterResultDTO.success(venueClientResp);
     }

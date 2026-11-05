@@ -17,10 +17,8 @@ import top.continew.admin.business.study.model.resp.StudyRoomUserPackageClientRe
 import top.continew.admin.business.study.model.resp.StudyRoomUserReserveClientResp;
 import top.continew.admin.business.study.service.autosign.StudyRoomAutoSignExecutorService;
 import top.continew.starter.cache.redisson.util.RedisUtils;
-import top.continew.starter.core.exception.BusinessException;
+import top.continew.starter.core.util.validation.CheckUtils;
 import top.continew.starter.json.jackson.util.JsonUtils;
-
-import java.util.Objects;
 
 /**
  * 自动签到执行器实现
@@ -64,9 +62,7 @@ public class StudyRoomAutoSignExecutorServiceImpl implements StudyRoomAutoSignEx
             reqDTO.setSignAnotherFlag(0);
             StudyRoomClientResult<StudyRoomSignSeatListClientResp> resultDTO =
                 signV2Client.studySeatList(reqDTO, userId);
-            if (Objects.isNull(resultDTO.getData())) {
-                throw new BusinessException("签到结果返回为空");
-            }
+            CheckUtils.throwIfNull(resultDTO.getData(), "签到结果返回为空");
             StudyRoomSignSeatListClientResp signSeatListClientResp = resultDTO.getData();
             if (!signSeatListClientResp.isSignInSuccess()) {
                 log.info("签到失败，可能已签到过");
