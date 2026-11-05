@@ -25,7 +25,7 @@ import top.continew.starter.extension.crud.enums.Api;
 @Tag(name = "自动预约任务 API")
 @RestController
 @CrudRequestMapping(value = "/business/study/auto-reserve/task",
-    api = {Api.PAGE, Api.GET, Api.CREATE, Api.UPDATE, Api.DELETE})
+    api = {Api.PAGE, Api.GET, Api.CREATE, Api.UPDATE, Api.DELETE, Api.BATCH_DELETE})
 // @formatter:off
 public class StudyRoomAutoReserveTaskController extends
     BaseController<StudyRoomAutoReserveTaskService, StudyRoomAutoReserveTaskInfoResp,
