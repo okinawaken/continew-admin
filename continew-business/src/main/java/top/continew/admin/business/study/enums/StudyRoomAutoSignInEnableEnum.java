@@ -22,7 +22,7 @@ public enum StudyRoomAutoSignInEnableEnum implements BaseEnum<Integer> {
     DISABLED(0, "关闭"),
 
     /**
-     * 开启：放号预约成功后自动签到
+     * 开启：定时扫描待签到预约并自动签到
      */
     ENABLED(1, "开启");
 

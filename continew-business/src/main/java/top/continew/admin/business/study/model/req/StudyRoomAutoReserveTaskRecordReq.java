@@ -46,21 +46,21 @@ public class StudyRoomAutoReserveTaskRecordReq {
     private Integer status;
 
     /**
-     * 实际预约座位ID
+     * 座位ID（成功时为实际预约座位，跳过时可能只是选中的座位）
      */
-    @Schema(description = "实际预约座位 ID", example = "1")
+    @Schema(description = "座位 ID", example = "1")
     private Long seatId;
 
     /**
-     * 实际预约座位编号
+     * 座位编号（成功时为实际预约座位，跳过时可能只是选中的座位）
      */
-    @Schema(description = "实际预约座位编号", example = "A01")
+    @Schema(description = "座位编号", example = "A01")
     private String seatNumber;
 
     /**
-     * 实际预约时段 {@code HH:mm-HH:mm}
+     * 任务期望预约时段 {@code HH:mm-HH:mm}
      */
-    @Schema(description = "实际预约时段", example = "08:00-22:00")
+    @Schema(description = "任务期望预约时段", example = "08:00-22:00")
     private String timeRange;
 
     /**
@@ -70,8 +70,8 @@ public class StudyRoomAutoReserveTaskRecordReq {
     private Long userReserveId;
 
     /**
-     * 失败原因描述
+     * 跳过或失败原因描述
      */
-    @Schema(description = "失败原因描述", example = "座位已被预约")
+    @Schema(description = "跳过或失败原因描述", example = "座位已被预约")
     private String failMsg;
 }

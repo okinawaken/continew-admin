@@ -25,7 +25,7 @@ public class StudyRoomUserConfigResp {
     private Long userId;
 
     /**
-     * 自动预约用户配置
+     * 自习室用户配置（放号时刻、自动签到开关、小程序 token）
      */
     private StudyRoomUserConfigBO config;
 }

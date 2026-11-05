@@ -84,9 +84,9 @@ public class StudyRoomUserSettingServiceImpl extends
     }
 
     /**
-     * 局部更新用户配置
+     * 覆盖用户配置
      * <p>
-     * 只写入非空项，未传的配置保留原值；token 传空字符串表示解绑，传非空值时立即调用上游用户详情校验。
+     * 未传的配置项不会保留原值。token 会作为请求头调用上游用户详情校验；为空时由鉴权拦截器回退使用已保存的 token。
      *
      * @param req 新配置
      * @param userId 系统用户 ID
