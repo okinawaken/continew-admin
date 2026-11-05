@@ -31,6 +31,7 @@ import top.continew.starter.auth.justauth.AuthRequestFactory;
 import top.continew.starter.log.annotation.Log;
 import top.continew.starter.log.enums.Include;
 import top.continew.starter.validation.constraints.EnumValue;
+import top.continew.starter.web.model.R;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -67,9 +68,9 @@ public class AuthController {
     @Operation(summary = "登录", description = "用户登录")
     @Log(excludes = {Include.REQUEST_HEADERS, Include.RESPONSE_HEADERS, Include.RESPONSE_BODY})
     @PostMapping("/login")
-    public LoginResp login(@RequestBody @Valid LoginReq req, HttpServletRequest request,
+    public R<LoginResp> login(@RequestBody @Valid LoginReq req, HttpServletRequest request,
         HttpServletResponse response) {
-        return authService.login(req, request, response);
+        return R.ok(authService.login(req, request, response));
     }
 
     /**
@@ -82,12 +83,12 @@ public class AuthController {
     @Operation(summary = "三方账号登录授权", description = "三方账号登录授权")
     @Parameter(name = "source", description = "来源", example = "gitee", in = ParameterIn.PATH)
     @GetMapping("/{source}")
-    public SocialAuthAuthorizeResp authorize(@PathVariable @EnumValue(
+    public R<SocialAuthAuthorizeResp> authorize(@PathVariable @EnumValue(
         value = SocialSourceEnum.class, message = "第三方平台无效") String source) {
         AuthRequest authRequest = authRequestFactory.getAuthRequest(source);
-        return SocialAuthAuthorizeResp.builder()
+        return R.ok(SocialAuthAuthorizeResp.builder()
             .authorizeUrl(authRequest.authorize(AuthStateUtils.createState()))
-            .build();
+            .build());
     }
 
     /**
@@ -98,20 +99,20 @@ public class AuthController {
     @Log(ignore = true)
     @Operation(summary = "获取用户信息", description = "获取登录用户信息")
     @GetMapping("/user/info")
-    public UserInfoResp getUserInfo() {
+    public R<UserInfoResp> getUserInfo() {
         UserContext userContext = UserContextHolder.getContext();
         UserDetailResp userDetailResp = userService.get(userContext.getId());
         UserInfoResp userInfoResp = BeanUtil.copyProperties(userDetailResp, UserInfoResp.class);
         userInfoResp.setPermissions(userContext.getPermissions());
         userInfoResp.setRoles(userContext.getRoleCodes());
         userInfoResp.setPwdExpired(userContext.isPasswordExpired());
-        return userInfoResp;
+        return R.ok(userInfoResp);
     }
 
     @Log(ignore = true)
     @Operation(summary = "获取路由信息", description = "获取登录用户的路由信息")
     @GetMapping("/user/route")
-    public List<RouteResp> listRoute() {
-        return authService.buildRouteTree(UserContextHolder.getUserId());
+    public R<List<RouteResp>> listRoute() {
+        return R.ok(authService.buildRouteTree(UserContextHolder.getUserId()));
     }
 }

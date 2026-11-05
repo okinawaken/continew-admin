@@ -31,6 +31,7 @@ import top.continew.admin.system.service.UserService;
 import top.continew.starter.core.util.validation.ValidationUtils;
 import top.continew.starter.extension.crud.annotation.CrudRequestMapping;
 import top.continew.starter.extension.crud.enums.Api;
+import top.continew.starter.web.model.R;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -63,10 +64,10 @@ public class UserController
     @Operation(summary = "解析导入数据", description = "解析导入数据")
     @SaCheckPermission("system:user:import")
     @PostMapping("/import/parse")
-    public UserImportParseResp parseImport(
+    public R<UserImportParseResp> parseImport(
         @RequestPart @NotNull(message = "文件不能为空") MultipartFile file) {
         ValidationUtils.throwIf(file::isEmpty, "文件不能为空");
-        return baseService.parseImport(file);
+        return R.ok(baseService.parseImport(file));
     }
 
     /**
@@ -78,8 +79,8 @@ public class UserController
     @Operation(summary = "导入数据", description = "导入数据")
     @SaCheckPermission("system:user:import")
     @PostMapping(value = "/import")
-    public UserImportResp importUser(@RequestBody @Valid UserImportReq req) {
-        return baseService.importUser(req);
+    public R<UserImportResp> importUser(@RequestBody @Valid UserImportReq req) {
+        return R.ok(baseService.importUser(req));
     }
 
     /**
@@ -87,23 +88,28 @@ public class UserController
      *
      * @param req 新密码
      * @param id 用户 ID
+     * @return 操作结果
      */
     @Operation(summary = "重置密码", description = "重置用户登录密码")
     @Parameter(name = "id", description = "ID", example = "1", in = ParameterIn.PATH)
     @SaCheckPermission("system:user:resetPwd")
     @PatchMapping("/{id}/password")
-    public void resetPassword(@RequestBody @Valid UserPasswordResetReq req, @PathVariable Long id) {
+    public R<Void> resetPassword(@RequestBody @Valid UserPasswordResetReq req,
+        @PathVariable Long id) {
         String newPassword =
             SecureUtils.decryptPasswordByRsaPrivateKey(req.getNewPassword(), "新密码解密失败", true);
         req.setNewPassword(newPassword);
         baseService.resetPassword(req, id);
+        return R.ok();
     }
 
     @Operation(summary = "分配角色", description = "为用户新增或移除角色")
     @Parameter(name = "id", description = "ID", example = "1", in = ParameterIn.PATH)
     @SaCheckPermission("system:user:updateRole")
     @PatchMapping("/{id}/role")
-    public void updateRole(@RequestBody @Valid UserRoleUpdateReq updateReq, @PathVariable Long id) {
+    public R<Void> updateRole(@RequestBody @Valid UserRoleUpdateReq updateReq,
+        @PathVariable Long id) {
         baseService.updateRole(updateReq, id);
+        return R.ok();
     }
 }

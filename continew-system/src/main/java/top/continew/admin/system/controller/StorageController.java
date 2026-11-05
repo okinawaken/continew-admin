@@ -17,6 +17,7 @@ import top.continew.admin.system.model.resp.StorageResp;
 import top.continew.admin.system.service.StorageService;
 import top.continew.starter.extension.crud.annotation.CrudRequestMapping;
 import top.continew.starter.extension.crud.enums.Api;
+import top.continew.starter.web.model.R;
 
 import jakarta.validation.Valid;
 
@@ -37,16 +38,18 @@ public class StorageController
     @Parameter(name = "id", description = "ID", example = "1", in = ParameterIn.PATH)
     @SaCheckPermission("system:storage:updateStatus")
     @PutMapping({"/{id}/status"})
-    public void updateStatus(@RequestBody @Valid CommonStatusUpdateReq req,
+    public R<Void> updateStatus(@RequestBody @Valid CommonStatusUpdateReq req,
         @PathVariable("id") Long id) {
         baseService.updateStatus(req, id);
+        return R.ok();
     }
 
     @Operation(summary = "设为默认存储", description = "设为默认存储")
     @Parameter(name = "id", description = "ID", example = "1", in = ParameterIn.PATH)
     @SaCheckPermission("system:storage:setDefault")
     @PutMapping({"/{id}/default"})
-    public void setDefault(@PathVariable("id") Long id) {
+    public R<Void> setDefault(@PathVariable("id") Long id) {
         baseService.setDefaultStorage(id);
+        return R.ok();
     }
 }

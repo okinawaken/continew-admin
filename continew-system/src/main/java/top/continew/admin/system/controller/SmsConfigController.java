@@ -15,6 +15,7 @@ import top.continew.admin.system.model.resp.SmsConfigResp;
 import top.continew.admin.system.service.SmsConfigService;
 import top.continew.starter.extension.crud.annotation.CrudRequestMapping;
 import top.continew.starter.extension.crud.enums.Api;
+import top.continew.starter.web.model.R;
 
 /**
  * 短信配置管理 API
@@ -34,7 +35,8 @@ public class SmsConfigController extends
     @Parameter(name = "id", description = "ID", example = "1", in = ParameterIn.PATH)
     @SaCheckPermission("system:smsConfig:setDefault")
     @PutMapping({"/{id}/default"})
-    public void setDefault(@PathVariable("id") Long id) {
+    public R<Void> setDefault(@PathVariable("id") Long id) {
         baseService.setDefaultConfig(id);
+        return R.ok();
     }
 }

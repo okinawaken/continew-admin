@@ -1,8 +1,6 @@
 package top.continew.admin.system.controller;
 
 import cn.dev33.satoken.annotation.SaIgnore;
-import cn.hutool.core.util.StrUtil;
-import com.alicp.jetcache.anno.Cached;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -17,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import top.continew.admin.common.constant.CacheConstants;
-import top.continew.admin.system.enums.OptionCategoryEnum;
-import top.continew.admin.system.model.query.OptionQuery;
 import top.continew.admin.system.model.resp.file.FileUploadResp;
 import top.continew.admin.system.service.DictItemService;
 import top.continew.admin.system.service.FileService;
@@ -30,6 +25,7 @@ import top.continew.starter.extension.tenant.annotation.TenantIgnore;
 import top.continew.starter.extension.tenant.context.TenantContextHolder;
 import top.continew.starter.log.annotation.Log;
 import top.continew.starter.storage.domain.model.resp.FileInfo;
+import top.continew.starter.web.model.R;
 
 import jakarta.validation.constraints.NotNull;
 import java.io.IOException;
@@ -63,23 +59,24 @@ public class CommonController {
     @Operation(summary = "上传文件", description = "上传文件")
     @Parameter(name = "parentPath", description = "上级目录", example = "/", in = ParameterIn.QUERY)
     @PostMapping("/file")
-    public FileUploadResp upload(@RequestPart @NotNull(message = "文件不能为空") MultipartFile file,
+    public R<FileUploadResp> upload(
+        @RequestPart @NotNull(message = "文件不能为空") MultipartFile file,
         @RequestParam(required = false) String parentPath) throws IOException {
         ValidationUtils.throwIf(file::isEmpty, "文件不能为空");
         FileInfo fileInfo = fileService.upload(file, parentPath);
-        return FileUploadResp.builder()
+        return R.ok(FileUploadResp.builder()
             .id(fileInfo.getFileId())
             .url(fileInfo.getUrl())
             .thUrl(fileInfo.getThumbnailPath())
             .metadata(fileInfo.getMetadata())
-            .build();
+            .build());
     }
 
     @Operation(summary = "查询字典", description = "查询字典列表")
     @Parameter(name = "code", description = "字典编码", example = "notice_type", in = ParameterIn.PATH)
     @GetMapping("/dict/{code}")
-    public List<LabelValueResp> listDict(@PathVariable String code) {
-        return dictItemService.listByDictCode(code);
+    public R<List<LabelValueResp>> listDict(@PathVariable String code) {
+        return R.ok(dictItemService.listByDictCode(code));
     }
 
     /**
@@ -91,24 +88,15 @@ public class CommonController {
     @SaIgnore
     @Operation(summary = "查询系统配置参数", description = "查询系统配置参数")
     @GetMapping("/dict/option/site")
-    @Cached(key = "'SITE'", name = CacheConstants.OPTION_KEY_PREFIX)
-    public List<LabelValueResp<String>> listSiteOptionDict() {
-        OptionQuery optionQuery = new OptionQuery();
-        optionQuery.setCategory(OptionCategoryEnum.SITE.name());
-        return optionService.list(optionQuery)
-            .stream()
-            .map(option -> new LabelValueResp<>(option.getCode(),
-                StrUtil.nullToDefault(option.getValue(), option
-                    .getDefaultValue())))
-            .toList();
+    public R<List<LabelValueResp<String>>> listSiteOptionDict() {
+        return R.ok(optionService.listSiteOptions());
     }
 
     @TenantIgnore
     @SaIgnore
     @Operation(summary = "查询租户开启状态", description = "查询租户开启状态")
     @GetMapping("/dict/option/tenant")
-    @Cached(key = "'TENANT'", name = CacheConstants.OPTION_KEY_PREFIX)
-    public Boolean tenantEnabled() {
-        return TenantContextHolder.isTenantEnabled();
+    public R<Boolean> tenantEnabled() {
+        return R.ok(TenantContextHolder.isTenantEnabled());
     }
 }

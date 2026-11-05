@@ -22,6 +22,7 @@ import top.continew.starter.auth.refresh.token.service.RefreshTokenService;
 import top.continew.starter.extension.tenant.annotation.TenantIgnore;
 import top.continew.starter.log.annotation.Log;
 import top.continew.starter.log.enums.Include;
+import top.continew.starter.web.model.R;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -59,17 +60,17 @@ public class SessionController {
     @Log(excludes = {Include.REQUEST_HEADERS, Include.REQUEST_BODY, Include.RESPONSE_HEADERS,
         Include.RESPONSE_BODY})
     @PostMapping("/refresh")
-    public LoginResp refresh(@RequestBody(required = false) @Valid RefreshTokenReq req,
+    public R<LoginResp> refresh(@RequestBody(required = false) @Valid RefreshTokenReq req,
         HttpServletRequest request, HttpServletResponse response) {
         // 四步安全钩子（解析 → 限流 → 来源校验 → 原子轮换）由 Starter 的 refresh 模板固化编排
         RefreshIssueResult result = refreshTokenService.refresh(req == null ? null : req
             .getRefreshToken(), request, response,
             session -> refreshAccessTokenIssuer.issue(session,
                 request, response));
-        return LoginResp.builder().accessToken(result.getAccessToken())
+        return R.ok(LoginResp.builder().accessToken(result.getAccessToken())
             .tokenType(result.getTokenType()).expiresIn(result.getExpiresIn())
             .refreshExpiresIn(result.getRefreshExpiresIn()).refreshToken(result.getRefreshToken())
-            .tenantId(result.getTenantId()).build();
+            .tenantId(result.getTenantId()).build());
     }
 
     /**
@@ -87,7 +88,7 @@ public class SessionController {
     @Parameter(name = "Authorization", description = "令牌", required = true,
         example = "Bearer xxxx-xxxx-xxxx-xxxx", in = ParameterIn.HEADER)
     @PostMapping("/logout")
-    public Object logout(@RequestBody(required = false) RefreshTokenReq req,
+    public R<Object> logout(@RequestBody(required = false) RefreshTokenReq req,
         HttpServletRequest request, HttpServletResponse response) {
         Object loginId = StpUtil.getLoginId(-1L);
         String accessToken = StpUtil.getTokenValue();
@@ -110,6 +111,6 @@ public class SessionController {
             log.debug("当前 Access Token 已无需注销", e);
         }
         refreshTokenService.clearCookie(response);
-        return loginId;
+        return R.ok(loginId);
     }
 }
