@@ -32,13 +32,13 @@ public class StudyRoomAutoSignScheduler {
      */
     @Scheduled(cron = "0 0/10 * * * ?")
     public void scan() {
-        List<StudyRoomUserConfigResp> configRespList = settingService.listAllConfigs();
-        for (StudyRoomUserConfigResp configResp : configRespList) {
-            StudyRoomUserConfigBO config = configResp.getConfig();
+        List<StudyRoomUserConfigResp> userConfigRespList = settingService.listAllConfigs();
+        for (StudyRoomUserConfigResp userConfigResp : userConfigRespList) {
+            StudyRoomUserConfigBO config = userConfigResp.getConfig();
             if (StudyRoomAutoSignInEnableEnum.isEnabled(config.getSignInEnable())) {
-                eventPublisher.publishEvent(
-                    new StudyRoomAutoSignExecuteEvent(configResp.getUserId(),
-                        configResp.getTenantId()));
+                StudyRoomAutoSignExecuteEvent event = new StudyRoomAutoSignExecuteEvent(
+                    userConfigResp.getUserId(), userConfigResp.getTenantId());
+                eventPublisher.publishEvent(event);
             }
         }
     }

@@ -11,7 +11,7 @@ import java.io.Serial;
 /**
  * 自习室用户设置 study_room_user_setting
  * <p>
- * 一个系统用户一份配置，由唯一索引 {@code uk_user_setting_tenant_user_id} 保证。
+ * 一个系统用户一份配置，由唯一索引 {@code uk_tenant_id_user_id} 保证。
  *
  * @author bixiu
  * @since 4.2.0

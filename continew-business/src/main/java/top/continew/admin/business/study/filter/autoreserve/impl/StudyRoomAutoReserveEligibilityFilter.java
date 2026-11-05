@@ -11,9 +11,7 @@ import top.continew.admin.business.study.model.context.StudyRoomAutoReserveConte
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.model.resp.StudyRoomReserveCheckClientResp;
-import top.continew.starter.core.exception.BusinessException;
-
-import java.util.Objects;
+import top.continew.starter.core.util.validation.CheckUtils;
 
 /**
  * 预约资格校验过滤器
@@ -30,13 +28,11 @@ public class StudyRoomAutoReserveEligibilityFilter implements StudyRoomAutoReser
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
         StudyRoomAutoReserveTaskInfoResp taskInfoResp = context.getTaskInfoResp();
-        StudyRoomClientResult<StudyRoomReserveCheckClientResp> resultDTO =
+        StudyRoomClientResult<StudyRoomReserveCheckClientResp> clientResult =
             reserveV2Client.reserveCheck(taskInfoResp.getUserId());
-        if (Objects.isNull(resultDTO.getData())) {
-            throw new BusinessException("预约资格返回为空");
-        }
+        CheckUtils.throwIfNull(clientResult.getData(), "预约资格返回为空");
 
-        StudyRoomReserveCheckClientResp reserveCheckClientResp = resultDTO.getData();
+        StudyRoomReserveCheckClientResp reserveCheckClientResp = clientResult.getData();
         if (!StudyRoomReserveStatusEnum.isCanReserve(reserveCheckClientResp.getReserveState())) {
             return FilterResultDTO.fail("无预约资格");
         }

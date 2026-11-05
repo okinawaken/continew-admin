@@ -50,16 +50,16 @@ VALUES
 (4104, '解除授权', 4100, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:user:delete', 4, 1, 1, NOW()),
 
 (4120, '用户设置', 4000, 2, '/study/user-setting', 'StudyUserSetting', 'business/study/userSetting/index', NULL, 'clock-circle', b'0', b'0', b'0', NULL, 12, 1, 1, NOW()),
-(4121, '查询', 4120, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:userSetting:get', 1, 1, 1, NOW()),
-(4122, '修改', 4120, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:userSetting:update', 2, 1, 1, NOW()),
+(4121, '查询', 4120, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:studyUser-setting:get', 1, 1, 1, NOW()),
+(4122, '修改', 4120, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:studyUser-setting:update', 2, 1, 1, NOW()),
 
 (4130, '自动预约任务', 4000, 2, '/study/auto-reserve/task', 'StudyAutoReserveTask', 'business/study/autoReserve/task/index', NULL, 'alarm-clock', b'0', b'0', b'0', NULL, 13, 1, 1, NOW()),
-(4131, '列表', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:autoReserveTask:list', 1, 1, 1, NOW()),
-(4132, '详情', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:autoReserveTask:get', 2, 1, 1, NOW()),
-(4133, '新增', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:autoReserveTask:create', 3, 1, 1, NOW()),
-(4134, '修改', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:autoReserveTask:update', 4, 1, 1, NOW()),
-(4135, '删除', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:autoReserveTask:delete', 5, 1, 1, NOW()),
-(4136, '执行', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:autoReserveTask:execute', 6, 1, 1, NOW()),
+(4131, '列表', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:studyAuto-reserveTask:list', 1, 1, 1, NOW()),
+(4132, '详情', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:studyAuto-reserveTask:get', 2, 1, 1, NOW()),
+(4133, '新增', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:studyAuto-reserveTask:create', 3, 1, 1, NOW()),
+(4134, '修改', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:studyAuto-reserveTask:update', 4, 1, 1, NOW()),
+(4135, '删除', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:studyAuto-reserveTask:delete', 5, 1, 1, NOW()),
+(4136, '执行', 4130, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:studyAuto-reserveTask:execute', 6, 1, 1, NOW()),
 
 (4140, '执行记录', 4000, 2, '/study/auto-reserve/record', 'StudyAutoReserveRecord', 'business/study/autoReserve/record/index', NULL, 'history', b'0', b'0', b'0', NULL, 14, 1, 1, NOW()),
-(4141, '列表', 4140, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:study:autoReserveRecord:list', 1, 1, 1, NOW());
+(4141, '列表', 4140, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'business:studyAuto-reserveTaskRecord:list', 1, 1, 1, NOW());

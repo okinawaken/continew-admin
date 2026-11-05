@@ -1,6 +1,5 @@
 package top.continew.admin.business.study.filter.autoreserve.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,7 @@ import top.continew.admin.business.study.model.context.StudyRoomAutoReserveConte
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.model.resp.StudyRoomReserveDateClientResp;
-import top.continew.starter.core.exception.BusinessException;
+import top.continew.starter.core.util.validation.CheckUtils;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -42,13 +41,11 @@ public class StudyRoomAutoReserveTargetDateFilter implements StudyRoomAutoReserv
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
         StudyRoomAutoReserveTaskInfoResp taskInfoResp = context.getTaskInfoResp();
-        StudyRoomClientResult<StudyRoomReserveDateClientResp> resultDTO =
+        StudyRoomClientResult<StudyRoomReserveDateClientResp> clientResult =
             reserveV2Client.reserveDateList(taskInfoResp.getVenueId(), taskInfoResp.getUserId());
-        if (Objects.isNull(resultDTO.getData())) {
-            throw new BusinessException("预约日期返回为空");
-        }
+        CheckUtils.throwIfNull(clientResult.getData(), "预约日期返回为空");
 
-        LocalDate targetDate = this.resolveMaxReserveDate(resultDTO.getData());
+        LocalDate targetDate = this.resolveMaxReserveDate(clientResult.getData());
         context.setTargetDate(targetDate);
 
         if (!targetDate.isAfter(taskInfoResp.getLastMaxReserveDate())) {
@@ -57,16 +54,12 @@ public class StudyRoomAutoReserveTargetDateFilter implements StudyRoomAutoReserv
         return FilterResultDTO.success(targetDate);
     }
 
-    private LocalDate resolveMaxReserveDate(StudyRoomReserveDateClientResp dateData) {
-        if (CollUtil.isEmpty(dateData.getReserveDateList())) {
-            throw new BusinessException("日期字符串返回为空");
-        }
+    private LocalDate resolveMaxReserveDate(StudyRoomReserveDateClientResp reserveDateClientResp) {
+        CheckUtils.throwIfEmpty(reserveDateClientResp.getReserveDateList(), "日期字符串返回为空");
         LocalDate maxDate = null;
-        for (String rawDate : dateData.getReserveDateList()) {
-            Matcher matcher = DATE_PREFIX_PATTERN.matcher(rawDate);
-            if (!matcher.find()) {
-                throw new BusinessException("解析日期字符串失败");
-            }
+        for (String reserveDate : reserveDateClientResp.getReserveDateList()) {
+            Matcher matcher = DATE_PREFIX_PATTERN.matcher(reserveDate);
+            CheckUtils.throwIf(!matcher.find(), "解析日期字符串失败");
             LocalDate date = LocalDate.parse(matcher.group());
             if (Objects.isNull(maxDate) || date.isAfter(maxDate)) {
                 maxDate = date;

@@ -23,7 +23,7 @@ import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserv
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskRecordService;
 import top.continew.admin.business.study.service.autoreserve.StudyRoomAutoReserveTaskService;
 import top.continew.starter.cache.redisson.util.RedisUtils;
-import top.continew.starter.core.exception.BusinessException;
+import top.continew.starter.core.util.validation.CheckUtils;
 import top.continew.starter.json.jackson.util.JsonUtils;
 
 import java.time.LocalDate;
@@ -49,7 +49,7 @@ public class StudyRoomAutoReserveExecutorServiceImpl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void execute(Long taskId, Integer triggerType) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = taskService.getTask(taskId);
+        StudyRoomAutoReserveTaskInfoResp taskRespDTO = taskService.get(taskId);
 
         String lockKey = StudyRoomCacheConstants.AUTO_RESERVE_EXECUTE_LOCK + taskId;
         RLock lock = RedisUtils.getClient().getLock(lockKey);
@@ -88,9 +88,7 @@ public class StudyRoomAutoReserveExecutorServiceImpl
             reqDTO.setReserveAnotherFlag(0);
             StudyRoomClientResult<StudyRoomReserveConfirmClientResp> resultDTO =
                 reserveV2Client.reserveV2SeatConfirm(reqDTO, taskRespDTO.getUserId());
-            if (Objects.isNull(resultDTO)) {
-                throw new BusinessException("提交预约返回结果为空");
-            }
+            CheckUtils.throwIfNull(resultDTO, "提交预约返回结果为空");
             context.setReserveConfirmClientResp(resultDTO.getData());
 
             StudyRoomAutoReserveTaskRecordInfoResp taskRecordRespDTO = this.buildTaskRecordRespDTO(

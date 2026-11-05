@@ -11,9 +11,7 @@ import top.continew.admin.business.study.model.context.StudyRoomAutoReserveConte
 import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfoResp;
 import top.continew.admin.business.study.model.resp.StudyRoomClientResult;
 import top.continew.admin.business.study.model.resp.StudyRoomVenueClientResp;
-import top.continew.starter.core.exception.BusinessException;
-
-import java.util.Objects;
+import top.continew.starter.core.util.validation.CheckUtils;
 
 /**
  * 预约门店校验过滤器
@@ -37,12 +35,10 @@ public class StudyRoomAutoReserveVenueFilter implements StudyRoomAutoReserveFilt
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
         StudyRoomAutoReserveTaskInfoResp taskInfoResp = context.getTaskInfoResp();
-        StudyRoomClientResult<StudyRoomVenueClientResp> resultDTO = studyRoomVenueV2Client
+        StudyRoomClientResult<StudyRoomVenueClientResp> clientResult = studyRoomVenueV2Client
             .reserveVenueDetail(taskInfoResp.getVenueId(), taskInfoResp.getUserId());
-        if (Objects.isNull(resultDTO.getData())) {
-            throw new BusinessException("门店数据返回为空");
-        }
-        StudyRoomVenueClientResp venueClientResp = resultDTO.getData();
+        CheckUtils.throwIfNull(clientResult.getData(), "门店数据返回为空");
+        StudyRoomVenueClientResp venueClientResp = clientResult.getData();
         context.setVenueClientResp(venueClientResp);
         if (!StudyRoomReserveStatusEnum.isCanReserve(venueClientResp.getVenueReserveState())) {
             return FilterResultDTO.fail("门店当前不可预约");

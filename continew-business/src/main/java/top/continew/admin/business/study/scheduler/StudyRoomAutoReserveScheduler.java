@@ -44,19 +44,21 @@ public class StudyRoomAutoReserveScheduler {
      */
     @Scheduled(cron = "0 * * * * ?")
     public void scan() {
-        List<StudyRoomAutoReserveTaskInfoResp> taskList = taskService.listEnabledTasks();
-        for (StudyRoomAutoReserveTaskInfoResp task : taskList) {
+        List<StudyRoomAutoReserveTaskInfoResp> taskInfoRespList = taskService.listEnabledTasks();
+        for (StudyRoomAutoReserveTaskInfoResp taskInfoResp : taskInfoRespList) {
             LocalDate nowDate = LocalDate.now();
             LocalTime nowTime = LocalTime.now();
-            StudyRoomUserConfigResp configResp = settingService.getConfig(task.getUserId());
-            StudyRoomUserConfigBO config = configResp.getConfig();
+            StudyRoomUserConfigResp userConfigResp = settingService.get(taskInfoResp.getUserId());
+            StudyRoomUserConfigBO config = userConfigResp.getConfig();
             if (!nowTime.isBefore(config.getReleaseTime())) {
                 List<StudyRoomAutoReserveTaskRecordInfoResp> recordList = recordService
-                    .listByTaskIdAndCreateDate(task.getId(), nowDate);
+                    .listByTaskIdAndCreateDate(taskInfoResp.getId(), nowDate);
                 if (CollUtil.isEmpty(recordList)) {
-                    eventPublisher.publishEvent(new StudyRoomAutoReserveExecuteEvent(task.getId(),
-                        StudyRoomAutoReserveTriggerTypeEnum.SCHEDULED.getValue(),
-                        task.getTenantId()));
+                    StudyRoomAutoReserveExecuteEvent event =
+                        new StudyRoomAutoReserveExecuteEvent(taskInfoResp.getId(),
+                            StudyRoomAutoReserveTriggerTypeEnum.SCHEDULED.getValue(),
+                            taskInfoResp.getTenantId());
+                    eventPublisher.publishEvent(event);
                 }
             }
         }

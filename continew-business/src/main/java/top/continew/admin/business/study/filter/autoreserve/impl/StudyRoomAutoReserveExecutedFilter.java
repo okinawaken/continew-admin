@@ -38,11 +38,11 @@ public class StudyRoomAutoReserveExecutedFilter implements StudyRoomAutoReserveF
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
         StudyRoomAutoReserveTaskInfoResp taskInfoResp = context.getTaskInfoResp();
-        List<StudyRoomAutoReserveTaskRecordInfoResp> recordList =
+        List<StudyRoomAutoReserveTaskRecordInfoResp> taskRecordInfoRespList =
             recordService.listByTaskIdAndCreateDate(taskInfoResp.getId(), LocalDate.now());
-        if (CollUtil.isNotEmpty(recordList)) {
+        if (CollUtil.isNotEmpty(taskRecordInfoRespList)) {
             return FilterResultDTO.fail("今日已执行");
         }
-        return FilterResultDTO.success(recordList);
+        return FilterResultDTO.success(taskRecordInfoRespList);
     }
 }

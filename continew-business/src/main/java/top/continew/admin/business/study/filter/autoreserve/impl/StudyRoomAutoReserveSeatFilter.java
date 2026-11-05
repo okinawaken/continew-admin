@@ -15,7 +15,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomSeatAreaClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomSeatClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomSeatMapClientResp;
 import top.continew.admin.business.study.model.resp.StudyRoomSeatValidTimeClientResp;
-import top.continew.starter.core.exception.BusinessException;
+import top.continew.starter.core.util.validation.CheckUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -42,22 +42,20 @@ public class StudyRoomAutoReserveSeatFilter implements StudyRoomAutoReserveFilte
 
     @Override
     public FilterResultDTO<?> doFilter(StudyRoomAutoReserveContext context) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
+        StudyRoomAutoReserveTaskInfoResp taskInfoResp = context.getTaskInfoResp();
         LocalDate targetDate = context.getTargetDate();
 
-        StudyRoomSeatQueryClientReq reqDTO = new StudyRoomSeatQueryClientReq();
-        reqDTO.setVenueId(taskRespDTO.getVenueId());
-        reqDTO.setReserveDateStr(targetDate);
-        reqDTO.setReserveStartTimeStr(taskRespDTO.getReserveStartTime());
-        reqDTO.setReserveEndTimeStr(taskRespDTO.getReserveEndTime());
-        reqDTO.setReserveAnotherFlag(0);
-        StudyRoomClientResult<StudyRoomSeatMapClientResp> resultDTO =
-            reserveV2Client.reserveV2SeatList(reqDTO, taskRespDTO.getUserId());
-        if (Objects.isNull(resultDTO.getData())) {
-            throw new BusinessException("座位图返回为空");
-        }
+        StudyRoomSeatQueryClientReq seatQueryClientReq = new StudyRoomSeatQueryClientReq();
+        seatQueryClientReq.setVenueId(taskInfoResp.getVenueId());
+        seatQueryClientReq.setReserveDateStr(targetDate);
+        seatQueryClientReq.setReserveStartTimeStr(taskInfoResp.getReserveStartTime());
+        seatQueryClientReq.setReserveEndTimeStr(taskInfoResp.getReserveEndTime());
+        seatQueryClientReq.setReserveAnotherFlag(0);
+        StudyRoomClientResult<StudyRoomSeatMapClientResp> clientResult =
+            reserveV2Client.reserveV2SeatList(seatQueryClientReq, taskInfoResp.getUserId());
+        CheckUtils.throwIfNull(clientResult.getData(), "座位图返回为空");
 
-        StudyRoomSeatClientResp seatClientResp = this.selectSeat(context, resultDTO.getData());
+        StudyRoomSeatClientResp seatClientResp = this.selectSeat(context, clientResult.getData());
         context.setSeatClientResp(seatClientResp);
         if (Objects.isNull(seatClientResp)) {
             return FilterResultDTO.fail("期望时段无可预约座位");
@@ -66,41 +64,43 @@ public class StudyRoomAutoReserveSeatFilter implements StudyRoomAutoReserveFilte
     }
 
     private StudyRoomSeatClientResp selectSeat(StudyRoomAutoReserveContext context,
-        StudyRoomSeatMapClientResp seatMap) {
-        StudyRoomAutoReserveTaskInfoResp taskRespDTO = context.getTaskInfoResp();
-        StudyRoomSeatClientResp areaSeatRespDTO = null;
-        StudyRoomSeatClientResp anySeatRespDTO = null;
+        StudyRoomSeatMapClientResp seatMapClientResp) {
+        StudyRoomAutoReserveTaskInfoResp taskInfoResp = context.getTaskInfoResp();
+        StudyRoomSeatClientResp areaSeatClientResp = null;
+        StudyRoomSeatClientResp anySeatClientResp = null;
 
-        for (StudyRoomSeatAreaClientResp seatAreaRespDTO : seatMap.getVenueAreaList()) {
+        for (StudyRoomSeatAreaClientResp seatAreaClientResp : seatMapClientResp
+            .getVenueAreaList()) {
             boolean isPreferredArea =
-                Objects.equals(seatAreaRespDTO.getId(), taskRespDTO.getAreaId());
-            for (StudyRoomSeatClientResp seatRespDTO : seatAreaRespDTO.getVenueAreaSeatList()) {
-                boolean seatAvailable = this.isSeatAvailable(seatRespDTO,
-                    taskRespDTO.getReserveStartTime(), taskRespDTO.getReserveEndTime());
+                Objects.equals(seatAreaClientResp.getId(), taskInfoResp.getAreaId());
+            for (StudyRoomSeatClientResp seatClientResp : seatAreaClientResp
+                .getVenueAreaSeatList()) {
+                boolean seatAvailable = this.isSeatAvailable(seatClientResp,
+                    taskInfoResp.getReserveStartTime(), taskInfoResp.getReserveEndTime());
                 if (!seatAvailable) {
                     continue;
                 }
-                if (Objects.equals(seatRespDTO.getId(), taskRespDTO.getSeatId())) {
-                    return seatRespDTO;
+                if (Objects.equals(seatClientResp.getId(), taskInfoResp.getSeatId())) {
+                    return seatClientResp;
                 }
-                if (Objects.isNull(areaSeatRespDTO) && isPreferredArea) {
-                    areaSeatRespDTO = seatRespDTO;
+                if (Objects.isNull(areaSeatClientResp) && isPreferredArea) {
+                    areaSeatClientResp = seatClientResp;
                 }
-                if (Objects.isNull(anySeatRespDTO)) {
-                    anySeatRespDTO = seatRespDTO;
+                if (Objects.isNull(anySeatClientResp)) {
+                    anySeatClientResp = seatClientResp;
                 }
             }
         }
-        return Objects.nonNull(areaSeatRespDTO) ? areaSeatRespDTO : anySeatRespDTO;
+        return Objects.nonNull(areaSeatClientResp) ? areaSeatClientResp : anySeatClientResp;
     }
 
-    private boolean isSeatAvailable(StudyRoomSeatClientResp seat, LocalTime startTime,
+    private boolean isSeatAvailable(StudyRoomSeatClientResp seatClientResp, LocalTime startTime,
         LocalTime endTime) {
-        if (!StudyRoomSeatStatusEnum.isCanReserve(seat.getSeatReserveState())) {
+        if (!StudyRoomSeatStatusEnum.isCanReserve(seatClientResp.getSeatReserveState())) {
             return false;
         }
 
-        for (StudyRoomSeatValidTimeClientResp validTime : seat.getValidTimeStrList()) {
+        for (StudyRoomSeatValidTimeClientResp validTime : seatClientResp.getValidTimeStrList()) {
             if (!startTime.isBefore(validTime.getValidStartTimeStr())
                 && !endTime.isAfter(validTime.getValidEndTimeStr())) {
                 return true;
