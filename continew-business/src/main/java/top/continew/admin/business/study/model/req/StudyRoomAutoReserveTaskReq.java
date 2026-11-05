@@ -67,9 +67,9 @@ public class StudyRoomAutoReserveTaskReq {
     private LocalTime reserveEndTime;
 
     /**
-     * 执行星期，1 周一 … 7 周日
+     * 执行星期，约定 1 周一 … 7 周日（当前未做取值校验）
      */
-    @Schema(description = "执行星期，1 周一 … 7 周日", example = "[1,2,3,4,5]")
+    @Schema(description = "执行星期，约定 1 周一 … 7 周日（未校验取值范围）", example = "[1,2,3,4,5]")
     @NotEmpty(message = "执行星期不能为空")
     private List<Integer> weekDays;
 }

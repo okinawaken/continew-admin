@@ -69,7 +69,7 @@ public final class StudyRoomApiConstants {
         public static final String SUCCESS_CODE = "200";
 
         /**
-         * 未登录 / token 失效（实测无 token 时返回 {"code":"401","content":"用户未登录"}）
+         * 未登录 / token 失效（实测无 token 时返回 {"code":"401","content":"用户未登录"}；预留，当前未参与判断）
          */
         public static final String CODE_UNAUTHORIZED = "401";
 
@@ -79,7 +79,7 @@ public final class StudyRoomApiConstants {
         public static final String BUSINESS_CODE = "SV0001";
 
         /**
-         * 账号异常（黑名单用户）
+         * 账号异常（黑名单用户；预留，当前未参与判断）
          */
         public static final String CODE_BLACK_USER = "SV99999";
     }

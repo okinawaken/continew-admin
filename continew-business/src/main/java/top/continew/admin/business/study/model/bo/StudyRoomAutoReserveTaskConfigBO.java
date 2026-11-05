@@ -10,7 +10,8 @@ import java.util.List;
 /**
  * 自动预约任务规则详情，对应 {@code study_room_auto_reserve_task.task_json}
  * <p>
- * 座位与区域至少配置一个：{@code seatId = 0} 表示未指定座位，{@code areaId = 0} 表示未指定区域。
+ * 座位与区域均可为空：{@code seatId = 0} 表示未指定座位，{@code areaId = 0} 表示未指定区域；
+ * 两者都未指定时按任意可约座位兜底。
  *
  * @author bixiu
  * @since 4.2.0

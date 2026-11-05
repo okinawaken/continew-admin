@@ -12,7 +12,7 @@ import top.continew.admin.business.study.model.resp.StudyRoomAutoReserveTaskInfo
 /**
  * 任务启用状态过滤器
  * <p>
- * 任务已暂停时直接终止链路，不写执行记录。
+ * 任务已暂停时终止链路并返回跳过结果；执行器仍会写入一条跳过记录。
  *
  * @author bixiu
  * @since 4.2.0
