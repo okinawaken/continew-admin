@@ -25,6 +25,7 @@ import top.continew.starter.core.util.CollUtils;
 import top.continew.starter.core.util.validation.CheckUtils;
 import top.continew.starter.core.util.validation.ValidationUtils;
 import top.continew.starter.data.util.QueryWrapperHelper;
+import top.continew.starter.extension.crud.model.resp.LabelValueResp;
 
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,18 @@ public class OptionServiceImpl implements OptionService {
     public List<OptionResp> list(OptionQuery query) {
         return BeanUtil.copyToList(baseMapper.selectList(QueryWrapperHelper.build(query)),
             OptionResp.class);
+    }
+
+    @Override
+    @Cached(key = "'SITE'", name = CacheConstants.OPTION_KEY_PREFIX)
+    public List<LabelValueResp<String>> listSiteOptions() {
+        OptionQuery optionQuery = new OptionQuery();
+        optionQuery.setCategory(OptionCategoryEnum.SITE.name());
+        return baseMapper.selectList(QueryWrapperHelper.build(optionQuery))
+            .stream()
+            .map(option -> new LabelValueResp<String>(option.getCode(),
+                StrUtil.nullToDefault(option.getValue(), option.getDefaultValue())))
+            .toList();
     }
 
     @Override

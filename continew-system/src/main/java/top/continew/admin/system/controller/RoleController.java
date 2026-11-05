@@ -32,6 +32,7 @@ import top.continew.starter.extension.crud.annotation.CrudRequestMapping;
 import top.continew.starter.extension.crud.enums.Api;
 import top.continew.starter.extension.crud.model.query.PageQuery;
 import top.continew.starter.extension.crud.model.resp.PageResp;
+import top.continew.starter.web.model.R;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -59,17 +60,18 @@ public class RoleController
     @Operation(summary = "查询角色权限树列表", description = "查询角色权限树列表")
     @SaCheckPermission("system:role:updatePermission")
     @GetMapping("/permission/tree")
-    public List<RolePermissionResp> listPermissionTree() {
+    public R<List<RolePermissionResp>> listPermissionTree() {
         List<Tree<Long>> treeList = menuService.tree(null, null, false);
-        return BeanUtil.copyToList(treeList, RolePermissionResp.class);
+        return R.ok(BeanUtil.copyToList(treeList, RolePermissionResp.class));
     }
 
     @Operation(summary = "修改权限", description = "修改角色的功能权限")
     @SaCheckPermission("system:role:updatePermission")
     @PutMapping("/{id}/permission")
-    public void updatePermission(@PathVariable("id") Long id,
+    public R<Void> updatePermission(@PathVariable("id") Long id,
         @RequestBody @Valid RolePermissionUpdateReq req) {
         baseService.updatePermission(id, req);
+        return R.ok();
     }
 
     @Operation(summary = "分页查询关联用户", description = "分页查询角色关联的用户列表")
@@ -86,24 +88,26 @@ public class RoleController
     @Operation(summary = "分配用户", description = "批量分配角色给用户")
     @SaCheckPermission("system:role:assign")
     @PostMapping("/{id}/user")
-    public void assignToUsers(@PathVariable("id") Long id,
+    public R<Void> assignToUsers(@PathVariable("id") Long id,
         @RequestBody @NotEmpty(message = "用户ID列表不能为空") List<Long> userIds) {
         baseService.assignToUsers(id, userIds);
+        return R.ok();
     }
 
     @Operation(summary = "取消分配用户", description = "批量取消分配角色给用户")
     @SaCheckPermission("system:role:unassign")
     @DeleteMapping("/user")
-    public void unassignFromUsers(
+    public R<Void> unassignFromUsers(
         @RequestBody @NotEmpty(message = "用户列表不能为空") List<Long> userRoleIds) {
         userRoleService.deleteByIds(userRoleIds);
+        return R.ok();
     }
 
     @Operation(summary = "查询关联用户ID", description = "查询角色关联的用户ID列表")
     @Parameter(name = "id", description = "ID", example = "1", in = ParameterIn.PATH)
     @SaCheckPermission("system:role:list")
     @GetMapping("/{id}/user/id")
-    public List<Long> listUserId(@PathVariable("id") Long id) {
-        return userRoleService.listUserIdByRoleId(id);
+    public R<List<Long>> listUserId(@PathVariable("id") Long id) {
+        return R.ok(userRoleService.listUserIdByRoleId(id));
     }
 }

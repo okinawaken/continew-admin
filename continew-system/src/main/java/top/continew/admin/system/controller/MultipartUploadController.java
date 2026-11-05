@@ -17,6 +17,7 @@ import top.continew.admin.system.model.req.MultipartUploadCreateReq;
 import top.continew.admin.system.model.resp.file.MultipartUploadCreateResp;
 import top.continew.admin.system.model.resp.file.MultipartUploadPartResp;
 import top.continew.admin.system.service.MultipartUploadService;
+import top.continew.starter.web.model.R;
 
 import jakarta.validation.Valid;
 
@@ -42,9 +43,9 @@ public class MultipartUploadController {
     @Operation(summary = "初始化分片上传", description = "初始化分片上传，返回uploadId等信息")
     @SaCheckPermission("system:file:upload")
     @PostMapping("/init")
-    public MultipartUploadCreateResp initMultipartUpload(
+    public R<MultipartUploadCreateResp> initMultipartUpload(
         @RequestBody @Valid MultipartUploadCreateReq multiPartUploadInitReq) {
-        return multipartUploadService.initMultipartUpload(multiPartUploadInitReq);
+        return R.ok(multipartUploadService.initMultipartUpload(multiPartUploadInitReq));
     }
 
     /**
@@ -59,11 +60,11 @@ public class MultipartUploadController {
     @Operation(summary = "上传分片", description = "上传单个分片")
     @SaCheckPermission("system:file:upload")
     @PostMapping("/part")
-    public MultipartUploadPartResp uploadPart(@RequestPart("file") MultipartFile file,
+    public R<MultipartUploadPartResp> uploadPart(@RequestPart("file") MultipartFile file,
         @RequestParam("uploadId") String uploadId,
         @RequestParam("partNumber") Integer partNumber,
         @RequestParam("path") String path) {
-        return multipartUploadService.uploadPart(file, uploadId, partNumber, path);
+        return R.ok(multipartUploadService.uploadPart(file, uploadId, partNumber, path));
     }
 
     /**
@@ -75,20 +76,22 @@ public class MultipartUploadController {
     @Operation(summary = "完成分片上传", description = "合并所有分片，完成上传")
     @SaCheckPermission("system:file:upload")
     @GetMapping("/complete/{uploadId}")
-    public FileDO completeMultipartUpload(@PathVariable String uploadId) {
-        return multipartUploadService.completeMultipartUpload(uploadId);
+    public R<FileDO> completeMultipartUpload(@PathVariable String uploadId) {
+        return R.ok(multipartUploadService.completeMultipartUpload(uploadId));
     }
 
     /**
      * 取消分片上传
      *
      * @param uploadId 上传ID
+     * @return 操作结果
      */
     @Operation(summary = "取消分片上传", description = "删除缓存信息,分片数据")
     @SaCheckPermission("system:file:upload")
     @GetMapping("/cancel/{uploadId}")
-    public void cancelMultipartUpload(@PathVariable String uploadId) {
+    public R<Void> cancelMultipartUpload(@PathVariable String uploadId) {
         multipartUploadService.cancelMultipartUpload(uploadId);
+        return R.ok();
     }
 
 }

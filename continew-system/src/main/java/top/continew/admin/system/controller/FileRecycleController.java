@@ -15,6 +15,7 @@ import top.continew.admin.system.model.resp.file.FileResp;
 import top.continew.admin.system.service.FileRecycleService;
 import top.continew.starter.extension.crud.model.query.PageQuery;
 import top.continew.starter.extension.crud.model.resp.PageResp;
+import top.continew.starter.web.model.R;
 
 import jakarta.validation.Valid;
 
@@ -42,21 +43,24 @@ public class FileRecycleController {
     @Operation(summary = "还原文件", description = "还原文件")
     @SaCheckPermission("system:fileRecycle:restore")
     @PutMapping("/restore/{id}")
-    public void restore(@PathVariable Long id) {
+    public R<Void> restore(@PathVariable Long id) {
         baseService.restore(id);
+        return R.ok();
     }
 
     @Operation(summary = "删除文件", description = "删除文件")
     @SaCheckPermission("system:fileRecycle:delete")
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public R<Void> delete(@PathVariable Long id) {
         baseService.delete(id);
+        return R.ok();
     }
 
     @Operation(summary = "清空回收站", description = "清空回收站")
     @SaCheckPermission("system:fileRecycle:clean")
     @DeleteMapping("/clean")
-    public void clean() {
+    public R<Void> clean() {
         baseService.clean();
+        return R.ok();
     }
 }

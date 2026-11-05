@@ -33,6 +33,7 @@ import top.continew.starter.extension.crud.model.req.IdsReq;
 import top.continew.starter.extension.crud.model.resp.BasePageResp;
 import top.continew.starter.extension.crud.model.resp.PageResp;
 import top.continew.starter.log.annotation.Log;
+import top.continew.starter.web.model.R;
 
 import jakarta.validation.Valid;
 import java.util.Collections;
@@ -57,8 +58,9 @@ public class UserMessageController {
     @Operation(summary = "查询未读消息数量", description = "查询当前用户的未读消息数量")
     @Parameter(name = "isDetail", description = "是否查询详情", example = "true", in = ParameterIn.QUERY)
     @GetMapping("/unread")
-    public MessageUnreadResp countUnreadMessage(@RequestParam(required = false) Boolean detail) {
-        return messageService.countUnreadByUserId(UserContextHolder.getUserId(), detail);
+    public R<MessageUnreadResp> countUnreadMessage(
+        @RequestParam(required = false) Boolean detail) {
+        return R.ok(messageService.countUnreadByUserId(UserContextHolder.getUserId(), detail));
     }
 
     @Operation(summary = "分页查询消息列表", description = "分页查询消息列表")
@@ -71,7 +73,7 @@ public class UserMessageController {
     @Operation(summary = "查询消息", description = "查询消息详情")
     @Parameter(name = "id", description = "ID", example = "1", in = ParameterIn.PATH)
     @GetMapping("/{id}")
-    public MessageDetailResp getMessage(@PathVariable Long id) {
+    public R<MessageDetailResp> getMessage(@PathVariable Long id) {
         MessageDetailResp detail = messageService.get(id);
         CheckUtils.throwIfNull(detail, "消息不存在或无权限访问");
         CheckUtils.throwIf(
@@ -80,33 +82,36 @@ public class UserMessageController {
             "消息不存在或无权限访问");
         messageService.readMessage(Collections.singletonList(id), UserContextHolder.getUserId());
         detail.setIsRead(true);
-        return detail;
+        return R.ok(detail);
     }
 
     @Operation(summary = "删除消息", description = "删除消息")
     @DeleteMapping
-    public void delete(@RequestBody @Valid IdsReq req) {
+    public R<Void> delete(@RequestBody @Valid IdsReq req) {
         messageService.delete(req.getIds(), UserContextHolder.getUserId());
+        return R.ok();
     }
 
     @Operation(summary = "消息标记为已读", description = "将消息标记为已读状态")
     @PatchMapping("/read")
-    public void read(@RequestBody @Valid IdsReq req) {
+    public R<Void> read(@RequestBody @Valid IdsReq req) {
         messageService.readMessage(req.getIds(), UserContextHolder.getUserId());
+        return R.ok();
     }
 
     @Operation(summary = "消息全部已读", description = "将所有消息标记为已读状态")
     @PatchMapping("/readAll")
-    public void readAll() {
+    public R<Void> readAll() {
         messageService.readMessage(null, UserContextHolder.getUserId());
+        return R.ok();
     }
 
     @Log(ignore = true)
     @Operation(summary = "查询未读公告数量", description = "查询当前用户的未读公告数量")
     @GetMapping("/notice/unread")
-    public NoticeUnreadCountResp countUnreadNotice() {
+    public R<NoticeUnreadCountResp> countUnreadNotice() {
         List<Long> list = noticeService.listUnreadIdsByUserId(null, UserContextHolder.getUserId());
-        return new NoticeUnreadCountResp(list.size());
+        return R.ok(new NoticeUnreadCountResp(list.size()));
     }
 
     @Log(ignore = true)
@@ -114,9 +119,9 @@ public class UserMessageController {
     @Parameter(name = "method", description = "通知方式", example = "LOGIN_POPUP",
         in = ParameterIn.PATH)
     @GetMapping("/notice/unread/{method}")
-    public List<Long> listUnreadNotice(@PathVariable String method) {
-        return noticeService.listUnreadIdsByUserId(NoticeMethodEnum.valueOf(method),
-            UserContextHolder.getUserId());
+    public R<List<Long>> listUnreadNotice(@PathVariable String method) {
+        return R.ok(noticeService.listUnreadIdsByUserId(NoticeMethodEnum.valueOf(method),
+            UserContextHolder.getUserId()));
     }
 
     @Operation(summary = "分页查询公告列表", description = "分页查询公告列表")
@@ -130,7 +135,7 @@ public class UserMessageController {
     @Operation(summary = "查询公告", description = "查询公告详情")
     @Parameter(name = "id", description = "ID", example = "1", in = ParameterIn.PATH)
     @GetMapping("/notice/{id}")
-    public NoticeDetailResp getNotice(@PathVariable Long id) {
+    public R<NoticeDetailResp> getNotice(@PathVariable Long id) {
         NoticeDetailResp detail = noticeService.get(id);
         CheckUtils.throwIf(
             detail == null || (NoticeScopeEnum.USER.equals(detail.getNoticeScope()) && !detail
@@ -138,6 +143,6 @@ public class UserMessageController {
                 .contains(UserContextHolder.getUserId().toString())),
             "公告不存在或无权限访问");
         noticeService.readNotice(id, UserContextHolder.getUserId());
-        return detail;
+        return R.ok(detail);
     }
 }

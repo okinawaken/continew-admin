@@ -21,6 +21,7 @@ import top.continew.starter.core.util.validation.ValidationUtils;
 import top.continew.starter.extension.crud.annotation.CrudApi;
 import top.continew.starter.extension.crud.annotation.CrudRequestMapping;
 import top.continew.starter.extension.crud.enums.Api;
+import top.continew.starter.web.model.R;
 
 import java.lang.reflect.Method;
 
@@ -42,8 +43,9 @@ public class MenuController
     @Operation(summary = "清除缓存", description = "清除缓存")
     @SaCheckPermission("system:menu:clearCache")
     @DeleteMapping("/cache")
-    public void clearCache() {
+    public R<Void> clearCache() {
         RedisUtils.deleteByPattern(CacheConstants.ROLE_MENU_KEY_PREFIX + StringConstants.ASTERISK);
+        return R.ok();
     }
 
     @Override

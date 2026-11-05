@@ -5,6 +5,7 @@ import top.continew.admin.system.model.query.OptionQuery;
 import top.continew.admin.system.model.req.OptionReq;
 import top.continew.admin.system.model.req.OptionValueResetReq;
 import top.continew.admin.system.model.resp.OptionResp;
+import top.continew.starter.extension.crud.model.resp.LabelValueResp;
 
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,13 @@ public interface OptionService {
      * @return 列表信息
      */
     List<OptionResp> list(OptionQuery query);
+
+    /**
+     * 查询站点配置参数
+     *
+     * @return 站点配置参数列表
+     */
+    List<LabelValueResp<String>> listSiteOptions();
 
     /**
      * 根据类别查询

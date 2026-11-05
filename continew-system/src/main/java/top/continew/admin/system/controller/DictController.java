@@ -15,6 +15,7 @@ import top.continew.admin.system.service.DictService;
 import top.continew.starter.cache.redisson.util.RedisUtils;
 import top.continew.starter.extension.crud.annotation.CrudRequestMapping;
 import top.continew.starter.extension.crud.enums.Api;
+import top.continew.starter.web.model.R;
 
 /**
  * 字典管理 API
@@ -32,7 +33,8 @@ public class DictController
     @Operation(summary = "清除缓存", description = "清除缓存")
     @SaCheckPermission("system:dict:clearCache")
     @DeleteMapping("/cache/{code}")
-    public void clearCache(@PathVariable String code) {
+    public R<Void> clearCache(@PathVariable String code) {
         RedisUtils.deleteByPattern(CacheConstants.DICT_KEY_PREFIX + code);
+        return R.ok();
     }
 }

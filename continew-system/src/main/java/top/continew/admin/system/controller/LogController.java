@@ -19,6 +19,7 @@ import top.continew.starter.extension.crud.model.query.PageQuery;
 import top.continew.starter.extension.crud.model.query.SortQuery;
 import top.continew.starter.extension.crud.model.resp.PageResp;
 import top.continew.starter.log.annotation.Log;
+import top.continew.starter.web.model.R;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -50,8 +51,8 @@ public class LogController {
     @Parameter(name = "id", description = "ID", example = "1", in = ParameterIn.PATH)
     @SaCheckPermission("monitor:log:get")
     @GetMapping("/{id}")
-    public LogDetailResp get(@PathVariable Long id) {
-        return baseService.get(id);
+    public R<LogDetailResp> get(@PathVariable Long id) {
+        return R.ok(baseService.get(id));
     }
 
     @ExcludeFromGracefulResponse

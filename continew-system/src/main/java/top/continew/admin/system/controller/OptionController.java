@@ -16,6 +16,7 @@ import top.continew.admin.system.model.req.OptionReq;
 import top.continew.admin.system.model.req.OptionValueResetReq;
 import top.continew.admin.system.model.resp.OptionResp;
 import top.continew.admin.system.service.OptionService;
+import top.continew.starter.web.model.R;
 
 import jakarta.validation.Valid;
 import java.util.List;
@@ -40,8 +41,8 @@ public class OptionController {
             "system:mailConfig:get"},
         mode = SaMode.OR)
     @GetMapping
-    public List<OptionResp> list(@Valid OptionQuery query) {
-        return baseService.list(query);
+    public R<List<OptionResp>> list(@Valid OptionQuery query) {
+        return R.ok(baseService.list(query));
     }
 
     @Operation(summary = "修改参数", description = "修改参数")
@@ -49,8 +50,9 @@ public class OptionController {
         "system:loginConfig:update",
         "system:mailConfig:update"}, mode = SaMode.OR)
     @PutMapping
-    public void update(@RequestBody @Valid List<OptionReq> options) {
+    public R<Void> update(@RequestBody @Valid List<OptionReq> options) {
         baseService.update(options);
+        return R.ok();
     }
 
     @Operation(summary = "重置参数", description = "重置参数")
@@ -58,7 +60,8 @@ public class OptionController {
         "system:loginConfig:update",
         "system:mailConfig:update"}, mode = SaMode.OR)
     @PatchMapping("/value")
-    public void resetValue(@RequestBody @Valid OptionValueResetReq req) {
+    public R<Void> resetValue(@RequestBody @Valid OptionValueResetReq req) {
         baseService.resetValue(req);
+        return R.ok();
     }
 }

@@ -38,6 +38,7 @@ import top.continew.starter.cache.redisson.util.RedisUtils;
 import top.continew.starter.core.util.CollUtils;
 import top.continew.starter.core.util.validation.ValidationUtils;
 import top.continew.starter.validation.constraints.EnumValue;
+import top.continew.starter.web.model.R;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -71,32 +72,35 @@ public class UserProfileController {
      */
     @Operation(summary = "修改头像", description = "用户修改个人头像")
     @PatchMapping("/avatar")
-    public AvatarResp updateAvatar(@NotNull(message = "头像不能为空") MultipartFile avatarFile)
-        throws IOException {
+    public R<AvatarResp> updateAvatar(
+        @NotNull(message = "头像不能为空") MultipartFile avatarFile) throws IOException {
         ValidationUtils.throwIf(avatarFile::isEmpty, "头像不能为空");
         String newAvatar = userService.updateAvatar(avatarFile, UserContextHolder.getUserId());
-        return AvatarResp.builder().avatar(newAvatar).build();
+        return R.ok(AvatarResp.builder().avatar(newAvatar).build());
     }
 
     /**
      * 修改基础信息
      *
      * @param req 基础信息
+     * @return 操作结果
      */
     @Operation(summary = "修改基础信息", description = "修改用户基础信息")
     @PatchMapping("/basic/info")
-    public void updateBasicInfo(@RequestBody @Valid UserBasicInfoUpdateReq req) {
+    public R<Void> updateBasicInfo(@RequestBody @Valid UserBasicInfoUpdateReq req) {
         userService.updateBasicInfo(req, UserContextHolder.getUserId());
+        return R.ok();
     }
 
     /**
      * 修改密码
      *
      * @param updateReq 当前密码和新密码
+     * @return 操作结果
      */
     @Operation(summary = "修改密码", description = "修改用户登录密码")
     @PatchMapping("/password")
-    public void updatePassword(@RequestBody @Valid UserPasswordUpdateReq updateReq) {
+    public R<Void> updatePassword(@RequestBody @Valid UserPasswordUpdateReq updateReq) {
         // 三方用户（无密码）设置初始密码时，旧密码为空，无需校验
         String oldPassword = StrUtil.isNotBlank(updateReq.getOldPassword())
             ? SecureUtils.decryptPasswordByRsaPrivateKey(updateReq.getOldPassword(), DECRYPT_FAILED)
@@ -104,16 +108,18 @@ public class UserProfileController {
         String newPassword =
             SecureUtils.decryptPasswordByRsaPrivateKey(updateReq.getNewPassword(), "新密码解密失败");
         userService.updatePassword(oldPassword, newPassword, UserContextHolder.getUserId());
+        return R.ok();
     }
 
     /**
      * 修改手机号
      *
      * @param updateReq 当前密码、新手机号和验证码
+     * @return 操作结果
      */
     @Operation(summary = "修改手机号", description = "修改手机号")
     @PatchMapping("/phone")
-    public void updatePhone(@RequestBody @Valid UserPhoneUpdateReq updateReq) {
+    public R<Void> updatePhone(@RequestBody @Valid UserPhoneUpdateReq updateReq) {
         String oldPassword = StrUtil.isNotBlank(updateReq.getOldPassword())
             ? SecureUtils.decryptPasswordByRsaPrivateKey(updateReq.getOldPassword(), DECRYPT_FAILED)
             : null;
@@ -123,16 +129,18 @@ public class UserProfileController {
         ValidationUtils.throwIfNotEqualIgnoreCase(updateReq.getCaptcha(), captcha, "验证码不正确");
         RedisUtils.delete(captchaKey);
         userService.updatePhone(updateReq.getPhone(), oldPassword, UserContextHolder.getUserId());
+        return R.ok();
     }
 
     /**
      * 修改邮箱
      *
      * @param updateReq 当前密码、新邮箱和验证码
+     * @return 操作结果
      */
     @Operation(summary = "修改邮箱", description = "修改用户邮箱")
     @PatchMapping("/email")
-    public void updateEmail(@RequestBody @Valid UserEmailUpdateReq updateReq) {
+    public R<Void> updateEmail(@RequestBody @Valid UserEmailUpdateReq updateReq) {
         String oldPassword = StrUtil.isNotBlank(updateReq.getOldPassword())
             ? SecureUtils.decryptPasswordByRsaPrivateKey(updateReq.getOldPassword(), DECRYPT_FAILED)
             : null;
@@ -142,6 +150,7 @@ public class UserProfileController {
         ValidationUtils.throwIfNotEqualIgnoreCase(updateReq.getCaptcha(), captcha, "验证码不正确");
         RedisUtils.delete(captchaKey);
         userService.updateEmail(updateReq.getEmail(), oldPassword, UserContextHolder.getUserId());
+        return R.ok();
     }
 
     /**
@@ -151,16 +160,18 @@ public class UserProfileController {
      */
     @Operation(summary = "查询绑定的三方账号", description = "查询绑定的三方账号")
     @GetMapping("/social")
-    public List<UserSocialBindResp> listSocialBind() {
+    public R<List<UserSocialBindResp>> listSocialBind() {
         List<UserSocialDO> userSocialList =
             userSocialService.listByUserId(UserContextHolder.getUserId());
-        return CollUtils.mapToList(userSocialList, userSocial -> {
-            String source = userSocial.getSource();
-            UserSocialBindResp userSocialBind = new UserSocialBindResp();
-            userSocialBind.setSource(source);
-            userSocialBind.setDescription(SocialSourceEnum.valueOf(source).getDescription());
-            return userSocialBind;
-        });
+        List<UserSocialBindResp> socialBindList =
+            CollUtils.mapToList(userSocialList, userSocial -> {
+                String source = userSocial.getSource();
+                UserSocialBindResp userSocialBind = new UserSocialBindResp();
+                userSocialBind.setSource(source);
+                userSocialBind.setDescription(SocialSourceEnum.valueOf(source).getDescription());
+                return userSocialBind;
+            });
+        return R.ok(socialBindList);
     }
 
     /**
@@ -168,11 +179,12 @@ public class UserProfileController {
      *
      * @param source 第三方平台来源
      * @param callback 三方回调信息
+     * @return 操作结果
      */
     @Operation(summary = "绑定三方账号", description = "绑定三方账号")
     @Parameter(name = "source", description = "来源", example = "gitee", in = ParameterIn.PATH)
     @PostMapping("/social/{source}")
-    public void bindSocial(
+    public R<Void> bindSocial(
         @PathVariable @EnumValue(value = SocialSourceEnum.class, message = "第三方平台无效") String source,
         @RequestBody AuthCallback callback) {
         AuthRequest authRequest = authRequestFactory.getAuthRequest(source);
@@ -180,12 +192,14 @@ public class UserProfileController {
         ValidationUtils.throwIf(!response.ok(), response.getMsg());
         AuthUser authUser = response.getData();
         userSocialService.bind(authUser, UserContextHolder.getUserId());
+        return R.ok();
     }
 
     @Operation(summary = "解绑三方账号", description = "解绑三方账号")
     @Parameter(name = "source", description = "来源", example = "gitee", in = ParameterIn.PATH)
     @DeleteMapping("/social/{source}")
-    public void unbindSocial(@PathVariable String source) {
+    public R<Void> unbindSocial(@PathVariable String source) {
         userSocialService.deleteBySourceAndUserId(source, UserContextHolder.getUserId());
+        return R.ok();
     }
 }

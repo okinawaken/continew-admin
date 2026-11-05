@@ -25,6 +25,7 @@ import top.continew.starter.core.util.validation.CheckUtils;
 import top.continew.starter.extension.crud.model.query.PageQuery;
 import top.continew.starter.extension.crud.model.resp.PageResp;
 import top.continew.starter.extension.tenant.context.TenantContextHolder;
+import top.continew.starter.web.model.R;
 
 import jakarta.validation.Valid;
 import java.util.Objects;
@@ -63,6 +64,7 @@ public class OnlineUserController {
      * 强退在线用户
      *
      * @param sessionId 登录会话 ID
+     * @return 操作结果
      */
     @Operation(summary = "强退在线用户", description = "强退在线用户")
     @Parameter(name = "sessionId", description = "登录会话 ID",
@@ -70,7 +72,7 @@ public class OnlineUserController {
         in = ParameterIn.PATH)
     @SaCheckPermission("monitor:online:kickout")
     @DeleteMapping("/{sessionId}")
-    public void kickout(@PathVariable String sessionId) {
+    public R<Void> kickout(@PathVariable String sessionId) {
         String currentSessionId = Convert.toStr(StpUtil.getExtra(StpUtil.getTokenValue(),
             AuthSessionConstants.SESSION_ID_CLAIM));
         CheckUtils.throwIfEqual(sessionId, currentSessionId, "不能强退自己");
@@ -84,5 +86,6 @@ public class OnlineUserController {
         }
         // Session 是登录态的权威记录；删除后该设备的全部 Access/Refresh Token 都失效。
         sessionInvalidationService.revokeSession(sessionId);
+        return R.ok();
     }
 }
